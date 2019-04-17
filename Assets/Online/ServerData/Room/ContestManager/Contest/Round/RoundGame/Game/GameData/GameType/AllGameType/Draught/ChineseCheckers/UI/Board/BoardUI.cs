@@ -69,6 +69,7 @@ namespace ChineseCheckers
                         // process
                         if (isLoadFull)
                         {
+                            bool blindFold = GameData.IsBlindFold(chineseCheckers);
                             // get old
                             List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
                             {
@@ -150,6 +151,7 @@ namespace ChineseCheckers
                                             pieceUIData.x.v = x;
                                             pieceUIData.y.v = y;
                                             pieceUIData.pebble.v = piece;
+                                            pieceUIData.blindFold.v = blindFold;
                                         }
                                         // add
                                         if (needAdd)
@@ -194,6 +196,7 @@ namespace ChineseCheckers
 
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<ChineseCheckers> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<ChineseCheckers>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -226,10 +229,25 @@ namespace ChineseCheckers
             }
             // Child
             {
-                if (data is ChineseCheckers)
+                // chineseCheckers
                 {
-                    dirty = true;
-                    return;
+                    if (data is ChineseCheckers)
+                    {
+                        ChineseCheckers chineseCheckers = data as ChineseCheckers;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(chineseCheckers);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<ChineseCheckers>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -274,9 +292,23 @@ namespace ChineseCheckers
             }
             // Child
             {
-                if (data is ChineseCheckers)
+                // chineseCheckers
                 {
-                    return;
+                    if (data is ChineseCheckers)
+                    {
+                        // ChineseCheckers chineseCheckers = data as ChineseCheckers;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<ChineseCheckers>)
+                    {
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -320,31 +352,38 @@ namespace ChineseCheckers
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (wrapProperty.p is ChineseCheckers)
+                // chineseCheckers
                 {
-                    switch ((ChineseCheckers.Property)wrapProperty.n)
+                    if (wrapProperty.p is ChineseCheckers)
                     {
-                        case ChineseCheckers.Property._squares:
-                            dirty = true;
-                            break;
-                        case ChineseCheckers.Property._turn:
-                            break;
-                        case ChineseCheckers.Property.isCustom:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((ChineseCheckers.Property)wrapProperty.n)
+                        {
+                            case ChineseCheckers.Property._squares:
+                                dirty = true;
+                                break;
+                            case ChineseCheckers.Property._turn:
+                                break;
+                            case ChineseCheckers.Property.isCustom:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<ChineseCheckers>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

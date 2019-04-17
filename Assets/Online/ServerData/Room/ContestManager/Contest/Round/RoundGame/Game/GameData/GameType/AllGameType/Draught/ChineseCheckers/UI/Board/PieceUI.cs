@@ -19,13 +19,16 @@ namespace ChineseCheckers
 
             public VP<Common.Pebble> pebble;
 
+            public VP<bool> blindFold;
+
             #region Constructor
 
             public enum Property
             {
                 x,
                 y,
-                pebble
+                pebble,
+                blindFold
             }
 
             public UIData() : base()
@@ -33,6 +36,7 @@ namespace ChineseCheckers
                 this.x = new VP<int>(this, (byte)Property.x, 0);
                 this.y = new VP<int>(this, (byte)Property.y, 0);
                 this.pebble = new VP<Common.Pebble>(this, (byte)Property.pebble, Common.Pebble.INVALID);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -95,11 +99,22 @@ namespace ChineseCheckers
                                 {
                                     if (imgPiece != null)
                                     {
-                                        Sprite sprite = ChineseCheckersSpriteContainer.get().getSprite(this.data.pebble.v);
+                                        if (!this.data.blindFold.v)
                                         {
+                                            Sprite sprite = ChineseCheckersSpriteContainer.get().getSprite(this.data.pebble.v);
+                                            {
 
+                                            }
+                                            imgPiece.sprite = sprite;
                                         }
-                                        imgPiece.sprite = sprite;
+                                        else
+                                        {
+                                            Sprite sprite = ChineseCheckersSpriteContainer.get().getSprite(Common.Pebble.NO_PEBBLE);
+                                            {
+
+                                            }
+                                            imgPiece.sprite = sprite;
+                                        }
                                     }
                                     else
                                     {
@@ -164,22 +179,17 @@ namespace ChineseCheckers
                 UIData uiData = data as UIData;
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.addCallBack(this);
-                        perspectiveChange.setData(uiData);
-                    }
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
                 }
                 dirty = true;
                 return;
             }
             // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -191,21 +201,16 @@ namespace ChineseCheckers
                 UIData uiData = data as UIData;
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.removeCallBack(this);
-                        perspectiveChange.setData(null);
-                    }
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
                 }
                 this.setDataNull(uiData);
                 return;
             }
             // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -229,19 +234,20 @@ namespace ChineseCheckers
                     case UIData.Property.pebble:
                         dirty = true;
                         break;
+                    case UIData.Property.blindFold:
+                        dirty = true;
+                        break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
             // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

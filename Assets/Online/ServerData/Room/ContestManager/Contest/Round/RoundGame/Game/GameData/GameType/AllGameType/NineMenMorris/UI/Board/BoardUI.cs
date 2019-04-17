@@ -107,6 +107,7 @@ namespace NineMenMorris
                         // process
                         if (isLoadFull)
                         {
+                            bool blindFold = GameData.IsBlindFold(nineMenMorris);
                             // get olds
                             List<PieceUI.UIData> oldPieceUIs = new List<PieceUI.UIData>();
                             {
@@ -237,6 +238,7 @@ namespace NineMenMorris
                                         {
                                             pieceUIData.position.v = i;
                                             pieceUIData.piece.v = piece;
+                                            pieceUIData.blindFold.v = blindFold;
                                         }
                                         // add
                                         if (needAdd)
@@ -285,6 +287,8 @@ namespace NineMenMorris
         public BoardPhaseUI boardPhasePrefab;
         private static readonly UIRectTransform boardPhaseRect = new UIRectTransform();
 
+        private GameDataCheckChangeBlindFold<NineMenMorris> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<NineMenMorris>();
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -317,10 +321,25 @@ namespace NineMenMorris
             }
             // Child
             {
-                if (data is NineMenMorris)
+                // nineMenMorris
                 {
-                    dirty = true;
-                    return;
+                    if (data is NineMenMorris)
+                    {
+                        NineMenMorris nineMenMorris = data as NineMenMorris;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(nineMenMorris);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<NineMenMorris>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -399,9 +418,23 @@ namespace NineMenMorris
             }
             // Child
             {
-                if (data is NineMenMorris)
+                // nineMenMorris
                 {
-                    return;
+                    if (data is NineMenMorris)
+                    {
+                        // NineMenMorris nineMenMorris = data as NineMenMorris;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<NineMenMorris>)
+                    {
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -469,36 +502,45 @@ namespace NineMenMorris
             }
             // Child
             {
-                if (wrapProperty.p is NineMenMorris)
+                // nineMenMorris
                 {
-                    switch ((NineMenMorris.Property)wrapProperty.n)
+                    if (wrapProperty.p is NineMenMorris)
                     {
-                        case NineMenMorris.Property.board:
-                            dirty = true;
-                            break;
-                        case NineMenMorris.Property.moved:
-                            break;
-                        case NineMenMorris.Property.moved_to:
-                            break;
-                        case NineMenMorris.Property.action:
-                            break;
-                        case NineMenMorris.Property.mill:
-                            break;
-                        case NineMenMorris.Property.terminal:
-                            break;
-                        case NineMenMorris.Property.removed:
-                            break;
-                        case NineMenMorris.Property.utility:
-                            break;
-                        case NineMenMorris.Property.turn:
-                            break;
-                        case NineMenMorris.Property.isCustom:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((NineMenMorris.Property)wrapProperty.n)
+                        {
+                            case NineMenMorris.Property.board:
+                                dirty = true;
+                                break;
+                            case NineMenMorris.Property.moved:
+                                break;
+                            case NineMenMorris.Property.moved_to:
+                                break;
+                            case NineMenMorris.Property.action:
+                                break;
+                            case NineMenMorris.Property.mill:
+                                break;
+                            case NineMenMorris.Property.terminal:
+                                break;
+                            case NineMenMorris.Property.removed:
+                                break;
+                            case NineMenMorris.Property.utility:
+                                break;
+                            case NineMenMorris.Property.turn:
+                                break;
+                            case NineMenMorris.Property.isCustom:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<NineMenMorris>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

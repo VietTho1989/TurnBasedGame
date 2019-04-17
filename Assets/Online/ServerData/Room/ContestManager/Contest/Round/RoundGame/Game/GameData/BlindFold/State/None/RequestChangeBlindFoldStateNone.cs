@@ -44,7 +44,7 @@ public class RequestChangeBlindFoldStateNone : RequestChangeBlindFold.State
             }
             else
             {
-                Debug.LogError("requestChangeBlindFold null: " + this);
+                // Debug.LogError("requestChangeBlindFold null: " + this);
             }
         }
         return ret;

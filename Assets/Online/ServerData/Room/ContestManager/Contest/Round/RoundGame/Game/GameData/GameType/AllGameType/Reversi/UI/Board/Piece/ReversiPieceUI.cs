@@ -14,15 +14,13 @@ namespace Reversi
         public class UIData : Data
         {
 
-            #region Property
-
             public VP<int> position;
 
             public VP<int> type;
 
             public VP<int> flip;
 
-            #endregion
+            public VP<bool> blindFold;
 
             #region Constructor
 
@@ -30,7 +28,8 @@ namespace Reversi
             {
                 position,
                 type,
-                flip
+                flip,
+                blindFold
             }
 
             public UIData() : base()
@@ -38,6 +37,7 @@ namespace Reversi
                 this.position = new VP<int>(this, (byte)Property.position, -1);
                 this.type = new VP<int>(this, (byte)Property.type, Reversi.BLACK);
                 this.flip = new VP<int>(this, (byte)Property.flip, -1);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -89,73 +89,81 @@ namespace Reversi
                             {
                                 if (imgPiece != null)
                                 {
-                                    // find piece type
-                                    int pieceType = this.data.type.v;
+                                    if (!this.data.blindFold.v)
                                     {
-                                        if (moveAnimation != null)
+                                        imgPiece.enabled = true;
+                                        // find piece type
+                                        int pieceType = this.data.type.v;
                                         {
-                                            switch (moveAnimation.getType())
+                                            if (moveAnimation != null)
                                             {
-                                                case GameMove.Type.ReversiMove:
-                                                    {
-                                                        ReversiMoveAnimation reversiMoveAnimation = moveAnimation as ReversiMoveAnimation;
-                                                        if (reversiMoveAnimation.move.v == this.data.position.v)
+                                                switch (moveAnimation.getType())
+                                                {
+                                                    case GameMove.Type.ReversiMove:
                                                         {
-                                                            pieceType = this.data.type.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            bool isFlip = false;
+                                                            ReversiMoveAnimation reversiMoveAnimation = moveAnimation as ReversiMoveAnimation;
+                                                            if (reversiMoveAnimation.move.v == this.data.position.v)
                                                             {
-                                                                if (this.data.position.v >= 0 && this.data.position.v < Common.MOVEMASK.Length)
+                                                                pieceType = this.data.type.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                bool isFlip = false;
                                                                 {
-                                                                    if ((reversiMoveAnimation.change.v & Common.MOVEMASK[this.data.position.v]) != 0)
+                                                                    if (this.data.position.v >= 0 && this.data.position.v < Common.MOVEMASK.Length)
                                                                     {
-                                                                        isFlip = true;
+                                                                        if ((reversiMoveAnimation.change.v & Common.MOVEMASK[this.data.position.v]) != 0)
+                                                                        {
+                                                                            isFlip = true;
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                            if (isFlip)
-                                                            {
-                                                                float appearDuration = ReversiMoveAnimation.AppearDuration * AnimationManager.DefaultDuration;
-                                                                float flipDuration = ReversiMoveAnimation.FlipDuration * AnimationManager.DefaultDuration;
-                                                                // appear
-                                                                if (time <= appearDuration)
+                                                                if (isFlip)
                                                                 {
-                                                                    pieceType = this.data.type.v;
-                                                                }
-                                                                else
-                                                                {
-                                                                    float flipTime = time - appearDuration;
-                                                                    if (flipTime <= flipDuration / 2)
+                                                                    float appearDuration = ReversiMoveAnimation.AppearDuration * AnimationManager.DefaultDuration;
+                                                                    float flipDuration = ReversiMoveAnimation.FlipDuration * AnimationManager.DefaultDuration;
+                                                                    // appear
+                                                                    if (time <= appearDuration)
                                                                     {
                                                                         pieceType = this.data.type.v;
                                                                     }
                                                                     else
                                                                     {
-                                                                        pieceType = this.data.type.v == Reversi.BLACK ? Reversi.WHITE : Reversi.BLACK;
+                                                                        float flipTime = time - appearDuration;
+                                                                        if (flipTime <= flipDuration / 2)
+                                                                        {
+                                                                            pieceType = this.data.type.v;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            pieceType = this.data.type.v == Reversi.BLACK ? Reversi.WHITE : Reversi.BLACK;
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                            else
-                                                            {
-                                                                pieceType = this.data.type.v;
+                                                                else
+                                                                {
+                                                                    pieceType = this.data.type.v;
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                    break;
-                                                default:
-                                                    pieceType = this.data.type.v;
-                                                    break;
+                                                        break;
+                                                    default:
+                                                        pieceType = this.data.type.v;
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                pieceType = this.data.type.v;
                                             }
                                         }
-                                        else
-                                        {
-                                            pieceType = this.data.type.v;
-                                        }
+                                        // process
+                                        imgPiece.sprite = ReversiSpriteContainer.get().getSprite(pieceType);
                                     }
-                                    // process
-                                    imgPiece.sprite = ReversiSpriteContainer.get().getSprite(pieceType);
+                                    else
+                                    {
+                                        imgPiece.enabled = false;
+                                    }
                                 }
                                 else
                                 {
@@ -166,21 +174,28 @@ namespace Reversi
                             {
                                 if (flip != null)
                                 {
-                                    if (this.data.type.v == Reversi.WHITE || this.data.type.v == Reversi.BLACK)
+                                    if (!this.data.blindFold.v)
                                     {
-                                        // find flip
-                                        int flipIndex = this.data.flip.v;
-                                        // process
-                                        if (flipIndex >= 0 && flipIndex < 64)
+                                        if (this.data.type.v == Reversi.WHITE || this.data.type.v == Reversi.BLACK)
                                         {
-                                            flip.enabled = true;
-                                            if (flipIndex == position)
+                                            // find flip
+                                            int flipIndex = this.data.flip.v;
+                                            // process
+                                            if (flipIndex >= 0 && flipIndex < 64)
                                             {
-                                                flip.color = lastMoveColor;
+                                                flip.enabled = true;
+                                                if (flipIndex == position)
+                                                {
+                                                    flip.color = lastMoveColor;
+                                                }
+                                                else
+                                                {
+                                                    flip.color = flipColor;
+                                                }
                                             }
                                             else
                                             {
-                                                flip.color = flipColor;
+                                                flip.enabled = false;
                                             }
                                         }
                                         else
@@ -277,7 +292,7 @@ namespace Reversi
                     }
                     else
                     {
-
+                        // outside board
                     }
                 }
                 else
@@ -360,8 +375,11 @@ namespace Reversi
                     case UIData.Property.flip:
                         dirty = true;
                         break;
+                    case UIData.Property.blindFold:
+                        dirty = true;
+                        break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;

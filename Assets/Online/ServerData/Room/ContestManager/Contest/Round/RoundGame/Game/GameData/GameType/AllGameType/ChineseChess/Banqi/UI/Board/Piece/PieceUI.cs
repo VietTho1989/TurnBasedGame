@@ -21,6 +21,8 @@ namespace Banqi
 
             public VP<bool> isFaceUp;
 
+            public VP<bool> blindFold;
+
             #region Constructor
 
             public enum Property
@@ -28,7 +30,8 @@ namespace Banqi
                 position,
                 type,
                 color,
-                isFaceUp
+                isFaceUp,
+                blindFold
             }
 
             public UIData() : base()
@@ -37,6 +40,7 @@ namespace Banqi
                 this.type = new VP<Token.Type>(this, (byte)Property.type, Token.Type.SOLDIER);
                 this.color = new VP<Token.Ecolor>(this, (byte)Property.color, Token.Ecolor.RED);
                 this.isFaceUp = new VP<bool>(this, (byte)Property.isFaceUp, false);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -81,57 +85,65 @@ namespace Banqi
                             {
                                 if (image != null)
                                 {
-                                    Sprite sprite = null;
+                                    if (!this.data.blindFold.v)
                                     {
-                                        if (this.data.isFaceUp.v)
+                                        image.enabled = true;
+                                        Sprite sprite = null;
                                         {
-                                            sprite = BanqiSpriteContainer.get().getSprite(this.data.type.v, this.data.color.v, Setting.get().style.v);
-                                        }
-                                        else
-                                        {
-                                            sprite = BanqiSpriteContainer.get().Hidden;
-                                        }
-                                        if (moveAnimation != null)
-                                        {
-                                            switch (moveAnimation.getType())
+                                            if (this.data.isFaceUp.v)
                                             {
-                                                case GameMove.Type.BanqiMove:
-                                                    {
-                                                        BanqiMoveAnimation banqiMoveAnimation = moveAnimation as BanqiMoveAnimation;
-                                                        if (duration > 0)
+                                                sprite = BanqiSpriteContainer.get().getSprite(this.data.type.v, this.data.color.v, Setting.get().style.v);
+                                            }
+                                            else
+                                            {
+                                                sprite = BanqiSpriteContainer.get().Hidden;
+                                            }
+                                            if (moveAnimation != null)
+                                            {
+                                                switch (moveAnimation.getType())
+                                                {
+                                                    case GameMove.Type.BanqiMove:
                                                         {
-                                                            if (banqiMoveAnimation.fromX.v == banqiMoveAnimation.destX.v && banqiMoveAnimation.fromY.v == banqiMoveAnimation.destY.v)
+                                                            BanqiMoveAnimation banqiMoveAnimation = moveAnimation as BanqiMoveAnimation;
+                                                            if (duration > 0)
                                                             {
-                                                                if (this.data.position.v == 8 * (3 - (banqiMoveAnimation.fromY.v - 1)) + (banqiMoveAnimation.fromX.v - 1))
+                                                                if (banqiMoveAnimation.fromX.v == banqiMoveAnimation.destX.v && banqiMoveAnimation.fromY.v == banqiMoveAnimation.destY.v)
                                                                 {
-                                                                    if (time <= duration / 2)
+                                                                    if (this.data.position.v == 8 * (3 - (banqiMoveAnimation.fromY.v - 1)) + (banqiMoveAnimation.fromX.v - 1))
                                                                     {
-                                                                        sprite = BanqiSpriteContainer.get().Hidden;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        sprite = BanqiSpriteContainer.get().getSprite(this.data.type.v, this.data.color.v, Setting.get().style.v);
+                                                                        if (time <= duration / 2)
+                                                                        {
+                                                                            sprite = BanqiSpriteContainer.get().Hidden;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            sprite = BanqiSpriteContainer.get().getSprite(this.data.type.v, this.data.color.v, Setting.get().style.v);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
+                                                            else
+                                                            {
+                                                                Debug.LogError("why duration > 0");
+                                                            }
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("why duration > 0");
-                                                        }
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown moveAnimation: " + moveAnimation);
-                                                    break;
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown moveAnimation: " + moveAnimation);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError("moveAnimation null");
                                             }
                                         }
-                                        else
-                                        {
-                                            // Debug.LogError("moveAnimation null");
-                                        }
+                                        image.sprite = sprite;
                                     }
-                                    image.sprite = sprite;
+                                    else
+                                    {
+                                        image.enabled = false;
+                                    }
                                 }
                                 else
                                 {
@@ -343,6 +355,9 @@ namespace Banqi
                         dirty = true;
                         break;
                     case UIData.Property.isFaceUp:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
                         dirty = true;
                         break;
                     default:

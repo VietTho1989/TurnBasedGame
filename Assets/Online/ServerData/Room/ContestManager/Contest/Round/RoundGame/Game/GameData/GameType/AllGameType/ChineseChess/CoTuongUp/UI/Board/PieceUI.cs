@@ -18,18 +18,22 @@ namespace CoTuongUp
 
             public VP<byte> piece;
 
+            public VP<bool> blindFold;
+
             #region Constructor
 
             public enum Property
             {
                 coord,
-                piece
+                piece,
+                blindFold
             }
 
             public UIData() : base()
             {
                 this.coord = new VP<byte>(this, (byte)Property.coord, 0);
                 this.piece = new VP<byte>(this, (byte)Property.piece, Common.x);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -73,87 +77,95 @@ namespace CoTuongUp
                             // image
                             if (img != null)
                             {
-                                // find piece
-                                byte piece = this.data.piece.v;
+                                if (!this.data.blindFold.v)
                                 {
-                                    if (moveAnimation != null)
+                                    img.enabled = true;
+                                    // find piece
+                                    byte piece = this.data.piece.v;
                                     {
-                                        switch (moveAnimation.getType())
+                                        if (moveAnimation != null)
                                         {
-                                            case GameMove.Type.CoTuongUpMove:
-                                                {
-                                                    CoTuongUpMoveAnimation coTuongUpMoveAnimation = moveAnimation as CoTuongUpMoveAnimation;
-                                                    // Get inform
-                                                    Rules.Move move = CoTuongUpMove.getMove(coTuongUpMoveAnimation.move.v);
-                                                    byte fromCoord = Common.makeCoord(move.from.x, move.from.y);
-                                                    // byte destCoord = Common.makeCoord (move.dest.x, move.dest.y);
-                                                    if (fromCoord == this.data.coord.v)
+                                            switch (moveAnimation.getType())
+                                            {
+                                                case GameMove.Type.CoTuongUpMove:
                                                     {
-                                                        if (coTuongUpMoveAnimation.isFlipMove())
+                                                        CoTuongUpMoveAnimation coTuongUpMoveAnimation = moveAnimation as CoTuongUpMoveAnimation;
+                                                        // Get inform
+                                                        Rules.Move move = CoTuongUpMove.getMove(coTuongUpMoveAnimation.move.v);
+                                                        byte fromCoord = Common.makeCoord(move.from.x, move.from.y);
+                                                        // byte destCoord = Common.makeCoord (move.dest.x, move.dest.y);
+                                                        if (fromCoord == this.data.coord.v)
                                                         {
-                                                            float flipDuration = CoTuongUpMoveAnimation.FlipDuration * AnimationManager.DefaultDuration;
-                                                            if (duration >= flipDuration)
+                                                            if (coTuongUpMoveAnimation.isFlipMove())
                                                             {
-                                                                float flipTime = time - (duration - flipDuration);
-                                                                if (flipTime >= 0)
+                                                                float flipDuration = CoTuongUpMoveAnimation.FlipDuration * AnimationManager.DefaultDuration;
+                                                                if (duration >= flipDuration)
                                                                 {
-                                                                    if (flipTime <= flipDuration / 2)
+                                                                    float flipTime = time - (duration - flipDuration);
+                                                                    if (flipTime >= 0)
                                                                     {
-                                                                        piece = this.data.piece.v;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        piece = Common.Visibility.flip(this.data.piece.v);
+                                                                        if (flipTime <= flipDuration / 2)
+                                                                        {
+                                                                            piece = this.data.piece.v;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            piece = Common.Visibility.flip(this.data.piece.v);
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("why flipDuration < duration");
+                                                                else
+                                                                {
+                                                                    Debug.LogError("why flipDuration < duration");
+                                                                }
                                                             }
                                                         }
                                                     }
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
-                                                break;
-                                        }
-                                    }
-                                }
-                                // Process
-                                {
-                                    if (!Common.Visibility.isHide(piece))
-                                    {
-                                        img.color = new Color(1f, 1f, 1f, 1f);
-                                        img.sprite = CoTuongUpSpriteContainer.get().getSprite(piece, Setting.get().style.v);
-                                    }
-                                    else
-                                    {
-                                        // check canView
-                                        bool canView = false;
-                                        {
-                                            BoardUI.UIData boardUIData = this.data.findDataInParent<BoardUI.UIData>();
-                                            if (boardUIData != null)
-                                            {
-                                                canView = boardUIData.isWatcher.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("boardUIData null: " + this);
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                                    break;
                                             }
                                         }
-                                        if (canView)
+                                    }
+                                    // Process
+                                    {
+                                        if (!Common.Visibility.isHide(piece))
                                         {
-                                            img.color = new Color(1f, 1f, 1f, 0.5f);
-                                            img.sprite = CoTuongUpSpriteContainer.get().getSprite(Common.Visibility.flip(piece), Setting.get().style.v);
+                                            img.color = new Color(1f, 1f, 1f, 1f);
+                                            img.sprite = CoTuongUpSpriteContainer.get().getSprite(piece, Setting.get().style.v);
                                         }
                                         else
                                         {
-                                            img.color = new Color(1f, 1f, 1f, 1f);
-                                            img.sprite = CoTuongUpSpriteContainer.get().getSprite(Common.HK, Setting.get().style.v);// hidden
+                                            // check canView
+                                            bool canView = false;
+                                            {
+                                                BoardUI.UIData boardUIData = this.data.findDataInParent<BoardUI.UIData>();
+                                                if (boardUIData != null)
+                                                {
+                                                    canView = boardUIData.isWatcher.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("boardUIData null: " + this);
+                                                }
+                                            }
+                                            if (canView)
+                                            {
+                                                img.color = new Color(1f, 1f, 1f, 0.5f);
+                                                img.sprite = CoTuongUpSpriteContainer.get().getSprite(Common.Visibility.flip(piece), Setting.get().style.v);
+                                            }
+                                            else
+                                            {
+                                                img.color = new Color(1f, 1f, 1f, 1f);
+                                                img.sprite = CoTuongUpSpriteContainer.get().getSprite(Common.HK, Setting.get().style.v);// hidden
+                                            }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    img.enabled = false;
                                 }
                             }
                             else
@@ -331,13 +343,10 @@ namespace CoTuongUp
                 return;
             }
             // Parent
+            if (data is BoardUI.UIData)
             {
-                if (data is BoardUI.UIData)
-                {
-                    // BoardUI.UIData boardUIData = data as BoardUI.UIData;
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -372,12 +381,9 @@ namespace CoTuongUp
                 return;
             }
             // Parent
+            if (data is BoardUI.UIData)
             {
-                if (data is BoardUI.UIData)
-                {
-                    // BoardUI.UIData boardUIData = data as BoardUI.UIData;
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -396,6 +402,9 @@ namespace CoTuongUp
                         dirty = true;
                         break;
                     case UIData.Property.piece:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
                         dirty = true;
                         break;
                     default:

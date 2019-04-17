@@ -53,6 +53,7 @@ namespace Reversi
                     Reversi reversi = this.data.reversi.v.data;
                     if (reversi != null)
                     {
+                        bool blindFold = GameData.IsBlindFold(reversi);
                         // check load full
                         bool isLoadFull = true;
                         {
@@ -240,6 +241,7 @@ namespace Reversi
                                                                 pieceUI.flip.v = -1;
                                                             }
                                                         }
+                                                        pieceUI.blindFold.v = blindFold;
                                                     }
                                                     // add
                                                     if (needAdd)
@@ -346,6 +348,8 @@ namespace Reversi
         public ReversiLegalUI legalPrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
 
+        private GameDataCheckChangeBlindFold<Reversi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Reversi>();
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -371,19 +375,32 @@ namespace Reversi
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (data is Reversi)
+                // reversi
                 {
-                    dirty = true;
-                    return;
+                    if (data is Reversi)
+                    {
+                        Reversi reversi = data as Reversi;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(reversi);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Reversi>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is ReversiPieceUI.UIData)
                 {
@@ -433,17 +450,29 @@ namespace Reversi
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             // Child
             {
-                if (data is Reversi)
+                // reversi
                 {
-                    return;
+                    if (data is Reversi)
+                    {
+                        // Reversi reversi = data as Reversi;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Reversi>)
+                    {
+                        return;
+                    }
                 }
                 if (data is ReversiPieceUI.UIData)
                 {
@@ -496,51 +525,58 @@ namespace Reversi
                         }
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (wrapProperty.p is Reversi)
+                // reversi
                 {
-                    switch ((Reversi.Property)wrapProperty.n)
+                    if (wrapProperty.p is Reversi)
                     {
-                        case Reversi.Property.side:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.white:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.black:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.nMoveNum:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.moves:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.changes:
-                            dirty = true;
-                            break;
-                        case Reversi.Property.oldSides:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((Reversi.Property)wrapProperty.n)
+                        {
+                            case Reversi.Property.side:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.white:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.black:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.nMoveNum:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.moves:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.changes:
+                                dirty = true;
+                                break;
+                            case Reversi.Property.oldSides:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<Reversi>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is ReversiPieceUI.UIData)
                 {

@@ -13,26 +13,26 @@ namespace Shatranj
         public class UIData : Data
         {
 
-            #region Property
-
             public VP<Common.Piece> piece;
 
             public VP<int> position;
 
-            #endregion
+            public VP<bool> blindFold;
 
             #region Constructor
 
             public enum Property
             {
                 piece,
-                position
+                position,
+                blindFold
             }
 
             public UIData() : base()
             {
                 this.piece = new VP<Common.Piece>(this, (byte)Property.piece, Common.Piece.NO_PIECE);
                 this.position = new VP<int>(this, (byte)Property.position, 0);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -84,68 +84,76 @@ namespace Shatranj
                             {
                                 if (image != null)
                                 {
-                                    Sprite sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                    if (!this.data.blindFold.v)
                                     {
-                                        // sprite
-                                        if (moveAnimation != null)
+                                        image.enabled = true;
+                                        Sprite sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
                                         {
-                                            switch (moveAnimation.getType())
+                                            // sprite
+                                            if (moveAnimation != null)
                                             {
-                                                case GameMove.Type.ShatranjMove:
-                                                    {
-                                                        ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
-                                                        ShatranjMove.Move move = new ShatranjMove.Move(shatranjMoveAnimation.move.v);
-                                                        switch (move.type)
+                                                switch (moveAnimation.getType())
+                                                {
+                                                    case GameMove.Type.ShatranjMove:
                                                         {
-                                                            case Common.MoveType.NORMAL:
-                                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
-                                                                break;
-                                                            case Common.MoveType.PROMOTION:
-                                                                {
-                                                                    if ((int)move.ori == this.data.position.v)
+                                                            ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
+                                                            ShatranjMove.Move move = new ShatranjMove.Move(shatranjMoveAnimation.move.v);
+                                                            switch (move.type)
+                                                            {
+                                                                case Common.MoveType.NORMAL:
+                                                                    sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                    break;
+                                                                case Common.MoveType.PROMOTION:
                                                                     {
-                                                                        float distanceDuration = MoveAnimation.GetDistanceMoveDuration(Common.GetDistance(move.ori, move.dest));
-                                                                        if (time <= distanceDuration)
+                                                                        if ((int)move.ori == this.data.position.v)
                                                                         {
-                                                                            sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                            float distanceDuration = MoveAnimation.GetDistanceMoveDuration(Common.GetDistance(move.ori, move.dest));
+                                                                            if (time <= distanceDuration)
+                                                                            {
+                                                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                bool showPromotion = true;
+                                                                                {
+                                                                                    float promotionTime = time - distanceDuration;
+                                                                                    int flipFlop = Mathf.CeilToInt(promotionTime / (ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
+                                                                                    showPromotion = (flipFlop % 2 == 0);
+                                                                                }
+                                                                                sprite = ShatranjSpriteContainer.get().getSprite(showPromotion ? Common.make_piece(Common.color_of(this.data.piece.v), move.promotion) : this.data.piece.v, Setting.get().style.v);
+                                                                            }
                                                                         }
                                                                         else
                                                                         {
-                                                                            bool showPromotion = true;
-                                                                            {
-                                                                                float promotionTime = time - distanceDuration;
-                                                                                int flipFlop = Mathf.CeilToInt(promotionTime / (ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
-                                                                                showPromotion = (flipFlop % 2 == 0);
-                                                                            }
-                                                                            sprite = ShatranjSpriteContainer.get().getSprite(showPromotion ? Common.make_piece(Common.color_of(this.data.piece.v), move.promotion) : this.data.piece.v, Setting.get().style.v);
+                                                                            sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
                                                                         }
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
-                                                                    }
-                                                                }
-                                                                break;
-                                                            default:
-                                                                Debug.LogError("unknown moveType: " + move.GetType() + "; " + this);
-                                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
-                                                                break;
+                                                                    break;
+                                                                default:
+                                                                    Debug.LogError("unknown moveType: " + move.GetType() + "; " + this);
+                                                                    sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                    break;
+                                                            }
                                                         }
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown moveAnimationType: " + moveAnimation.getType() + "; " + this);
-                                                    sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
-                                                    break;
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown moveAnimationType: " + moveAnimation.getType() + "; " + this);
+                                                        sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError ("moveAnimation null: " + this);
+                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
                                             }
                                         }
-                                        else
-                                        {
-                                            // Debug.LogError ("moveAnimation null: " + this);
-                                            sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
-                                        }
+                                        image.sprite = sprite;
                                     }
-                                    image.sprite = sprite;
+                                    else
+                                    {
+                                        image.enabled = false;
+                                    }
                                 }
                                 else
                                 {
@@ -272,11 +280,8 @@ namespace Shatranj
                 Setting.get().addCallBack(this);
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.addCallBack(this);
-                        perspectiveChange.setData(uiData);
-                    }
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
                 }
                 dirty = true;
                 return;
@@ -288,12 +293,10 @@ namespace Shatranj
                 return;
             }
             // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -307,11 +310,8 @@ namespace Shatranj
                 Setting.get().removeCallBack(this);
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.removeCallBack(this);
-                        perspectiveChange.setData(null);
-                    }
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -322,11 +322,9 @@ namespace Shatranj
                 return;
             }
             // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -345,6 +343,9 @@ namespace Shatranj
                         dirty = true;
                         break;
                     case UIData.Property.position:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
                         dirty = true;
                         break;
                     default:
@@ -378,12 +379,10 @@ namespace Shatranj
                 return;
             }
             // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

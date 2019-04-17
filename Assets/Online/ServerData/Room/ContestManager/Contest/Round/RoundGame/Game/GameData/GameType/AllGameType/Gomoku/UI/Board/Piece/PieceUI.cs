@@ -19,6 +19,8 @@ namespace Gomoku
 
             public VP<int> lastMoveIndex;
 
+            public VP<bool> blindFold;
+
             #region Constructor
 
             public enum Property
@@ -26,7 +28,8 @@ namespace Gomoku
                 coord,
                 type,
                 lastMoveIndex,
-                isWinCoord
+                isWinCoord,
+                blindFold
             }
 
             public UIData() : base()
@@ -34,6 +37,7 @@ namespace Gomoku
                 this.coord = new VP<int>(this, (byte)Property.coord, -1);
                 this.type = new VP<Common.Type>(this, (byte)Property.type, Common.Type.None);
                 this.lastMoveIndex = new VP<int>(this, (byte)Property.lastMoveIndex, -1);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -108,7 +112,15 @@ namespace Gomoku
                         {
                             if (imgStone != null)
                             {
-                                imgStone.sprite = GomokuSpriteContainer.get().getSprite(this.data.type.v);
+                                if (!this.data.blindFold.v)
+                                {
+                                    imgStone.enabled = true;
+                                    imgStone.sprite = GomokuSpriteContainer.get().getSprite(this.data.type.v);
+                                }
+                                else
+                                {
+                                    imgStone.enabled = false;
+                                }
                             }
                             else
                             {
@@ -119,25 +131,32 @@ namespace Gomoku
                         {
                             if (tvLastMoveIndex != null)
                             {
-                                if (this.data.lastMoveIndex.v >= 0 && moveAnimation == null)
+                                if (!this.data.blindFold.v)
                                 {
-                                    tvLastMoveIndex.text = "" + (this.data.lastMoveIndex.v + 1);
-                                    // color
-                                    switch (this.data.type.v)
+                                    if (this.data.lastMoveIndex.v >= 0 && moveAnimation == null)
                                     {
-                                        case Common.Type.Black:
-                                            tvLastMoveIndex.color = BlackColor;
-                                            break;
-                                        case Common.Type.White:
-                                            tvLastMoveIndex.color = WhiteColor;
-                                            break;
-                                        case Common.Type.None:
-                                            tvLastMoveIndex.color = WhiteColor;
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown type: " + this.data.type.v);
-                                            tvLastMoveIndex.color = BlackColor;
-                                            break;
+                                        tvLastMoveIndex.text = "" + (this.data.lastMoveIndex.v + 1);
+                                        // color
+                                        switch (this.data.type.v)
+                                        {
+                                            case Common.Type.Black:
+                                                tvLastMoveIndex.color = BlackColor;
+                                                break;
+                                            case Common.Type.White:
+                                                tvLastMoveIndex.color = WhiteColor;
+                                                break;
+                                            case Common.Type.None:
+                                                tvLastMoveIndex.color = WhiteColor;
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + this.data.type.v);
+                                                tvLastMoveIndex.color = BlackColor;
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        tvLastMoveIndex.text = "";
                                     }
                                 }
                                 else
@@ -218,11 +237,8 @@ namespace Gomoku
                 UIData uiData = data as UIData;
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.addCallBack(this);
-                        perspectiveChange.setData(uiData);
-                    }
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
                 }
                 // parent
                 {
@@ -253,11 +269,8 @@ namespace Gomoku
                 UIData uiData = data as UIData;
                 // CheckChange
                 {
-                    // perspective
-                    {
-                        perspectiveChange.removeCallBack(this);
-                        perspectiveChange.setData(null);
-                    }
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
                 }
                 // parent
                 {
@@ -299,6 +312,9 @@ namespace Gomoku
                         dirty = true;
                         break;
                     case UIData.Property.isWinCoord:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
                         dirty = true;
                         break;
                     default:

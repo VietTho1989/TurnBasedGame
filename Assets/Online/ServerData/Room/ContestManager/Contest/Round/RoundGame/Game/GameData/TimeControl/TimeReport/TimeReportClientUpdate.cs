@@ -435,6 +435,10 @@ public class TimeReportClientUpdate : UpdateBehavior<TimeReportClient>
                             break;
                         case GameData.Property.requestChangeUseRule:
                             break;
+                        case GameData.Property.blindFold:
+                            break;
+                        case GameData.Property.requestChangeBlindFold:
+                            break;
                         case GameData.Property.turn:
                             {
                                 ValueChangeUtils.replaceCallBack(this, syncs);

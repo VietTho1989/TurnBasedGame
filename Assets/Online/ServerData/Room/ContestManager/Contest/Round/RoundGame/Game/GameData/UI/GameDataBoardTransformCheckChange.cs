@@ -151,6 +151,8 @@ public class GameDataBoardTransformCheckChange<K> : Data, ValueChangeCallBack wh
                     break;
                 case GameDataUI.UIData.Property.requestChangeUseRule:
                     break;
+                case GameDataUI.UIData.Property.requestChangeBlindFold:
+                    break;
                 case GameDataUI.UIData.Property.perspectiveUIData:
                     break;
                 case GameDataUI.UIData.Property.gamePlayerList:

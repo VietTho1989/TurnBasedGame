@@ -67,6 +67,7 @@ namespace InternationalDraught
                         if (isLoadFull)
                         {
                             // pieces
+                            bool blindFold = GameData.IsBlindFold(internationalDraught);
                             {
                                 // get old
                                 List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
@@ -208,12 +209,10 @@ namespace InternationalDraught
                                                     }
                                                     // Update
                                                     {
-                                                        // square
                                                         pieceUI.square.v = sq;
-                                                        // pieceSide
                                                         pieceUI.pieceSide.v = pieceSide;
-                                                        // isLastCapture
                                                         pieceUI.isLastCapture.v = isLastCaptureSquare;
+                                                        pieceUI.blindFold.v = blindFold;
                                                     }
                                                     // Add
                                                     if (needAdd)
@@ -267,6 +266,7 @@ namespace InternationalDraught
 
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<InternationalDraught> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<InternationalDraught>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -292,12 +292,10 @@ namespace InternationalDraught
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
@@ -306,11 +304,22 @@ namespace InternationalDraught
                     if (data is InternationalDraught)
                     {
                         InternationalDraught internationalDraught = data as InternationalDraught;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(internationalDraught);
+                        }
                         // Child
                         {
                             internationalDraught.node.allAddCallBack(this);
                             internationalDraught.var.allAddCallBack(this);
                         }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<InternationalDraught>)
+                    {
                         dirty = true;
                         return;
                     }
@@ -377,11 +386,9 @@ namespace InternationalDraught
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             // Child
             {
@@ -390,11 +397,21 @@ namespace InternationalDraught
                     if (data is InternationalDraught)
                     {
                         InternationalDraught internationalDraught = data as InternationalDraught;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
                         // Child
                         {
                             internationalDraught.node.allRemoveCallBack(this);
                             internationalDraught.var.allRemoveCallBack(this);
                         }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<InternationalDraught>)
+                    {
                         return;
                     }
                     // Node
@@ -504,6 +521,12 @@ namespace InternationalDraught
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
+                        return;
+                    }
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<InternationalDraught>)
+                    {
+                        dirty = true;
                         return;
                     }
                     // Node

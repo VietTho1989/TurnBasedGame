@@ -69,6 +69,7 @@ namespace Banqi
                         // process
                         if (isLoadFull)
                         {
+                            bool blindFold = GameData.IsBlindFold(banqi);
                             // get olds
                             List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
                             {
@@ -198,6 +199,7 @@ namespace Banqi
                                                 pieceUIData.type.v = type;
                                                 pieceUIData.color.v = color;
                                                 pieceUIData.isFaceUp.v = isFaceUp;
+                                                pieceUIData.blindFold.v = blindFold;
                                             }
                                             // Add
                                             if (needAdd)
@@ -247,6 +249,7 @@ namespace Banqi
 
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<Banqi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Banqi>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -279,6 +282,26 @@ namespace Banqi
             }
             // Child
             {
+                // banqi
+                {
+                    if (data is Banqi)
+                    {
+                        Banqi banqi = data as Banqi;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(banqi);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Banqi>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -287,11 +310,6 @@ namespace Banqi
                         UIUtils.Instantiate(pieceUIData, piecePrefab, this.transform);
                     }
                     // dirty = true;
-                    return;
-                }
-                if (data is Banqi)
-                {
-                    dirty = true;
                     return;
                 }
             }
@@ -329,6 +347,24 @@ namespace Banqi
             }
             // Child
             {
+                // banqi
+                {
+                    if (data is Banqi)
+                    {
+                        // Banqi banqi = data as Banqi;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Banqi>)
+                    {
+                        return;
+                    }
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -336,10 +372,6 @@ namespace Banqi
                     {
                         pieceUIData.removeCallBackAndDestroy(typeof(PieceUI));
                     }
-                    return;
-                }
-                if (data is Banqi)
-                {
                     return;
                 }
             }
@@ -382,27 +414,36 @@ namespace Banqi
             }
             // Child
             {
+                // banqi
+                {
+                    if (wrapProperty.p is Banqi)
+                    {
+                        switch ((Banqi.Property)wrapProperty.n)
+                        {
+                            case Banqi.Property.color:
+                                dirty = true;
+                                break;
+                            case Banqi.Property.state:
+                                dirty = true;
+                                break;
+                            case Banqi.Property.isCustom:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<Banqi>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
                 if (wrapProperty.p is PieceUI.UIData)
                 {
-                    return;
-                }
-                if (wrapProperty.p is Banqi)
-                {
-                    switch ((Banqi.Property)wrapProperty.n)
-                    {
-                        case Banqi.Property.color:
-                            dirty = true;
-                            break;
-                        case Banqi.Property.state:
-                            dirty = true;
-                            break;
-                        case Banqi.Property.isCustom:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
-                    }
                     return;
                 }
             }

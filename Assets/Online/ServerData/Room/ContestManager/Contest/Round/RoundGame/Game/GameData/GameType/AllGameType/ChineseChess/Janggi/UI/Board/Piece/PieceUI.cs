@@ -19,13 +19,16 @@ namespace Janggi
 
             public VP<int> y;
 
+            public VP<bool> blindFold;
+
             #region Constructor
 
             public enum Property
             {
                 piece,
                 x,
-                y
+                y,
+                blindFold
             }
 
             public UIData() : base()
@@ -33,6 +36,7 @@ namespace Janggi
                 this.piece = new VP<uint>(this, (byte)Property.piece, 0);
                 this.x = new VP<int>(this, (byte)Property.x, 0);
                 this.y = new VP<int>(this, (byte)Property.y, 0);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
             }
 
             #endregion
@@ -75,11 +79,19 @@ namespace Janggi
                         {
                             if (image != null)
                             {
-                                Sprite sprite = JanggiSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                if (!this.data.blindFold.v)
                                 {
-                                    // animation?
+                                    image.enabled = true;
+                                    Sprite sprite = JanggiSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                    {
+                                        // animation?
+                                    }
+                                    image.sprite = sprite;
                                 }
-                                image.sprite = sprite;
+                                else
+                                {
+                                    image.enabled = false;
+                                }
                             }
                             else
                             {
@@ -362,6 +374,9 @@ namespace Janggi
                         dirty = true;
                         break;
                     case UIData.Property.y:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
                         dirty = true;
                         break;
                     default:

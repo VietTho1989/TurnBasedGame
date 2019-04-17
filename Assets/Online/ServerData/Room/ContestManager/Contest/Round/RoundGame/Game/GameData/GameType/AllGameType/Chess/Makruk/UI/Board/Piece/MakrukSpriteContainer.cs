@@ -75,9 +75,9 @@ namespace Makruk
                             // transform
                             {
                                 RectTransform rectTransform = (RectTransform)bg.transform;
-                                if (rectTransform.sizeDelta.x != 8f || rectTransform.sizeDelta.y != 8f)
+                                if (rectTransform.sizeDelta.x != 8.8f || rectTransform.sizeDelta.y != 8.8f)
                                 {
-                                    rectTransform.sizeDelta = new Vector2(8, 8);
+                                    rectTransform.sizeDelta = new Vector2(8.8f, 8.8f);
                                 }
                             }
                         }

@@ -75,6 +75,7 @@ namespace Shatranj
                         if (isLoadFull)
                         {
                             // Normal board
+                            bool blindFold = GameData.IsBlindFold(shatranj);
                             {
                                 // get olds
                                 List<PieceUI.UIData> oldPieceUIs = new List<PieceUI.UIData>();
@@ -144,10 +145,9 @@ namespace Shatranj
                                                 }
                                                 // Update Property
                                                 {
-                                                    // piece
                                                     pieceUIData.piece.v = piece;
-                                                    // position
                                                     pieceUIData.position.v = index;
+                                                    pieceUIData.blindFold.v = blindFold;
                                                 }
                                                 // Add
                                                 if (needAdd)
@@ -224,6 +224,7 @@ namespace Shatranj
 
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<Shatranj> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Shatranj>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -257,19 +258,32 @@ namespace Shatranj
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (data is Shatranj)
+                // shatranj
                 {
-                    dirty = true;
-                    return;
+                    if (data is Shatranj)
+                    {
+                        Shatranj shatranj = data as Shatranj;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(shatranj);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Shatranj>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -315,17 +329,29 @@ namespace Shatranj
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             // Child
             {
-                if (data is Shatranj)
+                // shatranj
                 {
-                    return;
+                    if (data is Shatranj)
+                    {
+                        // Shatranj shatranj = data as Shatranj;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Shatranj>)
+                    {
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -393,45 +419,52 @@ namespace Shatranj
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (wrapProperty.p is Shatranj)
+                // shatranj
                 {
-                    switch ((Shatranj.Property)wrapProperty.n)
+                    if (wrapProperty.p is Shatranj)
                     {
-                        case Shatranj.Property.board:
-                            dirty = true;
-                            break;
-                        case Shatranj.Property.byTypeBB:
-                            break;
-                        case Shatranj.Property.byColorBB:
-                            break;
-                        case Shatranj.Property.pieceCount:
-                            break;
-                        case Shatranj.Property.pieceList:
-                            break;
-                        case Shatranj.Property.index:
-                            break;
-                        case Shatranj.Property.gamePly:
-                            break;
-                        case Shatranj.Property.sideToMove:
-                            break;
-                        case Shatranj.Property.st:
-                            break;
-                        case Shatranj.Property.chess960:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((Shatranj.Property)wrapProperty.n)
+                        {
+                            case Shatranj.Property.board:
+                                dirty = true;
+                                break;
+                            case Shatranj.Property.byTypeBB:
+                                break;
+                            case Shatranj.Property.byColorBB:
+                                break;
+                            case Shatranj.Property.pieceCount:
+                                break;
+                            case Shatranj.Property.pieceList:
+                                break;
+                            case Shatranj.Property.index:
+                                break;
+                            case Shatranj.Property.gamePly:
+                                break;
+                            case Shatranj.Property.sideToMove:
+                                break;
+                            case Shatranj.Property.st:
+                                break;
+                            case Shatranj.Property.chess960:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<Shatranj>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

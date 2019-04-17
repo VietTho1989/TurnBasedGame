@@ -5,52 +5,58 @@ using System.Collections.Generic;
 
 namespace InternationalDraught
 {
-	public class PieceUI : UIBehavior<PieceUI.UIData>
-	{
+    public class PieceUI : UIBehavior<PieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<int> square;
+        public class UIData : Data
+        {
 
-			public VP<int> pieceSide;
+            public VP<int> square;
 
-			public VP<bool> isLastCapture;
+            public VP<int> pieceSide;
 
-			#region Constructor
+            public VP<bool> isLastCapture;
 
-			public enum Property
-			{
-				square,
-				pieceSide,
-				isLastCapture
-			}
+            public VP<bool> blindFold;
 
-			public UIData() : base()
-			{
-				this.square = new VP<int>(this, (byte)Property.square, 0);
-				this.pieceSide = new VP<int>(this, (byte)Property.pieceSide, (int)Common.Piece_Side.Empty);
-				this.isLastCapture = new VP<bool>(this, (byte)Property.isLastCapture, false);
-			}
+            #region Constructor
 
-			#endregion
+            public enum Property
+            {
+                square,
+                pieceSide,
+                isLastCapture,
+                blindFold
+            }
 
-		}
+            public UIData() : base()
+            {
+                this.square = new VP<int>(this, (byte)Property.square, 0);
+                this.pieceSide = new VP<int>(this, (byte)Property.pieceSide, (int)Common.Piece_Side.Empty);
+                this.isLastCapture = new VP<bool>(this, (byte)Property.isLastCapture, false);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
+            }
 
-		#endregion
+            #endregion
 
-		#region Refresh
+        }
 
-		public Image imgPieceSide;
-		public Image imgLastCapture;
+        #endregion
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        #region Refresh
+
+        public Image imgPieceSide;
+        public Image imgLastCapture;
+
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     // check load full
                     bool isLoadFull = true;
                     {
@@ -144,78 +150,86 @@ namespace InternationalDraught
                             if (imgPieceSide != null)
                             {
                                 // sprite
-                                if (moveAnimation != null)
+                                if (!this.data.blindFold.v)
                                 {
-                                    switch (moveAnimation.getType())
+                                    imgPieceSide.enabled = true;
+                                    if (moveAnimation != null)
                                     {
-                                        case GameMove.Type.InternationalDraughtMove:
-                                            {
-                                                InternationalDraughtMoveAnimation internationalDraughtMoveAnimation = moveAnimation as InternationalDraughtMoveAnimation;
-                                                // check dead or not
-                                                bool isDead = false;
+                                        switch (moveAnimation.getType())
+                                        {
+                                            case GameMove.Type.InternationalDraughtMove:
                                                 {
-                                                    System.UInt64 internationalDraughtMove = internationalDraughtMoveAnimation.move.v;
+                                                    InternationalDraughtMoveAnimation internationalDraughtMoveAnimation = moveAnimation as InternationalDraughtMoveAnimation;
+                                                    // check dead or not
+                                                    bool isDead = false;
                                                     {
-                                                        List<int> squareList = Core.unityGetMoveSquareList(internationalDraughtMove);
-                                                        if (squareList.Count >= 2)
+                                                        System.UInt64 internationalDraughtMove = internationalDraughtMoveAnimation.move.v;
                                                         {
-                                                            int yourSquareX = Common.square_file(this.data.square.v);
-                                                            int yourSquareY = Common.square_rank(this.data.square.v);
-                                                            for (int i = 0; i < squareList.Count - 1; i++)
+                                                            List<int> squareList = Core.unityGetMoveSquareList(internationalDraughtMove);
+                                                            if (squareList.Count >= 2)
                                                             {
-                                                                int square = squareList[i];
-                                                                int nextSquare = squareList[i + 1];
-                                                                if (square != this.data.square.v && nextSquare != this.data.square.v)
+                                                                int yourSquareX = Common.square_file(this.data.square.v);
+                                                                int yourSquareY = Common.square_rank(this.data.square.v);
+                                                                for (int i = 0; i < squareList.Count - 1; i++)
                                                                 {
-                                                                    // get x, y
-                                                                    int squareX = Common.square_file(square);
-                                                                    int squareY = Common.square_rank(square);
-                                                                    int nextSquareX = Common.square_file(nextSquare);
-                                                                    int nextSquareY = Common.square_rank(nextSquare);
-                                                                    // check
-                                                                    if ((Mathf.Abs(yourSquareX - squareX) == Mathf.Abs(yourSquareY - squareY))
-                                                                        && (Mathf.Abs(yourSquareX - nextSquareX) == Mathf.Abs(yourSquareY - nextSquareY)))
+                                                                    int square = squareList[i];
+                                                                    int nextSquare = squareList[i + 1];
+                                                                    if (square != this.data.square.v && nextSquare != this.data.square.v)
                                                                     {
-                                                                        if ((yourSquareX - squareX) * (yourSquareX - nextSquareX) < 0 && (yourSquareY - squareY) * (yourSquareY - nextSquareY) < 0)
+                                                                        // get x, y
+                                                                        int squareX = Common.square_file(square);
+                                                                        int squareY = Common.square_rank(square);
+                                                                        int nextSquareX = Common.square_file(nextSquare);
+                                                                        int nextSquareY = Common.square_rank(nextSquare);
+                                                                        // check
+                                                                        if ((Mathf.Abs(yourSquareX - squareX) == Mathf.Abs(yourSquareY - squareY))
+                                                                            && (Mathf.Abs(yourSquareX - nextSquareX) == Mathf.Abs(yourSquareY - nextSquareY)))
                                                                         {
-                                                                            isDead = true;
-                                                                            break;
+                                                                            if ((yourSquareX - squareX) * (yourSquareX - nextSquareX) < 0 && (yourSquareY - squareY) * (yourSquareY - nextSquareY) < 0)
+                                                                            {
+                                                                                isDead = true;
+                                                                                break;
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("error, squareList too small: " + this);
+                                                            else
+                                                            {
+                                                                Debug.LogError("error, squareList too small: " + this);
+                                                            }
                                                         }
                                                     }
+                                                    // Process
+                                                    if (isDead)
+                                                    {
+                                                        imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getDeadSprite(this.data.pieceSide.v);
+                                                    }
+                                                    else
+                                                    {
+                                                        imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
+                                                    }
                                                 }
-                                                // Process
-                                                if (isDead)
-                                                {
-                                                    imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getDeadSprite(this.data.pieceSide.v);
-                                                }
-                                                else
-                                                {
-                                                    imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
-                                                }
-                                            }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
-                                            imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
-                                            break;
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                                imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
+                                    }
+                                    // Scale
+                                    {
+                                        int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                        imgPieceSide.transform.localScale = (playerView == 0 ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1));
                                     }
                                 }
                                 else
                                 {
-                                    imgPieceSide.sprite = InternationalDraughtSpriteContainer.get().getSprite(this.data.pieceSide.v);
-                                }
-                                // Scale
-                                {
-                                    int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
-                                    imgPieceSide.transform.localScale = (playerView == 0 ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1));
+                                    imgPieceSide.enabled = false;
                                 }
                             }
                             else
@@ -254,105 +268,106 @@ namespace InternationalDraught
                         // Debug.LogError("not load full");
                         dirty = true;
                     }
-                } else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
+        private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.addCallBack (this);
-						perspectiveChange.setData (uiData);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			// checkChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
+                }
+                dirty = true;
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.removeCallBack (this);
-						perspectiveChange.setData (null);
-					}
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// checkChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.square:
-					dirty = true;
-					break;
-				case UIData.Property.pieceSide:
-					dirty = true;
-					break;
-				case UIData.Property.isLastCapture:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Check Change
-			{
-				if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.square:
+                        dirty = true;
+                        break;
+                    case UIData.Property.pieceSide:
+                        dirty = true;
+                        break;
+                    case UIData.Property.isLastCapture:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

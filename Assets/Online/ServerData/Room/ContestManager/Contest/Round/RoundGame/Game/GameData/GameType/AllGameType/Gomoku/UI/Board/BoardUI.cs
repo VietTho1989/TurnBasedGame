@@ -59,6 +59,7 @@ namespace Gomoku
                     Gomoku gomoku = this.data.gomoku.v.data;
                     if (gomoku != null)
                     {
+                        bool blindFold = GameData.IsBlindFold(gomoku);
                         // check load full
                         bool isLoadFull = true;
                         {
@@ -149,7 +150,6 @@ namespace Gomoku
                                                     }
                                                     // update
                                                     {
-                                                        // coord
                                                         pieceUI.coord.v = coord;
                                                         // type
                                                         {
@@ -196,6 +196,7 @@ namespace Gomoku
                                                             }
                                                             pieceUI.lastMoveIndex.v = lastMoveIndex;
                                                         }
+                                                        pieceUI.blindFold.v = blindFold;
                                                     }
                                                     // add
                                                     if (needAdd)
@@ -402,6 +403,7 @@ namespace Gomoku
         public Weiqi.BoardBackgroundUI backgroundPrefab;
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<Gomoku> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Gomoku>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -428,19 +430,32 @@ namespace Gomoku
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (data is Gomoku)
+                // gomoku
                 {
-                    dirty = true;
-                    return;
+                    if (data is Gomoku)
+                    {
+                        Gomoku gomoku = data as Gomoku;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(gomoku);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Gomoku>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is Weiqi.BoardBackgroundUI.UIData)
                 {
@@ -490,17 +505,29 @@ namespace Gomoku
                 return;
             }
             // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             // Child
             {
-                if (data is Gomoku)
+                // gomoku
                 {
-                    return;
+                    if (data is Gomoku)
+                    {
+                        // Gomoku gomoku = data as Gomoku;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Gomoku>)
+                    {
+                        return;
+                    }
                 }
                 if (data is Weiqi.BoardBackgroundUI.UIData)
                 {
@@ -556,51 +583,58 @@ namespace Gomoku
                         }
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (wrapProperty.p is Gomoku)
+                // gomoku
                 {
-                    switch ((Gomoku.Property)wrapProperty.n)
+                    if (wrapProperty.p is Gomoku)
                     {
-                        case Gomoku.Property.boardSize:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.gs:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.player:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.winningPlayer:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.lastMove:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.winSize:
-                            dirty = true;
-                            break;
-                        case Gomoku.Property.winCoord:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((Gomoku.Property)wrapProperty.n)
+                        {
+                            case Gomoku.Property.boardSize:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.gs:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.player:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.winningPlayer:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.lastMove:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.winSize:
+                                dirty = true;
+                                break;
+                            case Gomoku.Property.winCoord:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<Gomoku>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is Weiqi.BoardBackgroundUI.UIData)
                 {

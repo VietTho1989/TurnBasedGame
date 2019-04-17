@@ -98,6 +98,7 @@ namespace Khet
                                 }
                             }
                             // Normal board
+                            bool blindFold = GameData.IsBlindFold(khet);
                             {
                                 // get olds
                                 List<PieceUI.UIData> oldPieceUIs = new List<PieceUI.UIData>();
@@ -183,6 +184,7 @@ namespace Khet
                                                         pieceUIData.piece.v = piece;
                                                         pieceUIData.owner.v = player;
                                                         pieceUIData.orientation.v = orientation;
+                                                        pieceUIData.blindFold.v = blindFold;
                                                     }
                                                     // Add
                                                     if (needAdd)
@@ -242,6 +244,7 @@ namespace Khet
         public Transform laserTargetContainer;
 
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<Khet> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Khet>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -276,10 +279,25 @@ namespace Khet
             }
             // Child
             {
-                if (data is Khet)
+                // khet
                 {
-                    dirty = true;
-                    return;
+                    if (data is Khet)
+                    {
+                        Khet khet = data as Khet;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(khet);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Khet>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -346,9 +364,23 @@ namespace Khet
             }
             // Child
             {
-                if (data is Khet)
+                // khet
                 {
-                    return;
+                    if (data is Khet)
+                    {
+                        // Khet khet = data as Khet;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<Khet>)
+                    {
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -416,7 +448,7 @@ namespace Khet
                         }
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
@@ -429,34 +461,43 @@ namespace Khet
             }
             // Child
             {
-                if (wrapProperty.p is Khet)
+                // khet
                 {
-                    switch ((Khet.Property)wrapProperty.n)
+                    if (wrapProperty.p is Khet)
                     {
-                        case Khet.Property._playerToMove:
-                            break;
-                        case Khet.Property._checkmate:
-                            break;
-                        case Khet.Property._drawn:
-                            break;
-                        case Khet.Property._moveNumber:
-                            break;
-                        case Khet.Property._laser:
-                            break;
-                        case Khet.Property._board:
-                            dirty = true;
-                            break;
-                        case Khet.Property._pharaohPositions:
-                            break;
-                        case Khet.Property.khetSub:
-                            break;
-                        case Khet.Property.isCustom:
-                            break;
-                        default:
-                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((Khet.Property)wrapProperty.n)
+                        {
+                            case Khet.Property._playerToMove:
+                                break;
+                            case Khet.Property._checkmate:
+                                break;
+                            case Khet.Property._drawn:
+                                break;
+                            case Khet.Property._moveNumber:
+                                break;
+                            case Khet.Property._laser:
+                                break;
+                            case Khet.Property._board:
+                                dirty = true;
+                                break;
+                            case Khet.Property._pharaohPositions:
+                                break;
+                            case Khet.Property.khetSub:
+                                break;
+                            case Khet.Property.isCustom:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<Khet>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

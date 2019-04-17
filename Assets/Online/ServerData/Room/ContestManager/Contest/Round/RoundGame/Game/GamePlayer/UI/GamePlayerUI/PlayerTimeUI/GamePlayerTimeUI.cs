@@ -209,7 +209,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
@@ -319,7 +319,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     return;
                 }
@@ -399,7 +399,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                     }
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -413,7 +413,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {
@@ -475,7 +475,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                         case Game.Property.undoRedoRequest:
                             break;
                         default:
-                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
                     }
                     return;
@@ -490,6 +490,12 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                                 break;
                             case GameData.Property.useRule:
                                 break;
+                            case GameData.Property.requestChangeUseRule:
+                                break;
+                            case GameData.Property.blindFold:
+                                break;
+                            case GameData.Property.requestChangeBlindFold:
+                                break;
                             case GameData.Property.turn:
                                 break;
                             case GameData.Property.timeControl:
@@ -503,7 +509,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                             case GameData.Property.state:
                                 break;
                             default:
-                                Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
                         return;
@@ -531,7 +537,7 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                                 case TimeControl.TimeControl.Property.timeReport:
                                     break;
                                 default:
-                                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                     break;
                             }
                             return;

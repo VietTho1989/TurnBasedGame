@@ -30,6 +30,8 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
 
         public VP<BtnUseRuleUI.UIData> btnUseRule;
 
+        public VP<BtnBlindFoldUI.UIData> btnBlindFold;
+
         public VP<BtnHistoryUI.UIData> btnHistory;
 
         public VP<BtnPerspectiveUI.UIData> btnPerspective;
@@ -50,6 +52,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
             btnPause,
             btnShowSwap,
             btnUseRule,
+            btnBlindFold,
             btnHistory,
             btnPerspective,
             btnSaveGame,
@@ -66,6 +69,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
             this.btnPause = new VP<BtnPauseUI.UIData>(this, (byte)Property.btnPause, new BtnPauseUI.UIData());
             this.btnShowSwap = new VP<BtnShowSwapUI.UIData>(this, (byte)Property.btnShowSwap, new BtnShowSwapUI.UIData());
             this.btnUseRule = new VP<BtnUseRuleUI.UIData>(this, (byte)Property.btnUseRule, new BtnUseRuleUI.UIData());
+            this.btnBlindFold = new VP<BtnBlindFoldUI.UIData>(this, (byte)Property.btnBlindFold, new BtnBlindFoldUI.UIData());
             this.btnHistory = new VP<BtnHistoryUI.UIData>(this, (byte)Property.btnHistory, new BtnHistoryUI.UIData());
             this.btnPerspective = new VP<BtnPerspectiveUI.UIData>(this, (byte)Property.btnPerspective, new BtnPerspectiveUI.UIData());
             this.btnSaveGame = new VP<BtnSaveGameUI.UIData>(this, (byte)Property.btnSaveGame, new BtnSaveGameUI.UIData());
@@ -221,6 +225,18 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnUseRule null");
                         }
                     }
+                    // btnBlindFold
+                    {
+                        BtnBlindFoldUI.UIData btnBlindFold = this.data.btnBlindFold.v;
+                        if (btnBlindFold != null)
+                        {
+                            btnBlindFold.requestChangeBlindFold.v = new ReferenceData<RequestChangeBlindFold>(game.gameData.v.requestChangeBlindFold.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBlindFold null");
+                        }
+                    }
                     // btnHistory
                     {
                         BtnHistoryUI.UIData btnHistory = this.data.btnHistory.v;
@@ -367,6 +383,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
     public BtnPauseUI btnPausePrefab;
     public BtnShowSwapUI btnShowSwapPrefab;
     public BtnUseRuleUI btnUseRulePrefab;
+    public BtnBlindFoldUI btnBlindFoldPrefab;
     public BtnHistoryUI btnHistoryPrefab;
     public BtnPerspectiveUI btnPerspectivePrefab;
     public BtnSaveGameUI btnSaveGamePrefab;
@@ -396,6 +413,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 uiData.btnPause.allAddCallBack(this);
                 uiData.btnShowSwap.allAddCallBack(this);
                 uiData.btnUseRule.allAddCallBack(this);
+                uiData.btnBlindFold.allAddCallBack(this);
                 uiData.btnHistory.allAddCallBack(this);
                 uiData.btnPerspective.allAddCallBack(this);
                 uiData.btnSaveGame.allAddCallBack(this);
@@ -537,12 +555,22 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if (data is BtnBlindFoldUI.UIData)
+            {
+                BtnBlindFoldUI.UIData btnBlindFoldUIData = data as BtnBlindFoldUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnBlindFoldUIData, btnBlindFoldPrefab, contentContainer, CreateBtnRect(7));
+                }
+                dirty = true;
+                return;
+            }
             if (data is BtnHistoryUI.UIData)
             {
                 BtnHistoryUI.UIData btnHistoryUIData = data as BtnHistoryUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnHistoryUIData, btnHistoryPrefab, contentContainer, CreateBtnRect(7));
+                    UIUtils.Instantiate(btnHistoryUIData, btnHistoryPrefab, contentContainer, CreateBtnRect(8));
                 }
                 dirty = true;
                 return;
@@ -552,7 +580,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 BtnPerspectiveUI.UIData btnPerspectiveUIData = data as BtnPerspectiveUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnPerspectiveUIData, btnPerspectivePrefab, contentContainer, CreateBtnRect(8));
+                    UIUtils.Instantiate(btnPerspectiveUIData, btnPerspectivePrefab, contentContainer, CreateBtnRect(9));
                 }
                 dirty = true;
                 return;
@@ -562,7 +590,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 BtnSaveGameUI.UIData btnSaveGameUIData = data as BtnSaveGameUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnSaveGameUIData, btnSaveGamePrefab, contentContainer, CreateBtnRect(9));
+                    UIUtils.Instantiate(btnSaveGameUIData, btnSaveGamePrefab, contentContainer, CreateBtnRect(10));
                 }
                 dirty = true;
                 return;
@@ -572,7 +600,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 DataRecordTaskUI.UIData btnRecordUIData = data as DataRecordTaskUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnRecordUIData, btnRecordPrefab, contentContainer, CreateBtnRect(10));
+                    UIUtils.Instantiate(btnRecordUIData, btnRecordPrefab, contentContainer, CreateBtnRect(11));
                 }
                 dirty = true;
                 return;
@@ -600,6 +628,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 uiData.btnPause.allRemoveCallBack(this);
                 uiData.btnShowSwap.allRemoveCallBack(this);
                 uiData.btnUseRule.allRemoveCallBack(this);
+                uiData.btnBlindFold.allRemoveCallBack(this);
                 uiData.btnHistory.allRemoveCallBack(this);
                 uiData.btnPerspective.allRemoveCallBack(this);
                 uiData.btnSaveGame.allRemoveCallBack(this);
@@ -728,6 +757,15 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 }
                 return;
             }
+            if (data is BtnBlindFoldUI.UIData)
+            {
+                BtnBlindFoldUI.UIData btnBlindFoldUIData = data as BtnBlindFoldUI.UIData;
+                // UI
+                {
+                    btnBlindFoldUIData.removeCallBackAndDestroy(typeof(BtnBlindFoldUI));
+                }
+                return;
+            }
             if (data is BtnHistoryUI.UIData)
             {
                 BtnHistoryUI.UIData btnHistoryUIData = data as BtnHistoryUI.UIData;
@@ -826,6 +864,12 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnBlindFold:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.btnHistory:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -915,6 +959,8 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                         case GameDataUI.UIData.Property.allowInput:
                             break;
                         case GameDataUI.UIData.Property.requestChangeUseRule:
+                            break;
+                        case GameDataUI.UIData.Property.requestChangeBlindFold:
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1038,6 +1084,11 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                         case GameData.Property.requestChangeUseRule:
                             dirty = true;
                             break;
+                        case GameData.Property.blindFold:
+                            break;
+                        case GameData.Property.requestChangeBlindFold:
+                            dirty = true;
+                            break;
                         case GameData.Property.turn:
                             break;
                         case GameData.Property.timeControl:
@@ -1078,6 +1129,10 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                 return;
             }
             if (wrapProperty.p is BtnUseRuleUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is BtnBlindFoldUI.UIData)
             {
                 return;
             }

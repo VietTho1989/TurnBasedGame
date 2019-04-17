@@ -66,6 +66,7 @@ namespace EnglishDraught
                         // process
                         if (isLoadFull)
                         {
+                            bool blindFold = GameData.IsBlindFold(englishDraught);
                             // get old
                             List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
                             {
@@ -135,6 +136,7 @@ namespace EnglishDraught
                                         {
                                             pieceUIData.square.v = square;
                                             pieceUIData.piece.v = piece;
+                                            pieceUIData.blindFold.v = blindFold;
                                         }
                                         // add
                                         if (needAdd)
@@ -179,6 +181,7 @@ namespace EnglishDraught
 
         public PieceUI piecePrefab;
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
+        private GameDataCheckChangeBlindFold<EnglishDraught> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<EnglishDraught>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -211,10 +214,25 @@ namespace EnglishDraught
             }
             // Child
             {
-                if (data is EnglishDraught)
+                // englishDraught
                 {
-                    dirty = true;
-                    return;
+                    if (data is EnglishDraught)
+                    {
+                        EnglishDraught englishDraught = data as EnglishDraught;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.addCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(englishDraught);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<EnglishDraught>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -259,9 +277,23 @@ namespace EnglishDraught
             }
             // Child
             {
-                if (data is EnglishDraught)
+                // englishDraught
                 {
-                    return;
+                    if (data is EnglishDraught)
+                    {
+                        // EnglishDraught englishDraught = data as EnglishDraught;
+                        // checkChange
+                        {
+                            gameDataCheckChangeBlindFold.removeCallBack(this);
+                            gameDataCheckChangeBlindFold.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is GameDataCheckChangeBlindFold<EnglishDraught>)
+                    {
+                        return;
+                    }
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -305,53 +337,60 @@ namespace EnglishDraught
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
-                if (wrapProperty.p is EnglishDraught)
+                // englishDraught
                 {
-                    switch ((EnglishDraught.Property)wrapProperty.n)
+                    if (wrapProperty.p is EnglishDraught)
                     {
-                        case EnglishDraught.Property.Sqs:
-                            dirty = true;
-                            break;
-                        case EnglishDraught.Property.C:
-                            break;
-                        case EnglishDraught.Property.nPSq:
-                            break;
-                        case EnglishDraught.Property.eval:
-                            break;
-                        case EnglishDraught.Property.nWhite:
-                            break;
-                        case EnglishDraught.Property.nBlack:
-                            break;
-                        case EnglishDraught.Property.SideToMove:
-                            break;
-                        case EnglishDraught.Property.extra:
-                            break;
-                        case EnglishDraught.Property.HashKey:
-                            break;
-                        case EnglishDraught.Property.ply:
-                            break;
-                        case EnglishDraught.Property.RepNum:
-                            break;
-                        case EnglishDraught.Property.maxPly:
-                            break;
-                        case EnglishDraught.Property.turn:
-                            break;
-                        case EnglishDraught.Property.isCustom:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((EnglishDraught.Property)wrapProperty.n)
+                        {
+                            case EnglishDraught.Property.Sqs:
+                                dirty = true;
+                                break;
+                            case EnglishDraught.Property.C:
+                                break;
+                            case EnglishDraught.Property.nPSq:
+                                break;
+                            case EnglishDraught.Property.eval:
+                                break;
+                            case EnglishDraught.Property.nWhite:
+                                break;
+                            case EnglishDraught.Property.nBlack:
+                                break;
+                            case EnglishDraught.Property.SideToMove:
+                                break;
+                            case EnglishDraught.Property.extra:
+                                break;
+                            case EnglishDraught.Property.HashKey:
+                                break;
+                            case EnglishDraught.Property.ply:
+                                break;
+                            case EnglishDraught.Property.RepNum:
+                                break;
+                            case EnglishDraught.Property.maxPly:
+                                break;
+                            case EnglishDraught.Property.turn:
+                                break;
+                            case EnglishDraught.Property.isCustom:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (wrapProperty.p is GameDataCheckChangeBlindFold<EnglishDraught>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

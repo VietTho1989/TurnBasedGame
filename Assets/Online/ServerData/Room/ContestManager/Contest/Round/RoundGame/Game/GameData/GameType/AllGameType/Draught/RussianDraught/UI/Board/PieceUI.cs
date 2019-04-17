@@ -5,47 +5,53 @@ using System.Collections.Generic;
 
 namespace RussianDraught
 {
-	public class PieceUI : UIBehavior<PieceUI.UIData>
-	{
+    public class PieceUI : UIBehavior<PieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
+        public class UIData : Data
+        {
 
-			public VP<int> square;
+            public VP<int> square;
 
-			public VP<int> piece;
+            public VP<int> piece;
 
-			#region Constructor
+            public VP<bool> blindFold;
 
-			public enum Property
-			{
-				square,
-				piece
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.square = new VP<int>(this, (byte)Property.square, 0);
-				this.piece = new VP<int>(this, (byte)Property.piece, 0);
-			}
+            public enum Property
+            {
+                square,
+                piece,
+                blindFold
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.square = new VP<int>(this, (byte)Property.square, 0);
+                this.piece = new VP<int>(this, (byte)Property.piece, 0);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
+            }
 
-		}
+            #endregion
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public Image imgPiece;
+        #region Refresh
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        public Image imgPiece;
+
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     // check load full
                     bool isLoadFull = true;
                     {
@@ -144,65 +150,73 @@ namespace RussianDraught
                             if (imgPiece != null)
                             {
                                 // set sprite
-                                if (moveAnimation != null)
+                                if (!this.data.blindFold.v)
                                 {
-                                    switch (moveAnimation.getType())
+                                    imgPiece.enabled = true;
+                                    if (moveAnimation != null)
                                     {
-                                        case GameMove.Type.RussianDraughtMove:
-                                            {
-                                                RussianDraughtMoveAnimation russianDraughtMoveAnimation = moveAnimation as RussianDraughtMoveAnimation;
-                                                // check dead or not
-                                                bool isDead = false;
+                                        switch (moveAnimation.getType())
+                                        {
+                                            case GameMove.Type.RussianDraughtMove:
                                                 {
-                                                    RussianDraughtMove russianDraughtMove = russianDraughtMoveAnimation.move.v;
-                                                    if (russianDraughtMove != null)
+                                                    RussianDraughtMoveAnimation russianDraughtMoveAnimation = moveAnimation as RussianDraughtMoveAnimation;
+                                                    // check dead or not
+                                                    bool isDead = false;
                                                     {
-                                                        if (russianDraughtMove.l.v >= 2 && russianDraughtMove.l.v < russianDraughtMove.m.vs.Count && russianDraughtMove.m.vs.Count == 12)
+                                                        RussianDraughtMove russianDraughtMove = russianDraughtMoveAnimation.move.v;
+                                                        if (russianDraughtMove != null)
                                                         {
-                                                            for (int i = 2; i < russianDraughtMove.l.v; i++)
+                                                            if (russianDraughtMove.l.v >= 2 && russianDraughtMove.l.v < russianDraughtMove.m.vs.Count && russianDraughtMove.m.vs.Count == 12)
                                                             {
-                                                                int sq = RussianDraughtMove.convertMtoSq(russianDraughtMove.m.vs[i]);
-                                                                if (sq == this.data.square.v)
+                                                                for (int i = 2; i < russianDraughtMove.l.v; i++)
                                                                 {
-                                                                    isDead = true;
-                                                                    break;
+                                                                    int sq = RussianDraughtMove.convertMtoSq(russianDraughtMove.m.vs[i]);
+                                                                    if (sq == this.data.square.v)
+                                                                    {
+                                                                        isDead = true;
+                                                                        break;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        // Debug.LogError ("why sq so small: " + sq + "; " + this);
+                                                                    }
                                                                 }
-                                                                else
-                                                                {
-                                                                    // Debug.LogError ("why sq so small: " + sq + "; " + this);
-                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("russianDraughtMove error: " + russianDraughtMove + "; " + this);
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            Debug.LogError("russianDraughtMove error: " + russianDraughtMove + "; " + this);
+                                                            Debug.LogError("russianDraughtMove null: " + this);
                                                         }
+                                                    }
+                                                    // Process
+                                                    if (isDead)
+                                                    {
+                                                        imgPiece.sprite = RussianDraughtPieceSprite.get().getDeadSprite(this.data.piece.v);
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("russianDraughtMove null: " + this);
+                                                        imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
                                                     }
                                                 }
-                                                // Process
-                                                if (isDead)
-                                                {
-                                                    imgPiece.sprite = RussianDraughtPieceSprite.get().getDeadSprite(this.data.piece.v);
-                                                }
-                                                else
-                                                {
-                                                    imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
-                                                }
-                                            }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
-                                            imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
-                                            break;
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                                imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
                                     }
                                 }
                                 else
                                 {
-                                    imgPiece.sprite = RussianDraughtPieceSprite.get().getSprite(this.data.piece.v);
+                                    imgPiece.enabled = false;
                                 }
                                 // Scale
                                 {
@@ -221,102 +235,103 @@ namespace RussianDraught
                         Debug.LogError("not load full");
                         dirty = true;
                     }
-                } else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
+        private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.addCallBack (this);
-						perspectiveChange.setData (uiData);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			// checkChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
+                }
+                dirty = true;
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.removeCallBack (this);
-						perspectiveChange.setData (null);
-					}
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// checkChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if(WrapProperty.checkError(wrapProperty)){
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.square:
-					dirty = true;
-					break;
-				case UIData.Property.piece:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Check Change
-			{
-				if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.square:
+                        dirty = true;
+                        break;
+                    case UIData.Property.piece:
+                        dirty = true;
+                        break;
+                    case UIData.Property.blindFold:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }
