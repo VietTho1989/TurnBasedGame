@@ -297,8 +297,6 @@ namespace GameManager.Match
                                 break;
                             case GameFactory.Property.useRule:
                                 break;
-                            case GameFactory.Property.blindFold:
-                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -359,12 +357,6 @@ namespace GameManager.Match
                                     this.notifyChange();
                                     break;
                                 case GameData.Property.useRule:
-                                    break;
-                                case GameData.Property.requestChangeUseRule:
-                                    break;
-                                case GameData.Property.blindFold:
-                                    break;
-                                case GameData.Property.requestChangeBlindFold:
                                     break;
                                 case GameData.Property.turn:
                                     break;

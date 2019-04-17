@@ -62,7 +62,7 @@ public class GameData : Data
         {
             Debug.LogError("data null: " + data);
         }
-        return false;
+        return true;
     }
 
     public VP<RequestChangeBlindFold> requestChangeBlindFold;
@@ -141,7 +141,7 @@ public class GameData : Data
         {
             // value
             {
-                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, false);
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, true);
                 this.blindFold.nh = 0;
             }
             // request

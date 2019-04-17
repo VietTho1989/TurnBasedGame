@@ -313,7 +313,9 @@ public class GameFactory : Data
             // useRule
             game.gameData.v.useRule.v = this.useRule.v;
             // blindFold
-            game.gameData.v.blindFold.v = this.blindFold.v;
+            {
+                // TODO Can hoan thien
+            }
         }
         else
         {

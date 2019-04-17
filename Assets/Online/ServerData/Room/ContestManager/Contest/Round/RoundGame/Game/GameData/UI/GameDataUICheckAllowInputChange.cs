@@ -104,8 +104,6 @@ public class GameDataUICheckAllowInputChange<K> : Data, ValueChangeCallBack wher
                     break;
                 case GameDataUI.UIData.Property.requestChangeUseRule:
                     break;
-                case GameDataUI.UIData.Property.requestChangeBlindFold:
-                    break;
                 case GameDataUI.UIData.Property.perspectiveUIData:
                     break;
                 case GameDataUI.UIData.Property.gamePlayerList:
