@@ -84,7 +84,7 @@ namespace Shatranj
                                             break;
                                         case Setting.Style.Normal:
                                         default:
-                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
+                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 8.8f), Mathf.Abs(boardSize.y / 8.8f));
                                             break;
                                     }
                                 }

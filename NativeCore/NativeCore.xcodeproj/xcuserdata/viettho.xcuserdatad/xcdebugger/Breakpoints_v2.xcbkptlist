@@ -10,11 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NativeCore/main.cpp"
-            timestampString = "556601848.256379"
+            timestampString = "577123208.9223861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
-            endingLineNumber = "13">
+            endingLineNumber = "13"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2816,12 +2818,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.387694"
+                  timestampString = "577123183.554722"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6102">
+                  offsetFromSymbolStart = "2259">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2831,12 +2833,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.3917429"
+                  timestampString = "577123183.558455"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6102">
+                  offsetFromSymbolStart = "2259">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2846,12 +2848,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.394384"
+                  timestampString = "577123183.56199"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6102">
+                  offsetFromSymbolStart = "2259">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2861,12 +2863,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.396516"
+                  timestampString = "577123183.564985"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6102">
+                  offsetFromSymbolStart = "2259">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2876,12 +2878,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.401125"
+                  timestampString = "577123183.567849"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6102">
+                  offsetFromSymbolStart = "2259">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2891,12 +2893,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.404608"
+                  timestampString = "577123183.570282"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2906,12 +2908,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.408173"
+                  timestampString = "577123183.573491"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2921,12 +2923,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.411505"
+                  timestampString = "577123183.576619"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2936,12 +2938,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.414896"
+                  timestampString = "577123183.5797319"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2951,12 +2953,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.418975"
+                  timestampString = "577123183.5827121"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2287">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2966,12 +2968,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.421248"
+                  timestampString = "577123183.58579"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2981,12 +2983,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.424607"
+                  timestampString = "577123183.588775"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2996,12 +2998,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.427282"
+                  timestampString = "577123183.591862"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3011,12 +3013,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.429415"
+                  timestampString = "577123183.594987"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6110">
+                  offsetFromSymbolStart = "2267">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3026,12 +3028,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.431711"
+                  timestampString = "577123183.598031"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6118">
+                  offsetFromSymbolStart = "2275">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3041,12 +3043,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.435703"
+                  timestampString = "577123183.601018"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6118">
+                  offsetFromSymbolStart = "2275">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3056,12 +3058,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.437709"
+                  timestampString = "577123183.6040519"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3071,12 +3073,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.440272"
+                  timestampString = "577123183.607128"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3086,12 +3088,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.442295"
+                  timestampString = "577123183.6101969"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3101,12 +3103,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.445295"
+                  timestampString = "577123183.612906"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3116,12 +3118,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.449206"
+                  timestampString = "577123183.6158741"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3131,12 +3133,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.453832"
+                  timestampString = "577123183.6191339"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3146,12 +3148,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.455711"
+                  timestampString = "577123183.622206"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3161,12 +3163,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.457691"
+                  timestampString = "577123183.6252019"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3176,12 +3178,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.459455"
+                  timestampString = "577123183.628267"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3191,12 +3193,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4611861"
+                  timestampString = "577123183.633794"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3206,12 +3208,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.463066"
+                  timestampString = "577123183.636156"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3221,12 +3223,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.464914"
+                  timestampString = "577123183.640357"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3236,12 +3238,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.468443"
+                  timestampString = "577123183.650066"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3251,12 +3253,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.471796"
+                  timestampString = "577123183.6524349"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3266,12 +3268,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4743201"
+                  timestampString = "577123183.65521"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3281,12 +3283,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4765691"
+                  timestampString = "577123183.658352"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3296,12 +3298,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.47838"
+                  timestampString = "577123183.6608469"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3311,12 +3313,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.480105"
+                  timestampString = "577123183.66403"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3326,12 +3328,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.482036"
+                  timestampString = "577123183.66698"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3341,12 +3343,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4851331"
+                  timestampString = "577123183.670094"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3356,12 +3358,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.487365"
+                  timestampString = "577123183.6729079"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3371,12 +3373,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.48953"
+                  timestampString = "577123183.67591"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3386,12 +3388,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.491666"
+                  timestampString = "577123183.6788599"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3401,12 +3403,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.493928"
+                  timestampString = "577123183.681898"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3416,12 +3418,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4962699"
+                  timestampString = "577123183.6850179"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3431,12 +3433,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.4990669"
+                  timestampString = "577123183.688112"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6125">
+                  offsetFromSymbolStart = "2280">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3446,12 +3448,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.502279"
+                  timestampString = "577123183.691273"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3461,12 +3463,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.504148"
+                  timestampString = "577123183.694301"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3476,12 +3478,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.505914"
+                  timestampString = "577123183.697238"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3491,12 +3493,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.508203"
+                  timestampString = "577123183.700214"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6131">
+                  offsetFromSymbolStart = "2286">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -3506,12 +3508,12 @@
                   moduleName = "NativeCore"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/viettho/Desktop/NewProject/TurnBasedGame/Android/UnityNativePlugin/app/src/main/cpp/Hex/fhcore/hex_board.inl"
-                  timestampString = "574706450.510392"
+                  timestampString = "577123183.703364"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "402"
                   endingLineNumber = "402"
-                  offsetFromSymbolStart = "6133">
+                  offsetFromSymbolStart = "2288">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -3987,7 +3989,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NativeCore/main.cpp"
-            timestampString = "570616464.668156"
+            timestampString = "577123208.924706"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"

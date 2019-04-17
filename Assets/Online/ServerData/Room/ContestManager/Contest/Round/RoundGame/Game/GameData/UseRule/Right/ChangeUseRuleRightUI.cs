@@ -195,7 +195,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage("Change Use Rule Right");
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Change Right");
 
     public Text lbCanChange;
     private static readonly TxtLanguage txtCanChange = new TxtLanguage("Can change");
@@ -213,7 +213,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
     {
         // txt
         {
-            txtTitle.add(Language.Type.vi, "Quyền Thay Đổi Luật");
+            txtTitle.add(Language.Type.vi, "Quyền Thay Đổi");
             txtCanChange.add(Language.Type.vi, "Có thể đổi");
             txtOnlyAdmin.add(Language.Type.vi, "Chỉ admin");
             txtNeedAdmin.add(Language.Type.vi, "Cần admin");

@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/Blindfold/RequestChangeBlindFoldUpdate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/UITransformOrganizer.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/Blindfold/RequestChangeBlindFoldUpdate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/Board/BoardUI.cs" Line="190" Column="70" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/UITransformOrganizer.cs" Line="93" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -10,6 +11,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" line="900" column="1" />
+      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/BlindFold/State/None/RequestChangeBlindFoldStateNoneUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/BlindFold/State/None/RequestChangeBlindFoldStateNoneUI.cs" line="107" column="63" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
