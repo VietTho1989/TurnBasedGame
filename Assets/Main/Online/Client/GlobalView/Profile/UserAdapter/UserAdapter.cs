@@ -20,7 +20,13 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
 
         public VP<ReferenceData<Server>> server;
 
+        #region listShow
+
         public VP<ListShow> listShow;
+
+        public VP<ListShowUI.UIData> listShowUIData;
+
+        #endregion
 
         public LP<UserHolder.UIData> holders;
 
@@ -29,14 +35,20 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
         public enum Property
         {
             server,
+
             listShow,
+            listShowUIData,
+
             holders
         }
 
         public UIData() : base()
         {
             this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
+
             this.listShow = new VP<ListShow>(this, (byte)Property.listShow, new ListShowAll());
+            this.listShowUIData = new VP<ListShowUI.UIData>(this, (byte)Property.listShowUIData, new ListShowUI.UIData());
+
             this.holders = new LP<UserHolder.UIData>(this, (byte)Property.holders);
         }
 
@@ -96,6 +108,9 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
 
     #region Refresh
 
+    public RectTransform viewPort;
+    public RectTransform scrollBar;
+
     public override void refresh()
     {
         if (dirty)
@@ -137,6 +152,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                                         }
                                         // Update
                                         {
+                                            listShowLimit.itemCount.v = (uint)server.users.vs.Count;
                                             // correct index
                                             if (listShowLimit.index.v >= server.users.vs.Count)
                                             {
@@ -232,6 +248,57 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                                 }
                             }
                         }
+                        // listShowUI
+                        {
+                            ListShowUI.UIData listShowUIData = this.data.listShowUIData.v;
+                            if (listShowUIData != null)
+                            {
+                                listShowUIData.listShow.v = new ReferenceData<ListShow>(this.data.listShow.v);
+                            }
+                            else
+                            {
+                                Debug.LogError("listShowUIData null");
+                            }
+                        }
+                        // UI
+                        {
+                            // header
+                            float headerHeight = UIRectTransform.SetPosY(this.data.listShowUIData.v, 0);
+                            {
+                                UIRectTransform.SetSiblingIndex(this.data.listShowUIData.v, 0);
+                            }
+                            // viewPort
+                            if (viewPort != null)
+                            {
+                                UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, headerHeight, 0);
+                                rect.set(viewPort);
+                            }
+                            else
+                            {
+                                Debug.LogError("viewPort null");
+                            }
+                            // scrollBar
+                            if (scrollBar != null)
+                            {
+                                UIRectTransform rect = new UIRectTransform();
+                                {
+                                    // anchoredPosition: (0.0, -14.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 1.0); pivot: (1.0, 0.5);
+                                    // offsetMin: (-10.0, 0.0); offsetMax: (0.0, -28.0); sizeDelta: (10.0, -28.0);
+                                    rect.anchoredPosition = new Vector3(0.0f, -headerHeight/2, 0.0f);
+                                    rect.anchorMin = new Vector2(1.0f, 0.0f);
+                                    rect.anchorMax = new Vector2(1.0f, 1.0f);
+                                    rect.pivot = new Vector2(1.0f, 0.5f);
+                                    rect.offsetMin = new Vector2(-10.0f, 0.0f);
+                                    rect.offsetMax = new Vector2(0.0f, -headerHeight);
+                                    rect.sizeDelta = new Vector2(10.0f, -headerHeight);
+                                }
+                                rect.set(scrollBar);
+                            }
+                            else
+                            {
+                                Debug.LogError("scrollBar null");
+                            }
+                        }
                     }
                     else
                     {
@@ -254,6 +321,8 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
 
     #region implement callBacks
 
+    public ListShowUI listShowPrefab;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -263,6 +332,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
             {
                 uiData.server.allAddCallBack(this);
                 uiData.listShow.allAddCallBack(this);
+                uiData.listShowUIData.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -290,6 +360,29 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                 dirty = true;
                 return;
             }
+            // listShowUIData
+            {
+                if(data is ListShowUI.UIData)
+                {
+                    ListShowUI.UIData listShowUIData = data as ListShowUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(listShowUIData, listShowPrefab, this.transform);
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(listShowUIData, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -303,6 +396,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
             {
                 uiData.server.allRemoveCallBack(this);
                 uiData.listShow.allRemoveCallBack(this);
+                uiData.listShowUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -316,6 +410,27 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
             if (data is ListShow)
             {
                 return;
+            }
+            // listShowUIData
+            {
+                if (data is ListShowUI.UIData)
+                {
+                    ListShowUI.UIData listShowUIData = data as ListShowUI.UIData;
+                    // UI
+                    {
+                        listShowUIData.removeCallBackAndDestroy(typeof(ListShowUI));
+                    }
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(listShowUIData, this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is TransformData)
+                {
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -346,7 +461,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                 case UIData.Property.holders:
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -379,7 +494,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                     case Server.Property.guilds:
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
@@ -422,6 +537,45 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
                     }
                 }
                 return;
+            }
+            // listShowUIData
+            {
+                if (wrapProperty.p is ListShowUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

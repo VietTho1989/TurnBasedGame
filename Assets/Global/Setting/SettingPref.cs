@@ -32,6 +32,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     private const string Setting_Language = "Setting_Language";
     private const string Setting_Style = "Setting_Style";
     private const string Setting_ConfirmQuit = "Setting_ConfirmQuit";
+    private const string Setting_BoardIndex = "Setting_BoardIndex";
     private const string Setting_ShowLastMove = "Setting_ShowLastMove";
     private const string Setting_ViewUrlImage = "Setting_ViewUrlImage";
     private const string Setting_MaxThinkCount = "Setting_MaxThinkCount";
@@ -108,6 +109,8 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 Setting.get().style.v = (Setting.Style)PlayerPrefs.GetInt(Setting_Style, (int)Setting.Style.Normal);
                 // confirmQuit
                 Setting.get().confirmQuit.v = PlayerPrefs.GetInt(Setting_ConfirmQuit, 1) != 0;
+                // boardIndex
+                Setting.get().boardIndex.v = (Setting.BoardIndex)PlayerPrefs.GetInt(Setting_BoardIndex, (int)Setting.BoardIndex.None);
                 // showLastMove
                 Setting.get().showLastMove.v = PlayerPrefs.GetInt(Setting_ShowLastMove, 1) != 0;
                 // viewUrlImage
@@ -305,6 +308,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                 case Setting.Property.confirmQuit:
                                     {
                                         PlayerPrefs.SetInt(Setting_ConfirmQuit, Setting.get().confirmQuit.v ? 1 : 0);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.boardIndex:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_BoardIndex, (int)Setting.get().boardIndex.v);
                                         needSave = true;
                                     }
                                     break;
@@ -522,6 +531,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     }
                     break;
                 case Setting.Property.confirmQuit:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.boardIndex:
                     {
                         settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;

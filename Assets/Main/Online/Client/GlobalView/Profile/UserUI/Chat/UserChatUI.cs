@@ -74,6 +74,8 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
 
     #region Refresh
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -96,11 +98,26 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
                             Debug.LogError("chatRoomUIData null: " + this);
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        }
+                        // chatRoom
+                        {
+                            UIRectTransform rect = CreateChatRoomRect();
+                            UIRectTransform.Set(this.data.chatRoom.v, rect);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -130,7 +147,11 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
     #region implement callBacks
 
     public ChatRoomUI chatRoomPrefab;
-    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
+
+    private static UIRectTransform CreateChatRoomRect()
+    {
+        return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+    }
 
     public override void onAddCallBack<T>(T data)
     {
@@ -165,7 +186,7 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
                 ChatRoomUI.UIData chatRoomUIData = data as ChatRoomUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, this.transform, chatRoomRect);
+                    UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, this.transform, CreateChatRoomRect());
                 }
                 dirty = true;
                 return;
@@ -248,6 +269,25 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

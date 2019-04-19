@@ -402,11 +402,14 @@ public abstract class Data : AddCallBackInterface
 
     #endregion
 
+    public HaveTransformData haveTransformData = null;
+
     public HaveTransformData findTransformData()
     {
         HaveTransformData ret = null;
         {
-            for (int i = this.callBacks.Count - 1; i >= 0; i--)
+            ret = this.haveTransformData;
+            /*for (int i = this.callBacks.Count - 1; i >= 0; i--)
             {
                 ValueChangeCallBack callBack = this.callBacks[i];
                 if (typeof(HaveTransformData).IsAssignableFrom(callBack.GetType()))
@@ -418,7 +421,7 @@ public abstract class Data : AddCallBackInterface
                         break;
                     }
                 }
-            }
+            }*/
         }
         return ret;
     }

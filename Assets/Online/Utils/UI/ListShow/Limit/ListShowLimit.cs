@@ -9,18 +9,22 @@ public class ListShowLimit : ListShow
 
     public VP<uint> count;
 
+    public VP<uint> itemCount;
+
     #region Constructor
 
     public enum Property
     {
         index,
-        count
+        count,
+        itemCount
     }
 
     public ListShowLimit() : base()
     {
         this.index = new VP<uint>(this, (byte)Property.index, 0);
-        this.count = new VP<uint>(this, (byte)Property.count, 1000);
+        this.count = new VP<uint>(this, (byte)Property.count, ListShowAll.MaxShowAll);
+        this.itemCount = new VP<uint>(this, (byte)Property.itemCount, 0);
     }
 
     #endregion
@@ -39,7 +43,7 @@ public class ListShowLimit : ListShow
                 if (this.count.v > 0)
                 {
                     int insertCount = (int)Mathf.Min(list.Count - this.index.v, this.count.v);
-                    list.GetRange((int)this.index.v, insertCount);
+                    ret.AddRange(list.GetRange((int)this.index.v, insertCount));
                 }
                 else
                 {
@@ -51,6 +55,7 @@ public class ListShowLimit : ListShow
                 Debug.LogError("index error: " + list.Count + "; " + this);
             }
         }
+        // Debug.LogError("getList: " + ret.Count);
         return ret;
     }
 

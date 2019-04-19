@@ -259,6 +259,9 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     public Button btnReset;
 
+    public Button btnBack;
+    public Button btnChat;
+
     public override void refresh()
     {
         if (dirty)
@@ -393,12 +396,15 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         // scrollRect
                         if (scrollRect != null)
                         {
+                            float buttonSize = Setting.get().getButtonSize();
                             if (isShowBottom)
                             {
+                                UIRectTransform scrollRectLater = UIRectTransform.CreateFullRect(0, 0, buttonSize, UIConstants.ItemHeight);
                                 scrollRectLater.set(scrollRect);
                             }
                             else
                             {
+                                UIRectTransform scrollRectImmeditate = UIRectTransform.CreateFullRect(0, 0, buttonSize, 0);
                                 scrollRectImmeditate.set(scrollRect);
                             }
                         }
@@ -488,7 +494,13 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             Debug.LogError("humanUIData null");
                         }
                     }
-                    // UI Size
+                    // Header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        UIRectTransform.SetButtonTopRightTransform(btnChat);
+                    }
+                    // Content UI Size
                     {
                         float deltaY = 0;
                         // human
@@ -624,8 +636,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
     #region implement callBacks
 
     public RectTransform scrollRect;
-    private static readonly UIRectTransform scrollRectImmeditate = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
-    private static readonly UIRectTransform scrollRectLater = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, UIConstants.ItemHeight);
 
     private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform();
 
@@ -634,10 +644,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
     public HumanUI humanPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
     public RequestChangeStringUI requestStringPrefab;
-
-    private static readonly UIRectTransform roleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform ipAddressRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform registerTimeRect = new UIRectTransform(UIConstants.RequestRect);
 
     public BtnUpdateUser btnUpdateUserPrefab;
     private static readonly UIRectTransform btnUpdateUserRect = new UIRectTransform();
@@ -713,7 +719,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, requestEditTypeRect);
                                 break;
                             case UIData.Property.role:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, contentContainer, roleRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -740,10 +746,10 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.ipAddress:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, ipAddressRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.registerTime:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, registerTimeRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1045,6 +1051,9 @@ public class UserUI : UIBehavior<UserUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.confirmQuit:

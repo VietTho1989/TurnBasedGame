@@ -159,6 +159,8 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().addCallBack(this);
+            // Setting
+            Setting.get().addCallBack(this);
             // Parent
             {
                 DataUtils.addParentCallBack(gameDataUIData, this, ref this.contestManagerUIData);
@@ -173,6 +175,12 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         }
         // Global
         if(data is Global)
+        {
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
         {
             dirty = true;
             return;
@@ -232,6 +240,8 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().removeCallBack(this);
+            // Setting
+            Setting.get().removeCallBack(this);
             // Parent
             {
                 DataUtils.removeParentCallBack(gameDataUIData, this, ref this.contestManagerUIData);
@@ -246,6 +256,11 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         }
         // Global
         if (data is Global)
+        {
+            return;
+        }
+        // Setting
+        if(data is Setting)
         {
             return;
         }
@@ -342,6 +357,50 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         if (wrapProperty.p is Global)
         {
             Global.OnValueTransformChange(wrapProperty, this);
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.boardIndex:
+                    dirty = true;
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
             return;
         }
         // Parent

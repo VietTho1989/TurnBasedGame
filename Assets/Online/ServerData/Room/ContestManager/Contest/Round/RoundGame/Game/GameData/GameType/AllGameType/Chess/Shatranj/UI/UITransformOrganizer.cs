@@ -77,16 +77,44 @@ namespace Shatranj
                                 // find scale
                                 float scale = 1;
                                 {
-                                    switch (Setting.get().style.v)
+                                    // find
+                                    float X = 8;
+                                    float Y = 8;
+                                    float boardIndexDistance = 0;
                                     {
-                                        case Setting.Style.Western:
-                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
-                                            break;
-                                        case Setting.Style.Normal:
-                                        default:
-                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
-                                            break;
+                                        // X, Y
+                                        switch (Setting.get().style.v)
+                                        {
+                                            case Setting.Style.Western:
+                                                // nhu default
+                                                break;
+                                            case Setting.Style.Normal:
+                                            default:
+                                                {
+                                                    X = 9;
+                                                    Y = 9;
+                                                }
+                                                break;
+                                        }
+                                        // boardDistance
+                                        switch ((Setting.get().boardIndex.v))
+                                        {
+                                            case Setting.BoardIndex.None:
+                                                // nhu default
+                                                break;
+                                            case Setting.BoardIndex.InBoard:
+                                                // nhu default
+                                                break;
+                                            case Setting.BoardIndex.OutBoard:
+                                                boardIndexDistance = 1;
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                                break;
+                                        }
                                     }
+                                    // process
+                                    scale = Mathf.Min(Mathf.Abs(boardSize.x / (X + boardIndexDistance)), Mathf.Abs(boardSize.y / (Y + boardIndexDistance)));
                                 }
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
@@ -282,6 +310,21 @@ namespace Shatranj
                     case Setting.Property.language:
                         break;
                     case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

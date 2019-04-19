@@ -111,6 +111,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region boardIndex
+
+        public VP<RequestChangeEnumUI.UIData> boardIndex;
+
+        public void makeRequestChangeBoardIndex(RequestChangeUpdate<int>.UpdateData update, int newBoardIndex)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.boardIndex.v = (Setting.BoardIndex)newBoardIndex;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region showLastMove
 
         public VP<RequestChangeBoolUI.UIData> showLastMove;
@@ -487,6 +519,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             language,
             style,
             confirmQuit,
+            boardIndex,
             showLastMove,
             viewUrlImage,
             animationSetting,
@@ -552,6 +585,18 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 this.confirmQuit = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.confirmQuit, new RequestChangeBoolUI.UIData());
                 this.confirmQuit.v.updateData.v.request.v = makeRequestChangeConfirmQuit;
+            }
+            // boardIndex
+            {
+                this.boardIndex = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.boardIndex, new RequestChangeEnumUI.UIData());
+                this.boardIndex.v.updateData.v.request.v = makeRequestChangeBoardIndex;
+                // options
+                {
+                    foreach (Setting.BoardIndex boardIndex in System.Enum.GetValues(typeof(Setting.BoardIndex)))
+                    {
+                        this.boardIndex.v.options.add("" + boardIndex);
+                    }
+                }
             }
             // showLastMove
             {
@@ -737,6 +782,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbConfirmQuit;
     private static readonly TxtLanguage txtConfirmQuit = new TxtLanguage("Confirm quit");
 
+    public Text lbBoardIndex;
+    private static readonly TxtLanguage txtBoardIndex = new TxtLanguage("Board index");
+
     public Text lbShowLastMove;
     private static readonly TxtLanguage txtShowLastMove = new TxtLanguage("Show last move");
 
@@ -787,6 +835,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             txtLanguage.add(Language.Type.vi, "Ngôn Ngữ");
             txtStyle.add(Language.Type.vi, "Kiểu");
             txtConfirmQuit.add(Language.Type.vi, "Xác nhận thoát");
+            txtBoardIndex.add(Language.Type.vi, "Chỉ số vị trí");
             txtShowLastMove.add(Language.Type.vi, "Hiện nước đi ");
             txtViewUrlImage.add(Language.Type.vi, "Xem ảnh url");
             txtMaxThinkCount.add(Language.Type.vi, "Số luồng nghĩ tối đa");
@@ -849,8 +898,17 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     // request
                     {
                         RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, editData => Language.GetSupportIndex(editData.language.v));
-                        RequestChange.RefreshUI(this.data.style.v, editSetting, serverState, needReset, editData => (int)editData.style.v);
+                        // style
+                        {
+                            RequestChangeEnumUI.RefreshOptions(this.data.style.v, Setting.getStrStyles());
+                            RequestChange.RefreshUI(this.data.style.v, editSetting, serverState, needReset, editData => (int)editData.style.v);
+                        }
                         RequestChange.RefreshUI(this.data.confirmQuit.v, editSetting, serverState, needReset, editData => editData.confirmQuit.v);
+                        // boardIndex
+                        {
+                            RequestChangeEnumUI.RefreshOptions(this.data.boardIndex.v, Setting.getStrBoardIndexs());
+                            RequestChange.RefreshUI(this.data.boardIndex.v, editSetting, serverState, needReset, editData => (int)editData.boardIndex.v);
+                        }
                         RequestChange.RefreshUI(this.data.showLastMove.v, editSetting, serverState, needReset, editData => editData.showLastMove.v);
                         RequestChange.RefreshUI(this.data.viewUrlImage.v, editSetting, serverState, needReset, editData => editData.viewUrlImage.v);
                         EditDataUI.RefreshChildUI(this.data, this.data.animationSetting.v, editData => editData.animationSetting.v);
@@ -1259,6 +1317,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     UIUtils.SetLabelContentPosition(lbStyle, this.data.style.v, ref deltaY);
                     // confirmQuit
                     UIUtils.SetLabelContentPosition(lbConfirmQuit, this.data.confirmQuit.v, ref deltaY);
+                    // boardIndex
+                    UIUtils.SetLabelContentPosition(lbBoardIndex, this.data.boardIndex.v, ref deltaY);
                     // showLastMove
                     UIUtils.SetLabelContentPosition(lbShowLastMove, this.data.showLastMove.v, ref deltaY);
                     // viewUrlImage
@@ -1436,6 +1496,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     {
                         Debug.LogError("lbConfirmQuit null: " + this);
                     }
+                    if (lbBoardIndex != null)
+                    {
+                        lbBoardIndex.text = txtBoardIndex.get();
+                        Setting.get().setLabelTextSize(lbBoardIndex);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbBoardIndex null: " + this);
+                    }
                     if (lbShowLastMove != null)
                     {
                         lbShowLastMove.text = txtShowLastMove.get();
@@ -1595,6 +1664,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.language.allAddCallBack(this);
                 uiData.style.allAddCallBack(this);
                 uiData.confirmQuit.allAddCallBack(this);
+                uiData.boardIndex.allAddCallBack(this);
                 uiData.showLastMove.allAddCallBack(this);
                 uiData.viewUrlImage.allAddCallBack(this);
                 uiData.animationSetting.allAddCallBack(this);
@@ -1652,7 +1722,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     return;
                 }
             }
-            // language, style
+            // language, style, boardIndex
             if (data is RequestChangeEnumUI.UIData)
             {
                 RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -1667,6 +1737,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.style:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                break;
+                            case UIData.Property.boardIndex:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.defaultChosenGameType:
@@ -1926,6 +1999,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.language.allRemoveCallBack(this);
                 uiData.style.allRemoveCallBack(this);
                 uiData.confirmQuit.allRemoveCallBack(this);
+                uiData.boardIndex.allRemoveCallBack(this);
                 uiData.showLastMove.allRemoveCallBack(this);
                 uiData.viewUrlImage.allRemoveCallBack(this);
                 uiData.animationSetting.allRemoveCallBack(this);
@@ -1979,7 +2053,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     return;
                 }
             }
-            // language, style
+            // language, boardIndex, style
             if (data is RequestChangeEnumUI.UIData)
             {
                 RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -2172,6 +2246,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.boardIndex:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.showLastMove:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -2333,6 +2413,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             dirty = true;
                             break;
                         case Setting.Property.confirmQuit:
+                            dirty = true;
+                            break;
+                        case Setting.Property.boardIndex:
                             dirty = true;
                             break;
                         case Setting.Property.showLastMove:

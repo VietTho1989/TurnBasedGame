@@ -47,6 +47,13 @@ public class UIUtils
                     UIBehavior<T> newUI = TrashMan.normalSpawn(prefab, transform);
                     newUI.setData(data);
                     data.uiGameObject = newUI.gameObject;
+                    // haveTransformData
+                    {
+                        if(newUI is HaveTransformData)
+                        {
+                            data.haveTransformData = (HaveTransformData)newUI;
+                        }
+                    }
                     return newUI;
                 }
                 else
@@ -83,6 +90,13 @@ public class UIUtils
                     newUI.setData(data);
                     uiRectTransform.set((RectTransform)newUI.transform);
                     data.uiGameObject = newUI.gameObject;
+                    // haveTransformData
+                    {
+                        if (newUI is HaveTransformData)
+                        {
+                            data.haveTransformData = (HaveTransformData)newUI;
+                        }
+                    }
                     return newUI;
                 }
                 else
@@ -117,6 +131,13 @@ public class UIUtils
                     newUI.setData(data);
                     newUI.transform.SetSiblingIndex(siblingIndex);
                     data.uiGameObject = newUI.gameObject;
+                    // haveTransformData
+                    {
+                        if (newUI is HaveTransformData)
+                        {
+                            data.haveTransformData = (HaveTransformData)newUI;
+                        }
+                    }
                     return newUI;
                 }
                 else

@@ -193,7 +193,7 @@ public class DataUtils
                         // remove old
                         if (thisParent != null)
                         {
-                            Debug.LogError("Why have old parent: " + thisParent + "; " + data + "; " + callBack);
+                            // Debug.LogError("Why have old parent: " + thisParent + "; " + data + "; " + callBack);
                             thisParent.removeCallBack(callBack);
                         }
                         // set new
@@ -201,7 +201,7 @@ public class DataUtils
                     }
                     else
                     {
-                        Debug.LogError("the same: " + callBack);
+                        // Debug.LogError("the same: " + callBack);
                     }
                 }
                 // Add

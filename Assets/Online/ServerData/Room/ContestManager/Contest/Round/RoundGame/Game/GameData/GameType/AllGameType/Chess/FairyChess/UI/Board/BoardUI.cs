@@ -14,6 +14,8 @@ namespace FairyChess
 
             public VP<ReferenceData<FairyChess>> fairyChess;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             public LP<HandPieceUI.UIData> whiteHand;
@@ -25,6 +27,7 @@ namespace FairyChess
             public enum Property
             {
                 fairyChess,
+                boardIndexs,
                 pieces,
                 whiteHand,
                 blackHand
@@ -33,6 +36,11 @@ namespace FairyChess
             public UIData() : base()
             {
                 this.fairyChess = new VP<ReferenceData<FairyChess>>(this, (byte)Property.fairyChess, new ReferenceData<FairyChess>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.FairyChess;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
                 this.whiteHand = new LP<HandPieceUI.UIData>(this, (byte)Property.whiteHand);
                 this.blackHand = new LP<HandPieceUI.UIData>(this, (byte)Property.blackHand);
@@ -44,6 +52,9 @@ namespace FairyChess
         #endregion
 
         #region refresh
+
+        public RectTransform whiteHand;
+        public RectTransform blackHand;
 
         public override void refresh()
         {
@@ -294,6 +305,74 @@ namespace FairyChess
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
+                        // hand
+                        {
+                            if(whiteHand!=null && blackHand != null)
+                            {
+                                // find distance
+                                float distance = 500;
+                                {
+                                    switch (Setting.get().boardIndex.v)
+                                    {
+                                        case Setting.BoardIndex.None:
+                                            // nhu default
+                                            break;
+                                        case Setting.BoardIndex.InBoard:
+                                            // nhu default
+                                            break;
+                                        case Setting.BoardIndex.OutBoard:
+                                            distance = 550;
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                            break;
+                                    }
+                                }
+                                // process
+                                {
+                                    // white: -distance
+                                    {
+                                        UIRectTransform rect = new UIRectTransform();
+                                        {
+                                            // anchoredPosition: (0.0, -500.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                                            // offsetMin: (-400.0, -570.0); offsetMax: (400.0, -430.0); sizeDelta: (800.0, 140.0);
+                                            rect.anchoredPosition = new Vector3(0.0f, -distance, 0.0f);
+                                            rect.anchorMin = new Vector2(0.5f, 0.5f);
+                                            rect.anchorMax = new Vector2(0.5f, 0.5f);
+                                            rect.pivot = new Vector2(0.5f, 0.5f);
+                                            rect.offsetMin = new Vector2(-400.0f, -distance - 70.0f);
+                                            rect.offsetMax = new Vector2(400.0f, -distance + 70.0f);
+                                            rect.sizeDelta = new Vector2(800.0f, 140.0f);
+                                        }
+                                        rect.set(whiteHand);
+                                    }
+                                    // black: +distance
+                                    {
+                                        UIRectTransform rect = new UIRectTransform();
+                                        {
+                                            rect.anchoredPosition = new Vector3(0.0f, distance, 0.0f);
+                                            rect.anchorMin = new Vector2(0.5f, 0.5f);
+                                            rect.anchorMax = new Vector2(0.5f, 0.5f);
+                                            rect.pivot = new Vector2(0.5f, 0.5f);
+                                            rect.offsetMin = new Vector2(-400.0f, distance - 70.0f);
+                                            rect.offsetMax = new Vector2(400.0f, distance + 70.0f);
+                                            rect.sizeDelta = new Vector2(800.0f, 140.0f);
+                                        }
+                                        rect.set(blackHand);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("whiteHand, blackHand null");
+                            }
+                        }
                     }
                     else
                     {
@@ -326,11 +405,15 @@ namespace FairyChess
 
         private GameDataCheckChangeBlindFold<FairyChess> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<FairyChess>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     animationManagerCheckChange.needTimeChange = false;
@@ -344,10 +427,17 @@ namespace FairyChess
                 // Child
                 {
                     uiData.fairyChess.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                     uiData.whiteHand.allAddCallBack(this);
                     uiData.blackHand.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -378,6 +468,16 @@ namespace FairyChess
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -428,6 +528,8 @@ namespace FairyChess
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     animationManagerCheckChange.removeCallBack(this);
@@ -440,11 +542,18 @@ namespace FairyChess
                 // Child
                 {
                     uiData.fairyChess.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                     uiData.whiteHand.allRemoveCallBack(this);
                     uiData.blackHand.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
                 return;
             }
             // checkChange
@@ -471,6 +580,15 @@ namespace FairyChess
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -511,6 +629,12 @@ namespace FairyChess
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.boardIndexs:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
                     case UIData.Property.pieces:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
@@ -528,6 +652,50 @@ namespace FairyChess
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -600,6 +768,10 @@ namespace FairyChess
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

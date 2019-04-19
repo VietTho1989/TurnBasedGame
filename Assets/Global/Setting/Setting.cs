@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Setting : Data
 {
@@ -12,7 +13,21 @@ public class Setting : Data
 	static Setting()
 	{
 		instance = new Setting ();
-	}
+        // txt
+        {
+            // style
+            {
+                txtStyleNormal.add(Language.Type.vi, "Bình Thường");
+                txtStyleWestern.add(Language.Type.vi, "Phương Tây");
+            }
+            // boardIndex
+            {
+                txtBoardIndexNone.add(Language.Type.vi, "Không");
+                txtBoardIndexInBoard.add(Language.Type.vi, "Trong Bàn Cờ");
+                txtBoardIndexOutBoard.add(Language.Type.vi, "Ngoài Bàn Cờ");
+            }
+        }
+    }
 
 	public static Setting get()
 	{
@@ -31,6 +46,19 @@ public class Setting : Data
     {
         Normal,
         Western
+    }
+
+    private static readonly TxtLanguage txtStyleNormal = new TxtLanguage("Normal");
+    private static readonly TxtLanguage txtStyleWestern = new TxtLanguage("Western");
+
+    public static List<string> getStrStyles()
+    {
+        List<string> ret = new List<string>();
+        {
+            ret.Add(txtStyleNormal.get());
+            ret.Add(txtStyleWestern.get());
+        }
+        return ret;
     }
 
     public VP<Style> style;
@@ -138,6 +166,34 @@ public class Setting : Data
     #endregion
 
     public VP<bool> confirmQuit;
+
+    #region boardIndex
+
+    public enum BoardIndex
+    {
+        None,
+        InBoard,
+        OutBoard
+    }
+
+    private static readonly TxtLanguage txtBoardIndexNone = new TxtLanguage("None");
+    private static readonly TxtLanguage txtBoardIndexInBoard = new TxtLanguage("In Board");
+    private static readonly TxtLanguage txtBoardIndexOutBoard = new TxtLanguage("Out Board");
+
+    public static List<string> getStrBoardIndexs()
+    {
+        List<string> ret = new List<string>();
+        {
+            ret.Add(txtBoardIndexNone.get());
+            ret.Add(txtBoardIndexInBoard.get());
+            ret.Add(txtBoardIndexOutBoard.get());
+        }
+        return ret;
+    }
+
+    public VP<BoardIndex> boardIndex;
+
+    #endregion
 
     public VP<bool> showLastMove;
 
@@ -311,6 +367,7 @@ public class Setting : Data
         itemSize,
 
         confirmQuit,
+        boardIndex,
         showLastMove,
 		viewUrlImage,
 		animationSetting,
@@ -333,6 +390,7 @@ public class Setting : Data
             this.itemSize = new VP<float>(this, (byte)Property.itemSize, DefaultItemSize);
         }
         this.confirmQuit = new VP<bool>(this, (byte)Property.confirmQuit, true);
+        this.boardIndex = new VP<BoardIndex>(this, (byte)Property.boardIndex, BoardIndex.None);
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());

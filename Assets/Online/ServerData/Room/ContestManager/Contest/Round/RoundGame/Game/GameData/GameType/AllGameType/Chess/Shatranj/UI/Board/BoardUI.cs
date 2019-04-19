@@ -15,6 +15,8 @@ namespace Shatranj
 
             public VP<ReferenceData<Shatranj>> shatranj;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -22,12 +24,18 @@ namespace Shatranj
             public enum Property
             {
                 shatranj,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.shatranj = new VP<ReferenceData<Shatranj>>(this, (byte)Property.shatranj, new ReferenceData<Shatranj>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Shatranj;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -205,6 +213,12 @@ namespace Shatranj
                             Debug.LogError("bg null");
                         }
                     }
+                    // siblingIndex
+                    {
+                        // background 0
+                        // boardIndex last
+                        UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                    }
                 }
                 else
                 {
@@ -226,6 +240,8 @@ namespace Shatranj
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<Shatranj> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Shatranj>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -246,6 +262,7 @@ namespace Shatranj
                 // Child
                 {
                     uiData.shatranj.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -285,6 +302,16 @@ namespace Shatranj
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -318,6 +345,7 @@ namespace Shatranj
                 // Child
                 {
                     uiData.shatranj.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -353,6 +381,15 @@ namespace Shatranj
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -382,6 +419,12 @@ namespace Shatranj
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.boardIndexs:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
                     case UIData.Property.pieces:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
@@ -403,6 +446,20 @@ namespace Shatranj
                         break;
                     case Setting.Property.style:
                         dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
                         break;
                     case Setting.Property.showLastMove:
                         break;
@@ -465,6 +522,10 @@ namespace Shatranj
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

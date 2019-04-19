@@ -191,7 +191,7 @@ namespace Chess
 									imgPromotion.sprite = ChessSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
 								}
 							} else {
-								Debug.Log ("not hint: " + this);
+								// Debug.Log ("not hint: " + this);
 								imgPromotion.sprite = ChessSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
 							}
 						} else {

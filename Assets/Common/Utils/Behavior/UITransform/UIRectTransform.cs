@@ -491,6 +491,29 @@ public class UIRectTransform
         return ret;
     }
 
+    public static bool SetSiblingIndexLast(Data data)
+    {
+        bool ret = false;
+        if (data != null)
+        {
+            Transform transform = Data.FindTransform(data);
+            if (transform != null)
+            {
+                transform.SetAsLastSibling();
+                ret = true;
+            }
+            else
+            {
+                Debug.LogError("transform null");
+            }
+        }
+        else
+        {
+            // Debug.LogError("data null");
+        }
+        return ret;
+    }
+
     public static bool SetActive(Data data, bool isActive)
     {
         bool ret = false;

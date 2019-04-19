@@ -3160,6 +3160,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\AnimationProgress.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\AnimationProgressUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\CheckHaveAnimation.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\BoardIndex\BoardIndexsUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\BoardIndex\BoardIndexUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\GameDataBoardCheckPerspectiveChange.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\GameDataBoardCheckTransformChange.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\GameDataBoardUI.cs" />
@@ -3737,9 +3739,12 @@
     <Compile Include="Assets\Online\Utils\EmptyGameObject.cs" />
     <Compile Include="Assets\Online\Utils\ShowToast.cs" />
     <Compile Include="Assets\Online\Utils\UI\EnableDisableInform.cs" />
+    <Compile Include="Assets\Online\Utils\UI\ListShow\All\ListShowAll.cs" />
+    <Compile Include="Assets\Online\Utils\UI\ListShow\All\ListShowAllUI.cs" />
+    <Compile Include="Assets\Online\Utils\UI\ListShow\Limit\ListShowLimit.cs" />
+    <Compile Include="Assets\Online\Utils\UI\ListShow\Limit\ListShowLimitUI.cs" />
     <Compile Include="Assets\Online\Utils\UI\ListShow\ListShow.cs" />
-    <Compile Include="Assets\Online\Utils\UI\ListShow\ListShowAll.cs" />
-    <Compile Include="Assets\Online\Utils\UI\ListShow\ListShowLimit.cs" />
+    <Compile Include="Assets\Online\Utils\UI\ListShow\ListShowUI.cs" />
     <Compile Include="Assets\Online\Utils\UI\ReportTransformChange.cs" />
     <Compile Include="Assets\Online\Utils\UI\UIGlobalScale1.cs" />
     <Compile Include="Assets\Online\Utils\UI\UIInterface.cs" />

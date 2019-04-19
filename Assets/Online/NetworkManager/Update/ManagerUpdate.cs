@@ -173,6 +173,27 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                     admin.human.v.playerId.v = admin.uid;
                                 }
                                 this.data.users.add(admin);
+
+                                // TODO Test add users
+                                /*{
+                                    for (int i = 0; i < 5000; i++)
+                                    {
+                                        User testUser = new User();
+                                        {
+                                            testUser.uid = this.data.users.makeId();
+                                            testUser.human.v.playerId.v = (uint)(i + 1);
+                                            // account
+                                            {
+                                                AccountDevice account = new AccountDevice();
+                                                {
+                                                    account.imei.v = "Device " + i;
+                                                }
+                                                testUser.human.v.account.v = account;
+                                            }
+                                        }
+                                        this.data.users.add(testUser);
+                                    }
+                                }*/
                             }
                         }
                         // Update Property

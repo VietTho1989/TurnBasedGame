@@ -80,7 +80,25 @@ namespace FairyChess
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
+                // heightWidth
                 heightWidth = (8 + 1.4f + 1.4f + 0.1f + 0.1f + 0.1f + 0.1f) / 8;
+                {
+                    switch (Setting.get().boardIndex.v)
+                    {
+                        case Setting.BoardIndex.None:
+                            // nhu default
+                            break;
+                        case Setting.BoardIndex.InBoard:
+                            // nhu default
+                            break;
+                        case Setting.BoardIndex.OutBoard:
+                            heightWidth = (8 + 1.4f + 1.4f + 0.1f + 0.1f + 0.1f + 0.1f + 0.5f + 0.5f) / (8 + 0.5f + 0.5f);
+                            break;
+                        default:
+                            Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                            break;
+                    }
+                }
                 left = 0;
                 right = 0;
                 top = 0;

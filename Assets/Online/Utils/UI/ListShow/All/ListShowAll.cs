@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ListShowAll : ListShow
 {
 
-	public const uint MaxShowAll = 1000;
+	public const uint MaxShowAll = 200;
 
 	#region Constructor
 

@@ -15,6 +15,8 @@ namespace Makruk
 
             public VP<ReferenceData<Makruk>> makruk;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -22,12 +24,18 @@ namespace Makruk
             public enum Property
             {
                 makruk,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.makruk = new VP<ReferenceData<Makruk>>(this, (byte)Property.makruk, new ReferenceData<Makruk>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Makruk;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -186,6 +194,12 @@ namespace Makruk
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -213,6 +227,8 @@ namespace Makruk
 
         private GameDataCheckChangeBlindFold<Makruk> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Makruk>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -233,6 +249,7 @@ namespace Makruk
                 // Child
                 {
                     uiData.makruk.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -272,6 +289,16 @@ namespace Makruk
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -305,6 +332,7 @@ namespace Makruk
                 // Child
                 {
                     uiData.makruk.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -340,6 +368,15 @@ namespace Makruk
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -364,6 +401,12 @@ namespace Makruk
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.makruk:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -406,12 +449,10 @@ namespace Makruk
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
@@ -454,6 +495,10 @@ namespace Makruk
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

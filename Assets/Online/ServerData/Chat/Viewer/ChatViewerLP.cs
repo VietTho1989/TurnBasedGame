@@ -28,7 +28,7 @@ public class ChatViewerLP : LP<ChatViewer>, ValueChangeCallBack
             {
                 if (!chatViewerDict.TryGetValue(userId, out oldChatViewer))
                 {
-                    Debug.LogError("Don't have chatViewer");
+                    // Debug.LogError("Don't have chatViewer");
                 }
             }
             // get in notCorrectChatViewers
