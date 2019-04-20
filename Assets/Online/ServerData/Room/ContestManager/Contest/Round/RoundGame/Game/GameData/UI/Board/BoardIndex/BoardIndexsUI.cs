@@ -76,7 +76,6 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                                             {
                                                 Index index = new Index();
                                                 {
-                                                    index.gameType = GameType.Type.CHESS;
                                                     index.type = BoardIndexUI.UIData.Type.InBoard;
                                                     index.index = i;
                                                 }
@@ -92,7 +91,6 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                                                 {
                                                     Index index = new Index();
                                                     {
-                                                        index.gameType = GameType.Type.CHESS;
                                                         index.type = BoardIndexUI.UIData.Type.X;
                                                         index.index = i;
                                                     }
@@ -124,10 +122,53 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         case GameType.Type.Reversi:
                             break;
                         case GameType.Type.Xiangqi:
-                            break;
                         case GameType.Type.CO_TUONG_UP:
-                            break;
                         case GameType.Type.Janggi:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int i = 0; i < 90; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            // x
+                                            for (int i = 0; i < 18; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.X;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                            // y
+                                            for (int i = 0; i < 20; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.Y;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.Banqi:
                             break;

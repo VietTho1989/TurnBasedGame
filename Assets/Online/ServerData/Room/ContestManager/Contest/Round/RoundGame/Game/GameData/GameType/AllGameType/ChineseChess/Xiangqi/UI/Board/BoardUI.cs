@@ -14,6 +14,8 @@ namespace Xiangqi
 
             public VP<ReferenceData<Xiangqi>> xiangqi;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -21,12 +23,18 @@ namespace Xiangqi
             public enum Property
             {
                 xiangqi,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.xiangqi = new VP<ReferenceData<Xiangqi>>(this, (byte)Property.xiangqi, new ReferenceData<Xiangqi>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Xiangqi;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -180,6 +188,12 @@ namespace Xiangqi
                     {
                         // Debug.LogError ("xiangqi null: " + this);
                     }
+                    // siblingIndex
+                    {
+                        // background 0
+                        // boardIndex last
+                        UIRectTransform.SetSiblingIndex(this.data.boardIndexs.v, 1);
+                    }
                 }
                 else
                 {
@@ -201,6 +215,8 @@ namespace Xiangqi
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<Xiangqi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Xiangqi>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -219,6 +235,7 @@ namespace Xiangqi
                 // Child
                 {
                     uiData.xiangqi.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -252,6 +269,16 @@ namespace Xiangqi
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -283,6 +310,7 @@ namespace Xiangqi
                 // Child
                 {
                     uiData.xiangqi.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -312,6 +340,15 @@ namespace Xiangqi
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -406,6 +443,10 @@ namespace Xiangqi
                     {
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

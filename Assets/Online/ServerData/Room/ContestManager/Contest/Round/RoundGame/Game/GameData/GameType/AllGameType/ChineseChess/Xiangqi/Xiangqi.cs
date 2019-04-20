@@ -545,6 +545,7 @@ namespace Xiangqi
                     {
                         XiangqiMove xiangqiMove = new XiangqiMove();
                         {
+                            // Debug.LogError("xiangqiMove: " + Common.printMove(move));
                             xiangqiMove.move.v = move;
                         }
                         ret = xiangqiMove;

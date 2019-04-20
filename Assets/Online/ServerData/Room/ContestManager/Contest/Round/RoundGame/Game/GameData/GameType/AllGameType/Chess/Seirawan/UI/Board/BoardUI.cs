@@ -14,6 +14,8 @@ namespace Seirawan
 
             public VP<ReferenceData<Seirawan>> seirawan;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public VP<HandsUI.UIData> hands;
 
             public LP<PieceUI.UIData> pieces;
@@ -23,6 +25,7 @@ namespace Seirawan
             public enum Property
             {
                 seirawan,
+                boardIndexs,
                 hands,
                 pieces
             }
@@ -30,6 +33,11 @@ namespace Seirawan
             public UIData() : base()
             {
                 this.seirawan = new VP<ReferenceData<Seirawan>>(this, (byte)Property.seirawan, new ReferenceData<Seirawan>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Seirawan;
+                }
                 this.hands = new VP<HandsUI.UIData>(this, (byte)Property.hands, new HandsUI.UIData());
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
@@ -191,6 +199,12 @@ namespace Seirawan
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -219,6 +233,8 @@ namespace Seirawan
 
         private GameDataCheckChangeBlindFold<Seirawan> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Seirawan>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -237,6 +253,7 @@ namespace Seirawan
                 // Child
                 {
                     uiData.seirawan.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.hands.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
@@ -270,6 +287,16 @@ namespace Seirawan
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is HandsUI.UIData)
                 {
@@ -312,6 +339,7 @@ namespace Seirawan
                 // Child
                 {
                     uiData.seirawan.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.hands.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
@@ -342,6 +370,15 @@ namespace Seirawan
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is HandsUI.UIData)
                 {
@@ -376,6 +413,12 @@ namespace Seirawan
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.seirawan:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -457,6 +500,10 @@ namespace Seirawan
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is HandsUI.UIData)
                 {

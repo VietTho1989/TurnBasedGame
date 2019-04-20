@@ -235,6 +235,59 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                             case GameType.Type.Reversi:
                                 break;
                             case GameType.Type.Xiangqi:
+                                {
+                                    switch (this.data.type.v)
+                                    {
+                                        case UIData.Type.InBoard:
+                                            {
+                                                int x = this.data.index.v % 9;
+                                                int y = this.data.index.v / 10;
+                                                // text
+                                                {
+                                                    if (this.data.index.v >= 0 && this.data.index.v < 90)
+                                                    {
+                                                        text = (char)('a' + (int)(x)) + "" + y;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("index error: " + this.data.index.v);
+                                                    }
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        pos = Xiangqi.Common.convertXYToLocalPosition(x, y);
+                                                    }
+                                                    // process
+                                                    {
+                                                        float distance = 20;
+                                                        if (this.data.playerView.v == 0)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, -distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 30;
+                                            }
+                                            break;
+                                        case UIData.Type.X:
+                                            break;
+                                        case UIData.Type.Y:
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + this.data.type.v);
+                                            break;
+                                    }
+                                }
                                 break;
                             case GameType.Type.CO_TUONG_UP:
                                 break;

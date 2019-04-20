@@ -173,7 +173,25 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
                 // defaultChosenGameType
                 {
-                    GameType.Type defaultGameType = (GameType.Type)PlayerPrefs.GetInt(SettingDefaultChosenGame, (int)GameType.Type.CHESS);
+                    // find default Game
+                    GameType.Type defaultGame = GameType.Type.CHESS;
+                    {
+                        switch (Application.systemLanguage)
+                        {
+                            case SystemLanguage.Vietnamese:
+                                defaultGame = GameType.Type.Xiangqi;
+                                break;
+                            case SystemLanguage.Chinese:
+                            case SystemLanguage.ChineseSimplified:
+                            case SystemLanguage.ChineseTraditional:
+                                defaultGame = GameType.Type.Xiangqi;
+                                break;
+                            default:
+                                defaultGame = GameType.Type.CHESS;
+                                break;
+                        }
+                    }
+                    GameType.Type defaultGameType = (GameType.Type)PlayerPrefs.GetInt(SettingDefaultChosenGame, (int)defaultGame);
                     switch((DefaultChosenGame.Type)PlayerPrefs.GetInt(SettingDefaultChosenGameType, (int)DefaultChosenGame.Type.Last))
                     {
                         case DefaultChosenGame.Type.Last:

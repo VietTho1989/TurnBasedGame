@@ -452,6 +452,8 @@ namespace Seirawan
                                 break;
                             case Seirawan.Property.byColorBB:
                                 break;
+                            case Seirawan.Property.inHand:
+                                break;
                             case Seirawan.Property.handScore:
                                 break;
                             case Seirawan.Property.pieceCount:
