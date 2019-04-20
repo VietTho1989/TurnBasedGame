@@ -379,6 +379,12 @@ namespace Xiangqi
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.boardIndexs:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
                     case UIData.Property.pieces:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);

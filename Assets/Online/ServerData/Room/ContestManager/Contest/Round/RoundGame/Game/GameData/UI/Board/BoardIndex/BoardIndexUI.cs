@@ -377,8 +377,299 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                             case GameType.Type.InternationalDraught:
                                 break;
                             case GameType.Type.EnglishDraught:
+                                {
+                                    switch (this.data.type.v)
+                                    {
+                                        case UIData.Type.InBoard:
+                                            {
+                                                // text
+                                                {
+                                                    int x = 7 - this.data.index.v % 8;
+                                                    int y = this.data.index.v / 8;
+                                                    text = "" + (EnglishDraught.Common.getIndexFromXY(x, y) + 1);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        pos = EnglishDraught.Common.convertSquareToLocalPosition(this.data.index.v);
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 30;
+                                                        // process
+                                                        if (this.data.playerView.v == 0)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, -distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.white;
+                                            }
+                                            break;
+                                        case UIData.Type.X:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + (char)('a' + (int)(this.data.index.v % 8));
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(this.data.index.v, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(this.data.index.v - 8, 7);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 75;
+                                                        {
+                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
+                                                            {
+                                                                if (Setting.get().style.v == Setting.Style.Normal)
+                                                                {
+                                                                    distance = 125;
+                                                                }
+                                                            }
+                                                        }
+                                                        // process
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, -distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 36;
+                                            }
+                                            break;
+                                        case UIData.Type.Y:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + ((this.data.index.v % 8) + 1);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(0, this.data.index.v);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(7, this.data.index.v - 8);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 75;
+                                                        {
+                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
+                                                            {
+                                                                if (Setting.get().style.v == Setting.Style.Normal)
+                                                                {
+                                                                    distance = 125;
+                                                                }
+                                                            }
+                                                        }
+                                                        // process
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, 0, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(distance, 0, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 36;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + this.data.type.v);
+                                            break;
+                                    }
+                                }
                                 break;
                             case GameType.Type.RussianDraught:
+                                {
+                                    switch (this.data.type.v)
+                                    {
+                                        case UIData.Type.InBoard:
+                                            {
+                                                // text
+                                                {
+                                                    int x = this.data.index.v % 8;
+                                                    int y = 7 - this.data.index.v / 8;
+                                                    if (this.data.index.v >= 0 && this.data.index.v < 64)
+                                                    {
+                                                        text = Chess.Common.squareToString((Chess.Common.Square)(x + 8 * y));
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("index error: " + this.data.index.v);
+                                                    }
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        pos = EnglishDraught.Common.convertSquareToLocalPosition(this.data.index.v);
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 30;
+                                                        // process
+                                                        if (this.data.playerView.v == 0)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, -distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.white;
+                                            }
+                                            break;
+                                        case UIData.Type.X:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + (char)('a' + (int)(this.data.index.v % 8));
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(this.data.index.v, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(this.data.index.v - 8, 7);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 75;
+                                                        {
+                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
+                                                            {
+                                                                if (Setting.get().style.v == Setting.Style.Normal)
+                                                                {
+                                                                    distance = 125;
+                                                                }
+                                                            }
+                                                        }
+                                                        // process
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, -distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 36;
+                                            }
+                                            break;
+                                        case UIData.Type.Y:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + ((this.data.index.v % 8) + 1);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(0, this.data.index.v);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Chess.Common.convertXYToLocalPosition(7, this.data.index.v - 8);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 75;
+                                                        {
+                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
+                                                            {
+                                                                if (Setting.get().style.v == Setting.Style.Normal)
+                                                                {
+                                                                    distance = 125;
+                                                                }
+                                                            }
+                                                        }
+                                                        // process
+                                                        if (this.data.index.v < 8)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, 0, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(distance, 0, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 36;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + this.data.type.v);
+                                            break;
+                                    }
+                                }
                                 break;
                             case GameType.Type.ChineseCheckers:
                                 break;

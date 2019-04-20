@@ -226,7 +226,7 @@ namespace RussianDraught.UseRule
                                             legalMoves.Add(legalMove);
                                         }
                                     }
-                                    Debug.LogError("clickDestClickUI: " + GameUtils.Utils.getListString(legalMoves) + "; " + this);
+                                    // Debug.LogError("clickDestClickUI: " + GameUtils.Utils.getListString(legalMoves) + "; " + this);
                                     // Get PositionList
                                     for (int legalMoveIndex = 0; legalMoveIndex < legalMoves.Count; legalMoveIndex++)
                                     {

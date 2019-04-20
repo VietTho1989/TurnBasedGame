@@ -100,7 +100,6 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                                                 {
                                                     Index index = new Index();
                                                     {
-                                                        index.gameType = GameType.Type.CHESS;
                                                         index.type = BoardIndexUI.UIData.Type.Y;
                                                         index.index = i;
                                                     }
@@ -142,25 +141,26 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                                         break;
                                     case Setting.BoardIndex.OutBoard:
                                         {
-                                            // x
-                                            for (int i = 0; i < 18; i++)
+                                            for (int i = 0; i < 16; i++)
                                             {
-                                                Index index = new Index();
+                                                // x
                                                 {
-                                                    index.type = BoardIndexUI.UIData.Type.X;
-                                                    index.index = i;
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
                                                 }
-                                                indexs.Add(index);
-                                            }
-                                            // y
-                                            for (int i = 0; i < 20; i++)
-                                            {
-                                                Index index = new Index();
+                                                // y
                                                 {
-                                                    index.type = BoardIndexUI.UIData.Type.Y;
-                                                    index.index = i;
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
                                                 }
-                                                indexs.Add(index);
                                             }
                                         }
                                         break;
@@ -177,8 +177,110 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         case GameType.Type.InternationalDraught:
                             break;
                         case GameType.Type.EnglishDraught:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int y = 0; y < 8; y++)
+                                            {
+                                                for (int x = 0; x < 8; x++)
+                                                {
+                                                    if((x + y) % 2 == 1)
+                                                    {
+                                                        Index index = new Index();
+                                                        {
+                                                            index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                            index.index = x + 8 * y;
+                                                        }
+                                                        indexs.Add(index);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            // x
+                                            for (int i = 0; i < 16; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.X;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                            // y
+                                            for (int i = 0; i < 16; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.Y;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.RussianDraught:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int y = 0; y < 8; y++)
+                                            {
+                                                for (int x = 0; x < 8; x++)
+                                                {
+                                                    if ((x + y) % 2 == 1)
+                                                    {
+                                                        Index index = new Index();
+                                                        {
+                                                            index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                            index.index = x + 8 * y;
+                                                        }
+                                                        indexs.Add(index);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            // x
+                                            for (int i = 0; i < 16; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.X;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                            // y
+                                            for (int i = 0; i < 16; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.Y;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.ChineseCheckers:
                             break;

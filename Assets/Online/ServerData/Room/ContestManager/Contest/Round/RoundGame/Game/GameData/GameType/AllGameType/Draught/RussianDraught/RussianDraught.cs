@@ -492,6 +492,7 @@ namespace RussianDraught
                     RussianDraughtMove move = Core.unityLetComputerThink(this, true, ai.timeLimit.v, ai.pickBestMove.v);
                     if (move != null)
                     {
+                        Debug.LogError("find russianDraughtMove: " + Core.unityGetStrMove(move, Core.CanCorrect));
                         ret = move;
                     }
                     else

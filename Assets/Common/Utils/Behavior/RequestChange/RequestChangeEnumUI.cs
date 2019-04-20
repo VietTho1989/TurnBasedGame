@@ -396,6 +396,8 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
                     break;
                 case Setting.Property.confirmQuit:
                     break;
+                case Setting.Property.boardIndex:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

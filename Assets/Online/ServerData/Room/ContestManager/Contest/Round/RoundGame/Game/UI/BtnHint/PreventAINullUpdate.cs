@@ -135,6 +135,8 @@ namespace Hint
                             dirty = true;
                         }
                         break;
+                    case HintUI.UIData.Property.visibility:
+                        break;
                     case HintUI.UIData.Property.autoHint:
                         break;
                     case HintUI.UIData.Property.state:

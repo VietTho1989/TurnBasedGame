@@ -15,6 +15,8 @@ namespace EnglishDraught
 
             public VP<ReferenceData<EnglishDraught>> englishDraught;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -22,12 +24,18 @@ namespace EnglishDraught
             public enum Property
             {
                 englishDraught,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.englishDraught = new VP<ReferenceData<EnglishDraught>>(this, (byte)Property.englishDraught, new ReferenceData<EnglishDraught>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.EnglishDraught;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -157,6 +165,12 @@ namespace EnglishDraught
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -183,6 +197,8 @@ namespace EnglishDraught
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<EnglishDraught> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<EnglishDraught>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -201,6 +217,7 @@ namespace EnglishDraught
                 // Child
                 {
                     uiData.englishDraught.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -234,6 +251,16 @@ namespace EnglishDraught
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -265,6 +292,7 @@ namespace EnglishDraught
                 // Child
                 {
                     uiData.englishDraught.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -295,6 +323,15 @@ namespace EnglishDraught
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -319,6 +356,12 @@ namespace EnglishDraught
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.englishDraught:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -391,6 +434,10 @@ namespace EnglishDraught
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

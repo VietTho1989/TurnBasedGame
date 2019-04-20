@@ -437,7 +437,7 @@ namespace EnglishDraught
                     }
                     EnglishDraughtAI ai = (computerAI != null && computerAI is EnglishDraughtAI) ? (EnglishDraughtAI)computerAI : new EnglishDraughtAI();
                     EnglishDraughtMove move = Core.unityLetComputerThink(this, true, ai.threeMoveRandom.v, ai.fMaxSeconds.v, ai.g_MaxDepth.v, ai.pickBestMove.v);
-                    // Debug.LogError ("find ai move: " + Common.printMove (move) + "; " + this);
+                    Debug.LogError ("find ai move: " + Common.printMove (move));
                     // return
                     ret = move;
                 }
