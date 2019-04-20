@@ -74,7 +74,28 @@ namespace CoTuongUp
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (chessSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 10f));
+                                // find X, Y
+                                float X = 9f;
+                                float Y = 10f;
+                                {
+                                    switch (Setting.get().boardIndex.v)
+                                    {
+                                        case Setting.BoardIndex.None:
+                                            break;
+                                        case Setting.BoardIndex.InBoard:
+                                            break;
+                                        case Setting.BoardIndex.OutBoard:
+                                            {
+                                                X = 10;
+                                                Y = 11;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                            break;
+                                    }
+                                }
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / X), Mathf.Abs(boardSize.y / Y));
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
                                 {
@@ -129,6 +150,8 @@ namespace CoTuongUp
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -143,6 +166,12 @@ namespace CoTuongUp
             }
             // Global
             if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
             {
                 dirty = true;
                 return;
@@ -182,6 +211,8 @@ namespace CoTuongUp
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -196,6 +227,11 @@ namespace CoTuongUp
             }
             // Global
             if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if(data is Setting)
             {
                 return;
             }
@@ -244,6 +280,50 @@ namespace CoTuongUp
             if (wrapProperty.p is Global)
             {
                 Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
                 return;
             }
             // CheckChange

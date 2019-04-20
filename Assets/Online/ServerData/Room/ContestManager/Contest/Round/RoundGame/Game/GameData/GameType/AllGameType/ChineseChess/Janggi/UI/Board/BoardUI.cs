@@ -14,6 +14,8 @@ namespace Janggi
 
             public VP<ReferenceData<Janggi>> janggi;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -21,12 +23,18 @@ namespace Janggi
             public enum Property
             {
                 janggi,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.janggi = new VP<ReferenceData<Janggi>>(this, (byte)Property.janggi, new ReferenceData<Janggi>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Janggi;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -173,6 +181,12 @@ namespace Janggi
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndex(this.data.boardIndexs.v, 1);
+                        }
                     }
                     else
                     {
@@ -199,6 +213,8 @@ namespace Janggi
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<Janggi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Janggi>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -217,6 +233,7 @@ namespace Janggi
                 // Child
                 {
                     uiData.janggi.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -250,6 +267,16 @@ namespace Janggi
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -281,6 +308,7 @@ namespace Janggi
                 // Child
                 {
                     uiData.janggi.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -311,6 +339,15 @@ namespace Janggi
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -335,6 +372,12 @@ namespace Janggi
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.janggi:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -394,6 +437,10 @@ namespace Janggi
                     {
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

@@ -86,7 +86,27 @@ namespace CoTuongUp
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
+                // heightWidth
                 heightWidth = (10 + 3.0f) / 9.0f;
+                {
+                    switch (Setting.get().boardIndex.v)
+                    {
+                        case Setting.BoardIndex.None:
+                            // nhu default
+                            break;
+                        case Setting.BoardIndex.InBoard:
+                            // nhu default
+                            break;
+                        case Setting.BoardIndex.OutBoard:
+                            {
+                                heightWidth = (10 + 3.0f + 1.0f) / (9.0f + 1.0f);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                            break;
+                    }
+                }
                 left = 0;
                 right = 0;
                 top = 0;

@@ -15,6 +15,8 @@ namespace CoTuongUp
 
             public VP<ReferenceData<CoTuongUp>> coTuongUp;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public VP<bool> isWatcher;
 
             public LP<PieceUI.UIData> pieces;
@@ -26,6 +28,7 @@ namespace CoTuongUp
             public enum Property
             {
                 coTuongUp,
+                boardIndexs,
                 isWatcher,
                 pieces,
                 captures
@@ -34,6 +37,11 @@ namespace CoTuongUp
             public UIData() : base()
             {
                 this.coTuongUp = new VP<ReferenceData<CoTuongUp>>(this, (byte)Property.coTuongUp, new ReferenceData<CoTuongUp>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.CO_TUONG_UP;
+                }
                 this.isWatcher = new VP<bool>(this, (byte)Property.isWatcher, false);
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
                 this.captures = new LP<CaptureUI.UIData>(this, (byte)Property.captures);
@@ -46,6 +54,9 @@ namespace CoTuongUp
         #endregion
 
         #region Refresh
+
+        public RectTransform redHand;
+        public RectTransform blackHand;
 
         public override void refresh()
         {
@@ -265,10 +276,75 @@ namespace CoTuongUp
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndex(this.data.boardIndexs.v, 1);
+                        }
                     }
                     else
                     {
                         Debug.LogError("coTuongUp null: " + this);
+                    }
+                    // hand
+                    {
+                        if(redHand!=null && blackHand != null)
+                        {
+                            // find
+                            float distance = 600;
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.None:
+                                        // nhu default
+                                        break;
+                                    case Setting.BoardIndex.InBoard:
+                                        // nhu default
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        distance = 650;
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
+                            // red
+                            {
+                                UIRectTransform rect = new UIRectTransform();
+                                {
+                                    // anchoredPosition: (0.0, -600.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                                    // offsetMin: (-450.0, -650.0); offsetMax: (450.0, -550.0); sizeDelta: (900.0, 100.0);
+                                    rect.anchoredPosition = new Vector3(0.0f, -distance);
+                                    rect.anchorMin = new Vector2(0.5f, 0.5f);
+                                    rect.anchorMax = new Vector2(0.5f, 0.5f);
+                                    rect.pivot = new Vector2(0.5f, 0.5f);
+                                    rect.offsetMin = new Vector2(-450.0f, -distance - 50.0f);
+                                    rect.offsetMax = new Vector2(450.0f, -distance + 50.0f);
+                                    rect.sizeDelta = new Vector2(900.0f, 100.0f);
+                                }
+                                rect.set(redHand);
+                            }
+                            // black
+                            {
+                                UIRectTransform rect = new UIRectTransform();
+                                {
+                                    rect.anchoredPosition = new Vector3(0.0f, distance);
+                                    rect.anchorMin = new Vector2(0.5f, 0.5f);
+                                    rect.anchorMax = new Vector2(0.5f, 0.5f);
+                                    rect.pivot = new Vector2(0.5f, 0.5f);
+                                    rect.offsetMin = new Vector2(-450.0f, distance + 50.0f);
+                                    rect.offsetMax = new Vector2(450.0f, distance - 50.0f);
+                                    rect.sizeDelta = new Vector2(900.0f, 100.0f);
+                                }
+                                rect.set(blackHand);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("redHand, blackHand null");
+                        }
                     }
                 }
                 else
@@ -297,11 +373,15 @@ namespace CoTuongUp
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<CoTuongUp> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<CoTuongUp>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     animationManagerCheckChange.needTimeChange = false;
@@ -315,9 +395,16 @@ namespace CoTuongUp
                 // Child
                 {
                     uiData.coTuongUp.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                     uiData.captures.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -374,6 +461,16 @@ namespace CoTuongUp
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -403,6 +500,8 @@ namespace CoTuongUp
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     animationManagerCheckChange.removeCallBack(this);
@@ -415,18 +514,22 @@ namespace CoTuongUp
                 // Child
                 {
                     uiData.coTuongUp.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                     uiData.captures.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
             }
-            // checkChange
+            // Setting
+            if(data is Setting)
             {
-                if (data is AnimationManagerCheckChange<UIData>)
-                {
-                    return;
-                }
+                return;
+            }
+            // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
+            {
+                return;
             }
             // Child
             {
@@ -470,6 +573,15 @@ namespace CoTuongUp
                         return;
                     }
                 }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -508,6 +620,12 @@ namespace CoTuongUp
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.boardIndexs:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
                     case UIData.Property.isWatcher:
                         break;
                     case UIData.Property.pieces:
@@ -523,18 +641,60 @@ namespace CoTuongUp
                         }
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
             // Check Change
+            if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
             {
-                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Child
             {
@@ -597,6 +757,10 @@ namespace CoTuongUp
                         }
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

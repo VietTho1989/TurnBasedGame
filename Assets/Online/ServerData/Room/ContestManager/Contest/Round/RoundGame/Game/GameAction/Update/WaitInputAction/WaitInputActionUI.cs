@@ -533,6 +533,20 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     break;
                 case Setting.Property.style:
                     break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.boardIndex:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

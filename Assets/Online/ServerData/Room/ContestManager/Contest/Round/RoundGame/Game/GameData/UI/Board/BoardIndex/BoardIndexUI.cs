@@ -235,13 +235,16 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                             case GameType.Type.Reversi:
                                 break;
                             case GameType.Type.Xiangqi:
+                            case GameType.Type.CO_TUONG_UP:
+                            case GameType.Type.Janggi:
                                 {
                                     switch (this.data.type.v)
                                     {
                                         case UIData.Type.InBoard:
                                             {
                                                 int x = this.data.index.v % 9;
-                                                int y = this.data.index.v / 10;
+                                                int y = this.data.index.v / 9;
+                                                // Debug.LogError("xiangqi boardIndex: " + x + ", " + y + ", " + this.data.index.v);
                                                 // text
                                                 {
                                                     if (this.data.index.v >= 0 && this.data.index.v < 90)
@@ -280,18 +283,92 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                                             }
                                             break;
                                         case UIData.Type.X:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + (char)('a' + (int)(this.data.index.v % 9));
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 9)
+                                                        {
+                                                            pos = Xiangqi.Common.convertXYToLocalPosition(this.data.index.v, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Xiangqi.Common.convertXYToLocalPosition(this.data.index.v - 9, 9);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 84;
+                                                        // process
+                                                        if (this.data.index.v < 9)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, -distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(0, distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 50;
+                                            }
                                             break;
                                         case UIData.Type.Y:
+                                            {
+                                                // text
+                                                {
+                                                    text = "" + (this.data.index.v % 10);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        if (this.data.index.v < 10)
+                                                        {
+                                                            pos = Xiangqi.Common.convertXYToLocalPosition(0, this.data.index.v);
+                                                        }
+                                                        else
+                                                        {
+                                                            pos = Xiangqi.Common.convertXYToLocalPosition(8, this.data.index.v - 10);
+                                                        }
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 84;
+                                                        // process
+                                                        if (this.data.index.v < 10)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, 0, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(distance, 0, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 50;
+                                            }
                                             break;
                                         default:
                                             Debug.LogError("unknown type: " + this.data.type.v);
                                             break;
                                     }
                                 }
-                                break;
-                            case GameType.Type.CO_TUONG_UP:
-                                break;
-                            case GameType.Type.Janggi:
                                 break;
                             case GameType.Type.Banqi:
                                 break;
