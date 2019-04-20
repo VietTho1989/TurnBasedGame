@@ -228,8 +228,6 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                                     }
                                 }
                                 break;
-                            case GameType.Type.Weiqi:
-                                break;
                             case GameType.Type.SHOGI:
                                 break;
                             case GameType.Type.Reversi:
@@ -372,9 +370,257 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                                 break;
                             case GameType.Type.Banqi:
                                 break;
+                            case GameType.Type.Weiqi:
                             case GameType.Type.Gomoku:
+                                {
+                                    int boardSize = 19;
+                                    {
+                                        // find 
+                                        {
+                                            if (this.data.gameType.v == GameType.Type.Gomoku)
+                                            {
+                                                Gomoku.BoardUI.UIData gomokuBoardUIData = this.data.findDataInParent<Gomoku.BoardUI.UIData>();
+                                                if (gomokuBoardUIData != null)
+                                                {
+                                                    boardSize = gomokuBoardUIData.boardSize.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("gomokuBoardUIData null");
+                                                }
+                                            }
+                                            else if (this.data.gameType.v == GameType.Type.Weiqi)
+                                            {
+                                                Weiqi.BoardUI.UIData weiqiBoardUIData = this.data.findDataInParent<Weiqi.BoardUI.UIData>();
+                                                if (weiqiBoardUIData != null)
+                                                {
+                                                    boardSize = weiqiBoardUIData.boardSize.v - 2;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("weiqiBoardUIData null");
+                                                }
+                                            }
+                                        }
+                                        // correct
+                                        if (boardSize <= 0)
+                                        {
+                                            Debug.LogError("boardSize error: " + boardSize);
+                                            boardSize = 1;
+                                        }
+                                    }
+                                    // text
+                                    {
+                                        switch (this.data.type.v)
+                                        {
+                                            case UIData.Type.X:
+                                                {
+                                                    int index = this.data.index.v % boardSize;
+                                                    {
+                                                        if (index > 7)
+                                                        {
+                                                            index++;
+                                                        }
+                                                    }
+                                                    text = "" + (char)('A' + (int)index);
+                                                }
+                                                break;
+                                            case UIData.Type.Y:
+                                                text = "" + (this.data.index.v % boardSize + 1);
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + this.data.type.v);
+                                                break;
+                                        }
+                                    }
+                                    // localPosition
+                                    {
+                                        // find pos
+                                        Vector3 pos = Vector3.zero;
+                                        {
+                                            // find square
+                                            int square = 0;
+                                            {
+                                                switch (this.data.type.v)
+                                                {
+                                                    case UIData.Type.X:
+                                                        {
+                                                            if (this.data.index.v < boardSize)
+                                                            {
+                                                                square = this.data.index.v%boardSize + boardSize * 0;
+                                                            }
+                                                            else
+                                                            {
+                                                                square = this.data.index.v % boardSize + boardSize * (boardSize - 1);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case UIData.Type.Y:
+                                                        {
+                                                            if (this.data.index.v < boardSize)
+                                                            {
+                                                                square = 0 + boardSize * (this.data.index.v % boardSize);
+                                                            }
+                                                            else
+                                                            {
+                                                                square = (boardSize - 1) + boardSize * (this.data.index.v % boardSize);
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + this.data.type.v);
+                                                        break;
+                                                }
+                                            }
+                                            // process
+                                            pos = Gomoku.Common.convertSquareToLocalPosition(boardSize, square);
+                                        }
+                                        // process
+                                        {
+                                            // find distance
+                                            float distance = 100;
+                                            // process
+                                            {
+                                                switch (this.data.type.v)
+                                                {
+                                                    case UIData.Type.X:
+                                                        {
+                                                            if (this.data.index.v < boardSize)
+                                                            {
+                                                                localPosition = pos * DefaultScale + new Vector3(0, -distance, 0);
+                                                            }
+                                                            else
+                                                            {
+                                                                localPosition = pos * DefaultScale + new Vector3(0, distance, 0);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case UIData.Type.Y:
+                                                        {
+                                                            if (this.data.index.v < boardSize)
+                                                            {
+                                                                localPosition = pos * DefaultScale + new Vector3(-distance, 0, 0);
+                                                            }
+                                                            else
+                                                            {
+                                                                localPosition = pos * DefaultScale + new Vector3(distance, 0, 0);
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + this.data.type.v);
+                                                        break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    // color
+                                    color = Color.black;
+                                    // fontSize
+                                    fontSize = 50;
+                                }
                                 break;
                             case GameType.Type.InternationalDraught:
+                                {
+                                    switch (this.data.type.v)
+                                    {
+                                        case UIData.Type.InBoard:
+                                            {
+                                                // text
+                                                {
+                                                    text = InternationalDraught.Common.square_to_string(this.data.index.v);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        pos = InternationalDraught.Common.convertSquareToLocalPosition(this.data.index.v);
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 30;
+                                                        // process
+                                                        if (this.data.playerView.v == 0)
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, distance, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            localPosition = pos * DefaultScale + new Vector3(-distance, -distance, 0);
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.white;
+                                                // fontSize
+                                                fontSize = 30;
+                                            }
+                                            break;
+                                        case UIData.Type.X:
+                                        case UIData.Type.Y:
+                                            {
+                                                // text
+                                                {
+                                                    text = InternationalDraught.Common.square_to_string(this.data.index.v);
+                                                }
+                                                // localPosition
+                                                {
+                                                    // find pos
+                                                    Vector3 pos = Vector3.zero;
+                                                    {
+                                                        pos = InternationalDraught.Common.convertSquareToLocalPosition(this.data.index.v);
+                                                    }
+                                                    // process
+                                                    {
+                                                        // find distance
+                                                        float distance = 75;
+                                                        // process
+                                                        int std = InternationalDraught.Common.square_to_std(this.data.index.v);
+                                                        switch (this.data.type.v)
+                                                        {
+                                                            case UIData.Type.X:
+                                                                {
+                                                                    if (std <= 5)
+                                                                    {
+                                                                        localPosition = pos * DefaultScale + new Vector3(0, distance, 0);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        localPosition = pos * DefaultScale + new Vector3(0, -distance, 0);
+                                                                    }
+                                                                }
+                                                                break;
+                                                            case UIData.Type.Y:
+                                                                {
+                                                                    if (std % 2 == 0)
+                                                                    {
+                                                                        localPosition = pos * DefaultScale + new Vector3(-distance, 0, 0);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        localPosition = pos * DefaultScale + new Vector3(distance, 0, 0);
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                Debug.LogError("unknown type: " + this.data.type.v);
+                                                                break;
+                                                        }
+                                                    }
+                                                }
+                                                // color
+                                                color = Color.black;
+                                                // fontSize
+                                                fontSize = 36;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + this.data.type.v);
+                                            break;
+                                    }
+                                }
                                 break;
                             case GameType.Type.EnglishDraught:
                                 {
@@ -438,15 +684,6 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                                                     {
                                                         // find distance
                                                         float distance = 75;
-                                                        {
-                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
-                                                            {
-                                                                if (Setting.get().style.v == Setting.Style.Normal)
-                                                                {
-                                                                    distance = 125;
-                                                                }
-                                                            }
-                                                        }
                                                         // process
                                                         if (this.data.index.v < 8)
                                                         {
@@ -488,15 +725,6 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                                                     {
                                                         // find distance
                                                         float distance = 75;
-                                                        {
-                                                            if (this.data.gameType.v == GameType.Type.Shatranj || this.data.gameType.v == GameType.Type.Makruk)
-                                                            {
-                                                                if (Setting.get().style.v == Setting.Style.Normal)
-                                                                {
-                                                                    distance = 125;
-                                                                }
-                                                            }
-                                                        }
                                                         // process
                                                         if (this.data.index.v < 8)
                                                         {
@@ -733,12 +961,21 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
 
     #region implement callBacks
 
+    private Gomoku.BoardUI.UIData gomokuBoardUIData = null;
+    private Weiqi.BoardUI.UIData weiqiBoardUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
         {
+            UIData uiData = data as UIData;
             // Setting
             Setting.get().addCallBack(this);
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.gomokuBoardUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.weiqiBoardUIData);
+            }
             dirty = true;
             return;
         }
@@ -747,6 +984,19 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
         {
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if (data is Gomoku.BoardUI.UIData)
+            {
+                dirty = true;
+                return;
+            }
+            if(data is Weiqi.BoardUI.UIData)
+            {
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -758,6 +1008,11 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
             UIData uiData = data as UIData;
             // Setting
             Setting.get().removeCallBack(this);
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.gomokuBoardUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.weiqiBoardUIData);
+            }
             this.setDataNull(uiData);
             return;
         }
@@ -765,6 +1020,17 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
         if(data is Setting)
         {
             return;
+        }
+        // Parent
+        {
+            if (data is Gomoku.BoardUI.UIData)
+            {
+                return;
+            }
+            if(data is Weiqi.BoardUI.UIData)
+            {
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -840,6 +1106,50 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                     break;
             }
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is Gomoku.BoardUI.UIData)
+            {
+                switch ((Gomoku.BoardUI.UIData.Property)wrapProperty.n)
+                {
+                    case Gomoku.BoardUI.UIData.Property.gomoku:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.boardIndexs:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.boardSize:
+                        dirty = true;
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.background:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.pieces:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+            }
+            if(wrapProperty.p is Weiqi.BoardUI.UIData)
+            {
+                switch ((Weiqi.BoardUI.UIData.Property)wrapProperty.n)
+                {
+                    case Weiqi.BoardUI.UIData.Property.weiqi:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.background:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.mode:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.boardSize:
+                        dirty = true;
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.pieces:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }

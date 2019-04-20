@@ -15,6 +15,8 @@ namespace InternationalDraught
 
             public VP<ReferenceData<InternationalDraught>> internationalDraught;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region Constructor
@@ -22,12 +24,18 @@ namespace InternationalDraught
             public enum Property
             {
                 internationalDraught,
+                boardIndexs,
                 pieces
             }
 
             public UIData() : base()
             {
                 this.internationalDraught = new VP<ReferenceData<InternationalDraught>>(this, (byte)Property.internationalDraught, new ReferenceData<InternationalDraught>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.InternationalDraught;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
             }
 
@@ -117,10 +125,10 @@ namespace InternationalDraught
                                         }
                                     }
                                     // board
-                                    for (int y = 0; y < Common.Line_Size; y++)
-                                    {// Square.Rank_Size
-                                        for (int x = 0; x < Common.Line_Size; x++)
-                                        {// Square.File_Size
+                                    for (int y = 0; y < Common.Line_Size; y++) // Square.Rank_Size
+                                    {
+                                        for (int x = 0; x < Common.Line_Size; x++) // Square.File_Size
+                                        {
                                             if (Common.square_is_dark(x, y))
                                             {
                                                 int sq = Common.square_make(x, y);
@@ -242,6 +250,12 @@ namespace InternationalDraught
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -268,6 +282,8 @@ namespace InternationalDraught
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<InternationalDraught> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<InternationalDraught>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -286,6 +302,7 @@ namespace InternationalDraught
                 // Child
                 {
                     uiData.internationalDraught.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
                 dirty = true;
@@ -348,7 +365,16 @@ namespace InternationalDraught
                         return;
                     }
                 }
-                // pieceUIData
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData subUIData = data as PieceUI.UIData;
@@ -380,6 +406,7 @@ namespace InternationalDraught
                 // Child
                 {
                     uiData.internationalDraught.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
@@ -436,7 +463,15 @@ namespace InternationalDraught
                         return;
                     }
                 }
-                // pieceUIData
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -461,6 +496,12 @@ namespace InternationalDraught
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.internationalDraught:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -607,7 +648,10 @@ namespace InternationalDraught
                         return;
                     }
                 }
-                // PieceUIData
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
+                }
                 if (wrapProperty.p is PieceUI.UIData)
                 {
                     return;

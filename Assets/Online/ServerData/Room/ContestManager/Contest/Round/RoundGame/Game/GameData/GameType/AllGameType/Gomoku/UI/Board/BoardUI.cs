@@ -15,6 +15,8 @@ namespace Gomoku
 
             public VP<ReferenceData<Gomoku>> gomoku;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public VP<int> boardSize;
 
             public VP<Weiqi.BoardBackgroundUI.UIData> background;
@@ -26,6 +28,7 @@ namespace Gomoku
             public enum Property
             {
                 gomoku,
+                boardIndexs,
                 boardSize,
                 background,
                 pieces
@@ -34,6 +37,11 @@ namespace Gomoku
             public UIData() : base()
             {
                 this.gomoku = new VP<ReferenceData<Gomoku>>(this, (byte)Property.gomoku, new ReferenceData<Gomoku>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Gomoku;
+                }
                 this.boardSize = new VP<int>(this, (byte)Property.boardSize, 19);
                 this.background = new VP<Weiqi.BoardBackgroundUI.UIData>(this, (byte)Property.background, new Weiqi.BoardBackgroundUI.UIData());
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
@@ -378,6 +386,12 @@ namespace Gomoku
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -405,6 +419,8 @@ namespace Gomoku
         private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
         private GameDataCheckChangeBlindFold<Gomoku> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Gomoku>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -423,6 +439,7 @@ namespace Gomoku
                 // Child
                 {
                     uiData.gomoku.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.background.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
@@ -456,6 +473,16 @@ namespace Gomoku
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is Weiqi.BoardBackgroundUI.UIData)
                 {
@@ -498,6 +525,7 @@ namespace Gomoku
                 // Child
                 {
                     uiData.gomoku.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.background.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
@@ -528,6 +556,15 @@ namespace Gomoku
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is Weiqi.BoardBackgroundUI.UIData)
                 {
@@ -562,6 +599,12 @@ namespace Gomoku
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.gomoku:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -635,6 +678,10 @@ namespace Gomoku
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is Weiqi.BoardBackgroundUI.UIData)
                 {

@@ -115,6 +115,53 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                             }
                             break;
                         case GameType.Type.Weiqi:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            int boardSize = 19;
+                                            {
+                                                Weiqi.BoardUI.UIData weiqiBoardUIData = this.data.findDataInParent<Weiqi.BoardUI.UIData>();
+                                                if (weiqiBoardUIData != null)
+                                                {
+                                                    boardSize = weiqiBoardUIData.boardSize.v - 2;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("boardUIData null");
+                                                }
+                                            }
+                                            for (int i = 0; i < 2 * boardSize; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.SHOGI:
                             break;
@@ -173,8 +220,130 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         case GameType.Type.Banqi:
                             break;
                         case GameType.Type.Gomoku:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            int boardSize = 19;
+                                            {
+                                                Gomoku.BoardUI.UIData gomokuBoardUIData = this.data.findDataInParent<Gomoku.BoardUI.UIData>();
+                                                if (gomokuBoardUIData != null)
+                                                {
+                                                    boardSize = gomokuBoardUIData.boardSize.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("gomokuBoardUIData null");
+                                                }
+                                            }
+                                            for (int i = 0; i < 2 * boardSize; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.InternationalDraught:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int y = 0; y < InternationalDraught.Common.Line_Size; y++) // Square.Rank_Size
+                                            {
+                                                for (int x = 0; x < InternationalDraught.Common.Line_Size; x++) // Square.File_Size
+                                                {
+                                                    if (InternationalDraught.Common.square_is_dark(x, y))
+                                                    {
+                                                        int sq = InternationalDraught.Common.square_make(x, y);
+                                                        // make index
+                                                        Index index = new Index();
+                                                        {
+                                                            index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                            index.index = sq;
+                                                        }
+                                                        indexs.Add(index);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            // add X
+                                            {
+                                                int[] Y = { 0, 9 };
+                                                foreach (int y in Y)
+                                                {
+                                                    for (int x = 0; x < InternationalDraught.Common.Line_Size; x++)
+                                                    {
+                                                        if (InternationalDraught.Common.square_is_dark(x, y))
+                                                        {
+                                                            int sq = InternationalDraught.Common.square_make(x, y);
+                                                            // make index
+                                                            Index index = new Index();
+                                                            {
+                                                                index.type = BoardIndexUI.UIData.Type.X;
+                                                                index.index = sq;
+                                                            }
+                                                            indexs.Add(index);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            // add Y
+                                            {
+                                                int[] X = { 0, 9 };
+                                                for (int y = 0; y < InternationalDraught.Common.Line_Size; y++)
+                                                {
+                                                    foreach (int x in X)
+                                                    {
+                                                        if (InternationalDraught.Common.square_is_dark(x, y))
+                                                        {
+                                                            int sq = InternationalDraught.Common.square_make(x, y);
+                                                            // make index
+                                                            Index index = new Index();
+                                                            {
+                                                                index.type = BoardIndexUI.UIData.Type.Y;
+                                                                index.index = sq;
+                                                            }
+                                                            indexs.Add(index);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.EnglishDraught:
                             {
@@ -423,6 +592,9 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
 
     private GameDataBoardCheckPerspectiveChange<UIData> gameDataBoardCheckPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
+    private Gomoku.BoardUI.UIData gomokuBoardUIData = null;
+    private Weiqi.BoardUI.UIData weiqiBoardUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
@@ -434,6 +606,11 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
             {
                 gameDataBoardCheckPerspectiveChange.addCallBack(this);
                 gameDataBoardCheckPerspectiveChange.setData(uiData);
+            }
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.gomokuBoardUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.weiqiBoardUIData);
             }
             // Child
             {
@@ -454,8 +631,21 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
             dirty = true;
             return;
         }
+        // Parent
+        {
+            if (data is Gomoku.BoardUI.UIData)
+            {
+                dirty = true;
+                return;
+            }
+            if(data is Weiqi.BoardUI.UIData)
+            {
+                dirty = true;
+                return;
+            }
+        }
         // Child
-        if(data is BoardIndexUI.UIData)
+        if (data is BoardIndexUI.UIData)
         {
             BoardIndexUI.UIData boardIndexUIData = data as BoardIndexUI.UIData;
             // UI
@@ -480,6 +670,11 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                 gameDataBoardCheckPerspectiveChange.removeCallBack(this);
                 gameDataBoardCheckPerspectiveChange.setData(null);
             }
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.gomokuBoardUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.weiqiBoardUIData);
+            }
             // Child
             {
                 uiData.indexs.allRemoveCallBack(this);
@@ -496,6 +691,17 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
         if (data is GameDataBoardCheckPerspectiveChange<UIData>)
         {
             return;
+        }
+        // Parent
+        {
+            if (data is Gomoku.BoardUI.UIData)
+            {
+                return;
+            }
+            if(data is Weiqi.BoardUI.UIData)
+            {
+                return;
+            }
         }
         // Child
         if (data is BoardIndexUI.UIData)
@@ -584,6 +790,51 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
         {
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is Gomoku.BoardUI.UIData)
+            {
+                switch ((Gomoku.BoardUI.UIData.Property)wrapProperty.n)
+                {
+                    case Gomoku.BoardUI.UIData.Property.gomoku:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.boardIndexs:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.boardSize:
+                        dirty = true;
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.background:
+                        break;
+                    case Gomoku.BoardUI.UIData.Property.pieces:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            if(wrapProperty.p is Weiqi.BoardUI.UIData)
+            {
+                switch ((Weiqi.BoardUI.UIData.Property)wrapProperty.n)
+                {
+                    case Weiqi.BoardUI.UIData.Property.weiqi:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.background:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.mode:
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.boardSize:
+                        dirty = true;
+                        break;
+                    case Weiqi.BoardUI.UIData.Property.pieces:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
         }
         // Child
         if (wrapProperty.p is BoardIndexUI.UIData)

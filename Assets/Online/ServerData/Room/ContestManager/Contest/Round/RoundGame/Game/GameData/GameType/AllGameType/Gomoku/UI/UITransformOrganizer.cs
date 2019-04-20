@@ -76,6 +76,7 @@ namespace Gomoku
                             {
                                 if (gomokuSize != Vector2.zero && boardSize != Vector2.zero)
                                 {
+                                    // find boardSize
                                     float boardSizeX = 19f;
                                     float boardSizeY = 19f;
                                     {
@@ -98,6 +99,24 @@ namespace Gomoku
                                         } else {
                                             Debug.LogError ("gomoku null: " + this);
                                         }*/
+                                        switch (Setting.get().boardIndex.v)
+                                        {
+                                            case Setting.BoardIndex.None:
+                                                // nhu default
+                                                break;
+                                            case Setting.BoardIndex.InBoard:
+                                                // nhu default
+                                                break;
+                                            case Setting.BoardIndex.OutBoard:
+                                                {
+                                                    boardSizeX = 20f;
+                                                    boardSizeY = 20f;
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                                break;
+                                        }
                                     }
                                     float scale = Mathf.Min(Mathf.Abs(boardSize.x / boardSizeX), Mathf.Abs(boardSize.y / boardSizeY));
                                     // new scale
@@ -159,6 +178,8 @@ namespace Gomoku
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -177,6 +198,12 @@ namespace Gomoku
                 dirty = true;
                 return;
             }
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
             // CheckChange
             if (data is GameDataBoardCheckTransformChange<UpdateData>)
             {
@@ -190,18 +217,7 @@ namespace Gomoku
                     GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
                     // Child
                     {
-                        // transformData
-                        {
-                            GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
-                            if (gomokuGameDataUI != null)
-                            {
-                                gomokuGameDataUI.transformData.addCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("gomokuGameDataUI null");
-                            }
-                        }
+                        TransformData.AddCallBack(gomokuGameDataUIData, this);
                         gomokuGameDataUIData.gameData.allAddCallBack(this);
                     }
                     dirty = true;
@@ -245,6 +261,8 @@ namespace Gomoku
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -262,6 +280,11 @@ namespace Gomoku
             {
                 return;
             }
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
             // CheckChange
             if (data is GameDataBoardCheckTransformChange<UpdateData>)
             {
@@ -274,18 +297,7 @@ namespace Gomoku
                     GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
                     // Child
                     {
-                        // transformData
-                        {
-                            GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
-                            if (gomokuGameDataUI != null)
-                            {
-                                gomokuGameDataUI.transformData.removeCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("gomokuGameDataUI null");
-                            }
-                        }
+                        TransformData.RemoveCallBack(gomokuGameDataUIData, this);
                         gomokuGameDataUIData.gameData.allRemoveCallBack(this);
                     }
                     return;
@@ -338,6 +350,50 @@ namespace Gomoku
             if (wrapProperty.p is Global)
             {
                 Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
+                    case Setting.Property.buttonSize:
+                        break;
+                    case Setting.Property.itemSize:
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.boardIndex:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
                 return;
             }
             // CheckChange

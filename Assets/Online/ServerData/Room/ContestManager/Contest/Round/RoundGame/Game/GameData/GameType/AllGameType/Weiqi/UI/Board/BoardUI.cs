@@ -14,6 +14,8 @@ namespace Weiqi
 
             public VP<ReferenceData<Weiqi>> weiqi;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public VP<BoardBackgroundUI.UIData> background;
 
             #region Mode
@@ -29,6 +31,7 @@ namespace Weiqi
             #endregion
 
             public VP<int> boardSize;
+
             public LP<PieceUI.UIData> pieces;
 
             #region UIData
@@ -36,6 +39,7 @@ namespace Weiqi
             public enum Property
             {
                 weiqi,
+                boardIndexs,
                 background,
                 mode,
                 boardSize,
@@ -45,6 +49,11 @@ namespace Weiqi
             public UIData() : base()
             {
                 this.weiqi = new VP<ReferenceData<Weiqi>>(this, (byte)Property.weiqi, new ReferenceData<Weiqi>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Weiqi;
+                }
                 this.background = new VP<BoardBackgroundUI.UIData>(this, (byte)Property.background, new BoardBackgroundUI.UIData());
                 this.mode = new VP<Mode>(this, (byte)Property.mode, Mode.Normal);
                 this.boardSize = new VP<int>(this, (byte)Property.boardSize, 0);
@@ -290,6 +299,12 @@ namespace Weiqi
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -320,6 +335,8 @@ namespace Weiqi
 
         private GameDataCheckChangeBlindFold<Weiqi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Weiqi>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -338,6 +355,7 @@ namespace Weiqi
                 // Child
                 {
                     uiData.weiqi.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.background.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                 }
@@ -429,7 +447,16 @@ namespace Weiqi
                         return;
                     }
                 }
-                // Background
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
                 if (data is BoardBackgroundUI.UIData)
                 {
                     BoardBackgroundUI.UIData subUIData = data as BoardBackgroundUI.UIData;
@@ -440,7 +467,6 @@ namespace Weiqi
                     dirty = true;
                     return;
                 }
-                // Piece
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -472,6 +498,7 @@ namespace Weiqi
                 // Child
                 {
                     uiData.weiqi.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.background.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                 }
@@ -550,7 +577,15 @@ namespace Weiqi
                         }
                     }
                 }
-                // background
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
+                }
                 if (data is BoardBackgroundUI.UIData)
                 {
                     BoardBackgroundUI.UIData boardBackgroundUIData = data as BoardBackgroundUI.UIData;
@@ -560,7 +595,6 @@ namespace Weiqi
                     }
                     return;
                 }
-                // piece
                 if (data is PieceUI.UIData)
                 {
                     PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -585,6 +619,12 @@ namespace Weiqi
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.weiqi:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -789,11 +829,15 @@ namespace Weiqi
                             case MoveQueue.Property.tag:
                                 break;
                             default:
-                                Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is BoardBackgroundUI.UIData)
                 {

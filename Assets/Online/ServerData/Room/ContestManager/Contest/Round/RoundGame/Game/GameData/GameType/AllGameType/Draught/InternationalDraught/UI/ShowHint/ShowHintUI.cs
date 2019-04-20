@@ -525,6 +525,8 @@ namespace InternationalDraught
                             {
                                 case HintUI.UIData.Property.gameData:
                                     break;
+                                case HintUI.UIData.Property.visibility:
+                                    break;
                                 case HintUI.UIData.Property.autoHint:
                                     break;
                                 case HintUI.UIData.Property.state:
