@@ -1074,4 +1074,29 @@ public abstract class Data : AddCallBackInterface
 
     #endregion
 
+    #region root
+
+    public bool isRoot = false;
+
+    public bool isHaveRoot()
+    {
+        if (this.p != null)
+        {
+            if (this.p.p != null)
+            {
+                return this.p.p.isHaveRoot();
+            }
+            else
+            {
+                return this.isRoot;
+            }
+        }
+        else
+        {
+            return this.isRoot;
+        }
+    }
+
+    #endregion
+
 }

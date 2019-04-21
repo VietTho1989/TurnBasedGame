@@ -309,6 +309,7 @@ public class Server : Data
 
     public Server() : base()
     {
+        this.isRoot = true;
         this.serverConfig = new VP<ServerConfig>(this, (byte)Property.serverConfig, new ServerConfig());
         this.instanceId = new VP<long>(this, (byte)Property.instanceId, Global.getRealTimeInMiliSeconds());
         this.startState = new VP<StartState>(this, (byte)Property.startState, StartState.Start);
