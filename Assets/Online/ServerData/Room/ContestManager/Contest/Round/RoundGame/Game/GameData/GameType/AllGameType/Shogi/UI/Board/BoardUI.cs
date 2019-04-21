@@ -14,6 +14,8 @@ namespace Shogi
 
             public VP<ReferenceData<Shogi>> shogi;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             public VP<HandUI.UIData> hand;
@@ -23,6 +25,7 @@ namespace Shogi
             public enum Property
             {
                 shogi,
+                boardIndexs,
                 pieces,
                 hand
             }
@@ -30,6 +33,11 @@ namespace Shogi
             public UIData() : base()
             {
                 this.shogi = new VP<ReferenceData<Shogi>>(this, (byte)Property.shogi, new ReferenceData<Shogi>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.SHOGI;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
                 this.hand = new VP<HandUI.UIData>(this, (byte)Property.hand, new HandUI.UIData());
             }
@@ -196,6 +204,12 @@ namespace Shogi
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -236,6 +250,8 @@ namespace Shogi
 
         private GameDataCheckChangeBlindFold<Shogi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Shogi>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -254,6 +270,7 @@ namespace Shogi
                 // Child
                 {
                     uiData.shogi.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                     uiData.hand.allAddCallBack(this);
                 }
@@ -287,6 +304,16 @@ namespace Shogi
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -329,6 +356,7 @@ namespace Shogi
                 // Child
                 {
                     uiData.shogi.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                     uiData.hand.allRemoveCallBack(this);
                 }
@@ -359,6 +387,15 @@ namespace Shogi
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -393,6 +430,12 @@ namespace Shogi
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.shogi:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -467,6 +510,10 @@ namespace Shogi
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is ShogiFenUI.UIData)
                 {

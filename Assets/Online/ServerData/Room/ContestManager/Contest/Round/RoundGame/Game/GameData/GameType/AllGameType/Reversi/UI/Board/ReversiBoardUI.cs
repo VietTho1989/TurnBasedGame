@@ -14,6 +14,8 @@ namespace Reversi
 
             public VP<ReferenceData<Reversi>> reversi;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<ReversiPieceUI.UIData> pieces;
 
             public LP<ReversiLegalUI.UIData> legals;
@@ -23,6 +25,7 @@ namespace Reversi
             public enum Property
             {
                 reversi,
+                boardIndexs,
                 pieces,
                 legals
             }
@@ -30,6 +33,11 @@ namespace Reversi
             public UIData() : base()
             {
                 this.reversi = new VP<ReferenceData<Reversi>>(this, (byte)Property.reversi, new ReferenceData<Reversi>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.Reversi;
+                }
                 this.pieces = new LP<ReversiPieceUI.UIData>(this, (byte)Property.pieces);
                 this.legals = new LP<ReversiLegalUI.UIData>(this, (byte)Property.legals);
             }
@@ -322,6 +330,12 @@ namespace Reversi
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -350,6 +364,8 @@ namespace Reversi
 
         private GameDataCheckChangeBlindFold<Reversi> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<Reversi>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -368,6 +384,7 @@ namespace Reversi
                 // Child
                 {
                     uiData.reversi.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                     uiData.legals.allAddCallBack(this);
                 }
@@ -401,6 +418,16 @@ namespace Reversi
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is ReversiPieceUI.UIData)
                 {
@@ -443,6 +470,7 @@ namespace Reversi
                 // Child
                 {
                     uiData.reversi.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                     uiData.legals.allRemoveCallBack(this);
                 }
@@ -473,6 +501,15 @@ namespace Reversi
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is ReversiPieceUI.UIData)
                 {
@@ -507,6 +544,12 @@ namespace Reversi
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.reversi:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -577,6 +620,10 @@ namespace Reversi
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is ReversiPieceUI.UIData)
                 {

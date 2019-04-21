@@ -14,6 +14,8 @@ namespace NineMenMorris
 
             public VP<ReferenceData<NineMenMorris>> nineMenMorris;
 
+            public VP<BoardIndexsUI.UIData> boardIndexs;
+
             public LP<PieceUI.UIData> pieces;
 
             #region phase
@@ -36,6 +38,7 @@ namespace NineMenMorris
             public enum Property
             {
                 nineMenMorris,
+                boardIndexs,
                 pieces,
                 phase,
                 phaseUIData
@@ -44,6 +47,11 @@ namespace NineMenMorris
             public UIData() : base()
             {
                 this.nineMenMorris = new VP<ReferenceData<NineMenMorris>>(this, (byte)Property.nineMenMorris, new ReferenceData<NineMenMorris>(null));
+                // boardIndexs
+                {
+                    this.boardIndexs = new VP<BoardIndexsUI.UIData>(this, (byte)Property.boardIndexs, new BoardIndexsUI.UIData());
+                    this.boardIndexs.v.gameType.v = GameType.Type.NineMenMorris;
+                }
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
                 this.phase = new VP<Phase>(this, (byte)Property.phase, Phase.Position);
                 this.phaseUIData = new VP<BoardPhaseUI.UIData>(this, (byte)Property.phaseUIData, new BoardPhaseUI.UIData());
@@ -259,6 +267,12 @@ namespace NineMenMorris
                             Debug.LogError("not load full");
                             dirty = true;
                         }
+                        // siblingIndex
+                        {
+                            // background 0
+                            // boardIndex last
+                            UIRectTransform.SetSiblingIndexLast(this.data.boardIndexs.v);
+                        }
                     }
                     else
                     {
@@ -289,6 +303,8 @@ namespace NineMenMorris
 
         private GameDataCheckChangeBlindFold<NineMenMorris> gameDataCheckChangeBlindFold = new GameDataCheckChangeBlindFold<NineMenMorris>();
 
+        public BoardIndexsUI boardIndexsPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -307,6 +323,7 @@ namespace NineMenMorris
                 // Child
                 {
                     uiData.nineMenMorris.allAddCallBack(this);
+                    uiData.boardIndexs.allAddCallBack(this);
                     uiData.pieces.allAddCallBack(this);
                     uiData.phaseUIData.allAddCallBack(this);
                 }
@@ -340,6 +357,16 @@ namespace NineMenMorris
                         dirty = true;
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(boardIndexsUIData, boardIndexsPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -405,6 +432,7 @@ namespace NineMenMorris
                 // Child
                 {
                     uiData.nineMenMorris.allRemoveCallBack(this);
+                    uiData.boardIndexs.allRemoveCallBack(this);
                     uiData.pieces.allRemoveCallBack(this);
                     uiData.phaseUIData.allRemoveCallBack(this);
                 }
@@ -435,6 +463,15 @@ namespace NineMenMorris
                     {
                         return;
                     }
+                }
+                if (data is BoardIndexsUI.UIData)
+                {
+                    BoardIndexsUI.UIData boardIndexsUIData = data as BoardIndexsUI.UIData;
+                    // UI
+                    {
+                        boardIndexsUIData.removeCallBackAndDestroy(typeof(BoardIndexsUI));
+                    }
+                    return;
                 }
                 if (data is PieceUI.UIData)
                 {
@@ -469,6 +506,12 @@ namespace NineMenMorris
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.nineMenMorris:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.boardIndexs:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -541,6 +584,10 @@ namespace NineMenMorris
                         dirty = true;
                         return;
                     }
+                }
+                if (wrapProperty.p is BoardIndexsUI.UIData)
+                {
+                    return;
                 }
                 if (wrapProperty.p is PieceUI.UIData)
                 {

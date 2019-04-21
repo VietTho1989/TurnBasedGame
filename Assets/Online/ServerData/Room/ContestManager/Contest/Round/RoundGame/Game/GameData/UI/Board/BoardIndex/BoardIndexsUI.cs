@@ -164,8 +164,100 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                             }
                             break;
                         case GameType.Type.SHOGI:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int i = 0; i < 9 * 9; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            for (int i = 0; i < 9 * 2; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.Reversi:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int i = 0; i < 64; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            for (int i = 0; i < 8 * 2; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndexs: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.Xiangqi:
                         case GameType.Type.CO_TUONG_UP:
@@ -456,6 +548,54 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         case GameType.Type.MineSweeper:
                             break;
                         case GameType.Type.Hex:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            // find boardSize
+                                            int boardSize = 10;
+                                            {
+                                                HEX.BoardUI.UIData hexBoardUIData = this.data.findDataInParent<HEX.BoardUI.UIData>();
+                                                if (hexBoardUIData != null)
+                                                {
+                                                    boardSize = hexBoardUIData.boardSize.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("hexBoardUIData null");
+                                                }
+                                            }
+                                            // process
+                                            for (int i = 0; i < 2*boardSize; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                             break;
                         case GameType.Type.Solitaire:
                             break;
@@ -464,6 +604,52 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         case GameType.Type.Khet:
                             break;
                         case GameType.Type.NineMenMorris:
+                            {
+                                switch (Setting.get().boardIndex.v)
+                                {
+                                    case Setting.BoardIndex.InBoard:
+                                        {
+                                            for (int i = 0; i < NineMenMorris.Common.BOARD_SPOT; i++)
+                                            {
+                                                Index index = new Index();
+                                                {
+                                                    index.type = BoardIndexUI.UIData.Type.InBoard;
+                                                    index.index = i;
+                                                }
+                                                indexs.Add(index);
+                                            }
+                                        }
+                                        break;
+                                    case Setting.BoardIndex.OutBoard:
+                                        {
+                                            for (int i = 0; i < 7 * 2; i++)
+                                            {
+                                                // x
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.X;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                                // y
+                                                {
+                                                    Index index = new Index();
+                                                    {
+                                                        index.type = BoardIndexUI.UIData.Type.Y;
+                                                        index.index = i;
+                                                    }
+                                                    indexs.Add(index);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown boardIndex: " + Setting.get().boardIndex.v);
+                                        break;
+                                }
+                            }
                             break;
                         default:
                             Debug.LogError("unknown gameType: " + this.data.gameType.v);
@@ -594,6 +780,7 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
 
     private Gomoku.BoardUI.UIData gomokuBoardUIData = null;
     private Weiqi.BoardUI.UIData weiqiBoardUIData = null;
+    private HEX.BoardUI.UIData hexBoardUIData = null;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -611,6 +798,7 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.gomokuBoardUIData);
                 DataUtils.addParentCallBack(uiData, this, ref this.weiqiBoardUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.hexBoardUIData);
             }
             // Child
             {
@@ -639,6 +827,11 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                 return;
             }
             if(data is Weiqi.BoardUI.UIData)
+            {
+                dirty = true;
+                return;
+            }
+            if(data is HEX.BoardUI.UIData)
             {
                 dirty = true;
                 return;
@@ -674,6 +867,7 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.gomokuBoardUIData);
                 DataUtils.removeParentCallBack(uiData, this, ref this.weiqiBoardUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.hexBoardUIData);
             }
             // Child
             {
@@ -699,6 +893,10 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                 return;
             }
             if(data is Weiqi.BoardUI.UIData)
+            {
+                return;
+            }
+            if(data is HEX.BoardUI.UIData)
             {
                 return;
             }
@@ -828,6 +1026,25 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                         dirty = true;
                         break;
                     case Weiqi.BoardUI.UIData.Property.pieces:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            if(wrapProperty.p is HEX.BoardUI.UIData)
+            {
+                switch ((HEX.BoardUI.UIData.Property)wrapProperty.n)
+                {
+                    case HEX.BoardUI.UIData.Property.hex:
+                        break;
+                    case HEX.BoardUI.UIData.Property.boardIndexs:
+                        break;
+                    case HEX.BoardUI.UIData.Property.boardSize:
+                        dirty = true;
+                        break;
+                    case HEX.BoardUI.UIData.Property.pieces:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
