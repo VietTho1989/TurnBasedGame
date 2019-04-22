@@ -13,6 +13,8 @@ namespace Record
         public class UIData : Data
         {
 
+            public VP<ReferenceData<Data>> needRecordData;
+
             public VP<ReferenceData<DataRecordTask>> dataRecordTask;
 
             #region saveRecord
@@ -27,6 +29,7 @@ namespace Record
 
             public enum Property
             {
+                needRecordData,
                 dataRecordTask,
                 saveRecordUIData,
                 saveRecordContainer
@@ -34,6 +37,7 @@ namespace Record
 
             public UIData() : base()
             {
+                this.needRecordData = new VP<ReferenceData<Data>>(this, (byte)Property.needRecordData, new ReferenceData<Data>(null));
                 this.dataRecordTask = new VP<ReferenceData<DataRecordTask>>(this, (byte)Property.dataRecordTask, new ReferenceData<DataRecordTask>(null));
                 this.saveRecordUIData = new VP<SaveRecordUI.UIData>(this, (byte)Property.saveRecordUIData, null);
                 this.saveRecordContainer = new VP<Transform>(this, (byte)Property.saveRecordContainer, null);
@@ -95,85 +99,93 @@ namespace Record
                 dirty = false;
                 if (this.data != null)
                 {
-                    DataRecordTask dataRecordTask = this.data.dataRecordTask.v.data;
-                    if (dataRecordTask != null)
+                    Data needRecordData = this.data.needRecordData.v.data;
+                    if (needRecordData != null)
                     {
-                        // btnRecord, tvRecord
+                        DataRecordTask dataRecordTask = this.data.dataRecordTask.v.data;
+                        if (dataRecordTask != null)
                         {
-                            if (btnRecord != null && tvRecord != null)
+                            // btnRecord, tvRecord
                             {
-                                switch (dataRecordTask.state.v)
+                                if (btnRecord != null && tvRecord != null)
                                 {
-                                    case DataRecordTask.State.None:
-                                        {
-                                            btnRecord.interactable = true;
-                                            tvRecord.text = txtNone.get();
-                                        }
-                                        break;
-                                    case DataRecordTask.State.Start:
-                                        {
-                                            btnRecord.interactable = true;
-                                            tvRecord.text = txtStart.get();
-                                        }
-                                        break;
-                                    case DataRecordTask.State.Record:
-                                        {
-                                            btnRecord.interactable = true;
-                                            tvRecord.text = txtRecord.get();
-                                        }
-                                        break;
-                                    case DataRecordTask.State.Finish:
-                                        {
-                                            btnRecord.interactable = true;
-                                            tvRecord.text = txtFinish.get();
-                                        }
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
-                                        break;
+                                    switch (dataRecordTask.state.v)
+                                    {
+                                        case DataRecordTask.State.None:
+                                            {
+                                                btnRecord.interactable = true;
+                                                tvRecord.text = txtNone.get();
+                                            }
+                                            break;
+                                        case DataRecordTask.State.Start:
+                                            {
+                                                btnRecord.interactable = true;
+                                                tvRecord.text = txtStart.get();
+                                            }
+                                            break;
+                                        case DataRecordTask.State.Record:
+                                            {
+                                                btnRecord.interactable = true;
+                                                tvRecord.text = txtRecord.get();
+                                            }
+                                            break;
+                                        case DataRecordTask.State.Finish:
+                                            {
+                                                btnRecord.interactable = true;
+                                                tvRecord.text = txtFinish.get();
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnRecord, tvRecord null: " + this);
                                 }
                             }
-                            else
+                            // saveUI
                             {
-                                Debug.LogError("btnRecord, tvRecord null: " + this);
+                                if (this.data.saveRecordContainer.v != null)
+                                {
+                                    switch (dataRecordTask.state.v)
+                                    {
+                                        case DataRecordTask.State.None:
+                                            break;
+                                        case DataRecordTask.State.Start:
+                                            break;
+                                        case DataRecordTask.State.Record:
+                                            break;
+                                        case DataRecordTask.State.Finish:
+                                            {
+                                                SaveRecordUI.UIData saveRecordUIData = this.data.saveRecordUIData.newOrOld<SaveRecordUI.UIData>();
+                                                {
+                                                    UIUtils.Instantiate(saveRecordUIData, saveRecordUIPrefab, this.data.saveRecordContainer.v);
+                                                }
+                                                this.data.saveRecordUIData.v = saveRecordUIData;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("saveRecordContainer null: " + this);
+                                    this.data.saveRecordUIData.v = null;
+                                }
                             }
                         }
-                        // saveUI
+                        else
                         {
-                            if (this.data.saveRecordContainer.v != null)
-                            {
-                                switch (dataRecordTask.state.v)
-                                {
-                                    case DataRecordTask.State.None:
-                                        break;
-                                    case DataRecordTask.State.Start:
-                                        break;
-                                    case DataRecordTask.State.Record:
-                                        break;
-                                    case DataRecordTask.State.Finish:
-                                        {
-                                            SaveRecordUI.UIData saveRecordUIData = this.data.saveRecordUIData.newOrOld<SaveRecordUI.UIData>();
-                                            {
-                                                UIUtils.Instantiate(saveRecordUIData, saveRecordUIPrefab, this.data.saveRecordContainer.v);
-                                            }
-                                            this.data.saveRecordUIData.v = saveRecordUIData;
-                                        }
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("saveRecordContainer null: " + this);
-                                this.data.saveRecordUIData.v = null;
-                            }
+                            Debug.LogError("dataRecordTask null: " + this);
                         }
                     }
                     else
                     {
-                        Debug.LogError("dataRecordTask null: " + this);
+                        Debug.LogError("needRecordData null");
                     }
                 }
                 else

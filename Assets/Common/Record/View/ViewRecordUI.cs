@@ -444,6 +444,8 @@ namespace Record
                         break;
                     case Setting.Property.confirmQuit:
                         break;
+                    case Setting.Property.boardIndex:
+                        break;
                     case Setting.Property.showLastMove:
                         break;
                     case Setting.Property.viewUrlImage:

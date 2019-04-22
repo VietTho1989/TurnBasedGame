@@ -221,6 +221,11 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         {
             if (data is GameDataBoardUI.UIData)
             {
+                GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                // Child
+                {
+                    TransformData.AddCallBack(gameDataBoardUIData, this);
+                }
                 dirty = true;
                 return;
             }
@@ -297,6 +302,11 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         {
             if (data is GameDataBoardUI.UIData)
             {
+                GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                }
                 return;
             }
             if (data is TransformData)

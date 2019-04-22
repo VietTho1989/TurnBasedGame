@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Common/Data.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Common/Record/Task/UI/GlobalDataRecordController.cs">
     <Files>
-      <File FileName="Assets/Common/Data.cs" Line="84" Column="8" />
+      <File FileName="Assets/Common/Record/Task/UI/GlobalDataRecordController.cs" Line="102" Column="78" />
+      <File FileName="Assets/Common/Record/Task/UI/DataRecordTaskUI.cs" Line="368" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
