@@ -56,7 +56,7 @@ namespace Seirawan
 			return duration;
 		}
 
-		public const float SeirawanDuration = 3f;
+		public const float SeirawanDuration = 1.5f;
 
 		public override void initDuration ()
 		{

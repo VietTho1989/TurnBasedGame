@@ -119,6 +119,10 @@ public class TrashMan : MonoBehaviour
             // add
             {
                 int instanceId = GetInstanceId(recycleBin.prefab);
+                if (instanceId == 0)
+                {
+                    Debug.LogError("why instanceId 0: " + recycleBin.prefab);
+                }
                 /*if (_instanceIdToRecycleBin.ContainsKey(instanceId))
                 {
                     Debug.LogError("already contain: " + instanceId + ", " + recycleBin.prefab);

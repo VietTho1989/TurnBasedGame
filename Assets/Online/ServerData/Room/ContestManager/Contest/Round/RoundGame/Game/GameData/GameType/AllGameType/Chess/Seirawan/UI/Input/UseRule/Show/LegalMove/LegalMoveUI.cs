@@ -103,7 +103,7 @@ namespace Seirawan.UseRule
                         }
                         else
                         {
-                            Debug.LogError("legalMove null: " + this);
+                            // Debug.LogError("legalMove null: " + this);
                         }
                     }
                 }

@@ -217,7 +217,7 @@ namespace Seirawan.UseRule
                     }
                     else
                     {
-                        Debug.LogError("seirawanMove null: " + this);
+                        // Debug.LogError("seirawanMove null: " + this);
                     }
                 }
                 else
@@ -332,6 +332,8 @@ namespace Seirawan.UseRule
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.onClick:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
@@ -367,6 +369,10 @@ namespace Seirawan.UseRule
                         case Seirawan.Property.byTypeBB:
                             break;
                         case Seirawan.Property.byColorBB:
+                            break;
+                        case Seirawan.Property.inHand:
+                            break;
+                        case Seirawan.Property.handScore:
                             break;
                         case Seirawan.Property.pieceCount:
                             break;

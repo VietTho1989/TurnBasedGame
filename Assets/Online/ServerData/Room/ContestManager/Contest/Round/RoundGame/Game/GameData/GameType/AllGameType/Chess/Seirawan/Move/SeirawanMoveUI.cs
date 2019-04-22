@@ -13,22 +13,27 @@ namespace Seirawan
 
         public class UIData : LastMoveSub
         {
+
             public VP<ReferenceData<SeirawanMove>> seirawanMove;
 
             public VP<bool> isHint;
+
+            public VP<SeirawanMoveGateUI.UIData> gate;
 
             #region Constructor
 
             public enum Property
             {
                 seirawanMove,
-                isHint
+                isHint,
+                gate
             }
 
             public UIData() : base()
             {
                 this.seirawanMove = new VP<ReferenceData<SeirawanMove>>(this, (byte)Property.seirawanMove, new ReferenceData<SeirawanMove>(null));
                 this.isHint = new VP<bool>(this, (byte)Property.isHint, false);
+                this.gate = new VP<SeirawanMoveGateUI.UIData>(this, (byte)Property.gate, null);
             }
 
             #endregion
@@ -229,6 +234,21 @@ namespace Seirawan
                         {
                             Debug.LogError("imgPromotion null: " + this);
                         }
+                        // gate
+                        {
+                            if (Common.is_gating(seirawanMove.move.v))
+                            {
+                                SeirawanMoveGateUI.UIData gateUIData = this.data.gate.newOrOld<SeirawanMoveGateUI.UIData>();
+                                {
+
+                                }
+                                this.data.gate.v = gateUIData;
+                            }
+                            else
+                            {
+                                this.data.gate.v = null;
+                            }
+                        }
                     }
                     else
                     {
@@ -253,6 +273,8 @@ namespace Seirawan
 
         private SeirawanGameDataUI.UIData seirawanGameDataUIData = null;
 
+        public SeirawanMoveGateUI gatePrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -265,6 +287,7 @@ namespace Seirawan
                 // Child
                 {
                     uiData.seirawanMove.allAddCallBack(this);
+                    uiData.gate.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -301,10 +324,22 @@ namespace Seirawan
                 }
             }
             // Child
-            if (data is SeirawanMove)
             {
-                dirty = true;
-                return;
+                if (data is SeirawanMove)
+                {
+                    dirty = true;
+                    return;
+                }
+                if(data is SeirawanMoveGateUI.UIData)
+                {
+                    SeirawanMoveGateUI.UIData gateUIData = data as SeirawanMoveGateUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(gateUIData, gatePrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -321,6 +356,7 @@ namespace Seirawan
                 // Child
                 {
                     uiData.seirawanMove.allRemoveCallBack(this);
+                    uiData.gate.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -354,9 +390,20 @@ namespace Seirawan
                 }
             }
             // Child
-            if (data is SeirawanMove)
             {
-                return;
+                if (data is SeirawanMove)
+                {
+                    return;
+                }
+                if (data is SeirawanMoveGateUI.UIData)
+                {
+                    SeirawanMoveGateUI.UIData gateUIData = data as SeirawanMoveGateUI.UIData;
+                    // UI
+                    {
+                        gateUIData.removeCallBackAndDestroy(typeof(SeirawanMoveGateUI));
+                    }
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -379,6 +426,12 @@ namespace Seirawan
                         break;
                     case UIData.Property.isHint:
                         dirty = true;
+                        break;
+                    case UIData.Property.gate:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -481,18 +534,24 @@ namespace Seirawan
                 }
             }
             // Child
-            if (wrapProperty.p is SeirawanMove)
             {
-                switch ((SeirawanMove.Property)wrapProperty.n)
+                if (wrapProperty.p is SeirawanMove)
                 {
-                    case SeirawanMove.Property.move:
-                        dirty = true;
-                        break;
-                    default:
-                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                        break;
+                    switch ((SeirawanMove.Property)wrapProperty.n)
+                    {
+                        case SeirawanMove.Property.move:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
                 }
-                return;
+                if (wrapProperty.p is SeirawanMoveGateUI.UIData)
+                {
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }
