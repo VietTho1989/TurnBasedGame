@@ -117,6 +117,7 @@ public class Server : Data
 
         public class Offline : State
         {
+
             public VP<Login> login;
 
             #region Constructor

@@ -102,85 +102,104 @@ namespace Record
                     Data needRecordData = this.data.needRecordData.v.data;
                     if (needRecordData != null)
                     {
-                        DataRecordTask dataRecordTask = this.data.dataRecordTask.v.data;
-                        if (dataRecordTask != null)
+                        // init dataRecordTask
                         {
-                            // btnRecord, tvRecord
+                            // find old
+                            DataRecordTask dataRecordTask = GlobalDataRecordController.UpdateData.get().find(needRecordData);
+                            // make new
+                            if (dataRecordTask == null)
                             {
-                                if (btnRecord != null && tvRecord != null)
+                                dataRecordTask = new DataRecordTask();
                                 {
-                                    switch (dataRecordTask.state.v)
-                                    {
-                                        case DataRecordTask.State.None:
-                                            {
-                                                btnRecord.interactable = true;
-                                                tvRecord.text = txtNone.get();
-                                            }
-                                            break;
-                                        case DataRecordTask.State.Start:
-                                            {
-                                                btnRecord.interactable = true;
-                                                tvRecord.text = txtStart.get();
-                                            }
-                                            break;
-                                        case DataRecordTask.State.Record:
-                                            {
-                                                btnRecord.interactable = true;
-                                                tvRecord.text = txtRecord.get();
-                                            }
-                                            break;
-                                        case DataRecordTask.State.Finish:
-                                            {
-                                                btnRecord.interactable = true;
-                                                tvRecord.text = txtFinish.get();
-                                            }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
-                                            break;
-                                    }
+                                    dataRecordTask.needRecordData.v = new ReferenceData<Data>(needRecordData);
                                 }
-                                else
-                                {
-                                    Debug.LogError("btnRecord, tvRecord null: " + this);
-                                }
+                                GlobalDataRecordController.UpdateData.get().dataRecordTasks.add(new ReferenceData<DataRecordTask>(dataRecordTask));
                             }
-                            // saveUI
-                            {
-                                if (this.data.saveRecordContainer.v != null)
-                                {
-                                    switch (dataRecordTask.state.v)
-                                    {
-                                        case DataRecordTask.State.None:
-                                            break;
-                                        case DataRecordTask.State.Start:
-                                            break;
-                                        case DataRecordTask.State.Record:
-                                            break;
-                                        case DataRecordTask.State.Finish:
-                                            {
-                                                SaveRecordUI.UIData saveRecordUIData = this.data.saveRecordUIData.newOrOld<SaveRecordUI.UIData>();
-                                                {
-                                                    UIUtils.Instantiate(saveRecordUIData, saveRecordUIPrefab, this.data.saveRecordContainer.v);
-                                                }
-                                                this.data.saveRecordUIData.v = saveRecordUIData;
-                                            }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
-                                            break;
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("saveRecordContainer null: " + this);
-                                    this.data.saveRecordUIData.v = null;
-                                }
-                            }
+                            // set
+                            this.data.dataRecordTask.v = new ReferenceData<DataRecordTask>(dataRecordTask);
                         }
-                        else
+                        // process
                         {
-                            Debug.LogError("dataRecordTask null: " + this);
+                            DataRecordTask dataRecordTask = this.data.dataRecordTask.v.data;
+                            if (dataRecordTask != null)
+                            {
+                                // btnRecord, tvRecord
+                                {
+                                    if (btnRecord != null && tvRecord != null)
+                                    {
+                                        switch (dataRecordTask.state.v)
+                                        {
+                                            case DataRecordTask.State.None:
+                                                {
+                                                    btnRecord.interactable = true;
+                                                    tvRecord.text = txtNone.get();
+                                                }
+                                                break;
+                                            case DataRecordTask.State.Start:
+                                                {
+                                                    btnRecord.interactable = true;
+                                                    tvRecord.text = txtStart.get();
+                                                }
+                                                break;
+                                            case DataRecordTask.State.Record:
+                                                {
+                                                    btnRecord.interactable = true;
+                                                    tvRecord.text = txtRecord.get();
+                                                }
+                                                break;
+                                            case DataRecordTask.State.Finish:
+                                                {
+                                                    btnRecord.interactable = true;
+                                                    tvRecord.text = txtFinish.get();
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnRecord, tvRecord null: " + this);
+                                    }
+                                }
+                                // saveUI
+                                {
+                                    if (this.data.saveRecordContainer.v != null)
+                                    {
+                                        switch (dataRecordTask.state.v)
+                                        {
+                                            case DataRecordTask.State.None:
+                                                break;
+                                            case DataRecordTask.State.Start:
+                                                break;
+                                            case DataRecordTask.State.Record:
+                                                break;
+                                            case DataRecordTask.State.Finish:
+                                                {
+                                                    SaveRecordUI.UIData saveRecordUIData = this.data.saveRecordUIData.newOrOld<SaveRecordUI.UIData>();
+                                                    {
+                                                        UIUtils.Instantiate(saveRecordUIData, saveRecordUIPrefab, this.data.saveRecordContainer.v);
+                                                    }
+                                                    this.data.saveRecordUIData.v = saveRecordUIData;
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown state: " + dataRecordTask.state.v + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("saveRecordContainer null: " + this);
+                                        this.data.saveRecordUIData.v = null;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("dataRecordTask null: " + this);
+                            }
                         }
                     }
                     else
@@ -229,13 +248,8 @@ namespace Record
             }
             // Child
             {
-                if (data is DataRecordTask)
+                if(data is DataRecordTask)
                 {
-                    DataRecordTask dataRecordTask = data as DataRecordTask;
-                    // Update
-                    {
-                        UpdateUtils.makeUpdate<DataRecordTaskUpdate, DataRecordTask>(dataRecordTask, this.transform);
-                    }
                     dirty = true;
                     return;
                 }
@@ -270,13 +284,8 @@ namespace Record
             }
             // Child
             {
-                if (data is DataRecordTask)
+                if(data is DataRecordTask)
                 {
-                    DataRecordTask dataRecordTask = data as DataRecordTask;
-                    // Update
-                    {
-                        dataRecordTask.removeCallBackAndDestroy(typeof(DataRecordTaskUpdate));
-                    }
                     return;
                 }
                 if (data is SaveRecordUI.UIData)
@@ -302,6 +311,9 @@ namespace Record
             {
                 switch ((UIData.Property)wrapProperty.n)
                 {
+                    case UIData.Property.needRecordData:
+                        dirty = true;
+                        break;
                     case UIData.Property.dataRecordTask:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);

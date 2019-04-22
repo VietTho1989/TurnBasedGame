@@ -173,6 +173,7 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Child
             {
                 uiData.server.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
@@ -180,8 +181,18 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
             dirty = true;
             return;
         }
-        // UI
+        // Child
         {
+            if (data is Server)
+            {
+                Server server = data as Server;
+                // isRoot
+                {
+                    server.isRoot = true;
+                }
+                dirty = true;
+                return;
+            }
             if (data is UIData.Sub)
             {
                 UIData.Sub sub = data as UIData.Sub;
@@ -215,14 +226,7 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
                 return;
             }
         }
-        // Logic
-        {
-            if (data is Server)
-            {
-                dirty = true;
-                return;
-            }
-        }
+        Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public override void onRemoveCallBack<T>(T data, bool isHide)
@@ -230,6 +234,7 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Child
             {
                 uiData.server.allRemoveCallBack(this);
                 uiData.sub.allRemoveCallBack(this);
@@ -237,8 +242,17 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
             this.setDataNull(uiData);
             return;
         }
-        // UI
+        // Child
         {
+            if (data is Server)
+            {
+                Server server = data as Server;
+                // isRoot
+                {
+                    server.isRoot = false;
+                }
+                return;
+            }
             if (data is UIData.Sub)
             {
                 UIData.Sub sub = data as UIData.Sub;
@@ -266,71 +280,6 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
                         default:
                             Debug.LogError("unknown type: " + sub.getType() + "; " + this);
                             break;
-                    }
-                }
-                return;
-            }
-        }
-        // Logic
-        {
-            if (data is Server)
-            {
-                Server server = data as Server;
-                {
-                    if (this.data != null)
-                    {
-                        if (this.data.sub.v != null)
-                        {
-                            switch (this.data.sub.v.getType())
-                            {
-                                case UIData.Sub.Type.Load:
-                                    {
-                                        LoadingUI.UIData subUIData = this.data.sub.v as LoadingUI.UIData;
-                                        if (subUIData.server.v.data == server)
-                                        {
-                                            subUIData.server.v = new ReferenceData<Server>(null);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("why different: " + this);
-                                        }
-                                    }
-                                    break;
-                                case UIData.Sub.Type.Normal:
-                                    {
-                                        NormalUI.UIData subUIData = this.data.sub.v as NormalUI.UIData;
-                                        if (subUIData.server.v.data == server)
-                                        {
-                                            subUIData.server.v = new ReferenceData<Server>(null);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("why different: " + this);
-                                        }
-                                    }
-                                    break;
-                                case UIData.Sub.Type.Fail:
-                                    {
-                                        StartFailUI.UIData subUIData = this.data.sub.v as StartFailUI.UIData;
-                                        if (subUIData.server.v.data == server)
-                                        {
-                                            subUIData.server.v = new ReferenceData<Server>(null);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("why different: " + this);
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    Debug.LogError("unknown type: " + this.data.sub.v.getType() + "; " + this);
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("data null: " + this);
                     }
                 }
                 return;
@@ -366,45 +315,49 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
             }
             return;
         }
-        if (wrapProperty.p is UIData.Sub)
+        // Child
         {
-            return;
-        }
-        if (wrapProperty.p is Server)
-        {
-            switch ((Server.Property)wrapProperty.n)
+            if (wrapProperty.p is Server)
             {
-                case Server.Property.serverConfig:
-                    break;
-                case Server.Property.instanceId:
-                    break;
-                case Server.Property.startState:
-                    dirty = true;
-                    break;
-                case Server.Property.type:
-                    break;
-                case Server.Property.profile:
-                    break;
-                case Server.Property.state:
-                    break;
-                case Server.Property.users:
-                    break;
-                case Server.Property.disconnectTime:
-                    break;
-                case Server.Property.roomManager:
-                    break;
-                case Server.Property.globalChat:
-                    break;
-                case Server.Property.friendWorld:
-                    break;
-                case Server.Property.guilds:
-                    break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                    break;
+                switch ((Server.Property)wrapProperty.n)
+                {
+                    case Server.Property.serverConfig:
+                        break;
+                    case Server.Property.instanceId:
+                        break;
+                    case Server.Property.startState:
+                        dirty = true;
+                        break;
+                    case Server.Property.type:
+                        break;
+                    case Server.Property.profile:
+                        break;
+                    case Server.Property.state:
+                        break;
+                    case Server.Property.users:
+                        break;
+                    case Server.Property.disconnectTime:
+                        break;
+                    case Server.Property.roomManager:
+                        break;
+                    case Server.Property.globalChat:
+                        break;
+                    case Server.Property.friendWorld:
+                        break;
+                    case Server.Property.guilds:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
             }
-            return;
+            if (wrapProperty.p is UIData.Sub)
+            {
+                return;
+            }
         }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }
 
     #endregion

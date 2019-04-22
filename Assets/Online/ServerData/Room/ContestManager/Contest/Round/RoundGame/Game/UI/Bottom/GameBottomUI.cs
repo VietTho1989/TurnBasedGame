@@ -73,11 +73,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
             this.btnHistory = new VP<BtnHistoryUI.UIData>(this, (byte)Property.btnHistory, new BtnHistoryUI.UIData());
             this.btnPerspective = new VP<BtnPerspectiveUI.UIData>(this, (byte)Property.btnPerspective, new BtnPerspectiveUI.UIData());
             this.btnSaveGame = new VP<BtnSaveGameUI.UIData>(this, (byte)Property.btnSaveGame, new BtnSaveGameUI.UIData());
-            // btnRecord
-            {
-                this.btnRecord = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.btnRecord, new DataRecordTaskUI.UIData());
-                this.btnRecord.v.dataRecordTask.v = new ReferenceData<DataRecordTask>(new DataRecordTask());
-            }
+            this.btnRecord = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.btnRecord, new DataRecordTaskUI.UIData());
         }
 
         #endregion
@@ -307,7 +303,7 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                         DataRecordTaskUI.UIData btnRecord = this.data.btnRecord.v;
                         if (btnRecord != null)
                         {
-                            btnRecord.dataRecordTask.v.data.needRecordData.v = new ReferenceData<Data>(game);
+                            btnRecord.needRecordData.v = new ReferenceData<Data>(game);
                             // find container
                             {
                                 Transform recordContainer = null;
