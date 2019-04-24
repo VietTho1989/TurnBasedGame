@@ -398,23 +398,25 @@ namespace EnglishDraught
                     isAlreadyInit = true;
                     // set path
                     {
-#if UNITY_EDITOR
-                        {
-                            english_draught_setPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/EnglishDraught");
-                        }
-#elif UNITY_STANDALONE_OSX
-                        {
-                            english_draught_setPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/EnglishDraught");
-                        }
-#elif UNITY_IPHONE
-						{
-							english_draught_setPath(Global.DataPath+ "/"+GameType.AlwaysIn+"/EnglishDraught");
-						}
-#elif UNITY_ANDROID
-						{
-							english_draught_setPath(GameType.AlwaysIn + "/EnglishDraught");
-						}
-#endif
+                        string path = System.IO.Path.Combine(Application.streamingAssetsPath, GameType.AlwaysIn, "EnglishDraught");
+                        english_draught_setPath(path);
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    english_draught_setPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/EnglishDraught");
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    english_draught_setPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/EnglishDraught");
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    english_draught_setPath(Global.DataPath+ "/"+GameType.AlwaysIn+"/EnglishDraught");
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    english_draught_setPath(GameType.AlwaysIn + "/EnglishDraught");
+                                                }
+                        #endif*/
                     }
                     english_draught_initCore();
                 }

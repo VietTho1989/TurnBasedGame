@@ -522,4 +522,22 @@ public abstract class GameType : Data
 
     #endregion
 
+    #region make Path
+
+    public static string MakeCorePath(params string[] paths)
+    {
+#if UNITY_ANDROID
+        return System.IO.Path.Combine(paths);
+#else
+        List<string> pathList = new List<string>();
+        {
+            pathList.Add(Application.streamingAssetsPath);
+            pathList.AddRange(paths);
+        }
+        return System.IO.Path.Combine(pathList.ToArray());
+#endif
+    }
+
+    #endregion
+
 }

@@ -282,32 +282,35 @@ namespace Reversi
                     isAlreadyInit = true;
                     // set book
                     {
+                        string path = System.IO.Path.Combine(Application.streamingAssetsPath, GameType.AlwaysIn, "Reversi");
+                        // Debug.LogError("bookPath: "+path);
+                        unitySetBookPath(path);
 
-#if UNITY_EDITOR
-                        {
-                            string path = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/Reversi";
-                            // Debug.LogError("bookPath: "+path);
-                            unitySetBookPath(path);
-                        }
-#elif UNITY_STANDALONE_OSX
-                        {
-                            string path = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/Reversi";
-                            // Debug.LogError("bookPath: "+path);
-                            unitySetBookPath(path);
-                        }
-#elif UNITY_IPHONE
-						{
-							string path = Global.DataPath+ "/"+GameType.AlwaysIn+"/Reversi";
-							// Debug.LogError("bookPath: "+path);
-							unitySetBookPath(path);
-						}
-#elif UNITY_ANDROID
-						{
-							string path = GameType.AlwaysIn+ "/Reversi";
-							// Debug.LogError("bookPath: "+path);
-							unitySetBookPath(path);
-						}
-#endif
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    string path = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/Reversi";
+                                                    // Debug.LogError("bookPath: "+path);
+                                                    unitySetBookPath(path);
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    string path = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/Reversi";
+                                                    // Debug.LogError("bookPath: "+path);
+                                                    unitySetBookPath(path);
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    string path = Global.DataPath+ "/"+GameType.AlwaysIn+"/Reversi";
+                                                    // Debug.LogError("bookPath: "+path);
+                                                    unitySetBookPath(path);
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    string path = GameType.AlwaysIn+ "/Reversi";
+                                                    // Debug.LogError("bookPath: "+path);
+                                                    unitySetBookPath(path);
+                                                }
+                        #endif*/
                     }
                 }
                 else

@@ -460,11 +460,10 @@ namespace Shogi
                     isAlreadyInit = true;
                     // set data path
                     {
-#if UNITY_EDITOR
 
                         // Book
                         {
-                            string bookPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/shogi/book.bin";
+                            string bookPath = GameType.MakeCorePath(GameType.AlwaysIn, "shogi", "book.bin");
                             if (unitySetBookPath(bookPath))
                             {
                                 Debug.Log("book exist");
@@ -487,76 +486,103 @@ namespace Shogi
                             }
                         }
 
-#elif UNITY_STANDALONE_OSX
+                        /*#if UNITY_EDITOR
 
-                        // Book
-                        {
-                            string bookPath = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/shogi/book.bin";
-                            if (unitySetBookPath(bookPath))
-                            {
-                                Debug.Log("book exist");
-                            }
-                            else
-                            {
-                                Debug.LogError("book not exist: " + bookPath);
-                            }
-                        }
-                        // Evaluator
-                        {
-                            string evaluatorPath = "";
-                            if (unitySetEvaluatorPath(evaluatorPath))
-                            {
-                                Debug.Log("evaluator exist");
-                            }
-                            else
-                            {
-                                Debug.LogError("evaluator not exist: " + evaluatorPath);
-                            }
-                        }
+                                                // Book
+                                                {
+                                                    string bookPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/shogi/book.bin";
+                                                    if (unitySetBookPath(bookPath))
+                                                    {
+                                                        Debug.Log("book exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("book not exist: " + bookPath);
+                                                    }
+                                                }
+                                                // Evaluator
+                                                {
+                                                    string evaluatorPath = "";
+                                                    if (unitySetEvaluatorPath(evaluatorPath))
+                                                    {
+                                                        Debug.Log("evaluator exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("evaluator not exist: " + evaluatorPath);
+                                                    }
+                                                }
 
-#elif UNITY_IPHONE
+                        #elif UNITY_STANDALONE_OSX
 
-						// Book
-						{
-							string bookPath = Global.DataPath+ "/"+GameType.AlwaysIn+"/shogi/book.bin";
-							if(unitySetBookPath(bookPath)){
-								Debug.Log("book exist");
-							} else{
-								Debug.LogError("book not exist: "+bookPath);
-							}
-						}
-						// Evaluator
-						{
-							string evaluatorPath = "";
-							if(unitySetEvaluatorPath(evaluatorPath)){
-								Debug.Log("evaluator exist");
-							} else{
-								Debug.LogError("evaluator not exist: "+evaluatorPath);
-							}
-						}
+                                                // Book
+                                                {
+                                                    string bookPath = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/shogi/book.bin";
+                                                    if (unitySetBookPath(bookPath))
+                                                    {
+                                                        Debug.Log("book exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("book not exist: " + bookPath);
+                                                    }
+                                                }
+                                                // Evaluator
+                                                {
+                                                    string evaluatorPath = "";
+                                                    if (unitySetEvaluatorPath(evaluatorPath))
+                                                    {
+                                                        Debug.Log("evaluator exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("evaluator not exist: " + evaluatorPath);
+                                                    }
+                                                }
 
-#elif UNITY_ANDROID
+                        #elif UNITY_IPHONE
 
-						// Book
-						{
-							string bookPath = GameType.AlwaysIn + "/shogi/book.bin";
-							if(unitySetBookPath(bookPath)){
-								Debug.Log("book exist");
-							} else{
-								Debug.LogError("book not exist: "+bookPath);
-							}
-						}
-						// Evaluator
-						{
-							string evaluatorPath = "";
-							if(unitySetEvaluatorPath(evaluatorPath)){
-								Debug.Log("evaluator exist");
-							} else{
-								Debug.LogError("evaluator not exist: "+evaluatorPath);
-							}
-						}
+                                                // Book
+                                                {
+                                                    string bookPath = Global.DataPath+ "/"+GameType.AlwaysIn+"/shogi/book.bin";
+                                                    if(unitySetBookPath(bookPath)){
+                                                        Debug.Log("book exist");
+                                                    } else{
+                                                        Debug.LogError("book not exist: "+bookPath);
+                                                    }
+                                                }
+                                                // Evaluator
+                                                {
+                                                    string evaluatorPath = "";
+                                                    if(unitySetEvaluatorPath(evaluatorPath)){
+                                                        Debug.Log("evaluator exist");
+                                                    } else{
+                                                        Debug.LogError("evaluator not exist: "+evaluatorPath);
+                                                    }
+                                                }
 
-#endif
+                        #elif UNITY_ANDROID
+
+                                                // Book
+                                                {
+                                                    string bookPath = GameType.AlwaysIn + "/shogi/book.bin";
+                                                    if(unitySetBookPath(bookPath)){
+                                                        Debug.Log("book exist");
+                                                    } else{
+                                                        Debug.LogError("book not exist: "+bookPath);
+                                                    }
+                                                }
+                                                // Evaluator
+                                                {
+                                                    string evaluatorPath = "";
+                                                    if(unitySetEvaluatorPath(evaluatorPath)){
+                                                        Debug.Log("evaluator exist");
+                                                    } else{
+                                                        Debug.LogError("evaluator not exist: "+evaluatorPath);
+                                                    }
+                                                }
+
+                        #endif*/
                     }
                     // set core
                     shogi_initCore();
@@ -585,48 +611,60 @@ namespace Shogi
                     isAlreadyInitEvaluator = true;
                     // set book
                     {
-#if UNITY_EDITOR
+                        // TODO In Android, may be not set
+                        string evaluatorPath = System.IO.Path.Combine(Application.streamingAssetsPath, GameType.NotAlwaysIn, "shogi", "20171106");
+                        if (unityChangeEvaluatorPath(evaluatorPath))
                         {
-                            string evaluatorPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/shogi/20171106";
-                            if (unityChangeEvaluatorPath(evaluatorPath))
-                            {
-                                Debug.Log("evaluator exist");
-                            }
-                            else
-                            {
-                                Debug.LogError("evaluator not exist: " + evaluatorPath);
-                            }
+                            Debug.Log("evaluator exist");
                         }
-#elif UNITY_STANDALONE_OSX
+                        else
                         {
-                            string evaluatorPath = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/shogi/20171106";
-                            if (unityChangeEvaluatorPath(evaluatorPath))
-                            {
-                                Debug.Log("evaluator exist");
-                            }
-                            else
-                            {
-                                Debug.LogError("evaluator not exist: " + evaluatorPath);
-                            }
+                            Debug.LogError("evaluator not exist: " + evaluatorPath);
                         }
-#elif UNITY_IPHONE
-						{
-							string evaluatorPath = Global.DataPath + "/"+GameType.NotAlwaysIn+"/shogi/20171106";
-							if(unityChangeEvaluatorPath(evaluatorPath)){
-								Debug.Log("evaluator exist");
-							} else{
-								Debug.LogError("evaluator not exist: "+evaluatorPath);
-							}
-						}
-#elif UNITY_ANDROID
-						/*{
-							string evaluatorPath = GameType.NotAlwaysIn + "/shogi/20171106"
-							if(unityChangeEvaluatorPath(evaluatorPath)){
-								Debug.Log("evaluator exist");
-							} else{
-								Debug.LogError("evaluator not exist: "+evaluatorPath);
-							}*/
-#endif
+
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    string evaluatorPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/shogi/20171106";
+                                                    if (unityChangeEvaluatorPath(evaluatorPath))
+                                                    {
+                                                        Debug.Log("evaluator exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("evaluator not exist: " + evaluatorPath);
+                                                    }
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    string evaluatorPath = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/shogi/20171106";
+                                                    if (unityChangeEvaluatorPath(evaluatorPath))
+                                                    {
+                                                        Debug.Log("evaluator exist");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("evaluator not exist: " + evaluatorPath);
+                                                    }
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    string evaluatorPath = Global.DataPath + "/"+GameType.NotAlwaysIn+"/shogi/20171106";
+                                                    if(unityChangeEvaluatorPath(evaluatorPath)){
+                                                        Debug.Log("evaluator exist");
+                                                    } else{
+                                                        Debug.LogError("evaluator not exist: "+evaluatorPath);
+                                                    }
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    string evaluatorPath = GameType.NotAlwaysIn + "/shogi/20171106"
+                                                    if(unityChangeEvaluatorPath(evaluatorPath)){
+                                                        Debug.Log("evaluator exist");
+                                                    } else{
+                                                        Debug.LogError("evaluator not exist: "+evaluatorPath);
+                                                    }
+                                                }
+                        #endif*/
                     }
                 }
                 else

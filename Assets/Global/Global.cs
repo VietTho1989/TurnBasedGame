@@ -30,7 +30,7 @@ public class Global : Data
 
     #endregion
 
-    public static string DataPath = "";
+    // public static string DataPath = "";
 
 	#region Get
 

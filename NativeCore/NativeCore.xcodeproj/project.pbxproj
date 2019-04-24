@@ -518,8 +518,6 @@
 		31AC683420E9F3BD00ADE207 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC683320E9F3BD00ADE207 /* Platform.cpp */; };
 		31AC683520E9F3BD00ADE207 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC683320E9F3BD00ADE207 /* Platform.cpp */; };
 		31B93ED52149F3AE009EFC7A /* hex_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D9A5762148FD6A009B303A /* hex_jni.cpp */; };
-		31C1426220EDB80400722829 /* AlwaysIn in Resources */ = {isa = PBXBuildFile; fileRef = 31C1426120EDB80400722829 /* AlwaysIn */; };
-		31C1426420EDB87600722829 /* NotAlwaysIn in Resources */ = {isa = PBXBuildFile; fileRef = 31C1426320EDB87600722829 /* NotAlwaysIn */; };
 		31D19C1D20F2EBCE00F53C07 /* shatranj_bitbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BF620F2EBCE00F53C07 /* shatranj_bitbase.cpp */; };
 		31D19C1E20F2EBCE00F53C07 /* shatranj_bitbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BF620F2EBCE00F53C07 /* shatranj_bitbase.cpp */; };
 		31D19C1F20F2EBCE00F53C07 /* shatranj_bitboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BF720F2EBCE00F53C07 /* shatranj_bitboard.cpp */; };
@@ -1147,8 +1145,6 @@
 		31AC66E520E9EA4200ADE207 /* xiangqi_main.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xiangqi_main.hpp; sourceTree = "<group>"; };
 		31AC683220E9F3BD00ADE207 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Platform.h; path = ../../Android/UnityNativePlugin/app/src/main/cpp/Platform.h; sourceTree = "<group>"; };
 		31AC683320E9F3BD00ADE207 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Platform.cpp; path = ../../Android/UnityNativePlugin/app/src/main/cpp/Platform.cpp; sourceTree = "<group>"; };
-		31C1426120EDB80400722829 /* AlwaysIn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AlwaysIn; sourceTree = "<group>"; };
-		31C1426320EDB87600722829 /* NotAlwaysIn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NotAlwaysIn; sourceTree = "<group>"; };
 		31D19BF620F2EBCE00F53C07 /* shatranj_bitbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shatranj_bitbase.cpp; sourceTree = "<group>"; };
 		31D19BF720F2EBCE00F53C07 /* shatranj_bitboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shatranj_bitboard.cpp; sourceTree = "<group>"; };
 		31D19BF820F2EBCE00F53C07 /* shatranj_bitboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shatranj_bitboard.hpp; sourceTree = "<group>"; };
@@ -2278,8 +2274,6 @@
 		31FFB6CF20E07E8400EF3959 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				31C1426120EDB80400722829 /* AlwaysIn */,
-				31C1426320EDB87600722829 /* NotAlwaysIn */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2345,6 +2339,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 31FFB60420E0773500EF3959;
@@ -2365,8 +2360,6 @@
 			files = (
 				31E366702148CF2E000A59F4 /* hex_disjointset.inl in Resources */,
 				31E3667D2148CF2E000A59F4 /* hex_position.inl in Resources */,
-				31C1426420EDB87600722829 /* NotAlwaysIn in Resources */,
-				31C1426220EDB80400722829 /* AlwaysIn in Resources */,
 				31E3666B2148CF2E000A59F4 /* hex_board.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

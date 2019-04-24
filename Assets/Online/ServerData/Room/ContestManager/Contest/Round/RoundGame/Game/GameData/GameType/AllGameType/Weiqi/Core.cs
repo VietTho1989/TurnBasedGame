@@ -433,31 +433,35 @@ namespace Weiqi
                     isAlreadyInitBook = true;
                     // set book
                     {
-#if UNITY_EDITOR
-                        {
-                            weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
-                                string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);
-                            weiqi_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/weiqi/book.dat");
-                        }
-#elif UNITY_STANDALONE_OSX
-                        {
-                            weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
-                                string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);
-                            weiqi_setBookPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/weiqi/book.dat");
-                        }
-#elif UNITY_IPHONE
-						{
-							weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath+ "/"+GameType.NotAlwaysIn+"/weiqi/patterns.spat" : spatialDictFileName, 
-								string.IsNullOrEmpty(patternFileName) ? Global.DataPath+ "/"+GameType.NotAlwaysIn+"/weiqi/patterns.prob" : patternFileName);
-							weiqi_setBookPath(Global.DataPath+ "/"+GameType.AlwaysIn+"/weiqi/book.dat");
-						}
-#elif UNITY_ANDROID
-						{
-							weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? GameType.NotAlwaysIn+ "/weiqi/patterns.spat" : spatialDictFileName, 
-								string.IsNullOrEmpty(patternFileName) ? GameType.NotAlwaysIn+"/weiqi/patterns.prob" : patternFileName);
-							weiqi_setBookPath(GameType.AlwaysIn + "/weiqi/book.dat");
-						}
-#endif
+                        weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? GameType.MakeCorePath(GameType.NotAlwaysIn, "weiqi", "patterns.spat") : spatialDictFileName,
+                               string.IsNullOrEmpty(patternFileName) ? GameType.MakeCorePath(GameType.NotAlwaysIn, "weiqi", "patterns.prob") : patternFileName);
+                        weiqi_setBookPath(GameType.MakeCorePath(GameType.AlwaysIn, "weiqi", "book.dat"));
+
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
+                                                        string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);
+                                                    weiqi_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/weiqi/book.dat");
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
+                                                        string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);
+                                                    weiqi_setBookPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/weiqi/book.dat");
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath+ "/"+GameType.NotAlwaysIn+"/weiqi/patterns.spat" : spatialDictFileName, 
+                                                        string.IsNullOrEmpty(patternFileName) ? Global.DataPath+ "/"+GameType.NotAlwaysIn+"/weiqi/patterns.prob" : patternFileName);
+                                                    weiqi_setBookPath(Global.DataPath+ "/"+GameType.AlwaysIn+"/weiqi/book.dat");
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? GameType.NotAlwaysIn+ "/weiqi/patterns.spat" : spatialDictFileName, 
+                                                        string.IsNullOrEmpty(patternFileName) ? GameType.NotAlwaysIn+"/weiqi/patterns.prob" : patternFileName);
+                                                    weiqi_setBookPath(GameType.AlwaysIn + "/weiqi/book.dat");
+                                                }
+                        #endif*/
                     }
                 }
                 else

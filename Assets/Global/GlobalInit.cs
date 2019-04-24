@@ -12,7 +12,7 @@ public class GlobalInit : MonoBehaviour
 
     void Awake()
     {
-        Global.DataPath = Application.dataPath;
+        // Global.DataPath = Application.dataPath;
 
         // Transport.layer = new LLAPITransport();
 

@@ -50,8 +50,8 @@ namespace Reversi
 
         public Image imgPiece;
 
-        private readonly Color lastMoveColor = Global.TransparentColor;
-        private readonly Color flipColor = Color.yellow;
+        private static readonly Color lastMoveColor = Global.TransparentColor;
+        private static readonly Color flipColor = new Color(255 / 255f, 191 / 255f, 0);
         public UILineRenderer flip;
 
         public override void refresh()

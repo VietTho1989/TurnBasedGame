@@ -314,30 +314,34 @@ namespace Xiangqi
 					isAlreadyInitBook = true;
 					// set book
 					{
-#if UNITY_EDITOR
-                        {
-                            string path = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/Xiangqi/BOOK.DAT";
-                            bool success = unitySetBookPath(path);
-                            Debug.LogError(success ? "set book path success" : "set book path fail");
-                        }
-#elif UNITY_STANDALONE_OSX
-                        {
-							string path = Global.DataPath+ "/Plugins/UnityNativeCore.bundle/Contents/Resources/"+GameType.AlwaysIn+"/Xiangqi/BOOK.DAT";
-							bool success = unitySetBookPath(path);
-							Debug.LogError(success ? "set book path success" : "set book path fail");
-						}
-#elif UNITY_IPHONE
-						{
-							string path = Global.DataPath+ "/"+GameType.AlwaysIn+"/Xiangqi/BOOK.DAT";
-							bool success = unitySetBookPath(path);
-							Debug.LogError(success ? "set book path success" : "set book path fail");
-						}
-#elif UNITY_ANDROID
-						{
-							string path = GameType.AlwaysIn + "/Xiangqi/BOOK.DAT";
-							unitySetBookPath(path);
-						}
-#endif
+                        string path = GameType.MakeCorePath(GameType.AlwaysIn, "Xiangqi", "BOOK.DAT");
+                        bool success = unitySetBookPath(path);
+                        Debug.LogError(success ? "set book path success" : "set book path fail");
+
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    string path = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/Xiangqi/BOOK.DAT";
+                                                    bool success = unitySetBookPath(path);
+                                                    Debug.LogError(success ? "set book path success" : "set book path fail");
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    string path = Global.DataPath+ "/Plugins/UnityNativeCore.bundle/Contents/Resources/"+GameType.AlwaysIn+"/Xiangqi/BOOK.DAT";
+                                                    bool success = unitySetBookPath(path);
+                                                    Debug.LogError(success ? "set book path success" : "set book path fail");
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    string path = Global.DataPath+ "/"+GameType.AlwaysIn+"/Xiangqi/BOOK.DAT";
+                                                    bool success = unitySetBookPath(path);
+                                                    Debug.LogError(success ? "set book path success" : "set book path fail");
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    string path = GameType.AlwaysIn + "/Xiangqi/BOOK.DAT";
+                                                    unitySetBookPath(path);
+                                                }
+                        #endif*/
                     }
 				} else {
 					// Debug.LogError ("already init core");

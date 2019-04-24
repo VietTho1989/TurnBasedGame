@@ -514,97 +514,121 @@ namespace InternationalDraught
                     international_draught_initCore();
                     // set path
                     {
-#if UNITY_EDITOR
+                        if (international_draught_setBBPath(GameType.MakeCorePath(GameType.NotAlwaysIn, "InternationalDraught", "data", "bb")))
                         {
-                            if (international_draught_setBBPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
-                            {
-                                Debug.Log("setBBPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setBBPath fail");
-                            }
-                            if (international_draught_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught/book"))
-                            {
-                                Debug.Log("setBookPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setBBPath fail");
-                            }
-                            if (international_draught_setEvalPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught"))
-                            {
-                                Debug.Log("setEvalPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setEvalPath fail");
-                            }
+                            Debug.Log("setBBPath success");
                         }
-#elif UNITY_STANDALONE_OSX
+                        else
                         {
-                            if (international_draught_setBBPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
-                            {
-                                Debug.Log("setBBPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setBBPath fail");
-                            }
-                            if (international_draught_setBookPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/InternationalDraught/book"))
-                            {
-                                Debug.Log("setBookPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setBBPath fail");
-                            }
-                            if (international_draught_setEvalPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/InternationalDraught"))
-                            {
-                                Debug.Log("setEvalPath success");
-                            }
-                            else
-                            {
-                                Debug.LogError("error, setEvalPath fail");
-                            }
+                            Debug.LogError("error, setBBPath fail");
                         }
-#elif UNITY_IPHONE
-						{
-							if(international_draught_setBBPath(Global.DataPath+"/"+GameType.NotAlwaysIn+"/InternationalDraught/data/bb")){
-								Debug.Log("setBBPath success");
-							}else{
-								Debug.LogError("error, setBBPath fail");
-							}
-							if(international_draught_setBookPath(Global.DataPath+"/"+GameType.AlwaysIn+"/InternationalDraught/book")){
-								Debug.Log("setBookPath success");
-							}else{
-								Debug.LogError("error, setBBPath fail");
-							}
-							if(international_draught_setEvalPath(Global.DataPath+"/"+GameType.AlwaysIn+"/InternationalDraught")){
-								Debug.Log("setEvalPath success");
-							}else{
-								Debug.LogError("error, setEvalPath fail");
-							}
-						}
-#elif UNITY_ANDROID
-						{
-							if(international_draught_setBBPath(GameType.NotAlwaysIn + "/InternationalDraught/data/bb")){
-								Debug.Log("setBBPath success");
-							}else{
-								Debug.LogError("error, setBBPath fail");
-							}
-							if(international_draught_setBookPath(GameType.AlwaysIn + "/InternationalDraught/book")){
-								Debug.Log("setBookPath success");
-							}else{
-								Debug.LogError("error, setBBPath fail");
-							}
-							if(international_draught_setEvalPath(GameType.AlwaysIn + "/InternationalDraught")){
-								Debug.Log("setEvalPath success");
-							}else{
-								Debug.LogError("error, setEvalPath fail");
-							}
-						}
-#endif
+                        if (international_draught_setBookPath(GameType.MakeCorePath(GameType.AlwaysIn, "InternationalDraught", "book")))
+                        {
+                            Debug.Log("setBookPath success");
+                        }
+                        else
+                        {
+                            Debug.LogError("error, setBBPath fail");
+                        }
+                        if (international_draught_setEvalPath(GameType.MakeCorePath(GameType.AlwaysIn, "InternationalDraught")))
+                        {
+                            Debug.Log("setEvalPath success");
+                        }
+                        else
+                        {
+                            Debug.LogError("error, setEvalPath fail");
+                        }
+                        /*#if UNITY_EDITOR
+                                                {
+                                                    if (international_draught_setBBPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
+                                                    {
+                                                        Debug.Log("setBBPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if (international_draught_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught/book"))
+                                                    {
+                                                        Debug.Log("setBookPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if (international_draught_setEvalPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught"))
+                                                    {
+                                                        Debug.Log("setEvalPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setEvalPath fail");
+                                                    }
+                                                }
+                        #elif UNITY_STANDALONE_OSX
+                                                {
+                                                    if (international_draught_setBBPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
+                                                    {
+                                                        Debug.Log("setBBPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if (international_draught_setBookPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/InternationalDraught/book"))
+                                                    {
+                                                        Debug.Log("setBookPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if (international_draught_setEvalPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/InternationalDraught"))
+                                                    {
+                                                        Debug.Log("setEvalPath success");
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("error, setEvalPath fail");
+                                                    }
+                                                }
+                        #elif UNITY_IPHONE
+                                                {
+                                                    if(international_draught_setBBPath(Global.DataPath+"/"+GameType.NotAlwaysIn+"/InternationalDraught/data/bb")){
+                                                        Debug.Log("setBBPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if(international_draught_setBookPath(Global.DataPath+"/"+GameType.AlwaysIn+"/InternationalDraught/book")){
+                                                        Debug.Log("setBookPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if(international_draught_setEvalPath(Global.DataPath+"/"+GameType.AlwaysIn+"/InternationalDraught")){
+                                                        Debug.Log("setEvalPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setEvalPath fail");
+                                                    }
+                                                }
+                        #elif UNITY_ANDROID
+                                                {
+                                                    if(international_draught_setBBPath(GameType.NotAlwaysIn + "/InternationalDraught/data/bb")){
+                                                        Debug.Log("setBBPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if(international_draught_setBookPath(GameType.AlwaysIn + "/InternationalDraught/book")){
+                                                        Debug.Log("setBookPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setBBPath fail");
+                                                    }
+                                                    if(international_draught_setEvalPath(GameType.AlwaysIn + "/InternationalDraught")){
+                                                        Debug.Log("setEvalPath success");
+                                                    }else{
+                                                        Debug.LogError("error, setEvalPath fail");
+                                                    }
+                                                }
+                        #endif*/
 
                     }
                 }
