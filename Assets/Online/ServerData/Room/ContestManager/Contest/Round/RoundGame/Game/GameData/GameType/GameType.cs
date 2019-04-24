@@ -514,6 +514,10 @@ public abstract class GameType : Data
 
     public const string BundleName = "NativeCore";
 
+#elif UNITY_STANDALONE_WIN
+
+    public const string BundleName = "WindowsCore";
+
 #endif
 
     #endregion

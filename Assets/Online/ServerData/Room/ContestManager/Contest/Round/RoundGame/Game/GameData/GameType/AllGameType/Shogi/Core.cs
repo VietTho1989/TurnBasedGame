@@ -460,7 +460,34 @@ namespace Shogi
                     isAlreadyInit = true;
                     // set data path
                     {
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR
+
+                        // Book
+                        {
+                            string bookPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/shogi/book.bin";
+                            if (unitySetBookPath(bookPath))
+                            {
+                                Debug.Log("book exist");
+                            }
+                            else
+                            {
+                                Debug.LogError("book not exist: " + bookPath);
+                            }
+                        }
+                        // Evaluator
+                        {
+                            string evaluatorPath = "";
+                            if (unitySetEvaluatorPath(evaluatorPath))
+                            {
+                                Debug.Log("evaluator exist");
+                            }
+                            else
+                            {
+                                Debug.LogError("evaluator not exist: " + evaluatorPath);
+                            }
+                        }
+
+#elif UNITY_STANDALONE_OSX
 
                         // Book
                         {
@@ -558,7 +585,19 @@ namespace Shogi
                     isAlreadyInitEvaluator = true;
                     // set book
                     {
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR
+                        {
+                            string evaluatorPath = Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/shogi/20171106";
+                            if (unityChangeEvaluatorPath(evaluatorPath))
+                            {
+                                Debug.Log("evaluator exist");
+                            }
+                            else
+                            {
+                                Debug.LogError("evaluator not exist: " + evaluatorPath);
+                            }
+                        }
+#elif UNITY_STANDALONE_OSX
                         {
                             string evaluatorPath = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/shogi/20171106";
                             if (unityChangeEvaluatorPath(evaluatorPath))

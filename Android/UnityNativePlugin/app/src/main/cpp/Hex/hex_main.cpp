@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <pthread.h>
 #include "fhcore/hex_board.hpp"
 #include "fhcore/hex_iengine.hpp"
 #include "fhcore/hex_mcts.hpp"

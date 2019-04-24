@@ -11,6 +11,7 @@
 #include "khet_MoveGenerator.hpp"
 #include "khet_Board.hpp"
 #include "khet_jni.hpp"
+#include <pthread.h>
 #include <iostream>
 #include <string>
 

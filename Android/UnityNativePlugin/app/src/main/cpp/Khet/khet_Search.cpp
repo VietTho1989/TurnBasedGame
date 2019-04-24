@@ -6,6 +6,10 @@
 #include <cassert>
 #include <climits>
 
+#ifdef _WIN32
+#include <algorithm>
+#endif
+
 namespace Khet
 {
     // Iterative deepening framework.

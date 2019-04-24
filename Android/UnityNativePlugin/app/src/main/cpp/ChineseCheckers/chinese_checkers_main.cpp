@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <pthread.h>
 #include <thread>
 #include "chinese_checkers_main.hpp"
 #include "chinese_checkers_board.hpp"

@@ -11,9 +11,10 @@
 #include <pthread.h>
 #include <vector>
 #include <thread>
+#include <pthread.h>
 #include "../Platform.h"
 #include "mine_sweeper_main.hpp"
-#include "mine_sweeper_Board.hpp"
+#include "mine_sweeper_board.hpp"
 #include "mine_sweeper_Solver.hpp"
 #include "mine_sweeper_jni.hpp"
 

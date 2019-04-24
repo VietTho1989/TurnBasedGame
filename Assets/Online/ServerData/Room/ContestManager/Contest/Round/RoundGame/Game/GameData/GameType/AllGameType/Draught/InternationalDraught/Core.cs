@@ -514,7 +514,34 @@ namespace InternationalDraught
                     international_draught_initCore();
                     // set path
                     {
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR
+                        {
+                            if (international_draught_setBBPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
+                            {
+                                Debug.Log("setBBPath success");
+                            }
+                            else
+                            {
+                                Debug.LogError("error, setBBPath fail");
+                            }
+                            if (international_draught_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught/book"))
+                            {
+                                Debug.Log("setBookPath success");
+                            }
+                            else
+                            {
+                                Debug.LogError("error, setBBPath fail");
+                            }
+                            if (international_draught_setEvalPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/InternationalDraught"))
+                            {
+                                Debug.Log("setEvalPath success");
+                            }
+                            else
+                            {
+                                Debug.LogError("error, setEvalPath fail");
+                            }
+                        }
+#elif UNITY_STANDALONE_OSX
                         {
                             if (international_draught_setBBPath(Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/InternationalDraught/data/bb"))
                             {

@@ -4,6 +4,10 @@
 #include "khet_SquareHelpers.hpp"
 #include "../Platform.h"
 
+#ifdef _WIN32
+#include <algorithm>
+#endif
+
 namespace Khet
 {
     // EvalLaser Evaluator::_laser = EvalLaser();

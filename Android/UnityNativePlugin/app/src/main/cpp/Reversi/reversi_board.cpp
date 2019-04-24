@@ -962,7 +962,9 @@ namespace Reversi
         bitbrd result = SOUTHRAY[index];
         bitbrd block = result & pos;
         // Get single occupancy blocker mask, if the blocker is an anchor piece
+#pragma warning( disable : 4146 )
         block &= -block & self;
+#pragma warning( default : 4146 )
         if (block) {
             int32_t anchor = bitScanForward(block);
             return (result ^ SOUTHRAYI[anchor]);
@@ -973,7 +975,9 @@ namespace Reversi
     bitbrd Board::eastFill(int32_t index, bitbrd self, bitbrd pos) {
         bitbrd result = EASTRAY[index];
         bitbrd block = result & pos;
+#pragma warning( disable : 4146 )
         block &= -block & self;
+#pragma warning( default : 4146 )
         if (block) {
             int32_t anchor = bitScanForward(block);
             return (result ^ EASTRAYI[anchor]);
@@ -1017,7 +1021,9 @@ namespace Reversi
     bitbrd Board::swFill(int32_t index, bitbrd self, bitbrd pos) {
         bitbrd result = SWRAY[index];
         bitbrd block = result & pos;
+#pragma warning( disable : 4146 )
         block &= -block & self;
+#pragma warning( default : 4146 )
         if (block) {
             int32_t anchor = bitScanForward(block);
             return (result ^ SWRAYI[anchor]);
@@ -1028,7 +1034,9 @@ namespace Reversi
     bitbrd Board::seFill(int32_t index, bitbrd self, bitbrd pos) {
         bitbrd result = SERAY[index];
         bitbrd block = result & pos;
+#pragma warning( disable : 4146 )
         block &= -block & self;
+#pragma warning( default : 4146 )
         if (block) {
             int32_t anchor = bitScanForward(block);
             return (result ^ SERAYI[anchor]);

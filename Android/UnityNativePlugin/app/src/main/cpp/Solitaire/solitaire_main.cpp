@@ -10,6 +10,7 @@
 #include<fstream>
 #include<ctime>
 #include<cstring>
+#include <pthread.h>
 #include "../Platform.h"
 #include "solitaire_Solitaire.hpp"
 #include "solitaire_main.hpp"

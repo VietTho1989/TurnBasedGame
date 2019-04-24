@@ -283,7 +283,13 @@ namespace Reversi
                     // set book
                     {
 
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR
+                        {
+                            string path = Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/Reversi";
+                            // Debug.LogError("bookPath: "+path);
+                            unitySetBookPath(path);
+                        }
+#elif UNITY_STANDALONE_OSX
                         {
                             string path = Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.AlwaysIn + "/Reversi";
                             // Debug.LogError("bookPath: "+path);

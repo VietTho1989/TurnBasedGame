@@ -433,7 +433,13 @@ namespace Weiqi
                     isAlreadyInitBook = true;
                     // set book
                     {
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR
+                        {
+                            weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
+                                string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/Android/assets/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);
+                            weiqi_setBookPath(Global.DataPath + "/Plugins/Android/assets/" + GameType.AlwaysIn + "/weiqi/book.dat");
+                        }
+#elif UNITY_STANDALONE_OSX
                         {
                             weiqi_setFileName(string.IsNullOrEmpty(spatialDictFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.spat" : spatialDictFileName,
                                 string.IsNullOrEmpty(patternFileName) ? Global.DataPath + "/Plugins/UnityNativeCore.bundle/Contents/Resources/" + GameType.NotAlwaysIn + "/weiqi/patterns.prob" : patternFileName);

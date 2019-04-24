@@ -1270,7 +1270,9 @@ namespace weiqi
         
         pp->patternrate = pp->eyefixrate = 100;
         pp->lcapturerate = 90;
+#pragma warning( disable : 4146 )
         pp->atarirate = pp->josekirate = -1U;
+#pragma warning( default : 4146 )
         pp->nakaderate = 60;
         pp->korate = 40; pp->koage = 4;
         pp->alwaysccaprate = 40;
@@ -1414,6 +1416,7 @@ namespace weiqi
                 }
             }
         }
+#pragma warning( disable : 4146 )
         if (pp->lcapturerate == -1U) pp->lcapturerate = rate;
         if (pp->atarirate == -1U) pp->atarirate = rate;
         if (pp->nlibrate == -1U) pp->nlibrate = rate;
@@ -1427,6 +1430,7 @@ namespace weiqi
         if (pp->nakaderate == -1U) pp->nakaderate = rate;
         if (pp->eyefixrate == -1U) pp->eyefixrate = rate;
         if (pp->alwaysccaprate == -1U) pp->alwaysccaprate = rate;
+#pragma warning( default : 4146 )
         
         pattern3s_init(&pp->patterns, moggy_patterns_src, moggy_patterns_src_n);
         

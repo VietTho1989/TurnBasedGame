@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <pthread.h>
 #include <thread>
 #include "nmm_main.hpp"
 #include "../Platform.h"
