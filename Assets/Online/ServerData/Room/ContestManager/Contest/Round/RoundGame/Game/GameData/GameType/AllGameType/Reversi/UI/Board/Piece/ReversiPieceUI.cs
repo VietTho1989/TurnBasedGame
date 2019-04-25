@@ -394,5 +394,6 @@ namespace Reversi
         }
 
         #endregion
+
     }
 }
