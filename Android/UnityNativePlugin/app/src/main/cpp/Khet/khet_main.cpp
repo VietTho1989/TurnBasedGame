@@ -11,7 +11,8 @@
 #include "khet_MoveGenerator.hpp"
 #include "khet_Board.hpp"
 #include "khet_jni.hpp"
-#include <pthread.h>
+// #include <pthread.h>
+#include <thread>
 #include <iostream>
 #include <string>
 
@@ -91,7 +92,8 @@ namespace Khet
         return NULL;
     }
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -226,7 +228,7 @@ namespace Khet
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int32_t khet_main(int32_t matchCount, std::string ResourcePath)
@@ -248,7 +250,7 @@ namespace Khet
             printf("fen: %s\n", fen);
         }*/
         
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
         pthread_attr_setstacksize(&attr, 10*1048576);
@@ -256,6 +258,15 @@ namespace Khet
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         return 0;

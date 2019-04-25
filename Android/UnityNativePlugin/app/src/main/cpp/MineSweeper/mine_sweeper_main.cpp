@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <pthread.h>
+// #include <pthread.h>
 #include <vector>
 #include <thread>
 #include <pthread.h>
@@ -21,7 +21,8 @@
 namespace MineSweeper
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -98,12 +99,12 @@ namespace MineSweeper
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int32_t mine_sweeper_main(int32_t matchCount, std::string ResourcePath)
     {
-        {
+        /*{
             pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
@@ -113,6 +114,14 @@ namespace MineSweeper
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
             }
+        }*/
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         return 0;

@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <string>
-#include <pthread.h>
+// #include <pthread.h>
 #include <thread>
 #include "chinese_checkers_main.hpp"
 #include "chinese_checkers_board.hpp"
@@ -18,7 +18,8 @@
 namespace ChineseCheckers
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         // Board board;
         // self_play(board);
@@ -156,20 +157,28 @@ namespace ChineseCheckers
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     int32_t chinese_checkers_main(int32_t matchCount, std::string ResourcePath)
     {
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
         pthread_attr_setstacksize(&attr, 10*1048576);
         
-        matchCount = 5;
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         return 0;

@@ -55,9 +55,9 @@ int main(int argc, const char * argv[]) {
         // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
-        // weiqi::weiqi_main(matchCount, ResourcePath);
+        weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
-        Reversi::reversi_main(matchCount, ResourcePath);
+        // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
         // Xiangqi::xiangqi_main(matchCount, ResourcePath);
         // MineSweeper::mine_sweeper_main(matchCount, ResourcePath);

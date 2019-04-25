@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <string>
-#include <pthread.h>
+// #include <pthread.h>
 #include <thread>
 #include "nmm_main.hpp"
 #include "../Platform.h"
@@ -19,7 +19,8 @@
 namespace NMM
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = nmm_makeDefaultPosition(startPositionBytes);
@@ -155,7 +156,7 @@ namespace NMM
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     void *threadMyTest(void *vargp)
@@ -244,15 +245,24 @@ namespace NMM
     int32_t nmm_main(int32_t matchCount, std::string ResourcePath)
     {
         printf("size: %lu, %lu, %lu, %lu, %lu\n", sizeof(Spot), sizeof(Board), sizeof(State), sizeof(NMMAgent), sizeof(Evaluator));
-        pthread_attr_t attr;
+        
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
         pthread_attr_setstacksize(&attr, 10*1048576);
         
-        matchCount = 1;
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         return 0;

@@ -12,14 +12,15 @@
 #include "../Platform.h"
 #include <iostream>
 #include <sstream>
-#include <pthread.h>
+// #include <pthread.h>
 #include <vector>
 #include <thread>
 
 namespace RussianDraught
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = russian_draught_makePositionByFen(StartFen, startPositionBytes);
@@ -161,20 +162,29 @@ namespace RussianDraught
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     int32_t russian_draught_main(int32_t matchCount, std::string ResourcePath)
     {
         russian_draught_initCore();
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
+            }*/
+            
+            std::vector<std::thread> threads;
+            for(int32_t i=0; i<matchCount; i++){
+                threads.push_back(std::thread(threadTest));
+            }
+            for(auto& t : threads)
+            {
+                t.join();
             }
             
             /*char buf[4096];

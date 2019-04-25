@@ -10,7 +10,9 @@
 #include<fstream>
 #include<ctime>
 #include<cstring>
-#include <pthread.h>
+// #include <pthread.h>
+#include <thread>
+#include <vector>
 #include "../Platform.h"
 #include "solitaire_Solitaire.hpp"
 #include "solitaire_main.hpp"
@@ -22,7 +24,8 @@ using namespace std;
 namespace Solitaire
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -161,13 +164,12 @@ namespace Solitaire
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int solitaire_main(int32_t matchCount, std::string ResourcePath)
     {
-        // matchCount = 12;
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
         pthread_attr_setstacksize(&attr, 10*1048576);
@@ -175,6 +177,15 @@ namespace Solitaire
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         /*Solitaire s;

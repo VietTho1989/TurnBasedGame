@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include <pthread.h>
+// #include <pthread.h>
+#include <thread>
 #include "fhcore/hex_board.hpp"
 #include "fhcore/hex_iengine.hpp"
 #include "fhcore/hex_mcts.hpp"
@@ -22,7 +23,8 @@ namespace Hex
     using namespace engine;
     using namespace std;
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -98,7 +100,7 @@ namespace Hex
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     void *threadMyTest(void *vargp)
@@ -149,7 +151,7 @@ namespace Hex
         // insert code here...
         // printf("size of : %lu", sizeof(disjointset::DisjointSetT<11>));
         
-        srand(now());
+        /*srand(now());
         pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
@@ -157,6 +159,15 @@ namespace Hex
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        std::vector<std::thread> threads;
+        for(int32_t i=0; i<matchCount; i++){
+            threads.push_back(std::thread(threadTest));
+        }
+        for(auto& t : threads)
+        {
+            t.join();
         }
         
         return 0;
