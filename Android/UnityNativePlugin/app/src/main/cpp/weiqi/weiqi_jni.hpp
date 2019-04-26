@@ -10,7 +10,7 @@
 #define weiqi_jni_hpp
 
 #include <stdio.h>
-#include <mutex>
+// #include <mutex>
 #include "../Platform.h"
 #include "weiqi_board.hpp"
 #include "weiqi_engine.hpp"

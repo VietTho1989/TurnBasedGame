@@ -7,18 +7,25 @@
 #ifndef BOOST_THREAD_LOCKABLE_TRAITS_HPP
 #define BOOST_THREAD_LOCKABLE_TRAITS_HPP
 
-#include <boost/thread/detail/config.hpp>
+#include "detail/config.hpp"
+// #include <boost/thread/detail/config.hpp>
 
-#include <boost/assert.hpp>
-#include <boost/detail/workaround.hpp>
-#include <boost/type_traits/integral_constant.hpp>
+#include "../assert.hpp"
+#include "../detail/workaround.hpp"
+#include "../type_traits/integral_constant.hpp"
+// #include <boost/assert.hpp>
+// #include <boost/detail/workaround.hpp>
+// #include <boost/type_traits/integral_constant.hpp>
 #ifdef BOOST_NO_CXX11_SFINAE_EXPR
-#include <boost/type_traits/is_class.hpp>
+#include "../type_traits/is_class.hpp"
+// #include <boost/type_traits/is_class.hpp>
 #else
-#include <boost/type_traits/declval.hpp>
+#include "../type_traits/declval.hpp"
+// #include <boost/type_traits/declval.hpp>
 #endif
 
-#include <boost/config/abi_prefix.hpp>
+#include "../config/abi_prefix.hpp"
+// #include <boost/config/abi_prefix.hpp>
 
 // todo make use of integral_constant, true_type and false_type
 
@@ -233,6 +240,7 @@ namespace boost
   };
 
 }
-#include <boost/config/abi_suffix.hpp>
+#include "../config/abi_suffix.hpp"
+// #include <boost/config/abi_suffix.hpp>
 
 #endif

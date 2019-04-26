@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
         }
         const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbasedGame/NativeCore/Resources";
         int matchCount = 1;
-        // StockFishChess::chess_main(matchCount, ResourcePath);
+        StockFishChess::chess_main(matchCount, ResourcePath);
         // Shatranj::shatranj_main(matchCount, ResourcePath);
         // Makruk::makruk_main(matchCount, ResourcePath);
         // Seirawan::seirawan_main(matchCount, ResourcePath);
@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
         // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
-        weiqi::weiqi_main(matchCount, ResourcePath);
+        // weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
         // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);

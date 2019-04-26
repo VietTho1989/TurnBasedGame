@@ -5,7 +5,7 @@
 #ifndef NATIVECORE_PLATFORM_H
 #define NATIVECORE_PLATFORM_H
 
-#include <string>
+// #include <string>
 #include <stdlib.h>
 #include <cstdint>
 

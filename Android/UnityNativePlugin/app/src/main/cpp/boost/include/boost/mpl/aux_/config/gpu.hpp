@@ -14,7 +14,8 @@
 // $Date$
 // $Revision$
 
-#include <boost/config.hpp>
+#include "../../../config.hpp"
+// #include <boost/config.hpp>
 
 #if !defined(BOOST_MPL_CFG_GPU_ENABLED) \
 

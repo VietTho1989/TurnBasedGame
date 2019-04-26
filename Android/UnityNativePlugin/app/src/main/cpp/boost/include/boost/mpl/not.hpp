@@ -14,11 +14,16 @@
 // $Date$
 // $Revision$
 
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/aux_/nttp_decl.hpp>
-#include <boost/mpl/aux_/nested_type_wknd.hpp>
-#include <boost/mpl/aux_/na_spec.hpp>
-#include <boost/mpl/aux_/lambda_support.hpp>
+#include "bool.hpp"
+#include "aux_/nttp_decl.hpp"
+#include "aux_/nested_type_wknd.hpp"
+#include "aux_/na_spec.hpp"
+#include "aux_/lambda_support.hpp"
+// #include <boost/mpl/bool.hpp>
+// #include <boost/mpl/aux_/nttp_decl.hpp>
+// #include <boost/mpl/aux_/nested_type_wknd.hpp>
+// #include <boost/mpl/aux_/na_spec.hpp>
+// #include <boost/mpl/aux_/lambda_support.hpp>
 
 namespace boost { namespace mpl {
 
@@ -41,7 +46,8 @@ struct not_
           BOOST_MPL_AUX_NESTED_TYPE_WKND(T)::value
         >
 {
-    BOOST_MPL_AUX_LAMBDA_SUPPORT(1,not_,(T))
+    // TODO Tam bo
+    // BOOST_MPL_AUX_LAMBDA_SUPPORT(1,not_,(T))
 };
 
 BOOST_MPL_AUX_NA_SPEC(1,not_)
