@@ -10,7 +10,7 @@
 #define shatranj_movegen_hpp
 
 #include <stdio.h>
-// #include <algorithm>
+#include <algorithm>
 
 #include "shatranj_types.hpp"
 

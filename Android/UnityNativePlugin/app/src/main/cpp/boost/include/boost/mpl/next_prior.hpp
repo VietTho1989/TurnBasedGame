@@ -14,12 +14,9 @@
 // $Date$
 // $Revision$
 
-#include "aux_/common_name_wknd.hpp"
-#include "aux_/na_spec.hpp"
-#include "aux_/lambda_support.hpp"
-// #include <boost/mpl/aux_/common_name_wknd.hpp>
-// #include <boost/mpl/aux_/na_spec.hpp>
-// #include <boost/mpl/aux_/lambda_support.hpp>
+#include <boost/mpl/aux_/common_name_wknd.hpp>
+#include <boost/mpl/aux_/na_spec.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 
 namespace boost { namespace mpl {
 

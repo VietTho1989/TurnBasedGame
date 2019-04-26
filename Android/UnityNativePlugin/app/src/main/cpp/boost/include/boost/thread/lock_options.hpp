@@ -27,7 +27,6 @@ namespace boost
   BOOST_CONSTEXPR_OR_CONST adopt_lock_t adopt_lock = {};
 
 }
-#include "../config/abi_suffix.hpp"
-// #include <boost/config/abi_suffix.hpp>
+#include <boost/config/abi_suffix.hpp>
 
 #endif

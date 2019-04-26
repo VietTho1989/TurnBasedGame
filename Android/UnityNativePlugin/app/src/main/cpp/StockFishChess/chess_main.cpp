@@ -12,8 +12,7 @@
 // #include <pthread.h>
 #include "chess_stock_fish_jni.hpp"
 #include <vector>
-// #include <thread>
-#include <thread.hpp>
+#include <thread>
 
 namespace StockFishChess
 {

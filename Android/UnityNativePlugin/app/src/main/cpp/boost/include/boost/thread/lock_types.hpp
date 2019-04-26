@@ -7,36 +7,24 @@
 #ifndef BOOST_THREAD_LOCK_TYPES_HPP
 #define BOOST_THREAD_LOCK_TYPES_HPP
 
-#include "detail/config.hpp"
-#include "detail/move.hpp"
-#include "exceptions.hpp"
-#include "lock_options.hpp"
-#include "lockable_traits.hpp"
-// #include <boost/thread/detail/config.hpp>
-// #include <boost/thread/detail/move.hpp>
-// #include <boost/thread/exceptions.hpp>
-// #include <boost/thread/lock_options.hpp>
-// #include <boost/thread/lockable_traits.hpp>
+#include <boost/thread/detail/config.hpp>
+#include <boost/thread/detail/move.hpp>
+#include <boost/thread/exceptions.hpp>
+#include <boost/thread/lock_options.hpp>
+#include <boost/thread/lockable_traits.hpp>
 #if ! defined BOOST_THREAD_PROVIDES_NESTED_LOCKS
-#include "is_locked_by_this_thread.hpp"
-// #include <boost/thread/is_locked_by_this_thread.hpp>
+#include <boost/thread/is_locked_by_this_thread.hpp>
 #endif
-#include "thread_time.hpp"
-// #include <boost/thread/thread_time.hpp>
+#include <boost/thread/thread_time.hpp>
 
-#include "../assert.hpp"
-// #include <boost/assert.hpp>
+#include <boost/assert.hpp>
 #ifdef BOOST_THREAD_USES_CHRONO
-#include "../chrono/time_point.hpp>
-#include "../chrono/duration.hpp"
-// #include <boost/chrono/time_point.hpp>
-// #include <boost/chrono/duration.hpp>
+#include <boost/chrono/time_point.hpp>
+#include <boost/chrono/duration.hpp>
 #endif
-#include "../detail/workaround.hpp"
-// #include <boost/detail/workaround.hpp>
+#include <boost/detail/workaround.hpp>
 
-#include "../config/abi_prefix.hpp"
-// #include <boost/config/abi_prefix.hpp>
+#include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {

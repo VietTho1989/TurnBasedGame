@@ -14,14 +14,10 @@
 // $Date$
 // $Revision$
 
-#include "nttp_decl.hpp"
-#include "config/arrays.hpp"
-#include "config/msvc.hpp"
-#include "config/workaround.hpp"
-// #include <boost/mpl/aux_/nttp_decl.hpp>
-// #include <boost/mpl/aux_/config/arrays.hpp>
-// #include <boost/mpl/aux_/config/msvc.hpp>
-// #include <boost/mpl/aux_/config/workaround.hpp>
+#include <boost/mpl/aux_/nttp_decl.hpp>
+#include <boost/mpl/aux_/config/arrays.hpp>
+#include <boost/mpl/aux_/config/msvc.hpp>
+#include <boost/mpl/aux_/config/workaround.hpp>
 
 
 namespace boost { namespace mpl { namespace aux {

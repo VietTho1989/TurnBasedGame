@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 #include <cassert>
-// #include <deque>
-// #include <memory> // For std::unique_ptr
+#include <deque>
+#include <memory> // For std::unique_ptr
 #include <string>
 #include <vector>
 
