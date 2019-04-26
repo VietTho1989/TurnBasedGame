@@ -11,18 +11,15 @@
 #ifndef BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED
 #define BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED
 
-#include "detail/config.hpp"
-// #include <boost/type_traits/detail/config.hpp>
+#include <boost/type_traits/detail/config.hpp>
 
 #ifdef BOOST_TT_HAS_ASCCURATE_IS_FUNCTION
 
-#include "detail/is_member_function_pointer_cxx_11.hpp"
-// #include <boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp>
+#include <boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp>
 
 #else
 
-#include "detail/is_member_function_pointer_cxx_03.hpp"
-// #include <boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp>
+#include <boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp>
 
 #endif
 

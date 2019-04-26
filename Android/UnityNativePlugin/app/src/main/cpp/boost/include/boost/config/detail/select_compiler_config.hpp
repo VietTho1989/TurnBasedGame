@@ -15,8 +15,7 @@
 
 #if defined __CUDACC__
 //  NVIDIA CUDA C++ compiler for GPU
-#   include "../compiler/nvcc.hpp"
-// #   include "boost/config/compiler/nvcc.hpp"
+#   include "boost/config/compiler/nvcc.hpp"
 
 #endif
 
@@ -154,8 +153,7 @@
 //
 // This section allows dependency scanners to find all the headers we *might* include:
 //
-#include "../compiler/gcc_xml.hpp"
-// #include <boost/config/compiler/gcc_xml.hpp>
+#include <boost/config/compiler/gcc_xml.hpp>
 #include <boost/config/compiler/cray.hpp>
 #include <boost/config/compiler/comeau.hpp>
 #include <boost/config/compiler/pathscale.hpp>

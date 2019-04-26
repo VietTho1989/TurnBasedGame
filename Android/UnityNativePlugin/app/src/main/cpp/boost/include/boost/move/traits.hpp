@@ -76,7 +76,6 @@ struct is_nothrow_move_constructible_or_uncopyable
 }  //move_detail {
 }  //namespace boost {
 
-#include "detail/config_end.hpp"
-// #include <boost/move/detail/config_end.hpp>
+#include <boost/move/detail/config_end.hpp>
 
 #endif //#ifndef BOOST_MOVE_TRAITS_HPP

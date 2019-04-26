@@ -6,25 +6,17 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../include/boost/thread/detail/config.hpp"
-// #include <boost/thread/detail/config.hpp>
+#include <boost/thread/detail/config.hpp>
 
-#include "../../include/boost/thread/thread_only.hpp"
-// #include <boost/thread/thread_only.hpp>
+#include <boost/thread/thread_only.hpp>
 #if defined BOOST_THREAD_USES_DATETIME
-#include "../../include/boost/thread/xtime.hpp"
-// #include <boost/thread/xtime.hpp>
+#include <boost/thread/xtime.hpp>
 #endif
-#include "../../include/boost/thread/condition_variable.hpp"
-#include "../../include/boost/thread/locks.hpp"
-#include "../../include/boost/thread/once.hpp"
-#include "../../include/boost/thread/tss.hpp"
-#include "../../include/boost/thread/future.hpp"
-// #include <boost/thread/condition_variable.hpp>
-// #include <boost/thread/locks.hpp>
-// #include <boost/thread/once.hpp>
-// #include <boost/thread/tss.hpp>
-// #include <boost/thread/future.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/locks.hpp>
+#include <boost/thread/once.hpp>
+#include <boost/thread/tss.hpp>
+#include <boost/thread/future.hpp>
 
 #ifdef __GLIBC__
 #include <sys/sysinfo.h>

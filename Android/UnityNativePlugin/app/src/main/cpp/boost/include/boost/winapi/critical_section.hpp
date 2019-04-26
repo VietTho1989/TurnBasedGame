@@ -9,10 +9,8 @@
 #ifndef BOOST_WINAPI_CRITICAL_SECTION_HPP_INCLUDED_
 #define BOOST_WINAPI_CRITICAL_SECTION_HPP_INCLUDED_
 
-#include "basic_types.hpp"
-#include "detail/cast_ptr.hpp"
-// #include <boost/winapi/basic_types.hpp>
-// #include <boost/winapi/detail/cast_ptr.hpp>
+#include <boost/winapi/basic_types.hpp>
+#include <boost/winapi/detail/cast_ptr.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

@@ -6,14 +6,12 @@
 #ifndef BOOST_THREAD_DETAIL_LOCKABLE_WRAPPER_HPP
 #define BOOST_THREAD_DETAIL_LOCKABLE_WRAPPER_HPP
 
-#include "config.hpp"
-// #include <boost/thread/detail/config.hpp>
+#include <boost/thread/detail/config.hpp>
 
 #if ! defined BOOST_THREAD_NO_CXX11_HDR_INITIALIZER_LIST
 #include <initializer_list>
 #endif
-#include "../../config/abi_prefix.hpp"
-// #include <boost/config/abi_prefix.hpp>
+#include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {
@@ -42,7 +40,6 @@ namespace boost
 
 }
 
-#include "../../config/abi_suffix.hpp"
-// #include <boost/config/abi_suffix.hpp>
+#include <boost/config/abi_suffix.hpp>
 
 #endif // header

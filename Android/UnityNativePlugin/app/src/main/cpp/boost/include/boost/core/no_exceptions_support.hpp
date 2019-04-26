@@ -20,10 +20,8 @@
 // or without exception support enabled.
 //----------------------------------------------------------------------
 
-#include "../config.hpp"
-#include "../config/workaround.hpp"
-// #include <boost/config.hpp>
-// #include <boost/config/workaround.hpp>
+#include <boost/config.hpp>
+#include <boost/config/workaround.hpp>
 
 #if !(defined BOOST_NO_EXCEPTIONS)
 #    define BOOST_TRY { try

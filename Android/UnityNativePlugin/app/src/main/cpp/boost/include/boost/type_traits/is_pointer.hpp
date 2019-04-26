@@ -21,8 +21,7 @@
 #ifndef BOOST_TT_IS_POINTER_HPP_INCLUDED
 #define BOOST_TT_IS_POINTER_HPP_INCLUDED
 
-#include "integral_constant.hpp"
-// #include <boost/type_traits/integral_constant.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 

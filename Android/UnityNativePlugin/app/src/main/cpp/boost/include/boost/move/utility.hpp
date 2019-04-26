@@ -149,7 +149,6 @@
 
 #endif   //BOOST_NO_CXX11_RVALUE_REFERENCES
 
-#include "detail/config_end.hpp"
-// #include <boost/move/detail/config_end.hpp>
+#include <boost/move/detail/config_end.hpp>
 
 #endif //#ifndef BOOST_MOVE_MOVE_UTILITY_HPP

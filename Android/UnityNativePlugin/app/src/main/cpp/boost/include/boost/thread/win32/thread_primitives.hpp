@@ -10,50 +10,29 @@
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../detail/config.hpp"
-#include "../../predef/platform.h"
-#include "../../throw_exception.hpp"
-#include "../../assert.hpp"
-#include "../exceptions.hpp"
-#include "../../detail/interlocked.hpp"
-// #include <boost/thread/detail/config.hpp>
-// #include <boost/predef/platform.h>
-// #include <boost/throw_exception.hpp>
-// #include <boost/assert.hpp>
-// #include <boost/thread/exceptions.hpp>
-// #include <boost/detail/interlocked.hpp>
+#include <boost/thread/detail/config.hpp>
+#include <boost/predef/platform.h>
+#include <boost/throw_exception.hpp>
+#include <boost/assert.hpp>
+#include <boost/thread/exceptions.hpp>
+#include <boost/detail/interlocked.hpp>
 
-#include "../../winapi/config.hpp"
-#include "../../winapi/basic_types.hpp"
-#include "../../winapi/semaphore.hpp"
-#include "../../winapi/system.hpp"
-#include "../../winapi/event.hpp"
-#include "../../winapi/thread.hpp"
-#include "../../winapi/get_current_thread.hpp"
-#include "../../winapi/get_current_thread_id.hpp"
-#include "../../winapi/get_current_process.hpp"
-#include "../../winapi/get_current_process_id.hpp"
-#include "../../winapi/wait.hpp"
-#include "../../winapi/handles.hpp"
-#include "../../winapi/access_rights.hpp"
-// #include <boost/winapi/config.hpp>
-// #include <boost/winapi/basic_types.hpp>
-// #include <boost/winapi/semaphore.hpp>
-// #include <boost/winapi/system.hpp>
-// #include <boost/winapi/event.hpp>
-// #include <boost/winapi/thread.hpp>
-// #include <boost/winapi/get_current_thread.hpp>
-// #include <boost/winapi/get_current_thread_id.hpp>
-// #include <boost/winapi/get_current_process.hpp>
-// #include <boost/winapi/get_current_process_id.hpp>
-// #include <boost/winapi/wait.hpp>
-// #include <boost/winapi/handles.hpp>
-// #include <boost/winapi/access_rights.hpp>
+#include <boost/winapi/config.hpp>
+#include <boost/winapi/basic_types.hpp>
+#include <boost/winapi/semaphore.hpp>
+#include <boost/winapi/system.hpp>
+#include <boost/winapi/event.hpp>
+#include <boost/winapi/thread.hpp>
+#include <boost/winapi/get_current_thread.hpp>
+#include <boost/winapi/get_current_thread_id.hpp>
+#include <boost/winapi/get_current_process.hpp>
+#include <boost/winapi/get_current_process_id.hpp>
+#include <boost/winapi/wait.hpp>
+#include <boost/winapi/handles.hpp>
+#include <boost/winapi/access_rights.hpp>
 
-#include "../../winapi/synchronization.hpp"
 //#include <boost/winapi/synchronization.hpp>
-#include "interlocked_read.hpp"
-// #include <boost/thread/win32/interlocked_read.hpp>
+#include <boost/thread/win32/interlocked_read.hpp>
 #include <algorithm>
 
 #if BOOST_PLAT_WINDOWS_RUNTIME
@@ -83,8 +62,7 @@ namespace boost
     }
 }
 
-#include "../../config/abi_prefix.hpp"
-// #include <boost/config/abi_prefix.hpp>
+#include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {
@@ -411,13 +389,12 @@ namespace boost
                 long old=*x;
                 do
                 {
-                    // TODO Tam bo
-                    /*long const current=BOOST_INTERLOCKED_COMPARE_EXCHANGE(x,old|value,old);
+                    long const current=BOOST_INTERLOCKED_COMPARE_EXCHANGE(x,old|value,old);
                     if(current==old)
                     {
                         break;
                     }
-                    old=current;*/
+                    old=current;
                 }
                 while(true) ;
                 return (old&value)!=0;
@@ -429,13 +406,12 @@ namespace boost
                 long old=*x;
                 do
                 {
-                    // TODO Tam bo
-                    /*long const current=BOOST_INTERLOCKED_COMPARE_EXCHANGE(x,old&~value,old);
+                    long const current=BOOST_INTERLOCKED_COMPARE_EXCHANGE(x,old&~value,old);
                     if(current==old)
                     {
                         break;
                     }
-                    old=current;*/
+                    old=current;
                 }
                 while(true) ;
                 return (old&value)!=0;
@@ -445,7 +421,6 @@ namespace boost
 }
 #endif
 
-#include "../../config/abi_suffix.hpp"
-// #include <boost/config/abi_suffix.hpp>
+#include <boost/config/abi_suffix.hpp>
 
 #endif

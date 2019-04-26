@@ -15,8 +15,7 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include "../config.hpp"
-// #include <boost/config.hpp>
+#include <boost/config.hpp>
 
 namespace boost
 {

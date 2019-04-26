@@ -9,10 +9,8 @@
 #ifndef BOOST_TT_IS_INTEGRAL_HPP_INCLUDED
 #define BOOST_TT_IS_INTEGRAL_HPP_INCLUDED
 
-#include "../config.hpp"
-#include "integral_constant.hpp"
-// #include <boost/config.hpp>
-// #include <boost/type_traits/integral_constant.hpp>
+#include <boost/config.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 

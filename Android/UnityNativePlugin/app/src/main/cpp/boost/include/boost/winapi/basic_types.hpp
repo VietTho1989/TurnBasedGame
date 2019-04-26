@@ -35,8 +35,7 @@ typedef void* HANDLE;
 #  include <kfuncs.h>
 # endif // UNDER_CE
 #else
-// TODO Tam bo
-// # error "Win32 functions not available"
+# error "Win32 functions not available"
 #endif
 
 #if defined(_M_IX86) || defined(__i386__)

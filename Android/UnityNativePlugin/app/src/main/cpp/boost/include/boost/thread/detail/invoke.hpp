@@ -25,24 +25,15 @@
 #ifndef BOOST_THREAD_DETAIL_INVOKE_HPP
 #define BOOST_THREAD_DETAIL_INVOKE_HPP
 
-#include "../../config.hpp"
-#include "../../static_assert.hpp"
-#include "move.hpp"
-#include "../../core/enable_if.hpp"
-#include "../../mpl/bool.hpp"
-#include "../../type_traits/is_base_of.hpp"
-#include "../../type_traits/is_pointer.hpp"
-#include "../../type_traits/is_member_function_pointer.hpp"
-#include "../../type_traits/remove_reference.hpp"
-// #include <boost/config.hpp>
-// #include <boost/static_assert.hpp>
-// #include <boost/thread/detail/move.hpp>
-// #include <boost/core/enable_if.hpp>
-// #include <boost/mpl/bool.hpp>
-// #include <boost/type_traits/is_base_of.hpp>
-// #include <boost/type_traits/is_pointer.hpp>
-// #include <boost/type_traits/is_member_function_pointer.hpp>
-// #include <boost/type_traits/remove_reference.hpp>
+#include <boost/config.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/thread/detail/move.hpp>
+#include <boost/core/enable_if.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/is_pointer.hpp>
+#include <boost/type_traits/is_member_function_pointer.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #ifndef BOOST_NO_CXX11_HDR_FUNCTIONAL
 #include <functional>
 #endif

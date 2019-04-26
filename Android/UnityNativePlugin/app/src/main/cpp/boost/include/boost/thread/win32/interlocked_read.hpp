@@ -11,13 +11,10 @@
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../detail/interlocked.hpp"
-#include "../detail/config.hpp"
-// #include <boost/detail/interlocked.hpp>
-// #include <boost/thread/detail/config.hpp>
+#include <boost/detail/interlocked.hpp>
+#include <boost/thread/detail/config.hpp>
 
-#include "../../config/abi_prefix.hpp"
-// #include <boost/config/abi_prefix.hpp>
+#include <boost/config/abi_prefix.hpp>
 
 // Define compiler barriers
 #if defined(__INTEL_COMPILER)
@@ -212,7 +209,6 @@ namespace boost
 
 #endif
 
-#include "../../config/abi_suffix.hpp"
-// #include <boost/config/abi_suffix.hpp>
+#include <boost/config/abi_suffix.hpp>
 
 #endif

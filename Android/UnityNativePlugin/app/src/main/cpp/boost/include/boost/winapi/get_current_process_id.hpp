@@ -8,8 +8,7 @@
 #ifndef BOOST_WINAPI_GET_CURRENT_PROCESS_ID_HPP_INCLUDED_
 #define BOOST_WINAPI_GET_CURRENT_PROCESS_ID_HPP_INCLUDED_
 
-#include "basic_types.hpp"
-// #include <boost/winapi/basic_types.hpp>
+#include <boost/winapi/basic_types.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

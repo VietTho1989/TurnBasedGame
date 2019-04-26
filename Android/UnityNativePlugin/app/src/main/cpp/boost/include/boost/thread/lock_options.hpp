@@ -7,8 +7,7 @@
 #ifndef BOOST_THREAD_LOCK_OPTIONS_HPP
 #define BOOST_THREAD_LOCK_OPTIONS_HPP
 
-#include "../config/abi_prefix.hpp"
-// #include <boost/config/abi_prefix.hpp>
+#include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {
