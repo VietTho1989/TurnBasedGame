@@ -10,11 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NativeCore/main.cpp"
-            timestampString = "556601848.256379"
+            timestampString = "577968476.808483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
-            endingLineNumber = "13">
+            endingLineNumber = "13"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1912,7 +1914,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/InternationalDraught/international_draught_pos.cpp"
-            timestampString = "562504849.001634"
+            timestampString = "577968561.968231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "726"
@@ -3987,7 +3989,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NativeCore/main.cpp"
-            timestampString = "570616464.668156"
+            timestampString = "577968476.811211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
