@@ -8,7 +8,8 @@
 #ifndef BOOST_WINAPI_DETAIL_CAST_PTR_HPP_INCLUDED_
 #define BOOST_WINAPI_DETAIL_CAST_PTR_HPP_INCLUDED_
 
-#include <boost/winapi/config.hpp>
+#include "../config.hpp"
+// #include <boost/winapi/config.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

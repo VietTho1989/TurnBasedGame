@@ -9,9 +9,12 @@
 #ifndef BOOST_WINAPI_THREAD_HPP_INCLUDED_
 #define BOOST_WINAPI_THREAD_HPP_INCLUDED_
 
-#include <boost/winapi/basic_types.hpp>
-#include <boost/winapi/get_current_thread.hpp>
-#include <boost/winapi/get_current_thread_id.hpp>
+#include "basic_types.hpp"
+#include "get_current_thread.hpp"
+#include "get_current_thread_id.hpp"
+// #include <boost/winapi/basic_types.hpp>
+// #include <boost/winapi/get_current_thread.hpp>
+// #include <boost/winapi/get_current_thread_id.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

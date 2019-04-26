@@ -10,7 +10,8 @@
 #ifndef BOOST_CORE_SCOPED_ENUM_HPP
 #define BOOST_CORE_SCOPED_ENUM_HPP
 
-#include <boost/config.hpp>
+#include "../config.hpp"
+// #include <boost/config.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

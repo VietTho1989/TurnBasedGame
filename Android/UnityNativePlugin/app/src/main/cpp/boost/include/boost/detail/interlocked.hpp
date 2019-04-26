@@ -12,7 +12,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <boost/config.hpp>
+#include "../config.hpp"
+// #include <boost/config.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
@@ -212,8 +213,8 @@ extern "C" BOOST_INTERLOCKED_IMPORT void* __stdcall InterlockedExchangePointer( 
 # endif
 
 #else
-
-# error "Interlocked intrinsics not available"
+// TODO Tam bo
+// # error "Interlocked intrinsics not available"
 
 #endif
 

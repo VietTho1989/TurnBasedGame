@@ -41,8 +41,10 @@
 
 #elif defined(BOOST_ENABLE_ASSERT_HANDLER) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && !defined(NDEBUG) )
 
-#include <boost/config.hpp> // for BOOST_LIKELY
-#include <boost/current_function.hpp>
+#include "config.hpp" // for BOOST_LIKELY
+#include "current_function.hpp"
+// #include <boost/config.hpp> // for BOOST_LIKELY
+// #include <boost/current_function.hpp>
 
 namespace boost
 {

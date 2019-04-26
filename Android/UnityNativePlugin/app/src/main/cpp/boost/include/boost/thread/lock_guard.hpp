@@ -7,17 +7,25 @@
 #ifndef BOOST_THREAD_LOCK_GUARD_HPP
 #define BOOST_THREAD_LOCK_GUARD_HPP
 
-#include <boost/thread/detail/config.hpp>
-#include <boost/thread/detail/delete.hpp>
-#include <boost/thread/detail/move.hpp>
-#include <boost/thread/detail/lockable_wrapper.hpp>
-#include <boost/thread/lock_options.hpp>
+#include "detail/config.hpp"
+#include "detail/delete.hpp"
+#include "detail/move.hpp"
+#include "detail/lockable_wrapper.hpp"
+#include "lock_options.hpp"
+// #include <boost/thread/detail/config.hpp>
+// #include <boost/thread/detail/delete.hpp>
+// #include <boost/thread/detail/move.hpp>
+// #include <boost/thread/detail/lockable_wrapper.hpp>
+// #include <boost/thread/lock_options.hpp>
 #if ! defined BOOST_THREAD_PROVIDES_NESTED_LOCKS
-#include <boost/thread/is_locked_by_this_thread.hpp>
-#include <boost/assert.hpp>
+#include "is_locked_by_this_thread.hpp"
+#include "../assert.hpp"
+// #include <boost/thread/is_locked_by_this_thread.hpp>
+// #include <boost/assert.hpp>
 #endif
 
-#include <boost/config/abi_prefix.hpp>
+#include "../config/abi_prefix.hpp"
+// #include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {

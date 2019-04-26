@@ -9,10 +9,14 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 #include <cstring>
-#include <boost/assert.hpp>
-#include <boost/detail/interlocked.hpp>
-#include <boost/thread/win32/thread_primitives.hpp>
-#include <boost/static_assert.hpp>
+#include "../../assert.hpp"
+#include "../../detail/interlocked.hpp"
+#include "../../thread/win32/thread_primitives.hpp"
+#include "../../static_assert.hpp"
+// #include <boost/assert.hpp>
+// #include <boost/detail/interlocked.hpp>
+// #include <boost/thread/win32/thread_primitives.hpp>
+// #include <boost/static_assert.hpp>
 #include <limits.h>
 #include <boost/thread/thread_time.hpp>
 #ifdef BOOST_THREAD_USES_CHRONO

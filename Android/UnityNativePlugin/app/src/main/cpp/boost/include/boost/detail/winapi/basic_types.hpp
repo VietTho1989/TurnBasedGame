@@ -10,8 +10,10 @@
 #ifndef BOOST_DETAIL_WINAPI_BASIC_TYPES_HPP
 #define BOOST_DETAIL_WINAPI_BASIC_TYPES_HPP
 
-#include <boost/winapi/basic_types.hpp>
-#include <boost/detail/winapi/detail/deprecated_namespace.hpp>
+#include "../../winapi/basic_types.hpp"
+#include "detail/deprecated_namespace.hpp"
+// #include <boost/winapi/basic_types.hpp>
+// #include <boost/detail/winapi/detail/deprecated_namespace.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

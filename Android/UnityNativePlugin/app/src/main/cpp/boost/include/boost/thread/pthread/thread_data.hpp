@@ -6,20 +6,32 @@
 // (C) Copyright 2007 Anthony Williams
 // (C) Copyright 2011-2012 Vicente J. Botet Escriba
 
-#include <boost/thread/detail/config.hpp>
-#include <boost/thread/exceptions.hpp>
-#include <boost/thread/lock_guard.hpp>
-#include <boost/thread/lock_types.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/pthread/condition_variable_fwd.hpp>
-#include <boost/thread/pthread/pthread_mutex_scoped_lock.hpp>
+#include "../detail/config.hpp"
+#include "../exceptions.hpp"
+#include "../lock_guard.hpp"
+#include "../lock_types.hpp"
+#include "../mutex.hpp"
+#include "condition_variable_fwd.hpp"
+#include "pthread_mutex_scoped_lock.hpp"
+// #include <boost/thread/detail/config.hpp>
+// #include <boost/thread/exceptions.hpp>
+// #include <boost/thread/lock_guard.hpp>
+// #include <boost/thread/lock_types.hpp>
+// #include <boost/thread/mutex.hpp>
+// #include <boost/thread/pthread/condition_variable_fwd.hpp>
+// #include <boost/thread/pthread/pthread_mutex_scoped_lock.hpp>
 
-#include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/assert.hpp>
-#include <boost/thread/detail/platform_time.hpp>
+#include "../../shared_ptr.hpp"
+#include "../../enable_shared_from_this.hpp"
+#include "../../assert.hpp"
+#include "../detail/platform_time.hpp"
+// #include <boost/shared_ptr.hpp>
+// #include <boost/enable_shared_from_this.hpp>
+// #include <boost/assert.hpp>
+// #include <boost/thread/detail/platform_time.hpp>
 #ifdef BOOST_THREAD_USES_CHRONO
-#include <boost/chrono/system_clocks.hpp>
+#include "../../chrono/system_clocks.hpp"
+// #include <boost/chrono/system_clocks.hpp>
 #endif
 
 #include <map>

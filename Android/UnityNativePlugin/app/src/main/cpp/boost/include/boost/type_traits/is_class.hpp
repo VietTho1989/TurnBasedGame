@@ -10,20 +10,30 @@
 #ifndef BOOST_TT_IS_CLASS_HPP_INCLUDED
 #define BOOST_TT_IS_CLASS_HPP_INCLUDED
 
-#include <boost/type_traits/detail/config.hpp>
-#include <boost/type_traits/intrinsics.hpp>
-#include <boost/type_traits/integral_constant.hpp>
+#include "detail/config.hpp"
+#include "intrinsics.hpp"
+#include "integral_constant.hpp"
+// #include <boost/type_traits/detail/config.hpp>
+// #include <boost/type_traits/intrinsics.hpp>
+// #include <boost/type_traits/integral_constant.hpp>
 #ifndef BOOST_IS_CLASS
-#   include <boost/type_traits/is_union.hpp>
+#   include "is_union.hpp"
+// #   include <boost/type_traits/is_union.hpp>
 
 #ifdef BOOST_TT_HAS_CONFORMING_IS_CLASS_IMPLEMENTATION
-#   include <boost/type_traits/detail/yes_no_type.hpp>
+#   include "detail/yes_no_type.hpp"
+// #   include <boost/type_traits/detail/yes_no_type.hpp>
 #else
-#   include <boost/type_traits/is_scalar.hpp>
-#   include <boost/type_traits/is_array.hpp>
-#   include <boost/type_traits/is_reference.hpp>
-#   include <boost/type_traits/is_void.hpp>
-#   include <boost/type_traits/is_function.hpp>
+#   include "is_scalar.hpp"
+#   include "is_array.hpp"
+#   include "is_reference.hpp"
+#   include "is_void.hpp"
+#   include "is_function.hpp"
+// #   include <boost/type_traits/is_scalar.hpp>
+// #   include <boost/type_traits/is_array.hpp>
+// #   include <boost/type_traits/is_reference.hpp>
+// #   include <boost/type_traits/is_void.hpp>
+// #   include <boost/type_traits/is_function.hpp>
 #endif
 
 #endif // BOOST_IS_CLASS

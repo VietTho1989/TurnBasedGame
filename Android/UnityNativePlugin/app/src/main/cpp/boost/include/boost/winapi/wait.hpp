@@ -10,7 +10,8 @@
 #ifndef BOOST_WINAPI_WAIT_HPP_INCLUDED_
 #define BOOST_WINAPI_WAIT_HPP_INCLUDED_
 
-#include <boost/winapi/basic_types.hpp>
+#include "basic_types.hpp"
+// #include <boost/winapi/basic_types.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

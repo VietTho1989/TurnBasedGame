@@ -9,7 +9,8 @@
 #ifndef BOOST_WINAPI_INIT_ONCE_HPP_INCLUDED_
 #define BOOST_WINAPI_INIT_ONCE_HPP_INCLUDED_
 
-#include <boost/winapi/config.hpp>
+#include "config.hpp"
+// #include <boost/winapi/config.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
@@ -17,7 +18,8 @@
 
 #if BOOST_USE_WINAPI_VERSION >= BOOST_WINAPI_VERSION_WIN6
 
-#include <boost/winapi/basic_types.hpp>
+#include "basic_types.hpp"
+// #include <boost/winapi/basic_types.hpp>
 
 #if !defined(BOOST_USE_WINDOWS_H)
 extern "C" {

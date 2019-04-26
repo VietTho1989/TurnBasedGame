@@ -14,7 +14,8 @@ http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_CORE_ADDRESSOF_HPP
 #define BOOST_CORE_ADDRESSOF_HPP
 
-#include <boost/config.hpp>
+#include "../config.hpp"
+// #include <boost/config.hpp>
 
 #if defined(BOOST_MSVC_FULL_VER) && BOOST_MSVC_FULL_VER >= 190024215
 #define BOOST_CORE_HAS_BUILTIN_ADDRESSOF

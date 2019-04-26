@@ -9,7 +9,8 @@
 #ifndef BOOST_THREAD_EXCEPTIONS_PDM070801_H
 #define BOOST_THREAD_EXCEPTIONS_PDM070801_H
 
-#include <boost/thread/detail/config.hpp>
+#include "detail/config.hpp"
+// #include <boost/thread/detail/config.hpp>
 
 //  pdm: Sorry, but this class is used all over the place & I end up
 //       with recursive headers if I don't separate it
@@ -19,11 +20,14 @@
 
 #include <string>
 #include <stdexcept>
-#include <boost/system/system_error.hpp>
-#include <boost/system/error_code.hpp>
+#include "../system/system_error.hpp"
+#include "../system/error_code.hpp"
+// #include <boost/system/system_error.hpp>
+// #include <boost/system/error_code.hpp>
 
 
-#include <boost/config/abi_prefix.hpp>
+#include "../config/abi_prefix.hpp"
+// #include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {
@@ -220,6 +224,7 @@ namespace boost
 
 } // namespace boost
 
-#include <boost/config/abi_suffix.hpp>
+#include "../config/abi_suffix.hpp"
+// #include <boost/config/abi_suffix.hpp>
 
 #endif

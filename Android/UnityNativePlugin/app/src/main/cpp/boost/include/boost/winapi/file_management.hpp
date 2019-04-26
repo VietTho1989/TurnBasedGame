@@ -11,10 +11,14 @@
 #ifndef BOOST_WINAPI_FILE_MANAGEMENT_HPP_INCLUDED_
 #define BOOST_WINAPI_FILE_MANAGEMENT_HPP_INCLUDED_
 
-#include <boost/winapi/basic_types.hpp>
-#include <boost/winapi/limits.hpp>
-#include <boost/winapi/time.hpp>
-#include <boost/winapi/overlapped.hpp>
+#include "basic_types.hpp"
+#include "limits.hpp"
+#include "time.hpp"
+#include "overlapped.hpp"
+// #include <boost/winapi/basic_types.hpp>
+// #include <boost/winapi/limits.hpp>
+// #include <boost/winapi/time.hpp>
+// #include <boost/winapi/overlapped.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

@@ -9,16 +9,26 @@
 #ifndef BOOST_WINAPI_SYNCHRONIZATION_HPP_INCLUDED_
 #define BOOST_WINAPI_SYNCHRONIZATION_HPP_INCLUDED_
 
-#include <boost/winapi/basic_types.hpp>
-#include <boost/winapi/critical_section.hpp>
-#include <boost/winapi/wait.hpp>
-#include <boost/winapi/event.hpp>
-#include <boost/winapi/mutex.hpp>
-#include <boost/winapi/semaphore.hpp>
-#include <boost/winapi/init_once.hpp>
-#include <boost/winapi/srw_lock.hpp>
-#include <boost/winapi/condition_variable.hpp>
-#include <boost/winapi/apc.hpp>
+#include "basic_types.hpp"
+#include "critical_section.hpp"
+#include "wait.hpp"
+#include "event.hpp"
+#include "mutex.hpp"
+#include "semaphore.hpp"
+#include "init_once.hpp"
+#include "srw_lock.hpp"
+#include "condition_variable.hpp"
+#include "apc.hpp"
+// #include <boost/winapi/basic_types.hpp>
+// #include <boost/winapi/critical_section.hpp>
+// #include <boost/winapi/wait.hpp>
+// #include <boost/winapi/event.hpp>
+// #include <boost/winapi/mutex.hpp>
+// #include <boost/winapi/semaphore.hpp>
+// #include <boost/winapi/init_once.hpp>
+// #include <boost/winapi/srw_lock.hpp>
+// #include <boost/winapi/condition_variable.hpp>
+// #include <boost/winapi/apc.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once

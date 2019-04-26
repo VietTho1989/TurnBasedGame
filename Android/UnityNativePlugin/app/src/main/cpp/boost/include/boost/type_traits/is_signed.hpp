@@ -10,9 +10,12 @@
 #ifndef BOOST_TT_IS_SIGNED_HPP_INCLUDED
 #define BOOST_TT_IS_SIGNED_HPP_INCLUDED
 
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/is_enum.hpp>
+#include "is_integral.hpp"
+#include "remove_cv.hpp"
+#include "is_enum.hpp"
+// #include <boost/type_traits/is_integral.hpp>
+// #include <boost/type_traits/remove_cv.hpp>
+// #include <boost/type_traits/is_enum.hpp>
 #include <climits>
 
 namespace boost {

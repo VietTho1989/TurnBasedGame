@@ -21,7 +21,8 @@
 #ifndef BOOST_TT_IS_SAME_HPP_INCLUDED
 #define BOOST_TT_IS_SAME_HPP_INCLUDED
 
-#include <boost/type_traits/integral_constant.hpp>
+#include "integral_constant.hpp"
+// #include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 

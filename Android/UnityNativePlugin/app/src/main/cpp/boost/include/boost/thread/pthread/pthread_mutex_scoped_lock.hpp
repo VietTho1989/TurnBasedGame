@@ -7,9 +7,11 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 #include <pthread.h>
-#include <boost/assert.hpp>
+#include "../../assert.hpp"
+// #include <boost/assert.hpp>
 
-#include <boost/config/abi_prefix.hpp>
+#include "../../config/abi_prefix.hpp"
+// #include <boost/config/abi_prefix.hpp>
 
 namespace boost
 {
@@ -134,6 +136,7 @@ namespace posix {
     }
 }
 
-#include <boost/config/abi_suffix.hpp>
+#include "../../config/abi_suffix.hpp"
+// #include <boost/config/abi_suffix.hpp>
 
 #endif
