@@ -9,8 +9,7 @@
 #include "../Platform.h"
 #include <iostream>
 #include <thread>
-#include <vector>
-// #include <pthread.h>
+#include <pthread.h>
 
 #ifndef _WIN32
 #include <unistd.h>
@@ -23,8 +22,7 @@
 
 namespace gomoku
 {
-    // void *threadTest(void *vargp)
-    void threadTest()
+    void *threadTest(void *vargp)
     {
         uint8_t* startPositionBytes;
         int32_t size = 19;
@@ -104,7 +102,7 @@ namespace gomoku
             }
         }
         
-        // return NULL;
+        return NULL;
     }
 
     int32_t gomoku_main(int matchCount, std::string ResourcePath)
@@ -113,23 +111,13 @@ namespace gomoku
         std::cout << "Hello, World!\n";
         
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
-            }*/
-            
-            // matchCount = 1;
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
             
             /*char buf[4096];

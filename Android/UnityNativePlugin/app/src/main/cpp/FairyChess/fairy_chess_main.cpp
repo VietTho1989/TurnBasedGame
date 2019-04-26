@@ -10,7 +10,7 @@
 #include <sstream>
 #include <vector>
 #include <thread>
-// #include <pthread.h>
+#include <pthread.h>
 #include "fairy_chess_main.hpp"
 #include "fairy_chess_jni.hpp"
 #include "fairy_chess_misc.hpp"
@@ -21,8 +21,7 @@
 namespace FairyChess
 {
     
-    // void *threadMyTest(void *vargp)
-    void threadMyTest()
+    void *threadMyTest(void *vargp)
     {
         {
             uint8_t* startPositionBytes;
@@ -114,7 +113,7 @@ namespace FairyChess
                 }
             }
         }
-        // return NULL;
+        return NULL;
     }
     
     bool alreadyInitFairyChessMain = false;
@@ -131,7 +130,7 @@ namespace FairyChess
             alreadyInitFairyChessMain = true;
             fairy_chess_initCore();
         }
-        /*{
+        {
             pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
@@ -141,14 +140,6 @@ namespace FairyChess
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
             }
-        }*/
-        std::vector<std::thread> threads;
-        for(int32_t i=0; i<matchCount; i++){
-            threads.push_back(std::thread(threadMyTest));
-        }
-        for(auto& t : threads)
-        {
-            t.join();
         }
         
         return 0;

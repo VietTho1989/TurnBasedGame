@@ -7,8 +7,7 @@
 //
 
 #include <iostream>
-// #include <pthread.h>
-#include <thread>
+#include <pthread.h>
 #include "shatranj_main.hpp"
 #include "shatranj_jni.hpp"
 #include "shatranj_position.hpp"
@@ -20,8 +19,7 @@
 
 namespace Shatranj
 {
-    // void *threadMyTest(void *vargp)
-    void threadMyTest()
+    void *threadMyTest(void *vargp)
     {
         {
             uint8_t* startPositionBytes;
@@ -108,7 +106,7 @@ namespace Shatranj
                 }
             }
         }
-        // return NULL;
+        return NULL;
     }
 
     int32_t shatranj_main(int matchCount, std::string ResourcePath) {
@@ -117,22 +115,13 @@ namespace Shatranj
 
         shatranj_initCore();
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
-            }*/
-            
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadMyTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
 
             printf("size: %lu, %lu\n", sizeof(Pawns::Table), sizeof(StateInfo));

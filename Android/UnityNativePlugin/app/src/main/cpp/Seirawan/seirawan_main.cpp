@@ -7,8 +7,7 @@
 //
 
 #include <iostream>
-// #include <pthread.h>
-#include <thread>
+#include <pthread.h>
 #include "seirawan_main.hpp"
 #include "seirawan_jni.hpp"
 #include "seirawan_position.hpp"
@@ -20,8 +19,7 @@
 
 namespace Seirawan
 {
-    // void *threadMyTest(void *vargp)
-    void threadMyTest()
+    void *threadMyTest(void *vargp)
     {
         {
             uint8_t* startPositionBytes;
@@ -102,7 +100,7 @@ namespace Seirawan
                 }
             }
         }
-        // return NULL;
+        return NULL;
     }
     
     bool alreadyInitSeirawanMain = false;
@@ -116,24 +114,14 @@ namespace Seirawan
             seirawan_initCore();
         }
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
-            }*/
-            
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadMyTest));
             }
-            for(auto& t : threads)
-            {
-                t.join();
-            }
-            
             /*char buf[4096];
              while (fgets(buf, 4096, stdin)) {
              printf("buf: %s\n", buf);

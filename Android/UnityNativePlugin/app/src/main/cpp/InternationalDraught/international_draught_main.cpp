@@ -8,8 +8,7 @@
 
 #include "../Platform.h"
 #include <iostream>
-// #include <pthread.h>
-#include <thread>
+#include <pthread.h>
 
 #ifndef _WIN32
 #include <unistd.h>
@@ -25,8 +24,7 @@
 namespace InternationalDraught
 {
     
-    // void *threadTest(void *vargp)
-    void threadTest()
+    void *threadTest(void *vargp)
     {
         // make default position
         uint8_t* startPositionBytes;
@@ -128,7 +126,7 @@ namespace InternationalDraught
             }
         }
         
-        // return NULL;
+        return NULL;
     }
     
     void *threadSetBB(void *vargp)
@@ -183,7 +181,7 @@ namespace InternationalDraught
         }
         
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             pthread_attr_setstacksize(&attr, 10*1048576);
@@ -191,16 +189,6 @@ namespace InternationalDraught
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
-            }*/
-            
-            // TODO Khong the set stack size voi std::thread
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
             
             /*char buf[4096];

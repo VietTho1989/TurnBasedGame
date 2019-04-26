@@ -9,15 +9,14 @@
 #include "../Platform.h"
 #include <iostream>
 #include <sstream>
-// #include <pthread.h>
+#include <pthread.h>
 #include "chess_stock_fish_jni.hpp"
 #include <vector>
 #include <thread>
 
 namespace StockFishChess
 {
-    // void *threadMyTest(void *vargp)
-    void threadMyTest()
+    void *threadMyTest(void *vargp)
     {
         {
             uint8_t* startPositionBytes;
@@ -105,7 +104,7 @@ namespace StockFishChess
                 }
             }
         }
-        // return NULL;
+        return NULL;
     }
 
     int32_t chess_main(int matchCount, std::string ResourcePath)
@@ -115,22 +114,13 @@ namespace StockFishChess
         
         chess_initCore();
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
-            }*/
-            
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadMyTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
             
             /*char buf[4096];

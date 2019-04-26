@@ -10,8 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <thread>
-#include <vector>
-// #include <pthread.h>
+#include <pthread.h>
 #include "reversi_player.hpp"
 #include "reversi_jni.hpp"
 #include "reversi_position.hpp"
@@ -24,8 +23,7 @@
 
 namespace Reversi
 {
-    // void *threadTest(void *vargp)
-    void threadTest()
+    void *threadTest(void *vargp)
     {
         uint8_t* startPositionBytes;
         int32_t length = reversi_makeDefaultPosition(startPositionBytes);
@@ -104,7 +102,7 @@ namespace Reversi
             }
         }
         
-        // return NULL;
+        return NULL;
     }
     
     bool alreadyInitReversiMain = false;
@@ -119,22 +117,13 @@ namespace Reversi
             reversi_setBookPath((ResourcePath + "/AlwaysIn/Reversi").c_str());
         }
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
-            }*/
-            
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
             
             /*char buf[4096];

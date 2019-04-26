@@ -8,9 +8,7 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <thread>
-// #include <pthread.h>
-#include <vector>
+#include <pthread.h>
 #include "xiangqi_jni.hpp"
 
 #ifndef _WIN32
@@ -31,8 +29,7 @@
 namespace Xiangqi
 {
     
-    // void *threadTest(void *vargp)
-    void threadTest()
+    void *threadTest(void *vargp)
     {
         uint8_t* startPositionBytes;
         int32_t length = xiangqi_makePositionByFen("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w", startPositionBytes);
@@ -123,7 +120,7 @@ namespace Xiangqi
             }while (true);
         }
         
-        // return NULL;
+        return NULL;
     }
     
     bool alreadyInitXiangqiMain = false;
@@ -139,22 +136,13 @@ namespace Xiangqi
         }
         
         {
-            /*pthread_attr_t attr;
+            pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, Xiangqi::threadTest, NULL);
-            }*/
-            
-            std::vector<std::thread> threads;
-            for(int32_t i=0; i<matchCount; i++){
-                threads.push_back(std::thread(threadTest));
-            }
-            for(auto& t : threads)
-            {
-                t.join();
             }
             
             /*char buf[4096];
