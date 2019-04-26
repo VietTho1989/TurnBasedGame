@@ -9,8 +9,9 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <thread>
-#include <pthread.h>
+// #include <thread>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "fairy_chess_main.hpp"
 #include "fairy_chess_jni.hpp"
 #include "fairy_chess_misc.hpp"
@@ -21,7 +22,8 @@
 namespace FairyChess
 {
     
-    void *threadMyTest(void *vargp)
+    // void *threadMyTest(void *vargp)
+    void threadMyTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -60,7 +62,7 @@ namespace FairyChess
                     }
                     int32_t gameFinish = fairy_chess_isGameFinish(positionBytes, positionLength, true);
                     if(gameFinish==0){
-                        int32_t move = fairy_chess_letComputerThink(positionBytes, positionLength, true, 15, 19, 5000);
+                        int32_t move = fairy_chess_letComputerThink(positionBytes, positionLength, true, 15, 19, 30000);
                         if(move!=0){
                             // print move to string
                             // fairy_chess_printMove(move, chess960);
@@ -105,7 +107,7 @@ namespace FairyChess
                         }
                         break;
                     }
-                    std::this_thread::sleep_for (std::chrono::seconds(1));
+                    boost::this_thread::sleep_for (boost::chrono::seconds(1));
                 }while (true);
                 // free data
                 if(positionBytes!=NULL){
@@ -113,7 +115,7 @@ namespace FairyChess
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     bool alreadyInitFairyChessMain = false;
@@ -131,15 +133,28 @@ namespace FairyChess
             fairy_chess_initCore();
         }
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-            pthread_attr_setstacksize(&attr, 1048576);
+            // TODO Co le ko can pthread_attr_setstacksize(&attr, 1048576);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadMyTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
         }
         
         return 0;

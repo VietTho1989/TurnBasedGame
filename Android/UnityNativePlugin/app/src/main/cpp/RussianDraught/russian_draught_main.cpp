@@ -12,14 +12,16 @@
 #include "../Platform.h"
 #include <iostream>
 #include <sstream>
-#include <pthread.h>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include <vector>
 #include <thread>
 
 namespace RussianDraught
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = russian_draught_makePositionByFen(StartFen, startPositionBytes);
@@ -66,7 +68,7 @@ namespace RussianDraught
                         }
                     }
                     // letComputerThink
-                    int32_t moveLength = russian_draught_letComputerThink(positionBytes, positionLength, true, 5000, 90, moveBytes);
+                    int32_t moveLength = russian_draught_letComputerThink(positionBytes, positionLength, true, 30000, 90, moveBytes);
                     // do move
                     {
                         // print move to string
@@ -161,21 +163,34 @@ namespace RussianDraught
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     int32_t russian_draught_main(int32_t matchCount, std::string ResourcePath)
     {
         russian_draught_initCore();
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
             
             /*char buf[4096];
              while (fgets(buf, 4096, stdin)) {

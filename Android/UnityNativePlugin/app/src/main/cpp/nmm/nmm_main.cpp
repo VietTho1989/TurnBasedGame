@@ -8,8 +8,9 @@
 
 #include <iostream>
 #include <string>
-#include <pthread.h>
-#include <thread>
+// #include <pthread.h>
+// #include <thread>
+#include <boost/thread.hpp>
 #include "nmm_main.hpp"
 #include "../Platform.h"
 #include "nmmagent.hpp"
@@ -19,7 +20,8 @@
 namespace NMM
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = nmm_makeDefaultPosition(startPositionBytes);
@@ -60,7 +62,7 @@ namespace NMM
                         }
                     }
                     // letComputerThink
-                    int32_t moveLength = nmm_letComputerThink(positionBytes, positionLength, true, 3, 3, 3, 3, 90, moveBytes);
+                    int32_t moveLength = nmm_letComputerThink(positionBytes, positionLength, true, 6, 6, 6, 6, 90, moveBytes);
                     // do move
                     {
                         // print move to string
@@ -155,7 +157,7 @@ namespace NMM
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     void *threadMyTest(void *vargp)
@@ -244,16 +246,28 @@ namespace NMM
     int32_t nmm_main(int32_t matchCount, std::string ResourcePath)
     {
         printf("size: %lu, %lu, %lu, %lu, %lu\n", sizeof(Spot), sizeof(Board), sizeof(State), sizeof(NMMAgent), sizeof(Evaluator));
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-        pthread_attr_setstacksize(&attr, 10*1048576);
+        // TODO Co le ko can pthread_attr_setstacksize(&attr, 10*1048576);
         
-        matchCount = 1;
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        boost::thread_group threads;
+        boost::thread::attributes attrs;
+        {
+            // attrs.set_stack_size(10*1048576);
         }
+        for (int i=0; i<matchCount; i++)
+        {
+            boost::thread* t= new boost::thread(attrs, threadTest);
+            threads.add_thread(t);
+        }
+        // Wait till they are finished
+        threads.join_all();
         
         return 0;
     }

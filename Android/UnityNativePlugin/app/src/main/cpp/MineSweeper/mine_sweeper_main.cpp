@@ -10,8 +10,9 @@
 #include <sstream>
 #include <pthread.h>
 #include <vector>
-#include <thread>
-#include <pthread.h>
+// #include <thread>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "../Platform.h"
 #include "mine_sweeper_main.hpp"
 #include "mine_sweeper_board.hpp"
@@ -21,12 +22,13 @@
 namespace MineSweeper
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
-            int32_t N = 12;// fastRandom(MAX_DIMENSION);
-            int32_t M = 13;// fastRandom(MAX_DIMENSION);
+            int32_t N = fastRandom(MAX_DIMENSION);
+            int32_t M = fastRandom(MAX_DIMENSION);
             int32_t K = (M*N)/10;
             int32_t length = mine_sweeper_makeDefaultPosition(N, M, K, startPositionBytes);
             // Make a match
@@ -98,21 +100,33 @@ namespace MineSweeper
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int32_t mine_sweeper_main(int32_t matchCount, std::string ResourcePath)
     {
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-            pthread_attr_setstacksize(&attr, 1048576);
+            // TODO Co le ko can pthread_attr_setstacksize(&attr, 1048576);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
+            }*/
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
         }
         
         return 0;

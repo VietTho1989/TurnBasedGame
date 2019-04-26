@@ -8,8 +8,9 @@
 
 #include <iostream>
 #include <string>
-#include <pthread.h>
-#include <thread>
+// #include <pthread.h>
+// #include <thread>
+#include <boost/thread.hpp>
 #include "chinese_checkers_main.hpp"
 #include "chinese_checkers_board.hpp"
 #include "chinese_checkers_interface.hpp"
@@ -18,7 +19,8 @@
 namespace ChineseCheckers
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         // Board board;
         // self_play(board);
@@ -156,21 +158,33 @@ namespace ChineseCheckers
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     int32_t chinese_checkers_main(int32_t matchCount, std::string ResourcePath)
     {
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
         pthread_attr_setstacksize(&attr, 10*1048576);
         
-        matchCount = 5;
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        boost::thread_group threads;
+        boost::thread::attributes attrs;
+        {
+            attrs.set_stack_size(10*1048576);
         }
+        for (int i=0; i<matchCount; i++)
+        {
+            boost::thread* t= new boost::thread(attrs, threadTest);
+            threads.add_thread(t);
+        }
+        // Wait till they are finished
+        threads.join_all();
         
         return 0;
     }

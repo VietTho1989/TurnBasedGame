@@ -9,14 +9,16 @@
 #include "../Platform.h"
 #include <iostream>
 #include <sstream>
-#include <pthread.h>
+// #include <pthread.h>
 #include "chess_stock_fish_jni.hpp"
 #include <vector>
-#include <thread>
+// #include <thread>
+#include <boost/thread.hpp>
 
 namespace StockFishChess
 {
-    void *threadMyTest(void *vargp)
+    // void *threadMyTest(void *vargp)
+    void threadMyTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -96,7 +98,7 @@ namespace StockFishChess
                         }
                         break;
                     }
-                    std::this_thread::sleep_for (std::chrono::seconds(1));
+                    // std::this_thread::sleep_for (std::chrono::seconds(1));
                 }while (true);
                 // free data
                 if(positionBytes!=NULL){
@@ -104,7 +106,7 @@ namespace StockFishChess
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
 
     int32_t chess_main(int matchCount, std::string ResourcePath)
@@ -114,14 +116,27 @@ namespace StockFishChess
         
         chess_initCore();
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(1024);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadMyTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
             
             /*char buf[4096];
             while (fgets(buf, 4096, stdin)) {

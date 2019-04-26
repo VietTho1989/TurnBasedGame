@@ -10,7 +10,8 @@
 #include<fstream>
 #include<ctime>
 #include<cstring>
-#include <pthread.h>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "../Platform.h"
 #include "solitaire_Solitaire.hpp"
 #include "solitaire_main.hpp"
@@ -22,11 +23,12 @@ using namespace std;
 namespace Solitaire
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         {
             uint8_t* startPositionBytes;
-            uint16_t drawCount = 1;
+            uint16_t drawCount = 3;
             int32_t length = solitaire_makeDefaultPosition(drawCount, startPositionBytes);
             // Make a match
             {
@@ -161,21 +163,34 @@ namespace Solitaire
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int solitaire_main(int32_t matchCount, std::string ResourcePath)
     {
         // matchCount = 12;
-        pthread_attr_t attr;
+        /*pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-        pthread_attr_setstacksize(&attr, 10*1048576);
+        // TODO Co le ko can pthread_attr_setstacksize(&attr, 10*1048576);
         
         for(int32_t i=0; i<matchCount; i++){
             pthread_t tid;
             pthread_create(&tid, &attr, threadTest, NULL);
+        }*/
+        
+        boost::thread_group threads;
+        boost::thread::attributes attrs;
+        {
+            // attrs.set_stack_size(10*1048576);
         }
+        for (int i=0; i<matchCount; i++)
+        {
+            boost::thread* t= new boost::thread(attrs, threadTest);
+            threads.add_thread(t);
+        }
+        // Wait till they are finished
+        threads.join_all();
         
         /*Solitaire s;
         s.Initialize();

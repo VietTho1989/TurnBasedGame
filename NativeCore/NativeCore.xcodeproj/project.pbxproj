@@ -104,6 +104,10 @@
 		3166347C2100529A0072002E /* english_draught_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3166346F2100529A0072002E /* english_draught_jni.cpp */; };
 		3166347D2100529A0072002E /* english_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634712100529A0072002E /* english_draught_main.cpp */; };
 		3166347E2100529A0072002E /* english_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634712100529A0072002E /* english_draught_main.cpp */; };
+		316D37AE22731CE30042AC5E /* libboost_thread-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AD22731CE30042AC5E /* libboost_thread-mt.a */; };
+		316D37B022731D2D0042AC5E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AF22731D2C0042AC5E /* libboost_system.a */; };
+		316D37B12273269D0042AC5E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AF22731D2C0042AC5E /* libboost_system.a */; };
+		316D37B2227326A50042AC5E /* libboost_thread-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AD22731CE30042AC5E /* libboost_thread-mt.a */; };
 		3185A76A21CA3EA8007CC722 /* khet_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31865F7D21C9D2D3001264E2 /* khet_jni.cpp */; };
 		31865F7F21C9D2D3001264E2 /* khet_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31865F7D21C9D2D3001264E2 /* khet_jni.cpp */; };
 		318F935421DE0DF400F5E111 /* nmm_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 318F935221DE0DF400F5E111 /* nmm_jni.cpp */; };
@@ -717,6 +721,8 @@
 		316634702100529A0072002E /* english_draught_jni.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = english_draught_jni.hpp; sourceTree = "<group>"; };
 		316634712100529A0072002E /* english_draught_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = english_draught_main.cpp; sourceTree = "<group>"; };
 		316634722100529A0072002E /* english_draught_main.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = english_draught_main.hpp; sourceTree = "<group>"; };
+		316D37AD22731CE30042AC5E /* libboost_thread-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-mt.a"; path = "../../../../../../usr/local/lib/libboost_thread-mt.a"; sourceTree = "<group>"; };
+		316D37AF22731D2C0042AC5E /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../../usr/local/lib/libboost_system.a; sourceTree = "<group>"; };
 		31848A8B20E0BEDD00B2DD4B /* UnityNativeCore.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnityNativeCore.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		31848A8D20E0BEDD00B2DD4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31865F7D21C9D2D3001264E2 /* khet_jni.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = khet_jni.cpp; sourceTree = "<group>"; };
@@ -1260,6 +1266,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				316D37B12273269D0042AC5E /* libboost_system.a in Frameworks */,
+				316D37B2227326A50042AC5E /* libboost_thread-mt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1267,6 +1275,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				316D37B022731D2D0042AC5E /* libboost_system.a in Frameworks */,
+				316D37AE22731CE30042AC5E /* libboost_thread-mt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1421,6 +1431,15 @@
 				3166346E2100529A0072002E /* english_draught_movegen.hpp */,
 			);
 			path = engine;
+			sourceTree = "<group>";
+		};
+		316D37AC22731CE30042AC5E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				316D37AF22731D2C0042AC5E /* libboost_system.a */,
+				316D37AD22731CE30042AC5E /* libboost_thread-mt.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		31848A8C20E0BEDD00B2DD4B /* UnityNativeCore */ = {
@@ -2230,6 +2249,7 @@
 				31848A8C20E0BEDD00B2DD4B /* UnityNativeCore */,
 				31FFB60E20E0773500EF3959 /* Products */,
 				31FFB6CF20E07E8400EF3959 /* Resources */,
+				316D37AC22731CE30042AC5E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3052,6 +3072,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3093,6 +3116,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;

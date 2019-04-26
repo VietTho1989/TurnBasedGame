@@ -60,7 +60,7 @@ int main(int argc, const char * argv[]) {
         // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
         // Xiangqi::xiangqi_main(matchCount, ResourcePath);
-        // MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
+        MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
         // Hex::hex_main(matchCount, ResourcePath);
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);

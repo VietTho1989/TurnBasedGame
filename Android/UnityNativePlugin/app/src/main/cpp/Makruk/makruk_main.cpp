@@ -7,7 +7,8 @@
 //
 
 #include <iostream>
-#include <pthread.h>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "makruk_main.hpp"
 #include "makruk_jni.hpp"
 #include "engine/makruk_position.hpp"
@@ -19,7 +20,8 @@
 
 namespace Makruk
 {
-    void *threadMyTest(void *vargp)
+    // void *threadMyTest(void *vargp)
+    void threadMyTest()
     {
         {
             uint8_t* startPositionBytes;
@@ -98,7 +100,7 @@ namespace Makruk
                         }
                         break;
                     }
-                    std::this_thread::sleep_for (std::chrono::seconds(1));
+                    boost::this_thread::sleep_for (boost::chrono::seconds(1));
                 }while (true);
                 // free data
                 if(positionBytes!=NULL){
@@ -106,7 +108,7 @@ namespace Makruk
                 }
             }
         }
-        return NULL;
+        // return NULL;
     }
     
     int32_t makruk_main(int matchCount, std::string ResourcePath) {
@@ -115,14 +117,27 @@ namespace Makruk
         
         makruk_initCore();
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadMyTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadMyTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
             
             printf("size: %lu, %lu\n", sizeof(Pawns::Table), sizeof(StateInfo));
             

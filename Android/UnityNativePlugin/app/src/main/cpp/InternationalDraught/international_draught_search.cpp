@@ -96,6 +96,12 @@ namespace InternationalDraught
     
     class Search_Local : public Lockable {
         
+    public:
+        ~Search_Local()
+        {
+            printf("delete Search Local\n");
+        }
+        
     private:
         
         static const int32_t Pool_Size { 10 };
