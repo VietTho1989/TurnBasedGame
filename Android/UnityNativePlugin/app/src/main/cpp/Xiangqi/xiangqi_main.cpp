@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <pthread.h>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "xiangqi_jni.hpp"
 
 #ifndef _WIN32
@@ -29,7 +30,8 @@
 namespace Xiangqi
 {
     
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = xiangqi_makePositionByFen("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w", startPositionBytes);
@@ -116,11 +118,11 @@ namespace Xiangqi
                     free(positionBytes);
                     break;
                 }
-                std::this_thread::sleep_for (std::chrono::seconds(1));
+                boost::this_thread::sleep_for (boost::chrono::seconds(1));
             }while (true);
         }
         
-        return NULL;
+        // return NULL;
     }
     
     bool alreadyInitXiangqiMain = false;
@@ -136,14 +138,27 @@ namespace Xiangqi
         }
         
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, Xiangqi::threadTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
             
             /*char buf[4096];
             while (fgets(buf, 4096, stdin)) {

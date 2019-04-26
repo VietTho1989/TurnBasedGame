@@ -9,8 +9,9 @@
 #include "../Platform.h"
 #include <iostream>
 #include <fstream>
-#include <thread>
-#include <pthread.h>
+// #include <thread>
+// #include <pthread.h>
+#include <boost/thread.hpp>
 #include "reversi_player.hpp"
 #include "reversi_jni.hpp"
 #include "reversi_position.hpp"
@@ -23,7 +24,8 @@
 
 namespace Reversi
 {
-    void *threadTest(void *vargp)
+    // void *threadTest(void *vargp)
+    void threadTest()
     {
         uint8_t* startPositionBytes;
         int32_t length = reversi_makeDefaultPosition(startPositionBytes);
@@ -95,14 +97,14 @@ namespace Reversi
                     positionBytes = NULL;
                     break;
                 }
-                std::this_thread::sleep_for (std::chrono::seconds(1));
+                boost::this_thread::sleep_for (boost::chrono::seconds(1));
             }while (true);
             if(positionBytes!=NULL){
                 free(positionBytes);
             }
         }
         
-        return NULL;
+        // return NULL;
     }
     
     bool alreadyInitReversiMain = false;
@@ -117,14 +119,27 @@ namespace Reversi
             reversi_setBookPath((ResourcePath + "/AlwaysIn/Reversi").c_str());
         }
         {
-            pthread_attr_t attr;
+            /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
                 pthread_create(&tid, &attr, threadTest, NULL);
+            }*/
+            
+            boost::thread_group threads;
+            boost::thread::attributes attrs;
+            {
+                // attrs.set_stack_size(10*1048576);
             }
+            for (int i=0; i<matchCount; i++)
+            {
+                boost::thread* t= new boost::thread(attrs, threadTest);
+                threads.add_thread(t);
+            }
+            // Wait till they are finished
+            threads.join_all();
             
             /*char buf[4096];
             while (fgets(buf, 4096, stdin)) {

@@ -196,7 +196,7 @@ namespace InternationalDraught
             boost::thread_group threads;
             boost::thread::attributes attrs;
             {
-                // attrs.set_stack_size(10*1048576);
+                attrs.set_stack_size(10*1048576);
             }
             for (int i=0; i<matchCount; i++)
             {

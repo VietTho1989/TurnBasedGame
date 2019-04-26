@@ -52,15 +52,15 @@ int main(int argc, const char * argv[]) {
         // FairyChess::fairy_chess_main(matchCount, ResourcePath);
         
         // EnglishDraught::english_draught_main(matchCount, ResourcePath);
-        InternationalDraught::international_draught_main(matchCount, ResourcePath);
+        // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
         // weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
         // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
-        // Xiangqi::xiangqi_main(matchCount, ResourcePath);
-        MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
+        Xiangqi::xiangqi_main(matchCount, ResourcePath);
+        // MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
         // Hex::hex_main(matchCount, ResourcePath);
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);
