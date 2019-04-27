@@ -355,7 +355,13 @@ public abstract class GameType : Data
 
     public abstract void processGameMove(GameMove gameMove);
 
+    #region get AI Move
+
     public abstract GameMove getAIMove(Computer.AI computerAI, bool isFindHint);
+
+    public abstract int getStackSize();
+
+    #endregion
 
     public abstract Result isGameFinish();
 

@@ -440,6 +440,11 @@ namespace FairyChess
 
         #region getAIMove
 
+        public override int getStackSize()
+        {
+            return 0;
+        }
+
         public override GameMove getAIMove(Computer.AI ai, bool isFindHint)
         {
             GameMove ret = new NonMove();

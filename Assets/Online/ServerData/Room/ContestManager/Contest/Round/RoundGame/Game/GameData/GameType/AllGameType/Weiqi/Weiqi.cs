@@ -706,6 +706,11 @@ namespace Weiqi
 
         #region getAIMove
 
+        public override int getStackSize()
+        {
+            return Global.ThreadSize;
+        }
+
         public override GameMove getAIMove(Computer.AI computerAI, bool isFindHint)
         {
             GameMove ret = new NonMove();

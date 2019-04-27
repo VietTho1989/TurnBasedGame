@@ -399,11 +399,16 @@ namespace Janggi
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region getAIMove
+        #region getAIMove
 
-		public override GameMove getAIMove (Computer.AI computerAI, bool isFindHint)
+        public override int getStackSize()
+        {
+            return 0;
+        }
+
+        public override GameMove getAIMove (Computer.AI computerAI, bool isFindHint)
 		{
 			GameMove ret = new NonMove ();
 			{

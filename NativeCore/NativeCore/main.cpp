@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
         // FairyChess::fairy_chess_main(matchCount, ResourcePath);
         
         // EnglishDraught::english_draught_main(matchCount, ResourcePath);
-        InternationalDraught::international_draught_main(matchCount, ResourcePath);
+        // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
         // weiqi::weiqi_main(matchCount, ResourcePath);
@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);
         // NMM::nmm_main(matchCount, ResourcePath);
-        // ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
+        ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
     }
     
     return 0;
