@@ -38,9 +38,17 @@ uint32_t fast_random(uint32_t max);
 #define strcasecmp _stricmp
 #endif
 
-#ifndef Android1
-#define Android1
+#ifndef Android
+#define Android
 #endif
+
+#ifndef UsePThread
+#define UsePThread
+#endif
+
+/*#ifndef BOOST_EXCEPTION_DISABLE
+#define BOOST_EXCEPTION_DISABLE
+#endif*/
 
 #ifndef Android
 #include <sys/timeb.h>

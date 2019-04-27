@@ -10,7 +10,7 @@
 #define weiqi_internal_hpp
 
 #include <stdio.h>
-#include <pthread.h>
+
 #include "weiqi_tree.hpp"
 #include "weiqi_dynkomi.hpp"
 #include "weiqi_prior.hpp"
@@ -21,6 +21,13 @@
 #include "../weiqi_mq.hpp"
 #include "../weiqi_debug.hpp"
 #include "../weiqi_playout.hpp"
+
+#ifndef UsePThread
+#include <boost/thread.hpp>
+#include <boost/regex/pending/static_mutex.hpp>
+#else
+#include <pthread.h>
+#endif
 
 namespace weiqi
 {
@@ -71,7 +78,7 @@ namespace weiqi
         int32_t mercymin;
         int32_t significant_threshold;
 
-        int32_t threads;
+        int32_t threads = 1;
         uct_thread_model thread_model;
         int32_t virtual_loss;
         bool pondering_opt; /* User wants pondering */
@@ -148,12 +155,26 @@ namespace weiqi
         volatile sig_atomic_t uct_halt = 0;
         
         // TODO them vao
+#ifndef UsePThread
+        boost::thread* thread_manager = NULL;
+        boost::mutex* finish_mutex = NULL;// = PTHREAD_MUTEX_INITIALIZER;
+        boost::condition_variable* finish_cond = NULL;// = PTHREAD_COND_INITIALIZER;
+        // bo volatile
+        int32_t finish_thread;
+        boost::mutex* finish_serializer = NULL;// = PTHREAD_MUTEX_INITIALIZER;
+        
+        struct uct_thread_ctx *pctx = NULL;
+        // bool stop = false;
+#else
         pthread_t* thread_manager;
         pthread_mutex_t* finish_mutex;// = PTHREAD_MUTEX_INITIALIZER;
         pthread_cond_t* finish_cond;// = PTHREAD_COND_INITIALIZER;
         // bo volatile
         int32_t finish_thread;
         pthread_mutex_t* finish_serializer;// = PTHREAD_MUTEX_INITIALIZER;
+#endif
+        int64_t time_start = 0;
+        int64_t time = 5;
     };
     
 #define UDEBUGL(n) DEBUGL_(u->debug_level, n)

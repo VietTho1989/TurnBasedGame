@@ -52,8 +52,8 @@ namespace weiqi
                 if(gameFinish==0){
                     // letComputerThink
                     bool canResign = false;
-                    bool useBook = true;
-                    int32_t time = 100;
+                    bool useBook = false;
+                    int32_t time = 5;
                     int32_t games = -1;
                     uint8_t* moveBytes;
                     engine_id engine = E_UCT;
@@ -63,6 +63,8 @@ namespace weiqi
                         }else{
                             engine = E_UCT;
                         }
+                        // TODO Test
+                        // engine = E_RANDOM;
                     }
                     int32_t moveLength = weiqi_letComputerThink(positionBytes, positionLength, true, canResign, useBook, time, games, engine, moveBytes);
                     // do move

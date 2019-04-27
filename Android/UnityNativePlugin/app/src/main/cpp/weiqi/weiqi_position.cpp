@@ -10,11 +10,11 @@
 #include "weiqi_board.hpp"
 
 #include "../Platform.h"
-#include <pthread.h>
 #include "uct/weiqi_uct.hpp"
 
 namespace weiqi
 {
+    
     void Position::updateScoreAndOwnerMap()
     {
         struct move_queue q;
@@ -28,6 +28,20 @@ namespace weiqi
             struct uct* u = uct_state_init(NULL, &board);
             // init thread
             {
+#ifndef UsePThread
+                // init
+                boost::thread* thread_manager = NULL;
+                boost::mutex* finish_mutex = new boost::mutex();// (0);
+                boost::condition_variable* finish_cond = new boost::condition_variable();// (0);
+                // volatile int finish_thread;
+                boost::mutex* finish_serializer = new boost::mutex();// (0);
+                // set
+                u->thread_manager = thread_manager;
+                u->finish_mutex = finish_mutex;
+                u->finish_cond = finish_cond;
+                u->finish_thread = 0;// -1;
+                u->finish_serializer = finish_serializer;
+#else
                 // init
                 pthread_t thread_manager;
                 pthread_mutex_t finish_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -38,8 +52,9 @@ namespace weiqi
                 u->thread_manager = &thread_manager;
                 u->finish_mutex = &finish_mutex;
                 u->finish_cond = &finish_cond;
-                u->finish_thread = -1;
+                u->finish_thread = 0;// -1;
                 u->finish_serializer = &finish_serializer;
+#endif
             }
             // find dead group list
             uct_dead_group_list(u, &board, &q);

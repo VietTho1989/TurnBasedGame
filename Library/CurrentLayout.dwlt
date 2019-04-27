@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 548}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
     y: 0
     width: 1260
     height: 707
-  m_MinSize: {x: 950, y: 548}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 30
+  controlID: 89
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 31
+  controlID: 90
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 32
+  controlID: 18
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -184,8 +184,8 @@ MonoBehaviour:
     y: 0
     width: 405
     height: 331
-  m_MinSize: {x: 202, y: 224}
-  m_MaxSize: {x: 4002, y: 4024}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -210,8 +210,8 @@ MonoBehaviour:
     y: 0
     width: 548
     height: 331
-  m_MinSize: {x: 204, y: 224}
-  m_MaxSize: {x: 4004, y: 4024}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 15}
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 50360000
       m_LastClickedID: 0
       m_ExpandedIDs: d6fbffff
       m_RenameOverlay:
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: ce8700006a3400007e25000036290000482700008226000042320000ec2a000048300000c83000006e2b00005e270000b4250000943200009449feff962a000050f8ffff962800001ebe000096e9ffff4c25000042250000c428000076250000702500006a280000d22700002c52fcff484200001c2600005c2700007a280000be280000d82500002a2900007a290000b82700007c27000030280000cc270000baecffffba2700007a3c0000e42700001a280000b828000068280000ea2800004c280000cc3fffff06290000c6280000e22a00007495ffff3a7bfeffea01ffffa6a1ffff7c2b0000ee29000042290000262a00005a2900003c290000982a000032280000ca2a0000a42a0000b02d0000bc55fffffaf9feff4e2d0000ea2a0000da47ffff92290000f0280000cc2b0000e22b0000202b00002a2d00003a76fdff5629000092280000722900006c2b00000a2a0000cec4f7ff5861ffff342c0000d45100007e310000d0300000ac2e0000da300000dec5fcffda2d0000c22a0000a22d0000903000009c300000162f0000ee2b0000062e0000ce29ffff7c2d0000dc2d00003c2e00004c3100009e2cfdff5c330000322c0000b02f000070320000d43100004c2c0000fa2f0000a45fffff402e000076daf9ff022f0000a600ffff382e0000ec350000fc320000aa2d00002a32000096370000047bffff58350000703b00000a02ffff9625ffff123d00004a3d0000143500005c2e00003a3700009a3c0000bc2e0000a2340000b62e00008609feff3c370000ae340000b034000044330000283b00007c3a00001e3c00000c3300001a2f0000223c0000bc3a00006c34000014310000883700009e350000642f0000c63e00007c700000c0320000e42f0000545cfdff88400000d0330000383d0000243100007c310000a83e0000cc1cffffccf5feff4c3e000076320000d4350000e43bffff36360000bea1feffb233000066400000ba420000b43d0000a46ffeff9ecfffff04b4fcffb0420000be3d0000dc790000c27900000c400000263e0000903600002c320000163f000068380000b28700006c3900009a8c0000c0380000488e0000328f0000b89d00009a9a000066440000663900003c3100009097fcff7439ffff96430000c03b0000403e0000b484faff5eb1faff8a4400002430feffa452feff30350000e6340000c0f9feffa03f0000c8a10000d8a1000008420000facb0000c2a50000eafe0000cebefeffaeb700000ac6000082c90000023a0000bc540000524a0000383c0000b42efbff70afffff82dc00003cc3000086b4ffff66410000f2550000725200009e1501002467000050090100401501001e340100e85a0000845e00007e3e0100105a00005c630000746f00008e6300002a6f000036650000b25900009c5a000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

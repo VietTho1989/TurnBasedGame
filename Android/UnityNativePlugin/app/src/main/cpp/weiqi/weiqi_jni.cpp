@@ -8,7 +8,6 @@
 
 #include "../Platform.h"
 #include <mutex>
-#include <pthread.h>
 #include "weiqi_jni.hpp"
 #include "weiqi_random_engine.hpp"
 #include "weiqi_timeinfo.hpp"
@@ -21,6 +20,10 @@
 #include "distributed/engines/weiqi_patternscan.hpp"
 #include "distributed/engines/weiqi_patternplay.hpp"
 #include "distributed/engines/weiqi_montecarlo.hpp"
+
+#ifndef UsePThread
+#include <boost/regex/pending/static_mutex.hpp>
+#endif
 
 namespace weiqi
 {
@@ -1032,6 +1035,20 @@ namespace weiqi
                             struct uct* u = uct_state_init(NULL, &pos.b);
                             // init thread
                             {
+#ifndef UsePThread
+                                // init
+                                boost::thread* thread_manager = NULL;
+                                boost::mutex* finish_mutex = new boost::mutex();// (0);
+                                boost::condition_variable* finish_cond = new boost::condition_variable();// (0);
+                                // volatile int32_t finish_thread;
+                                boost::mutex* finish_serializer = new boost::mutex();// (0);
+                                // set
+                                u->thread_manager = thread_manager;
+                                u->finish_mutex = finish_mutex;
+                                u->finish_cond = finish_cond;
+                                u->finish_thread = 0;//-1;
+                                u->finish_serializer = finish_serializer;
+#else
                                 // init
                                 pthread_t thread_manager;
                                 pthread_mutex_t finish_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -1042,8 +1059,9 @@ namespace weiqi
                                 u->thread_manager = &thread_manager;
                                 u->finish_mutex = &finish_mutex;
                                 u->finish_cond = &finish_cond;
-                                u->finish_thread = -1;
+                                u->finish_thread = 0;// -1;
                                 u->finish_serializer = &finish_serializer;
+#endif
                             }
                             {
                                 uct_dead_group_list(u, &pos.b, &q);
@@ -1068,6 +1086,20 @@ namespace weiqi
                         struct uct* u = uct_state_init(NULL, &pos.b);
                         // init thread
                         {
+#ifndef UsePThread
+                            // init
+                            boost::thread* thread_manager = NULL;
+                            boost::mutex* finish_mutex = new boost::mutex(); //(0);
+                            boost::condition_variable* finish_cond = new boost::condition_variable();// (0);
+                            // volatile int32_t finish_thread;
+                            boost::mutex* finish_serializer = new boost::mutex();// (0);
+                            // set
+                            u->thread_manager = thread_manager;
+                            u->finish_mutex = finish_mutex;
+                            u->finish_cond = finish_cond;
+                            u->finish_thread = 0;// -1;
+                            u->finish_serializer = finish_serializer;
+#else
                             // init
                             pthread_t thread_manager;
                             pthread_mutex_t finish_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -1078,8 +1110,9 @@ namespace weiqi
                             u->thread_manager = &thread_manager;
                             u->finish_mutex = &finish_mutex;
                             u->finish_cond = &finish_cond;
-                            u->finish_thread = -1;
+                            u->finish_thread = 0;// -1;
                             u->finish_serializer = &finish_serializer;
+#endif
                         }
                         {
                             uct_dead_group_list(u, &pos.b, &q);
@@ -1193,6 +1226,10 @@ namespace weiqi
                         char buffer [50];
                         sprintf(buffer, "_%lld", mTime);
                         time_parse(&ti, buffer);
+                        // start time
+                        {
+                            ti.len.t.timer_start = time_now();
+                        }
                     }
                     // MC_GAMES
                     {
@@ -1255,8 +1292,26 @@ namespace weiqi
                     {
                         // make uct
                         struct uct* u = uct_state_init(NULL, &pos.b);
+                        {
+                            u->time_start = now();
+                            u->time = time;
+                        }
                         // init thread
                         {
+#ifndef UsePThread
+                            // init
+                            boost::thread* thread_manager = NULL;
+                            boost::mutex* finish_mutex = new boost::mutex;// (0);
+                            boost::condition_variable* finish_cond = new boost::condition_variable();// (0);
+                            // volatile int32_t finish_thread;
+                            boost::mutex* finish_serializer = new boost::mutex();// (0);
+                            // set
+                            u->thread_manager = thread_manager;
+                            u->finish_mutex = finish_mutex;
+                            u->finish_cond = finish_cond;
+                            u->finish_thread = 0;// -1;
+                            u->finish_serializer = finish_serializer;
+#else
                             // init
                             pthread_t thread_manager;
                             pthread_mutex_t finish_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -1267,8 +1322,9 @@ namespace weiqi
                             u->thread_manager = &thread_manager;
                             u->finish_mutex = &finish_mutex;
                             u->finish_cond = &finish_cond;
-                            u->finish_thread = -1;
+                            u->finish_thread = 0;// -1;
                             u->finish_serializer = &finish_serializer;
+#endif
                         }
                         // genmove
                         int32_t coord = uct_genmove(u, &pos.b, &ti, color, pass_all_alive);

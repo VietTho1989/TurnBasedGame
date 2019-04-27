@@ -37,13 +37,13 @@ namespace weiqi
     /* Search thread context */
     struct uct_thread_ctx {
         int32_t tid;
-        struct uct *u;
+        struct uct *u = NULL;
         struct board *b;
         enum stone color;
-        struct tree *t;
+        struct tree *t = NULL;
         uint64_t seed;
         int32_t games;
-        struct time_info *ti;
+        struct time_info *ti = NULL;
     };
     
     /* Progress information of the on-going MCTS search - when did we

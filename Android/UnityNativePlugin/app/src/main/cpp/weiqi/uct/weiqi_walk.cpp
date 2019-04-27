@@ -330,6 +330,14 @@ namespace weiqi
             ps.postpolicy_hook = uct_playout_postpolicy;
             ps.hook_data = &upc;
         }
+        // TODO Tu them vao
+        {
+            if(u->uct_halt)
+            {
+                printf("error, uct_halt\n");
+                return 0;
+            }
+        }
         int32_t result = play_random_game(&ps, b, next_color, u->playout_amaf ? amaf : NULL, &u->ownermap, u->playout);
         if (next_color == S_WHITE) {
             /* We need the result from black's perspective. */
@@ -816,9 +824,12 @@ namespace weiqi
 
     int32_t uct_playouts(struct uct *u, struct board *b, enum stone color, struct tree *t, struct time_info *ti)
     {
+        printf("uct_playouts\n");
         int32_t i;
-        for (i = 0; !u->uct_halt; i++)
+        for (i = 0; !u->uct_halt; i++) {
+            // printf("uct_playout: %d\n", i);
             uct_playout(u, b, color, t);
+        }
         return i;
     }
 }

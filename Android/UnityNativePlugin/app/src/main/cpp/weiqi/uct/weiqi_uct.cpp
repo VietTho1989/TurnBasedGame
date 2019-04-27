@@ -386,6 +386,7 @@ namespace weiqi
             uct_playouts(u, b, color, t, &debug_ti);
             tree_dump(t, u->dumpthres);
             
+            printf("uct_halt true\n");
             u->uct_halt = true;
             debug_level = debug_level_save;
             u->debug_level = u_debug_level_save;
@@ -591,7 +592,12 @@ namespace weiqi
         u->fast_alloc = true;
         u->pruning_threshold = 0;
         
-        u->threads = get_nprocessors();
+#ifndef UsePThread
+        u->threads = 1;
+#else
+        // u->threads = get_nprocessors();
+        u->threads = 1;
+#endif
         u->thread_model = TM_TREEVL;
         u->virtual_loss = 1;
         
@@ -1230,6 +1236,32 @@ namespace weiqi
         uct_prior_done(u->prior);
         joseki_done(u->jdict);
         pluginset_done(u->plugins);
+        
+#ifndef UsePThread
+        if(u->thread_manager!=NULL){
+            delete u->thread_manager;
+            u->thread_manager = NULL;
+        }
+        if(u->finish_mutex!=NULL){
+            delete u->finish_mutex;
+            u->finish_mutex = NULL;
+        }
+        if(u->finish_cond!=NULL){
+            delete u->finish_cond;
+            u->finish_cond = NULL;
+        }
+        if(u->finish_serializer!=NULL){
+            delete u->finish_serializer;
+            u->finish_serializer = NULL;
+        }
+        if(u->pctx!=NULL){
+            free(u->pctx);
+            u->pctx = NULL;
+        }
+#else
+        
+#endif
+        
         // free uct
         free(u);
     }
