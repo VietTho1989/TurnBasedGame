@@ -186,7 +186,7 @@ namespace InternationalDraught
             /*pthread_attr_t attr;
             pthread_attr_init(&attr);
             pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-            pthread_attr_setstacksize(&attr, 10*1048576);
+            // Ko can nua pthread_attr_setstacksize(&attr, 10*1048576);
             
             for(int32_t i=0; i<matchCount; i++){
                 pthread_t tid;
@@ -196,7 +196,7 @@ namespace InternationalDraught
             boost::thread_group threads;
             boost::thread::attributes attrs;
             {
-                attrs.set_stack_size(10*1048576);
+                // attrs.set_stack_size(10*1048576);
             }
             for (int i=0; i<matchCount; i++)
             {

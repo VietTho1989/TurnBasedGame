@@ -90,7 +90,6 @@
 		310F2EE92106D31100E3B1E7 /* makruk_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310F2EE72106D31100E3B1E7 /* makruk_jni.cpp */; };
 		310F2EEA2106D31100E3B1E7 /* makruk_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310F2EE72106D31100E3B1E7 /* makruk_jni.cpp */; };
 		310F2EED2106D6F200E3B1E7 /* makruk_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310F2EEB2106D6F200E3B1E7 /* makruk_main.cpp */; };
-		310F2EEE2106D6F200E3B1E7 /* makruk_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310F2EEB2106D6F200E3B1E7 /* makruk_main.cpp */; };
 		3135F0FE21DEE8F000B0982E /* nmm_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 318F935221DE0DF400F5E111 /* nmm_jni.cpp */; };
 		316634732100529A0072002E /* english_draught_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634672100529A0072002E /* english_draught_ai.cpp */; };
 		316634742100529A0072002E /* english_draught_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634672100529A0072002E /* english_draught_ai.cpp */; };
@@ -103,7 +102,6 @@
 		3166347B2100529A0072002E /* english_draught_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3166346F2100529A0072002E /* english_draught_jni.cpp */; };
 		3166347C2100529A0072002E /* english_draught_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3166346F2100529A0072002E /* english_draught_jni.cpp */; };
 		3166347D2100529A0072002E /* english_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634712100529A0072002E /* english_draught_main.cpp */; };
-		3166347E2100529A0072002E /* english_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316634712100529A0072002E /* english_draught_main.cpp */; };
 		316D37AE22731CE30042AC5E /* libboost_thread-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AD22731CE30042AC5E /* libboost_thread-mt.a */; };
 		316D37B022731D2D0042AC5E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AF22731D2C0042AC5E /* libboost_system.a */; };
 		316D37B12273269D0042AC5E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316D37AF22731D2C0042AC5E /* libboost_system.a */; };
@@ -118,7 +116,6 @@
 		3195D75B22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */; };
 		3195D75C22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */; };
 		3195D75D22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */; };
-		3195D75E22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */; };
 		3195D75F22030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */; };
 		3195D76022030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */; };
 		3195D76122030F2000C937D6 /* chinese_checkers_ricefish.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D75222030F2000C937D6 /* chinese_checkers_ricefish.cpp */; };
@@ -128,7 +125,6 @@
 		31971759213E5E830086B388 /* mine_sweeper_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971750213E5E830086B388 /* mine_sweeper_board.cpp */; };
 		3197175A213E5E830086B388 /* mine_sweeper_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971750213E5E830086B388 /* mine_sweeper_board.cpp */; };
 		3197175B213E5E830086B388 /* mine_sweeper_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971752213E5E830086B388 /* mine_sweeper_main.cpp */; };
-		3197175C213E5E830086B388 /* mine_sweeper_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971752213E5E830086B388 /* mine_sweeper_main.cpp */; };
 		3197175F213E5E830086B388 /* mine_sweeper_Solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971755213E5E830086B388 /* mine_sweeper_Solver.cpp */; };
 		31971760213E5E830086B388 /* mine_sweeper_Solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971755213E5E830086B388 /* mine_sweeper_Solver.cpp */; };
 		31971766213E75F60086B388 /* mine_sweeper_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971764213E75F60086B388 /* mine_sweeper_jni.cpp */; };
@@ -136,7 +132,6 @@
 		319ACCA821B36E7900EDD61D /* solitaire_Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACC9E21B36E7900EDD61D /* solitaire_Card.cpp */; };
 		319ACCA921B36E7900EDD61D /* solitaire_Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACC9E21B36E7900EDD61D /* solitaire_Card.cpp */; };
 		319ACCAA21B36E7900EDD61D /* solitaire_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACCA121B36E7900EDD61D /* solitaire_main.cpp */; };
-		319ACCAB21B36E7900EDD61D /* solitaire_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACCA121B36E7900EDD61D /* solitaire_main.cpp */; };
 		319ACCAC21B36E7900EDD61D /* solitaire_Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACCA221B36E7900EDD61D /* solitaire_Move.cpp */; };
 		319ACCAD21B36E7900EDD61D /* solitaire_Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACCA221B36E7900EDD61D /* solitaire_Move.cpp */; };
 		319ACCAE21B36E7900EDD61D /* solitaire_Pile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319ACCA421B36E7900EDD61D /* solitaire_Pile.cpp */; };
@@ -186,7 +181,6 @@
 		319E33102112BA44009E14E5 /* seirawan_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E330E2112BA44009E14E5 /* seirawan_jni.cpp */; };
 		319E33112112BA44009E14E5 /* seirawan_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E330E2112BA44009E14E5 /* seirawan_jni.cpp */; };
 		319E33142112C52A009E14E5 /* seirawan_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E33122112C52A009E14E5 /* seirawan_main.cpp */; };
-		319E33152112C52A009E14E5 /* seirawan_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E33122112C52A009E14E5 /* seirawan_main.cpp */; };
 		319E3B3921DDA50100566090 /* nmm_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3121DDA50100566090 /* nmm_board.cpp */; };
 		319E3B3A21DDA50100566090 /* nmm_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3121DDA50100566090 /* nmm_board.cpp */; };
 		319E3B3B21DDA50100566090 /* nmm_evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3321DDA50100566090 /* nmm_evaluator.cpp */; };
@@ -194,7 +188,6 @@
 		319E3B3D21DDA50100566090 /* nmmagent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3521DDA50100566090 /* nmmagent.cpp */; };
 		319E3B3E21DDA50100566090 /* nmmagent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3521DDA50100566090 /* nmmagent.cpp */; };
 		319E3B4121DDA59200566090 /* nmm_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3F21DDA59200566090 /* nmm_main.cpp */; };
-		319E3B4221DDA59200566090 /* nmm_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319E3B3F21DDA59200566090 /* nmm_main.cpp */; };
 		31AC66E620E9EA4200ADE207 /* gomoku_ai_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC658320E9EA4200ADE207 /* gomoku_ai_controller.cpp */; };
 		31AC66E720E9EA4200ADE207 /* gomoku_ai_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC658320E9EA4200ADE207 /* gomoku_ai_controller.cpp */; };
 		31AC66E820E9EA4200ADE207 /* gomoku_eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC658520E9EA4200ADE207 /* gomoku_eval.cpp */; };
@@ -208,7 +201,6 @@
 		31AC66F020E9EA4200ADE207 /* gomoku_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC658E20E9EA4200ADE207 /* gomoku_jni.cpp */; };
 		31AC66F120E9EA4200ADE207 /* gomoku_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC658E20E9EA4200ADE207 /* gomoku_jni.cpp */; };
 		31AC66F220E9EA4200ADE207 /* gomoku_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC659020E9EA4200ADE207 /* gomoku_main.cpp */; };
-		31AC66F320E9EA4200ADE207 /* gomoku_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC659020E9EA4200ADE207 /* gomoku_main.cpp */; };
 		31AC66F420E9EA4200ADE207 /* gomoku_position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC659220E9EA4200ADE207 /* gomoku_position.cpp */; };
 		31AC66F520E9EA4200ADE207 /* gomoku_position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC659220E9EA4200ADE207 /* gomoku_position.cpp */; };
 		31AC66F820E9EA4200ADE207 /* international_draught_bb_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC659720E9EA4200ADE207 /* international_draught_bb_base.cpp */; };
@@ -236,7 +228,6 @@
 		31AC670E20E9EA4200ADE207 /* international_draught_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65AD20E9EA4200ADE207 /* international_draught_list.cpp */; };
 		31AC670F20E9EA4200ADE207 /* international_draught_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65AD20E9EA4200ADE207 /* international_draught_list.cpp */; };
 		31AC671020E9EA4200ADE207 /* international_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65AF20E9EA4200ADE207 /* international_draught_main.cpp */; };
-		31AC671120E9EA4200ADE207 /* international_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65AF20E9EA4200ADE207 /* international_draught_main.cpp */; };
 		31AC671220E9EA4200ADE207 /* international_draught_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65B120E9EA4200ADE207 /* international_draught_move.cpp */; };
 		31AC671320E9EA4200ADE207 /* international_draught_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65B120E9EA4200ADE207 /* international_draught_move.cpp */; };
 		31AC671420E9EA4200ADE207 /* international_draught_move_gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65B320E9EA4200ADE207 /* international_draught_move_gen.cpp */; };
@@ -282,7 +273,6 @@
 		31AC673E20E9EA4300ADE207 /* reversi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DB20E9EA4200ADE207 /* reversi_jni.cpp */; };
 		31AC673F20E9EA4300ADE207 /* reversi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DB20E9EA4200ADE207 /* reversi_jni.cpp */; };
 		31AC674020E9EA4300ADE207 /* reversi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DD20E9EA4200ADE207 /* reversi_main.cpp */; };
-		31AC674120E9EA4300ADE207 /* reversi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DD20E9EA4200ADE207 /* reversi_main.cpp */; };
 		31AC674220E9EA4300ADE207 /* reversi_openings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DF20E9EA4200ADE207 /* reversi_openings.cpp */; };
 		31AC674320E9EA4300ADE207 /* reversi_openings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65DF20E9EA4200ADE207 /* reversi_openings.cpp */; };
 		31AC674420E9EA4300ADE207 /* reversi_patternbuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC65E120E9EA4200ADE207 /* reversi_patternbuilder.cpp */; };
@@ -346,9 +336,7 @@
 		31AC677E20E9EA4300ADE207 /* shogi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC661E20E9EA4200ADE207 /* shogi_jni.cpp */; };
 		31AC677F20E9EA4300ADE207 /* shogi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC661E20E9EA4200ADE207 /* shogi_jni.cpp */; };
 		31AC678020E9EA4300ADE207 /* shogi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662020E9EA4200ADE207 /* shogi_main.cpp */; };
-		31AC678120E9EA4300ADE207 /* shogi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662020E9EA4200ADE207 /* shogi_main.cpp */; };
 		31AC678220E9EA4300ADE207 /* chess_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662320E9EA4200ADE207 /* chess_main.cpp */; };
-		31AC678320E9EA4300ADE207 /* chess_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662320E9EA4200ADE207 /* chess_main.cpp */; };
 		31AC678420E9EA4300ADE207 /* chess_stock_fish_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662520E9EA4200ADE207 /* chess_stock_fish_jni.cpp */; };
 		31AC678520E9EA4300ADE207 /* chess_stock_fish_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662520E9EA4200ADE207 /* chess_stock_fish_jni.cpp */; };
 		31AC678620E9EA4300ADE207 /* chess_stock_fish_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC662820E9EA4200ADE207 /* chess_stock_fish_benchmark.cpp */; };
@@ -456,7 +444,6 @@
 		31AC67EC20E9EA4300ADE207 /* weiqi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669820E9EA4200ADE207 /* weiqi_jni.cpp */; };
 		31AC67ED20E9EA4300ADE207 /* weiqi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669820E9EA4200ADE207 /* weiqi_jni.cpp */; };
 		31AC67EE20E9EA4300ADE207 /* weiqi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669A20E9EA4200ADE207 /* weiqi_main.cpp */; };
-		31AC67EF20E9EA4300ADE207 /* weiqi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669A20E9EA4200ADE207 /* weiqi_main.cpp */; };
 		31AC67F020E9EA4300ADE207 /* weiqi_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669C20E9EA4200ADE207 /* weiqi_move.cpp */; };
 		31AC67F120E9EA4300ADE207 /* weiqi_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669C20E9EA4200ADE207 /* weiqi_move.cpp */; };
 		31AC67F220E9EA4300ADE207 /* weiqi_mq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC669E20E9EA4200ADE207 /* weiqi_mq.cpp */; };
@@ -518,7 +505,6 @@
 		31AC682E20E9EA4300ADE207 /* xiangqi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC66E220E9EA4200ADE207 /* xiangqi_jni.cpp */; };
 		31AC682F20E9EA4300ADE207 /* xiangqi_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC66E220E9EA4200ADE207 /* xiangqi_jni.cpp */; };
 		31AC683020E9EA4300ADE207 /* xiangqi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC66E420E9EA4200ADE207 /* xiangqi_main.cpp */; };
-		31AC683120E9EA4300ADE207 /* xiangqi_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC66E420E9EA4200ADE207 /* xiangqi_main.cpp */; };
 		31AC683420E9F3BD00ADE207 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC683320E9F3BD00ADE207 /* Platform.cpp */; };
 		31AC683520E9F3BD00ADE207 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31AC683320E9F3BD00ADE207 /* Platform.cpp */; };
 		31B93ED52149F3AE009EFC7A /* hex_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D9A5762148FD6A009B303A /* hex_jni.cpp */; };
@@ -533,7 +519,6 @@
 		31D19C2520F2EBCE00F53C07 /* shatranj_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BFD20F2EBCE00F53C07 /* shatranj_jni.cpp */; };
 		31D19C2620F2EBCF00F53C07 /* shatranj_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BFD20F2EBCE00F53C07 /* shatranj_jni.cpp */; };
 		31D19C2720F2EBCF00F53C07 /* shatranj_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BFF20F2EBCE00F53C07 /* shatranj_main.cpp */; };
-		31D19C2820F2EBCF00F53C07 /* shatranj_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19BFF20F2EBCE00F53C07 /* shatranj_main.cpp */; };
 		31D19C2920F2EBCF00F53C07 /* shatranj_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19C0120F2EBCE00F53C07 /* shatranj_material.cpp */; };
 		31D19C2A20F2EBCF00F53C07 /* shatranj_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19C0120F2EBCE00F53C07 /* shatranj_material.cpp */; };
 		31D19C2B20F2EBCF00F53C07 /* shatranj_misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D19C0320F2EBCE00F53C07 /* shatranj_misc.cpp */; };
@@ -573,7 +558,6 @@
 		31D822D321C90EA7007EF016 /* khet_Laser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822B921C90EA7007EF016 /* khet_Laser.cpp */; };
 		31D822D421C90EA7007EF016 /* khet_Laser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822B921C90EA7007EF016 /* khet_Laser.cpp */; };
 		31D822D521C90EA7007EF016 /* khet_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822BB21C90EA7007EF016 /* khet_main.cpp */; };
-		31D822D621C90EA7007EF016 /* khet_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822BB21C90EA7007EF016 /* khet_main.cpp */; };
 		31D822D721C90EA7007EF016 /* khet_MoveGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822BD21C90EA7007EF016 /* khet_MoveGenerator.cpp */; };
 		31D822D821C90EA7007EF016 /* khet_MoveGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822BD21C90EA7007EF016 /* khet_MoveGenerator.cpp */; };
 		31D822D921C90EA7007EF016 /* khet_Search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D822C221C90EA7007EF016 /* khet_Search.cpp */; };
@@ -587,7 +571,6 @@
 		31D86C50212CE270009F1825 /* russian_draught_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D86C4E212CE270009F1825 /* russian_draught_jni.cpp */; };
 		31D86C51212CE270009F1825 /* russian_draught_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D86C4E212CE270009F1825 /* russian_draught_jni.cpp */; };
 		31D86C54212D0793009F1825 /* russian_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D86C52212D0793009F1825 /* russian_draught_main.cpp */; };
-		31D86C55212D0793009F1825 /* russian_draught_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D86C52212D0793009F1825 /* russian_draught_main.cpp */; };
 		31D9A5782148FD6A009B303A /* hex_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D9A5762148FD6A009B303A /* hex_jni.cpp */; };
 		31E366692148CF2E000A59F4 /* hex_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366512148CF2E000A59F4 /* hex_board.cpp */; };
 		31E3666A2148CF2E000A59F4 /* hex_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366512148CF2E000A59F4 /* hex_board.cpp */; };
@@ -611,7 +594,6 @@
 		31E3667E2148CF2E000A59F4 /* hex_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366662148CF2E000A59F4 /* hex_record.cpp */; };
 		31E3667F2148CF2E000A59F4 /* hex_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366662148CF2E000A59F4 /* hex_record.cpp */; };
 		31E366802148CF2E000A59F4 /* hex_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366682148CF2E000A59F4 /* hex_main.cpp */; };
-		31E366812148CF2E000A59F4 /* hex_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31E366682148CF2E000A59F4 /* hex_main.cpp */; };
 		31F1CA592119D76400CB9525 /* fairy_chess_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31F1CA572119D76400CB9525 /* fairy_chess_main.cpp */; };
 		31FFB61120E0773500EF3959 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31FFB61020E0773500EF3959 /* main.cpp */; };
 /* End PBXBuildFile section */
@@ -2402,15 +2384,12 @@
 				31AC67A520E9EA4300ADE207 /* chess_stock_fish_timeman.cpp in Sources */,
 				31AC677720E9EA4300ADE207 /* shogi_thread.cpp in Sources */,
 				31D19C3020F2EBCF00F53C07 /* shatranj_movepick.cpp in Sources */,
-				31AC678120E9EA4300ADE207 /* shogi_main.cpp in Sources */,
 				319E3B3C21DDA50100566090 /* nmm_evaluator.cpp in Sources */,
 				310F2EE02106B5E100E3B1E7 /* makruk_timeman.cpp in Sources */,
 				316634782100529A0072002E /* english_draught_database.cpp in Sources */,
 				31AC67C320E9EA4300ADE207 /* weiqi_nakade.cpp in Sources */,
 				31AC677320E9EA4300ADE207 /* shogi_search.cpp in Sources */,
-				31E366812148CF2E000A59F4 /* hex_main.cpp in Sources */,
 				31AC67E320E9EA4300ADE207 /* weiqi_board.cpp in Sources */,
-				319E33152112C52A009E14E5 /* seirawan_main.cpp in Sources */,
 				31AC67B920E9EA4300ADE207 /* weiqi_moggy.cpp in Sources */,
 				31D19C4220F2EBCF00F53C07 /* shatranj_uci.cpp in Sources */,
 				31AC67C520E9EA4300ADE207 /* weiqi_nlib.cpp in Sources */,
@@ -2459,7 +2438,6 @@
 				31AC67AF20E9EA4300ADE207 /* weiqi_montecarlo.cpp in Sources */,
 				31AC67ED20E9EA4300ADE207 /* weiqi_jni.cpp in Sources */,
 				31AC671F20E9EA4300ADE207 /* international_draught_score.cpp in Sources */,
-				319ACCAB21B36E7900EDD61D /* solitaire_main.cpp in Sources */,
 				31D822D021C90EA7007EF016 /* khet_CommsHandler.cpp in Sources */,
 				31AC67EB20E9EA4300ADE207 /* weiqi_gogui.cpp in Sources */,
 				31AC66E920E9EA4200ADE207 /* gomoku_eval.cpp in Sources */,
@@ -2488,7 +2466,6 @@
 				31AC682320E9EA4300ADE207 /* xiangqi_movesort.cpp in Sources */,
 				31D822D821C90EA7007EF016 /* khet_MoveGenerator.cpp in Sources */,
 				31D19C2420F2EBCE00F53C07 /* shatranj_evaluate.cpp in Sources */,
-				31AC671120E9EA4200ADE207 /* international_draught_main.cpp in Sources */,
 				31AC67B320E9EA4300ADE207 /* weiqi_patternscan.cpp in Sources */,
 				3195D75C22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */,
 				31AC682720E9EA4300ADE207 /* xiangqi_preeval.cpp in Sources */,
@@ -2497,10 +2474,7 @@
 				31AC677920E9EA4300ADE207 /* shogi_timeManager.cpp in Sources */,
 				31AC679920E9EA4300ADE207 /* chess_stock_fish_pawns.cpp in Sources */,
 				31AC679120E9EA4300ADE207 /* chess_stock_fish_material.cpp in Sources */,
-				31AC678320E9EA4300ADE207 /* chess_main.cpp in Sources */,
 				31AC675D20E9EA4300ADE207 /* shogi_common.cpp in Sources */,
-				31AC67EF20E9EA4300ADE207 /* weiqi_main.cpp in Sources */,
-				31D19C2820F2EBCF00F53C07 /* shatranj_main.cpp in Sources */,
 				31AC675B20E9EA4300ADE207 /* shogi_book.cpp in Sources */,
 				319E3305211294DC009E14E5 /* seirawan_thread.cpp in Sources */,
 				310F2EDE2106B5E100E3B1E7 /* makruk_thread.cpp in Sources */,
@@ -2524,7 +2498,6 @@
 				31D822DA21C90EA7007EF016 /* khet_Search.cpp in Sources */,
 				31AC673920E9EA4300ADE207 /* reversi_eval.cpp in Sources */,
 				31AC67CD20E9EA4300ADE207 /* weiqi_generic.cpp in Sources */,
-				310F2EEE2106D6F200E3B1E7 /* makruk_main.cpp in Sources */,
 				31018FE521199917009FB831 /* fairy_chess_pawns.cpp in Sources */,
 				31AC680520E9EA4300ADE207 /* weiqi_random.cpp in Sources */,
 				31AC679B20E9EA4300ADE207 /* chess_stock_fish_position.cpp in Sources */,
@@ -2587,7 +2560,6 @@
 				310F2EC62106B5E100E3B1E7 /* makruk_bitboard.cpp in Sources */,
 				31AC680120E9EA4300ADE207 /* weiqi_position.cpp in Sources */,
 				319E3309211294DC009E14E5 /* seirawan_tt.cpp in Sources */,
-				3166347E2100529A0072002E /* english_draught_main.cpp in Sources */,
 				31AC67C920E9EA4300ADE207 /* weiqi_selfatari.cpp in Sources */,
 				31D822D221C90EA7007EF016 /* khet_Evaluator.cpp in Sources */,
 				31AC671320E9EA4200ADE207 /* international_draught_move.cpp in Sources */,
@@ -2596,7 +2568,6 @@
 				31971767213E75F60086B388 /* mine_sweeper_jni.cpp in Sources */,
 				31AC67B120E9EA4300ADE207 /* weiqi_patternplay.cpp in Sources */,
 				31AC672B20E9EA4300ADE207 /* international_draught_var.cpp in Sources */,
-				3195D75E22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */,
 				31AC670120E9EA4200ADE207 /* international_draught_book.cpp in Sources */,
 				31AC66EB20E9EA4200ADE207 /* gomoku_negamax.cpp in Sources */,
 				31AC67C120E9EA4300ADE207 /* weiqi_ladder.cpp in Sources */,
@@ -2626,8 +2597,6 @@
 				31AC67FF20E9EA4300ADE207 /* weiqi_playout.cpp in Sources */,
 				31AC66FF20E9EA4200ADE207 /* international_draught_bit.cpp in Sources */,
 				31AC67E920E9EA4300ADE207 /* weiqi_fbook.cpp in Sources */,
-				319E3B4221DDA59200566090 /* nmm_main.cpp in Sources */,
-				31D822D621C90EA7007EF016 /* khet_main.cpp in Sources */,
 				31AC672720E9EA4300ADE207 /* international_draught_tt.cpp in Sources */,
 				31AC675120E9EA4300ADE207 /* reversi_testsuites.cpp in Sources */,
 				31AC682B20E9EA4300ADE207 /* xiangqi_search.cpp in Sources */,
@@ -2637,7 +2606,6 @@
 				31AC67F920E9EA4300ADE207 /* weiqi_pattern3.cpp in Sources */,
 				31AC673D20E9EA4300ADE207 /* reversi_hash.cpp in Sources */,
 				3195D76422030F2000C937D6 /* chinese_checkers_search.cpp in Sources */,
-				31AC683120E9EA4300ADE207 /* xiangqi_main.cpp in Sources */,
 				31AC673120E9EA4300ADE207 /* reversi_common.cpp in Sources */,
 				316634762100529A0072002E /* english_draught_board.cpp in Sources */,
 				31AC670520E9EA4200ADE207 /* international_draught_eval.cpp in Sources */,
@@ -2645,12 +2613,10 @@
 				319E32FD211294DC009E14E5 /* seirawan_position.cpp in Sources */,
 				31AC674320E9EA4300ADE207 /* reversi_openings.cpp in Sources */,
 				31AC674B20E9EA4300ADE207 /* reversi_PRNG.cpp in Sources */,
-				31AC66F320E9EA4200ADE207 /* gomoku_main.cpp in Sources */,
 				31AC66F920E9EA4200ADE207 /* international_draught_bb_base.cpp in Sources */,
 				31AC679520E9EA4300ADE207 /* chess_stock_fish_movegen.cpp in Sources */,
 				31AC67F520E9EA4300ADE207 /* weiqi_ownermap.cpp in Sources */,
 				31AC67A120E9EA4300ADE207 /* chess_stock_fish_tbprobe.cpp in Sources */,
-				31D86C55212D0793009F1825 /* russian_draught_main.cpp in Sources */,
 				31AC67CF20E9EA4300ADE207 /* weiqi_ucb1.cpp in Sources */,
 				31AC677520E9EA4300ADE207 /* shogi_square.cpp in Sources */,
 				31018FF521199917009FB831 /* fairy_chess_ucioption.cpp in Sources */,
@@ -2664,7 +2630,6 @@
 				31018FDD21199917009FB831 /* fairy_chess_material.cpp in Sources */,
 				31AC67FD20E9EA4300ADE207 /* weiqi_patternsp.cpp in Sources */,
 				310F2EEA2106D31100E3B1E7 /* makruk_jni.cpp in Sources */,
-				3197175C213E5E830086B388 /* mine_sweeper_main.cpp in Sources */,
 				319E330B211294DC009E14E5 /* seirawan_uci.cpp in Sources */,
 				31AC66E720E9EA4200ADE207 /* gomoku_ai_controller.cpp in Sources */,
 				319E3307211294DC009E14E5 /* seirawan_timeman.cpp in Sources */,
@@ -2687,7 +2652,6 @@
 				31018FEF21199917009FB831 /* fairy_chess_timeman.cpp in Sources */,
 				31D822D421C90EA7007EF016 /* khet_Laser.cpp in Sources */,
 				31018FD321199917009FB831 /* fairy_chess_bitbase.cpp in Sources */,
-				31AC674120E9EA4300ADE207 /* reversi_main.cpp in Sources */,
 				31AC66FB20E9EA4200ADE207 /* international_draught_bb_comp.cpp in Sources */,
 				31E366762148CF2E000A59F4 /* hex_iengine.cpp in Sources */,
 			);

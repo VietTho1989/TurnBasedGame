@@ -352,11 +352,15 @@ namespace InternationalDraught
                 // make search output
                 Search_Output so;
                 // search
-                Search search;
+                Search* search = new Search;
                 {
-                    search.myVar = &pos.var;
+                    search->myVar = &pos.var;
                 }
-                search.search(so, *pos.node, si);
+                search->search(so, *pos.node, si);
+                // release data
+                {
+                    delete search;
+                }
                 // return result
                 ret = (uint64)so.move;
             }else{

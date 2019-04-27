@@ -32,7 +32,7 @@ namespace InternationalDraught
     
     struct Local {
         
-        Node* p_node; // HACK: should be private
+        Node* p_node = NULL; // HACK: should be private
         
         Score alpha;
         Score beta;
@@ -97,9 +97,58 @@ namespace InternationalDraught
     class Search_Local : public Lockable {
         
     public:
+        std::vector<Node*> allNodes;
+        std::vector<Local*> allLocals;
+        std::vector<List*> allLists;
+        std::vector<Line*> allLines;
+        
+        Search_Local()
+        {
+            allNodes.clear();
+            allLocals.clear();
+            allLists.clear();
+            allLines.clear();
+        }
+        
         ~Search_Local()
         {
-            printf("delete Search Local\n");
+            printf("delete Search Local: %lu, %lu, %lu, %lu\n", allNodes.size(), allLists.size(), allLists.size(), allLines.size());
+            // nodes
+            {
+                for(int i=0; i<allNodes.size(); i++)
+                {
+                    Node* node = allNodes[i];
+                    delete node;
+                }
+                allNodes.clear();
+            }
+            // locals
+            {
+                for(int i=0; i<allLocals.size(); i++)
+                {
+                    Local* local = allLocals[i];
+                    delete local;
+                }
+                allLocals.clear();
+            }
+            // lists
+            {
+                for(int i=0; i<allLists.size(); i++)
+                {
+                    List* list = allLists[i];
+                    delete list;
+                }
+                allLists.clear();
+            }
+            // lines
+            {
+                for(int i=0; i<allLines.size(); i++)
+                {
+                    Line* line = allLines[i];
+                    delete line;
+                }
+                allLines.clear();
+            }
         }
         
     private:
@@ -631,23 +680,26 @@ namespace InternationalDraught
             return qs(mySearch, node, alpha, beta, Depth(0), ply, pv);
         }
         
-        if (pos::is_wipe(mySearch->myVar, node)) return leaf(score::loss(ply), ply); // for BT variant
+        if (pos::is_wipe(mySearch->myVar, node))
+            return leaf(score::loss(ply), ply); // for BT variant
         
         // init
+        Local* local = new Local(); // Local local;
+        {
+            // allLocals.push_back(local);
+        }
         
-        Local local;
+        local->p_node = &node;
+        local->alpha = alpha;
+        local->beta = beta;
+        local->depth = depth;
+        local->ply = ply;
+        local->pv_node = beta != alpha + Score(1);
+        local->prune = prune;
         
-        local.p_node = &node;
-        local.alpha = alpha;
-        local.beta = beta;
-        local.depth = depth;
-        local.ply = ply;
-        local.pv_node = beta != alpha + Score(1);
-        local.prune = prune;
-        
-        local.move = move::None;
-        local.score = score::None;
-        local.pv.clear();
+        local->move = move::None;
+        local->score = score::None;
+        local->pv.clear();
         
         // transposition table
         
@@ -661,13 +713,14 @@ namespace InternationalDraught
             
             if (mySearch->g_TT.probe(key, tt_move, tt_depth, tt_flags, tt_score)) {
                 
-                if (!local.pv_node && tt_depth >= local.depth) {
+                if (!local->pv_node && tt_depth >= local->depth) {
                     
-                    tt_score = score::from_tt(tt_score, local.ply);
+                    tt_score = score::from_tt(tt_score, local->ply);
                     
-                    if ((tt::is_lower(tt_flags) && tt_score >= local.beta)
-                        || (tt::is_upper(tt_flags) && tt_score <= local.alpha)
+                    if ((tt::is_lower(tt_flags) && tt_score >= local->beta)
+                        || (tt::is_upper(tt_flags) && tt_score <= local->alpha)
                         ||  tt::is_exact(tt_flags)) {
+                        delete local;
                         return tt_score;
                     }
                 }
@@ -677,72 +730,109 @@ namespace InternationalDraught
         // bitbases
         
         if (bb::pos_is_search(mySearch->myVar, node, p_sg->bb_size())) {
+            Line* new_pv = new Line;
+            {
+                // allLines.push_back(new_pv);
+            }
+            Score sc = qs(mySearch, node, local->alpha, local->beta, Depth(0), local->ply, *new_pv); // captures + BB probe
             
-            Line new_pv;
-            Score sc = qs(mySearch, node, local.alpha, local.beta, Depth(0), local.ply, new_pv); // captures + BB probe
-            
-            if ((sc < 0 && sc <= local.alpha) || sc == 0 || (sc > 0 && sc >= local.beta)) {
-                local.score = sc;
-                local.pv = new_pv;
+            if ((sc < 0 && sc <= local->alpha) || sc == 0 || (sc > 0 && sc >= local->beta)) {
+                local->score = sc;
+                local->pv = *new_pv;
+                // release data
+                {
+                    delete new_pv;
+                }
                 goto cont;
             }
             
             if (sc > 0) { // win => lower bound
-                local.score = sc;
-                local.pv = new_pv;
+                local->score = sc;
+                local->pv = *new_pv;
+            }
+            
+            // release data
+            {
+                delete new_pv;
             }
         }
         
         // gen moves
         
-        gen_moves(mySearch->myVar->Variant, local.list, node);
+        gen_moves(mySearch->myVar->Variant, local->list, node);
         
-        if (local.list.size() == 0) { // no legal moves => loss
-            return leaf(score::loss(local.ply), local.ply);
+        if (local->list.size() == 0) { // no legal moves => loss
+            Score score = leaf(score::loss(local->ply), local->ply);
+            {
+                delete local;
+            }
+            return score;
         }
         
-        if (score::loss(local.ply + Ply(2)) >= local.beta) { // loss-distance pruning
-            return leaf(score::loss(local.ply + Ply(2)), local.ply);
+        if (score::loss(local->ply + Ply(2)) >= local->beta) { // loss-distance pruning
+            Score score = leaf(score::loss(local->ply + Ply(2)), local->ply);
+            {
+                delete local;
+            }
+            return score;
         }
         
-        if (local.ply >= Ply_Max) return leaf(eval(mySearch->myVar, node), local.ply);
+        if (local->ply >= Ply_Max) {
+            Score score = leaf(eval(mySearch->myVar, node), local->ply);
+            {
+                delete local;
+            }
+            return score;
+        }
         
         // pruning
-        
-        if (local.prune && !local.pv_node && local.depth >= 3 && local.beta <= +score::Eval_Inf) {
+        if (local->prune && !local->pv_node && local->depth >= 3 && local->beta <= +score::Eval_Inf) {
             
-            Score margin = Score(10 * local.depth);
-            Score new_beta = score::add_safe(local.beta, +margin);
-            Depth new_depth = Depth(local.depth * 40 / 100);
+            Score margin = Score(10 * local->depth);
+            Score new_beta = score::add_safe(local->beta, +margin);
+            Depth new_depth = Depth(local->depth * 40 / 100);
             
-            Line new_pv;
-            Score sc = search(mySearch, node, new_beta - Score(1), new_beta, new_depth, local.ply + Ply(1), false, new_pv);
+            Line* new_pv = new Line();
+            {
+                // allLines.push_back(new_pv);
+            }
+            Score sc = search(mySearch, node, new_beta - Score(1), new_beta, new_depth, local->ply + Ply(1), false, *new_pv);
             
             if (sc >= new_beta) {
                 
                 sc = score::add_safe(sc, -margin); // fail-soft margin
                 // assert(sc >= local.beta);
-                if(!(sc >= local.beta)){
+                if(!(sc >= local->beta)){
                     // printf("error, sc >= local.beta: %f, %f\n", sc, local.beta);
-                    sc = local.beta;
+                    sc = local->beta;
                 }
                 
-                pv = new_pv;
+                pv = *new_pv;
+                // release data
+                {
+                    delete local;
+                    delete new_pv;
+                }
                 return sc;
+            }
+            // release data
+            {
+                delete new_pv;
             }
         }
         
         // move loop
         
-        sort_all(local.list, node, tt_move);
-        move_loop(mySearch, local);
+        sort_all(local->list, node, tt_move);
+        move_loop(mySearch, *local);
         
         cont : // epilogue
         
         {
             // assert(score::is_ok(local.score));
-            if(!score::is_ok(local.score)){
+            if(!score::is_ok(local->score)){
                 printf("error, assert(score::is_ok(local.score))\n");
+                delete local;
                 return 0;
             }
         }
@@ -751,46 +841,53 @@ namespace InternationalDraught
         
         {
             Move_Index tt_move = Move_Index_None;
-            if (local.score > local.alpha && local.move != move::None) {
-                tt_move = move::index(local.move, node);
+            if (local->score > local->alpha && local->move != move::None) {
+                tt_move = move::index(local->move, node);
             }
             
-            Depth tt_depth = local.depth;
+            Depth tt_depth = local->depth;
             
             tt::Flags tt_flags = tt::Flags_None;
-            if (local.score > local.alpha) tt_flags |= tt::Flags_Lower;
-            if (local.score < local.beta)  tt_flags |= tt::Flags_Upper;
+            if (local->score > local->alpha) tt_flags |= tt::Flags_Lower;
+            if (local->score < local->beta)  tt_flags |= tt::Flags_Upper;
             
-            Score tt_score = score::to_tt(local.score, local.ply);
+            Score tt_score = score::to_tt(local->score, local->ply);
             
             mySearch->g_TT.store(key, tt_move, tt_depth, tt_flags, tt_score);
         }
         
         // move-ordering statistics
         
-        if (local.score > local.alpha && local.move != move::None && local.list.size() > 1) {
+        if (local->score > local->alpha && local->move != move::None && local->list.size() > 1) {
             
-            good_move(move::index(local.move, node));
+            good_move(move::index(local->move, node));
             
             {
                 // assert(list::has(local.list, local.move));
-                if(!list::has(local.list, local.move)){
+                if(!list::has(local->list, local->move)){
                     printf("error, assert(list::has(local.list, local.move))\n");
+                    delete local;
                     return 0;
                 }
             }
             
-            for (int32_t i = 0; i < local.list.size(); i++) {
+            for (int32_t i = 0; i < local->list.size(); i++) {
                 
-                Move mv = local.list.move(i);
-                if (mv == local.move) break;
+                Move mv = local->list.move(i);
+                if (mv == local->move) break;
                 
                 bad_move(move::index(mv, node));
             }
         }
         
-        pv = local.pv;
-        return local.score;
+        pv = local->pv;
+        // release data
+        Score ret = local->score;
+        {
+            // std::remove(allLocals.begin(), allLocals.end(), local);
+            delete local;
+        }
+        return ret;
     }
     
     void Search_Local::move_loop(Search* mySearch, Local& local) {
@@ -817,10 +914,18 @@ namespace InternationalDraught
             
             Move mv = local.list.move(local.i++);
             
-            Line pv;
-            Score sc = search_move(mySearch, mv, local, pv);
+            Line* pv = new Line();
+            {
+                // allLines.push_back(pv);
+            }
+            Score sc = search_move(mySearch, mv, local, *pv);
             
-            local_update(mySearch, local, mv, sc, pv, *p_sg);
+            local_update(mySearch, local, mv, sc, *pv, *p_sg);
+            
+            // release data
+            {
+                delete pv;
+            }
         }
     }
     
@@ -993,17 +1098,26 @@ namespace InternationalDraught
             
             Move mv = list.move(i);
             
-            Line pv;
+            Line* pv = new Line();
+            {
+                // allLines.push_back(pv);
+            }
             
             inc_node(mySearch);
-            Node new_node;
+            Node* new_node = new Node();// Node new_node;
             {
-                node.mySucc(mySearch->myVar, mv, &new_node);
+                // allNodes.push_back(new_node);
+                node.mySucc(mySearch->myVar, mv, new_node);
             }
-            Score sc = -search(mySearch, new_node, -score::Inf, +score::Inf, depth - Depth(1), ply + Ply(1), prune, pv);
+            Score sc = -search(mySearch, *new_node, -score::Inf, +score::Inf, depth - Depth(1), ply + Ply(1), prune, *pv);
+            
+            // release data
+            {
+                delete pv;
+                delete new_node;
+            }
             
             // update state
-            
             list.set_score(i, sc);
         }
         
@@ -1042,25 +1156,29 @@ namespace InternationalDraught
         Score sc;
         
         inc_node(mySearch);
-        Node new_node;
+        Node* new_node = new Node();// Node new_node;
+        // allNodes.push_back(new_node);
         {
-            local.node().mySucc(mySearch->myVar, mv, &new_node);
+            local.node().mySucc(mySearch->myVar, mv, new_node);
         }
         
         if ((local.pv_node && searched_size != 0) || red != 0) {
             
-            sc = -search(mySearch, new_node, -new_alpha - Score(1), -new_alpha, new_depth - red, local.ply + Ply(1), local.prune, pv);
+            sc = -search(mySearch, *new_node, -new_alpha - Score(1), -new_alpha, new_depth - red, local.ply + Ply(1), local.prune, pv);
             
             if (sc > new_alpha) { // PVS/LMR re-search
                 
                 if (local.ply == 0) p_sg->set_high(true);
-                sc = -search(mySearch, new_node, -local.beta, -new_alpha, new_depth, local.ply + Ply(1), local.prune, pv);
+                sc = -search(mySearch, *new_node, -local.beta, -new_alpha, new_depth, local.ply + Ply(1), local.prune, pv);
                 if (local.ply == 0) p_sg->set_high(false);
             }
-            
         } else {
-            
-            sc = -search(mySearch, new_node, -local.beta, -new_alpha, new_depth, local.ply + Ply(1), local.prune, pv);
+            sc = -search(mySearch, *new_node, -local.beta, -new_alpha, new_depth, local.ply + Ply(1), local.prune, pv);
+        }
+        // release data
+        {
+            // std::remove(allNodes.begin(), allNodes.end(), new_node);
+            delete new_node;
         }
         
         return sc;
@@ -1086,77 +1204,115 @@ namespace InternationalDraught
         
         pv.clear();
         
-        if (pos::is_wipe(mySearch->myVar, node)) return leaf(score::loss(ply), ply);
+        if (pos::is_wipe(mySearch->myVar, node))
+            return leaf(score::loss(ply), ply);
         
-        if (ply >= Ply_Max) return leaf(eval(mySearch->myVar, node), ply);
+        if (ply >= Ply_Max)
+            return leaf(eval(mySearch->myVar, node), ply);
         
         // move-loop init
         
         Score bs = score::None;
         
-        List list;
-        gen_captures(mySearch->myVar->Variant, list, node);
+        List* list = new List(); // List list;
+        {
+            // allLists.push_back(list);
+        }
+        gen_captures(mySearch->myVar->Variant, *list, node);
         
-        if (list.size() == 0) { // quiet position
-            
+        if (list->size() == 0) { // quiet position
             // bitbases
-            
             if (bb::pos_is_search(mySearch->myVar, node, p_sg->bb_size())) {
-                return leaf(bb_probe(mySearch->myVar, node, ply), ply);
+                Score score = leaf(bb_probe(mySearch->myVar, node, ply), ply);
+                {
+                    delete list;
+                }
+                return score;
             }
-            
             // threat position?
-            
             if (depth == 0 && is_threat(node)) {
-                return search(mySearch, node, alpha, beta, Depth(1), ply + Ply(1), false, pv); // one-ply search
+                Score score = search(mySearch, node, alpha, beta, Depth(1), ply + Ply(1), false, pv); // one-ply search
+                {
+                    delete list;
+                }
+                return score;
             }
             
             // stand pat
-            
             Score sc = eval(mySearch->myVar, node);
-            
             bs = sc;
-            
-            if (sc >= beta) return leaf(sc, ply);
-            
-            list.clear();
-            if (mySearch->myVar->Variant == BT) gen_promotions(list, node);
-            if (!pos::has_king(node) && !is_threat(node)) add_sacs(list, node);
+            if (sc >= beta) {
+                Score score = leaf(sc, ply);
+                {
+                    delete list;
+                }
+                return score;
+            }
+            list->clear();
+            if (mySearch->myVar->Variant == BT)
+                gen_promotions(*list, node);
+            if (!pos::has_king(node) && !is_threat(node))
+                add_sacs(*list, node);
         }
         
         // move loop
-        
-        for (int32_t i = 0; i < list.size(); i++) {
+        for (int32_t i = 0; i < list->size(); i++) {
             
-            Move mv = list.move(i);
+            Move mv = list->move(i);
             
-            Line new_pv;
+            Line* new_pv = new Line();
+            {
+                // allLines.push_back(new_pv);
+            }
             
             inc_node(mySearch);
-            Node new_node;
+            // TODO Thay doi
+            Node* new_node = new Node();// Node new_node;
+            // allNodes.push_back(new_node);
             {
-                node.mySucc(mySearch->myVar, mv, &new_node);
+                node.mySucc(mySearch->myVar, mv, new_node);
             }
-            Score sc = -qs(mySearch, new_node, -beta, -max(alpha, bs), depth - Depth(1), ply + Ply(1), new_pv);
+            Score sc = -qs(mySearch, *new_node, -beta, -max(alpha, bs), depth - Depth(1), ply + Ply(1), *new_pv);
             
             if (sc > bs) {
                 
                 bs = sc;
-                pv.concat(mv, new_pv);
+                pv.concat(mv, *new_pv);
                 
-                if (sc >= beta) break;
+                if (sc >= beta)
+                {
+                    // release data
+                    {
+                        delete new_pv;
+                        delete new_node;
+                    }
+                    break;
+                }
+            }
+            // release data
+            {
+                delete new_pv;
+                delete new_node;
             }
         }
         
-        if (list.size() == 0) mark_leaf(ply);
+        if (list->size() == 0)
+            mark_leaf(ply);
         
         {
             // assert(score::is_ok(bs));
             if(!score::is_ok(bs)){
                 printf("error, assert(score::is_ok(bs))\n");
+                delete list;
                 return 0;
             }
         }
+        // relase data
+        {
+            // std::remove(allLists.begin(), allLists.end(), list);
+            delete list;
+        }
+        
         return bs;
     }
     
@@ -1285,10 +1441,18 @@ namespace InternationalDraught
             Move mv = sp->get_move(local); // also updates "local"
             if (mv == move::None) break;
             
-            Line pv;
-            Score sc = search_move(mySearch, mv, local, pv);
+            Line* pv = new Line();
+            {
+                // allLines.push_back(pv);
+            }
+            Score sc = search_move(mySearch, mv, local, *pv);
             
-            sp->update(mySearch, mv, sc, pv);
+            sp->update(mySearch, mv, sc, *pv);
+            
+            // release data
+            {
+                delete pv;
+            }
         }
     }
     
@@ -1401,25 +1565,34 @@ namespace InternationalDraught
         
         // init
         
-        Local local;
+        Local* local = new Local(); // Local local;
+        {
+            // allLocals.push_back(local);
+        }
         
-        local.p_node = &node;
-        local.alpha = alpha;
-        local.beta = beta;
-        local.depth = depth;
-        local.ply = ply;
-        local.pv_node = beta != alpha + Score(1);
-        local.prune = prune;
+        local->p_node = &node;
+        local->alpha = alpha;
+        local->beta = beta;
+        local->depth = depth;
+        local->ply = ply;
+        local->pv_node = beta != alpha + Score(1);
+        local->prune = prune;
         
-        local.move = move::None;
-        local.score = score::None;
-        local.pv.clear();
+        local->move = move::None;
+        local->score = score::None;
+        local->pv.clear();
         
         // move loop
         
-        local.list = list;
+        local->list = list;
         
-        move_loop(mySearch, local);
+        move_loop(mySearch, *local);
+        
+        // release data
+        {
+            // std::remove(allLocals.begin(), allLocals.end(), local);
+            delete local;
+        }
     }
     
     void Search_Local::give_work(Split_Point * sp) {
