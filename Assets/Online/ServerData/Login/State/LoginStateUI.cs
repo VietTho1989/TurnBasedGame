@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;

@@ -1,155 +1,176 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace HEX
 {
-	public class HexSwitchAnimationIdentity : DataIdentity
-	{
+    public class HexSwitchAnimationIdentity : DataIdentity
+    {
 
-		#region SyncVar
+        #region SyncVar
 
-		#region boardSize
+        #region boardSize
 
-		[SyncVar(hook="onChangeBoardSize")]
-		public System.UInt16 boardSize;
+        [SyncVar(hook = "onChangeBoardSize")]
+        public System.UInt16 boardSize;
 
-		public void onChangeBoardSize(System.UInt16 newBoardSize)
-		{
-			this.boardSize = newBoardSize;
-			if (this.netData.clientData != null) {
-				this.netData.clientData.boardSize.v = newBoardSize;
-			} else {
-				// Debug.LogError ("clientData null: "+this);
-			}
-		}
+        public void onChangeBoardSize(System.UInt16 newBoardSize)
+        {
+            this.boardSize = newBoardSize;
+            if (this.netData.clientData != null)
+            {
+                this.netData.clientData.boardSize.v = newBoardSize;
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: "+this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region board
+        #region board
 
-		public SyncListSByte board = new SyncListSByte();
+        public SyncListSByte board = new SyncListSByte();
 
-		private void OnBoardChanged(SyncListSByte.Operation op, int index, MySByte item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData.board, this.board, op, index, MySByte.sbyteConvert);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
-		#endregion
+        private void OnBoardChanged(SyncListSByte.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData.board, this.board, op, index, MySByte.sbyteConvert);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region NetData
+        #endregion
 
-		private NetData<HexSwitchAnimation> netData = new NetData<HexSwitchAnimation>();
+        #region NetData
 
-		public override NetDataDelegate getNetData ()
-		{
-			return this.netData;
-		}
+        private NetData<HexSwitchAnimation> netData = new NetData<HexSwitchAnimation>();
 
-		public override void addSyncListCallBack ()
-		{
-			base.addSyncListCallBack ();
-			this.board.Callback += OnBoardChanged;
-		}
+        public override NetDataDelegate getNetData()
+        {
+            return this.netData;
+        }
 
-		public override void refreshClientData ()
-		{
-			if (this.netData.clientData != null) {
-				this.onChangeBoardSize(this.boardSize);
-				IdentityUtils.refresh(this.netData.clientData.board, this.board, MySByte.sbyteConvert);
-			} else {
-				Debug.Log ("clientData null");
-			}
-		}
+        public override void addSyncListCallBack()
+        {
+            base.addSyncListCallBack();
+            this.board.Callback += OnBoardChanged;
+        }
 
-		public override int refreshDataSize ()
-		{
-			int ret = GetDataSize (this.netId);
-			{
-				ret += GetDataSize (this.boardSize);
-				ret += GetDataSize (this.board);
-			}
-			return ret;
-		}
+        public override void refreshClientData()
+        {
+            if (this.netData.clientData != null)
+            {
+                this.onChangeBoardSize(this.boardSize);
+                IdentityUtils.refresh(this.netData.clientData.board, this.board, MySByte.sbyteConvert);
+            }
+            else
+            {
+                Debug.Log("clientData null");
+            }
+        }
 
-		#endregion
+        public override int refreshDataSize()
+        {
+            int ret = GetDataSize(this.netId);
+            {
+                ret += GetDataSize(this.boardSize);
+                ret += GetDataSize(this.board);
+            }
+            return ret;
+        }
 
-		#region implemt callback
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is HexSwitchAnimation) {
-				HexSwitchAnimation hexSwitchAnimation = data as HexSwitchAnimation;
-				// Set new parent
-				this.addTransformToParent();
-				// Set property
-				{
-					this.serialize (this.searchInfor, hexSwitchAnimation.makeSearchInforms ());
-					this.boardSize = hexSwitchAnimation.boardSize.v;
-					IdentityUtils.InitSync(this.board, hexSwitchAnimation.board, MySByte.mySByteConvert);
-				}
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.checkChange = new FollowParentObserver (observer);
-						observer.setCheckChangeData (hexSwitchAnimation);
-					} else {
-						Debug.LogError ("observer null");
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implemt callback
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is HexSwitchAnimation) {
-				// HexSwitchAnimation hexSwitchAnimation = data as HexSwitchAnimation;
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.setCheckChangeData (null);
-					} else {
-						Debug.LogError ("observer null");
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is HexSwitchAnimation)
+            {
+                HexSwitchAnimation hexSwitchAnimation = data as HexSwitchAnimation;
+                // Set new parent
+                this.addTransformToParent();
+                // Set property
+                {
+                    this.serialize(this.searchInfor, hexSwitchAnimation.makeSearchInforms());
+                    this.boardSize = hexSwitchAnimation.boardSize.v;
+                    IdentityUtils.InitSync(this.board, hexSwitchAnimation.board, MySByte.mySByteConvert);
+                }
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.checkChange = new FollowParentObserver(observer);
+                        observer.setCheckChangeData(hexSwitchAnimation);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null");
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is HexSwitchAnimation) {
-				switch ((HexSwitchAnimation.Property)wrapProperty.n) {
-				case HexSwitchAnimation.Property.boardSize:
-					this.boardSize = (System.UInt16)wrapProperty.getValue ();
-					break;
-				case HexSwitchAnimation.Property.board:
-					IdentityUtils.UpdateSyncList (this.board, syncs, GlobalCast<T>.CastingMySByte);
-					break;
-				default:
-					Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is HexSwitchAnimation)
+            {
+                // HexSwitchAnimation hexSwitchAnimation = data as HexSwitchAnimation;
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.setCheckChangeData(null);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null");
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is HexSwitchAnimation)
+            {
+                switch ((HexSwitchAnimation.Property)wrapProperty.n)
+                {
+                    case HexSwitchAnimation.Property.boardSize:
+                        this.boardSize = (System.UInt16)wrapProperty.getValue();
+                        break;
+                    case HexSwitchAnimation.Property.board:
+                        IdentityUtils.UpdateSyncList(this.board, syncs, GlobalCast<T>.CastingMySByte);
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-	}
+        #endregion
+
+    }
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Mirror;
 
 public class EmptyInformIdentity : DataIdentity
 {

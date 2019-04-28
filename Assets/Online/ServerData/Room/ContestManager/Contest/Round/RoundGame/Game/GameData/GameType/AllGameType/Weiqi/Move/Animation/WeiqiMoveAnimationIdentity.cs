@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace Weiqi
 
         public SyncListInt b = new SyncListInt();
 
-        private void OnBChanged(SyncListInt.Operation op, int index, int item)
+        private void OnBChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -71,7 +71,7 @@ namespace Weiqi
 
         public SyncListInt captureCoords = new SyncListInt();
 
-        private void OnCaptureCoordsChanged(SyncListInt.Operation op, int index, int item)
+        private void OnCaptureCoordsChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

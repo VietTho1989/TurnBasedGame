@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace Janggi
 
 		public SyncListUInt stones = new SyncListUInt();
 
-		private void OnStonesChanged(SyncListUInt.Operation op, int index, uint item)
+		private void OnStonesChanged(SyncListUInt.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.stones, this.stones, op, index);
@@ -28,7 +28,7 @@ namespace Janggi
 
 		public SyncListUInt targets = new SyncListUInt();
 
-		private void OnTargetsChanged(SyncListUInt.Operation op, int index, uint item)
+		private void OnTargetsChanged(SyncListUInt.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.targets, this.targets, op, index);
@@ -42,7 +42,7 @@ namespace Janggi
 
 		public SyncListUInt blocks = new SyncListUInt();
 
-		private void OnBlocksChanged(SyncListUInt.Operation op, int index, uint item)
+		private void OnBlocksChanged(SyncListUInt.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.blocks, this.blocks, op, index);
@@ -56,7 +56,7 @@ namespace Janggi
 
 		public Common.SyncListPos positions = new Common.SyncListPos();
 
-		private void OnPositionsChanged(Common.SyncListPos.Operation op, int index, Common.Pos item)
+		private void OnPositionsChanged(Common.SyncListPos.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.positions, this.positions, op, index);

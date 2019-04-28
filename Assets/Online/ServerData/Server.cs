@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Server : Data
 {
 
-#pragma warning disable CS0618 // Type or member is obsolete
-    public int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
-#pragma warning restore CS0618 // Type or member is obsolete
+    public int maxClientUserCount = ServerManager.DefaultMaxConnections;
 
     public VP<ServerConfig> serverConfig;
 

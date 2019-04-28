@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -299,7 +299,7 @@ public class EveryOneObserver : GameObserver.CheckChange
         }
     }
 
-    public override void onChangeParentObservers(Dictionary<int, NetworkConnection>.ValueCollection parentObserver)
+    public override void onChangeParentObservers(System.Collections.ObjectModel.ReadOnlyCollection<NetworkConnection> parentObserver)
     {
         gameObserver.dirty = true;
         gameObserver.needRefresh = true;

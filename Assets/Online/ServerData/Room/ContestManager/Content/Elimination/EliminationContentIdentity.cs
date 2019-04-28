@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace GameManager.Match.Elimination
 
 		public SyncListUInt initTeamCounts = new SyncListUInt();
 
-		private void OnInitTeamCountsChanged(SyncListUInt.Operation op, int index, uint item)
+		private void OnInitTeamCountsChanged(SyncListUInt.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.initTeamCounts, this.initTeamCounts, op, index);

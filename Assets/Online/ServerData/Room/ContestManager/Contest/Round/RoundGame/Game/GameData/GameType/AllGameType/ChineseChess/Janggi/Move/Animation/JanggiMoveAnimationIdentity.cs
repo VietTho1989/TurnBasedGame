@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -82,7 +82,7 @@ namespace Janggi
 
 		public SyncListUInt stones = new SyncListUInt();
 
-		private void OnStonesChanged(SyncListUInt.Operation op, int index, uint item)
+		private void OnStonesChanged(SyncListUInt.Operation op, int index)
 		{
 			if (this.netData.clientData != null) {
 				IdentityUtils.onSyncListChange (this.netData.clientData.stones, this.stones, op, index);

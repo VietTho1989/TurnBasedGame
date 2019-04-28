@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace MineSweeper
 
         public SyncListSByte bombs = new SyncListSByte();
 
-        private void OnBombsChanged(SyncListSByte.Operation op, int index, MySByte item)
+        private void OnBombsChanged(SyncListSByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -32,7 +32,7 @@ namespace MineSweeper
 
         public SyncListSByte flags = new SyncListSByte();
 
-        private void OnFlagsChanged(SyncListSByte.Operation op, int index, MySByte item)
+        private void OnFlagsChanged(SyncListSByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -50,7 +50,7 @@ namespace MineSweeper
 
         public SyncListSByte board = new SyncListSByte();
 
-        private void OnBoardChanged(SyncListSByte.Operation op, int index, MySByte item)
+        private void OnBoardChanged(SyncListSByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

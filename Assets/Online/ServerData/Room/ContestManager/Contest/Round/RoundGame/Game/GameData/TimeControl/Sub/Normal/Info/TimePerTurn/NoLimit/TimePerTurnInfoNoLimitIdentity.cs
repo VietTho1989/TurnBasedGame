@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;

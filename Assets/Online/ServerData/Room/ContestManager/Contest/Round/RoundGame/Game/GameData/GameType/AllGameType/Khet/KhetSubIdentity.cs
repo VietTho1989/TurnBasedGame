@@ -1,219 +1,250 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Khet
 {
-	public class KhetSubIdentity : DataIdentity
-	{
+    public class KhetSubIdentity : DataIdentity
+    {
 
-		#region SyncVar
+        #region SyncVar
 
-		#region _hashes
+        #region _hashes
 
-		public SyncListUInt64 _hashes = new SyncListUInt64();
+        public SyncListUInt64 _hashes = new SyncListUInt64();
 
-		private void On_hashesChanged(SyncListUInt64.Operation op, int index, MyUInt64 item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData._hashes, this._hashes, op, index, MyUInt64.uLongConvert);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
-		#endregion
+        private void On_hashesChanged(SyncListUInt64.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData._hashes, this._hashes, op, index, MyUInt64.uLongConvert);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#region _moves
+        #endregion
 
-		public SyncListUInt _moves = new SyncListUInt();
+        #region _moves
 
-		private void On_movesChanged(SyncListUInt.Operation op, int index, uint item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData._moves, this._moves, op, index);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
+        public SyncListUInt _moves = new SyncListUInt();
 
-		#endregion
+        private void On_movesChanged(SyncListUInt.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData._moves, this._moves, op, index);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#region _captureSquare
+        #endregion
 
-		public SyncListByte _captureSquare = new SyncListByte();
+        #region _captureSquare
 
-		private void On_captureSquareChanged(SyncListByte.Operation op, int index, MyByte item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData._captureSquare, this._captureSquare, op, index, MyByte.byteConvert);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
+        public SyncListByte _captureSquare = new SyncListByte();
 
-		#endregion
+        private void On_captureSquareChanged(SyncListByte.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData._captureSquare, this._captureSquare, op, index, MyByte.byteConvert);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#region _captureLocation
+        #endregion
 
-		public SyncListInt _captureLocation = new SyncListInt();
+        #region _captureLocation
 
-		private void On_captureLocationChanged(SyncListInt.Operation op, int index, int item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData._captureLocation, this._captureLocation, op, index);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
+        public SyncListInt _captureLocation = new SyncListInt();
 
-		#endregion
+        private void On_captureLocationChanged(SyncListInt.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData._captureLocation, this._captureLocation, op, index);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#region _movesWithoutCapture
+        #endregion
 
-		public SyncListInt _movesWithoutCapture = new SyncListInt();
+        #region _movesWithoutCapture
 
-		private void On_movesWithoutCaptureChanged(SyncListInt.Operation op, int index, int item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData._movesWithoutCapture, this._movesWithoutCapture, op, index);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
-		#endregion
+        public SyncListInt _movesWithoutCapture = new SyncListInt();
 
-		#endregion
+        private void On_movesWithoutCaptureChanged(SyncListInt.Operation op, int index)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData._movesWithoutCapture, this._movesWithoutCapture, op, index);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
 
-		#region NetData
+        #endregion
 
-		private NetData<KhetSub> netData = new NetData<KhetSub>();
+        #endregion
 
-		public override NetDataDelegate getNetData ()
-		{
-			return this.netData;
-		}
+        #region NetData
 
-		public override void addSyncListCallBack ()
-		{
-			base.addSyncListCallBack ();
-			this._hashes.Callback += On_hashesChanged;
-			this._moves.Callback += On_movesChanged;
-			this._captureSquare.Callback += On_captureSquareChanged;
-			this._captureLocation.Callback += On_captureLocationChanged;
-			this._movesWithoutCapture.Callback += On_movesWithoutCaptureChanged;
-		}
+        private NetData<KhetSub> netData = new NetData<KhetSub>();
 
-		public override void refreshClientData ()
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.refresh(this.netData.clientData._hashes, this._hashes, MyUInt64.uLongConvert);
-				IdentityUtils.refresh(this.netData.clientData._moves, this._moves);
-				IdentityUtils.refresh(this.netData.clientData._captureSquare, this._captureSquare, MyByte.byteConvert);
-				IdentityUtils.refresh(this.netData.clientData._captureLocation, this._captureLocation);
-				IdentityUtils.refresh(this.netData.clientData._movesWithoutCapture, this._movesWithoutCapture);
-			} else {
-				Debug.Log ("clientData null");
-			}
-		}
+        public override NetDataDelegate getNetData()
+        {
+            return this.netData;
+        }
 
-		public override int refreshDataSize ()
-		{
-			int ret = GetDataSize (this.netId);
-			{
-				ret += GetDataSize (this._hashes);
-				ret += GetDataSize (this._moves);
-				ret += GetDataSize (this._captureSquare);
-				ret += GetDataSize (this._captureLocation);
-				ret += GetDataSize (this._movesWithoutCapture);
-			}
-			return ret;
-		}
+        public override void addSyncListCallBack()
+        {
+            base.addSyncListCallBack();
+            this._hashes.Callback += On_hashesChanged;
+            this._moves.Callback += On_movesChanged;
+            this._captureSquare.Callback += On_captureSquareChanged;
+            this._captureLocation.Callback += On_captureLocationChanged;
+            this._movesWithoutCapture.Callback += On_movesWithoutCaptureChanged;
+        }
 
-		#endregion
+        public override void refreshClientData()
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.refresh(this.netData.clientData._hashes, this._hashes, MyUInt64.uLongConvert);
+                IdentityUtils.refresh(this.netData.clientData._moves, this._moves);
+                IdentityUtils.refresh(this.netData.clientData._captureSquare, this._captureSquare, MyByte.byteConvert);
+                IdentityUtils.refresh(this.netData.clientData._captureLocation, this._captureLocation);
+                IdentityUtils.refresh(this.netData.clientData._movesWithoutCapture, this._movesWithoutCapture);
+            }
+            else
+            {
+                Debug.Log("clientData null");
+            }
+        }
 
-		#region implemt callback
+        public override int refreshDataSize()
+        {
+            int ret = GetDataSize(this.netId);
+            {
+                ret += GetDataSize(this._hashes);
+                ret += GetDataSize(this._moves);
+                ret += GetDataSize(this._captureSquare);
+                ret += GetDataSize(this._captureLocation);
+                ret += GetDataSize(this._movesWithoutCapture);
+            }
+            return ret;
+        }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is KhetSub) {
-				KhetSub khetSub = data as KhetSub;
-				// Set new parent
-				this.addTransformToParent();
-				// Set property
-				{
-					this.serialize (this.searchInfor, khetSub.makeSearchInforms ());
-					IdentityUtils.InitSync(this._hashes, khetSub._hashes, MyUInt64.myUInt64Convert);
-					IdentityUtils.InitSync(this._moves, khetSub._moves.vs);
-					IdentityUtils.InitSync(this._captureSquare, khetSub._captureSquare, MyByte.myByteConvert);
-					IdentityUtils.InitSync(this._captureLocation, khetSub._captureLocation.vs);
-					IdentityUtils.InitSync(this._movesWithoutCapture, khetSub._movesWithoutCapture.vs);
-				}
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.checkChange = new FollowParentObserver (observer);
-						observer.setCheckChangeData (khetSub);
-					} else {
-						Debug.LogError ("observer null: " + this);
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #endregion
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is KhetSub) {
-				// KhetSub khetSub = data as KhetSub;
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.setCheckChangeData (null);
-					} else {
-						Debug.LogError ("observer null: " + this);
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implemt callback
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is KhetSub) {
-				switch ((KhetSub.Property)wrapProperty.n) {
-				case KhetSub.Property._hashes:
-					IdentityUtils.UpdateSyncList (this._hashes, syncs, GlobalCast<T>.CastingMyUInt64);
-					break;
-				case KhetSub.Property._moves:
-					IdentityUtils.UpdateSyncList (this._moves, syncs, GlobalCast<T>.CastingUInt32);
-					break;
-				case KhetSub.Property._captureSquare:
-					IdentityUtils.UpdateSyncList (this._captureSquare, syncs, GlobalCast<T>.CastingMyByte);
-					break;
-				case KhetSub.Property._captureLocation:
-					IdentityUtils.UpdateSyncList (this._captureLocation, syncs, GlobalCast<T>.CastingInt32);
-					break;
-				case KhetSub.Property._movesWithoutCapture:
-					IdentityUtils.UpdateSyncList (this._movesWithoutCapture, syncs, GlobalCast<T>.CastingInt32);
-					break;
-				default:
-					Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is KhetSub)
+            {
+                KhetSub khetSub = data as KhetSub;
+                // Set new parent
+                this.addTransformToParent();
+                // Set property
+                {
+                    this.serialize(this.searchInfor, khetSub.makeSearchInforms());
+                    IdentityUtils.InitSync(this._hashes, khetSub._hashes, MyUInt64.myUInt64Convert);
+                    IdentityUtils.InitSync(this._moves, khetSub._moves.vs);
+                    IdentityUtils.InitSync(this._captureSquare, khetSub._captureSquare, MyByte.myByteConvert);
+                    IdentityUtils.InitSync(this._captureLocation, khetSub._captureLocation.vs);
+                    IdentityUtils.InitSync(this._movesWithoutCapture, khetSub._movesWithoutCapture.vs);
+                }
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.checkChange = new FollowParentObserver(observer);
+                        observer.setCheckChangeData(khetSub);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null: " + this);
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is KhetSub)
+            {
+                // KhetSub khetSub = data as KhetSub;
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.setCheckChangeData(null);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null: " + this);
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-	}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is KhetSub)
+            {
+                switch ((KhetSub.Property)wrapProperty.n)
+                {
+                    case KhetSub.Property._hashes:
+                        IdentityUtils.UpdateSyncList(this._hashes, syncs, GlobalCast<T>.CastingMyUInt64);
+                        break;
+                    case KhetSub.Property._moves:
+                        IdentityUtils.UpdateSyncList(this._moves, syncs, GlobalCast<T>.CastingUInt32);
+                        break;
+                    case KhetSub.Property._captureSquare:
+                        IdentityUtils.UpdateSyncList(this._captureSquare, syncs, GlobalCast<T>.CastingMyByte);
+                        break;
+                    case KhetSub.Property._captureLocation:
+                        IdentityUtils.UpdateSyncList(this._captureLocation, syncs, GlobalCast<T>.CastingInt32);
+                        break;
+                    case KhetSub.Property._movesWithoutCapture:
+                        IdentityUtils.UpdateSyncList(this._movesWithoutCapture, syncs, GlobalCast<T>.CastingInt32);
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

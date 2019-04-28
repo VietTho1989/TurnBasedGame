@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -195,7 +195,7 @@ public abstract class Account : Data
             for (int i = 0; i < networkIdentites.Length; i++)
             {
                 NetworkIdentity networkIdentity = networkIdentites[i];
-                ids[i] = networkIdentity.netId;
+                ids[i] = networkIdentity.netId.Value;
             }
         }
         // return

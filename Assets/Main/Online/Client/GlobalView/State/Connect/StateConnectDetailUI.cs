@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
@@ -146,7 +146,12 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                     // ping
                     if (tvPing != null)
                     {
-                        tvPing.text = "Ping: " + NetworkTime.rtt + "s";
+                        float rtt = 0;
+                        {
+                            // TODO Can hoan thien
+                            // NetworkTime.rtt;
+                        }
+                        tvPing.text = "Ping: " + rtt + "s";
                     }
                     else
                     {
@@ -199,7 +204,12 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
             // ping
             if (tvPing != null)
             {
-                tvPing.text = "Ping: " + NetworkTime.rtt + "s";
+                float rtt = 0;
+                {
+                    // TODO Can hoan thien
+                    // NetworkTime.rtt
+                }
+                tvPing.text = "Ping: " + rtt + "s";
             }
             else
             {

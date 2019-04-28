@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace MineSweeper
 
         public SyncListUShort myFlags = new SyncListUShort();
 
-        private void OnMyFlagsChanged(SyncListUShort.Operation op, int index, MyUShort item)
+        private void OnMyFlagsChanged(SyncListUShort.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

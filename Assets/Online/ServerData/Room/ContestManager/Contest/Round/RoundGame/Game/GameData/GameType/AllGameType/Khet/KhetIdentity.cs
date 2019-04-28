@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -94,7 +94,7 @@ namespace Khet
 
         public SyncListByte _board = new SyncListByte();
 
-        private void On_boardChanged(SyncListByte.Operation op, int index, MyByte item)
+        private void On_boardChanged(SyncListByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -105,13 +105,14 @@ namespace Khet
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #region _pharaohPositions
 
         public SyncListInt _pharaohPositions = new SyncListInt();
 
-        private void On_pharaohPositionsChanged(SyncListInt.Operation op, int index, int item)
+        private void On_pharaohPositionsChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -122,6 +123,7 @@ namespace Khet
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #region khetSubCount

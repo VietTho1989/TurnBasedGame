@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Mirror;
 
 namespace ChineseCheckers
 {
@@ -14,7 +14,7 @@ namespace ChineseCheckers
 
         public SyncListByte _squares = new SyncListByte();
 
-        private void On_squaresChanged(SyncListByte.Operation op, int index, MyByte item)
+        private void On_squaresChanged(SyncListByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

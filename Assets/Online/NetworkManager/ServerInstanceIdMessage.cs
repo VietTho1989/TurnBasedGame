@@ -1,4 +1,4 @@
-﻿using Mirror;
+﻿using UnityEngine.Networking;
 
 public class ServerInstanceIdMessage : MessageBase
 {

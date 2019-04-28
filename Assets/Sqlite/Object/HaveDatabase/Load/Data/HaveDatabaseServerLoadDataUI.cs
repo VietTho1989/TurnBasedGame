@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using SQLite4Unity3d;
@@ -348,9 +348,7 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                                         }
                                         // max user client count
                                         {
-#pragma warning disable CS0618 // Type or member is obsolete
-                                            int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
-#pragma warning restore CS0618 // Type or member is obsolete
+                                            int maxClientUserCount = ServerManager.DefaultMaxConnections;
                                             {
                                                 // find edtMaxClientUserCount
                                                 InputField edtMaxClientUserCount = null;

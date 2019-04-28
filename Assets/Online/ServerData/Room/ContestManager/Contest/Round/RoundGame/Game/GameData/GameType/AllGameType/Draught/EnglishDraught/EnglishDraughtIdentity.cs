@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace EnglishDraught
 
         public SyncListByte Sqs = new SyncListByte();
 
-        private void OnSqsChanged(SyncListByte.Operation op, int index, MyByte item)
+        private void OnSqsChanged(SyncListByte.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -192,7 +192,7 @@ namespace EnglishDraught
 
         public SyncListInt64 RepNum = new SyncListInt64();
 
-        private void OnRepNumChanged(SyncListInt64.Operation op, int index, MyInt64 item)
+        private void OnRepNumChanged(SyncListInt64.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

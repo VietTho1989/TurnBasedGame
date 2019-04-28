@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -346,7 +346,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 
     public SyncListUInt searchInfor = new SyncListUInt();
 
-    private void OnSearchInfoChange(SyncListUInt.Operation op, int index, uint item)
+    private void OnSearchInfoChange(SyncListUInt.Operation op, int index)
     {
         Debug.LogError("why change searchInfo: " + searchInfor.Count + "; " + this);
         // Remove old
@@ -615,7 +615,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
         #endregion
     }
 
-    public class SyncListUInt64 : SyncListSTRUCT<MyUInt64>
+    public class SyncListUInt64 : SyncListStruct<MyUInt64>
     {
 
     }
@@ -692,7 +692,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
         #endregion
     }
 
-    public class SyncListInt64 : SyncListSTRUCT<MyInt64>
+    public class SyncListInt64 : SyncListStruct<MyInt64>
     {
 
     }
@@ -774,7 +774,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 
     }
 
-    public class SyncListByte : SyncListSTRUCT<MyByte>
+    public class SyncListByte : SyncListStruct<MyByte>
     {
         public byte[] getByteArray()
         {
@@ -867,7 +867,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 
     }
 
-    public class SyncListSByte : SyncListSTRUCT<MySByte>
+    public class SyncListSByte : SyncListStruct<MySByte>
     {
 
     }
@@ -950,7 +950,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 
     }
 
-    public class SyncListUShort : SyncListSTRUCT<MyUShort>
+    public class SyncListUShort : SyncListStruct<MyUShort>
     {
 
     }
@@ -962,6 +962,11 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
     /////////////////////////////////////////////////////////////////////////////////////////
 
     #region getDataSize
+
+    public static int GetDataSize(NetworkInstanceId value)
+    {
+        return 4;
+    }
 
     public static int GetDataSize(uint value)
     {

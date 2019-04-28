@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,7 +55,7 @@ namespace TimeControl
 
         public SyncListInt timeOutPlayers = new SyncListInt();
 
-        private void OnTimeOutPlayersChanged(SyncListInt.Operation op, int index, int item)
+        private void OnTimeOutPlayersChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -218,7 +218,7 @@ namespace TimeControl
                     case TimeControl.Property.timeReport:
                         break;
                     default:
-                        Debug.LogError("Unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;

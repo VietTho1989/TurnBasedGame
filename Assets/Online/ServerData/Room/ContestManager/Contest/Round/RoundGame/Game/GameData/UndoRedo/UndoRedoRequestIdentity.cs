@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -50,7 +50,7 @@ public class UndoRedoRequestIdentity : DataIdentity
 
     public SyncListInt count = new SyncListInt();
 
-    private void OnCountChanged(SyncListInt.Operation op, int index, int item)
+    private void OnCountChanged(SyncListInt.Operation op, int index)
     {
         if (this.netData.clientData != null)
         {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -154,14 +154,14 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                         {
                             case Server.Type.Server:
 #pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultServerMaxConnections;
+                                edtMaxClientUserCount.text = "" + ServerManager.DefaultServerMaxConnections;
 #pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             case Server.Type.Client:
                             case Server.Type.Host:
                             case Server.Type.Offline:
 #pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultMaxConnections;
+                                edtMaxClientUserCount.text = "" + ServerManager.DefaultMaxConnections;
 #pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             default:

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Mirror;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;

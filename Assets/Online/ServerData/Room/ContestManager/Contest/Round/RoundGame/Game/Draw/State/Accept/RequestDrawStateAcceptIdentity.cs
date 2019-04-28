@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ public class RequestDrawStateAcceptIdentity : DataIdentity
 
     public SyncListUInt accepts = new SyncListUInt();
 
-    private void OnAcceptsChanged(SyncListUInt.Operation op, int index, uint item)
+    private void OnAcceptsChanged(SyncListUInt.Operation op, int index)
     {
         if (this.netData.clientData != null)
         {
@@ -24,7 +24,7 @@ public class RequestDrawStateAcceptIdentity : DataIdentity
 
     public SyncListUInt refuses = new SyncListUInt();
 
-    private void OnRefusesChanged(SyncListUInt.Operation op, int index, uint item)
+    private void OnRefusesChanged(SyncListUInt.Operation op, int index)
     {
         if (this.netData.clientData != null)
         {

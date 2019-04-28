@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace Chess
 
         public SyncListInt board = new SyncListInt();
 
-        private void OnBoardChanged(SyncListInt.Operation op, int index, int item)
+        private void OnBoardChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -32,7 +32,7 @@ namespace Chess
 
         public SyncListUInt64 byTypeBB = new SyncListUInt64();
 
-        private void OnByTypeBBChanged(SyncListUInt64.Operation op, int index, MyUInt64 item)
+        private void OnByTypeBBChanged(SyncListUInt64.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -48,7 +48,7 @@ namespace Chess
 
         public SyncListUInt64 byColorBB = new SyncListUInt64();
 
-        private void OnByColorBBChanged(SyncListSTRUCT<MyUInt64>.Operation op, int index, MyUInt64 item)
+        private void OnByColorBBChanged(SyncListStruct<MyUInt64>.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -64,7 +64,7 @@ namespace Chess
 
         public SyncListInt pieceCount = new SyncListInt();
 
-        private void OnPieceCountChanged(SyncListInt.Operation op, int index, int item)
+        private void OnPieceCountChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -82,7 +82,7 @@ namespace Chess
 
         public SyncListInt pieceList = new SyncListInt();
 
-        private void OnPieceListChanged(SyncListInt.Operation op, int index, int item)
+        private void OnPieceListChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -100,7 +100,7 @@ namespace Chess
 
         public SyncListInt index = new SyncListInt();
 
-        private void OnIndexChanged(SyncListInt.Operation op, int i, int item)
+        private void OnIndexChanged(SyncListInt.Operation op, int i)
         {
             if (this.netData.clientData != null)
             {
@@ -118,7 +118,7 @@ namespace Chess
 
         public SyncListInt castlingRightsMask = new SyncListInt();
 
-        private void OnCastlingRightsMaskChanged(SyncListInt.Operation op, int index, int item)
+        private void OnCastlingRightsMaskChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -136,7 +136,7 @@ namespace Chess
 
         public SyncListInt castlingRookSquare = new SyncListInt();
 
-        private void OnCastlingRookSquareChanged(SyncListInt.Operation op, int index, int item)
+        private void OnCastlingRookSquareChanged(SyncListInt.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {
@@ -154,7 +154,7 @@ namespace Chess
 
         public SyncListUInt64 castlingPath = new SyncListUInt64();
 
-        private void OnCastlingPathChanged(SyncListSTRUCT<MyUInt64>.Operation op, int index, MyUInt64 item)
+        private void OnCastlingPathChanged(SyncListStruct<MyUInt64>.Operation op, int index)
         {
             if (this.netData.clientData != null)
             {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -108,7 +108,7 @@ namespace Janggi
 		}
 
 		[System.Serializable]
-		public class SyncListPos : SyncListSTRUCT<Pos>
+		public class SyncListPos : SyncListStruct<Pos>
 		{
 
 		}

@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 
 public class ServerManager : NetworkManager, ValueChangeCallBack
 {
+
+    public const int DefaultMaxConnections = 30;
+    public const int DefaultServerMaxConnections = 3000;
 
     #region UIData
 
@@ -111,7 +114,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
 
     public static ServerManager instance;
 
-    public override void Awake()
+    public void Awake()
     {
         // Time.fixedDeltaTime = 0.02f;
         instance = this;
@@ -119,7 +122,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
         NetworkServer.Reset();
     }
 
-    public override void OnDestroy()
+    public void OnDestroy()
     {
         // Debug.Log ("OnDestroy");
         if (instance == this)
@@ -314,8 +317,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
             if (this.client.connection != null)
             {
                 ClientScene.Ready(this.client.connection);
-                // ClientScene.AddPlayer (0);
-                ClientScene.AddPlayer();
+                ClientScene.AddPlayer (0);
             }
             else
             {
@@ -333,8 +335,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
         {
             alreadyReady = true;
             ClientScene.Ready(conn);
-            // ClientScene.AddPlayer (0);
-            ClientScene.AddPlayer();
+            ClientScene.AddPlayer (0);
         }
         else
         {
@@ -566,7 +567,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
                 Server server = data as Server;
                 // serverManager
                 {
-                    this.maxClientUserCount = server.maxClientUserCount;
+                    // TODO Tam bo this.maxClientUserCount = server.maxClientUserCount;
                 }
                 // ManagerUI
                 {

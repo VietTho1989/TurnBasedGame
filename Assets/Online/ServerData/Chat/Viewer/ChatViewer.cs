@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -69,7 +69,7 @@ public class ChatViewer : Data
                                         DataIdentity chatRoomIdentity = null;
                                         if (DataIdentity.clientMap.TryGetValue(chatRoom, out chatRoomIdentity))
                                         {
-                                            writer.Write(chatRoomIdentity.netId);
+                                            writer.Write(chatRoomIdentity.netId.Value);
                                         }
                                     }
                                     if (chatRoom.findCallBack<ChatRoomUI>() != null)
@@ -111,7 +111,8 @@ public class ChatViewer : Data
                     uint netId = reader.ReadUInt32();
                     uint minViewId = reader.ReadUInt32();
                     // find identity
-                    ChatRoomIdentity chatRoomIdentity = ClientConnectIdentity.GetDataIdentity<ChatRoomIdentity>(netId);
+                    NetworkInstanceId networkInstanceId = new NetworkInstanceId(netId);
+                    ChatRoomIdentity chatRoomIdentity = ClientConnectIdentity.GetDataIdentity<ChatRoomIdentity>(networkInstanceId);
                     if (chatRoomIdentity != null)
                     {
                         ChatRoom chatRoom = chatRoomIdentity.netData.serverData;

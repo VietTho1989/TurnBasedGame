@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -114,16 +114,12 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                         switch (serverType)
                         {
                             case Server.Type.Server:
-#pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultServerMaxConnections;
-#pragma warning restore CS0618 // Type or member is obsolete
+                                edtMaxClientUserCount.text = "" + ServerManager.DefaultServerMaxConnections;
                                 break;
                             case Server.Type.Client:
                             case Server.Type.Host:
                             case Server.Type.Offline:
-#pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultMaxConnections;
-#pragma warning restore CS0618 // Type or member is obsolete
+                                edtMaxClientUserCount.text = "" + ServerManager.DefaultMaxConnections;
                                 break;
                             default:
                                 Debug.LogError("unknown serverType: " + serverType);
@@ -433,9 +429,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                                 server.init(serverType, port);
                                 // maxClientUserCount
                                 {
-#pragma warning disable CS0618 // Type or member is obsolete
-                                    int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
-#pragma warning restore CS0618 // Type or member is obsolete
+                                    int maxClientUserCount = ServerManager.DefaultMaxConnections;
                                     {
                                         if (edtMaxClientUserCount != null)
                                         {

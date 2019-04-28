@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.IO;
@@ -47,7 +47,7 @@ namespace Shogi
         }
 
         [System.Serializable]
-        public class SyncListBitBoard : SyncListSTRUCT<BitBoard>
+        public class SyncListBitBoard : SyncListStruct<BitBoard>
         {
 
         }

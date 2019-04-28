@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Mirror;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ public class RequestChangeBlindFoldStateAskIdentity : DataIdentity
 
     public SyncListUInt accepts = new SyncListUInt();
 
-    private void OnAcceptsChanged(SyncListUInt.Operation op, int index, uint item)
+    private void OnAcceptsChanged(SyncListUInt.Operation op, int index)
     {
         if (this.netData.clientData != null)
         {
