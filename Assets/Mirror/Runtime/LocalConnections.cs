@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Mirror
@@ -7,18 +6,15 @@ namespace Mirror
     // sending messages on this connection causes the client's handler function to be invoked directly
     class ULocalConnectionToClient : NetworkConnection
     {
-        LocalClient m_LocalClient;
-
-        public LocalClient localClient { get {  return m_LocalClient; } }
-
-        public ULocalConnectionToClient(LocalClient localClient) : base ("localClient")
+        public ULocalConnectionToClient() : base ("localClient")
         {
-            m_LocalClient = localClient;
+            // local player always has connectionId == 0
+            connectionId = 0;
         }
 
-        protected override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
+        internal override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
         {
-            m_LocalClient.InvokeBytesOnClient(bytes);
+            NetworkClient.localClientPacketQueue.Enqueue(bytes);
             return true;
         }
     }
@@ -29,16 +25,22 @@ namespace Mirror
     {
         public ULocalConnectionToServer() : base("localServer")
         {
+            // local player always has connectionId == 0
+            connectionId = 0;
         }
 
-        protected override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
+        internal override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
         {
             if (bytes.Length == 0)
             {
-                Debug.LogError("LocalConnection:SendBytes cannot send zero bytes");
+                Debug.LogError("LocalConnection.SendBytes cannot send zero bytes");
                 return false;
             }
-            return NetworkServer.InvokeBytes(this, bytes);
+
+            // handle the server's message directly
+            // TODO any way to do this without NetworkServer.localConnection?
+            NetworkServer.localConnection.TransportReceive(bytes);
+            return true;
         }
     }
 }

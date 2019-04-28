@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-using System.Linq;
 
 namespace Mirror
 {
@@ -10,44 +9,42 @@ namespace Mirror
     [AddComponentMenu("")]
     public class NetworkBehaviour : MonoBehaviour
     {
-        ulong m_SyncVarDirtyBits; // ulong instead of uint for 64 instead of 32 SyncVar limit per component
-        float m_LastSendTime;
+        float lastSyncTime;
 
         // sync interval for OnSerialize (in seconds)
         // hidden because NetworkBehaviourInspector shows it only if has OnSerialize.
         [HideInInspector] public float syncInterval = 0.1f;
 
-        // this prevents recursion when SyncVar hook functions are called.
-        bool m_SyncVarGuard;
+        public bool localPlayerAuthority => netIdentity.localPlayerAuthority;
+        public bool isServer => netIdentity.isServer;
+        public bool isClient => netIdentity.isClient;
+        public bool isLocalPlayer => netIdentity.isLocalPlayer;
+        public bool isServerOnly => isServer && !isClient;
+        public bool isClientOnly => isClient && !isServer;
+        public bool hasAuthority => netIdentity.hasAuthority;
+        public uint netId => netIdentity.netId;
+        public NetworkConnection connectionToServer => netIdentity.connectionToServer;
+        public NetworkConnection connectionToClient => netIdentity.connectionToClient;
+        protected ulong syncVarDirtyBits { get; private set; }
+        protected bool syncVarHookGuard { get; set; }
 
-        public bool localPlayerAuthority { get { return netIdentity.localPlayerAuthority; } }
-        public bool isServer { get { return netIdentity.isServer; } }
-        public bool isClient { get { return netIdentity.isClient; } }
-        public bool isLocalPlayer { get { return netIdentity.isLocalPlayer; } }
-        public bool isServerOnly { get { return isServer && !isClient; } }
-        public bool isClientOnly { get { return isClient && !isServer; } }
-        public bool hasAuthority { get { return netIdentity.hasAuthority; } }
-        public uint netId { get { return netIdentity.netId; } }
-        public NetworkConnection connectionToServer { get { return netIdentity.connectionToServer; } }
-        public NetworkConnection connectionToClient { get { return netIdentity.connectionToClient; } }
-        protected ulong syncVarDirtyBits { get { return m_SyncVarDirtyBits; } }
-        protected bool syncVarHookGuard { get { return m_SyncVarGuard; } set { m_SyncVarGuard = value; }}
-
+        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use syncObjects instead.")]
+        protected List<SyncObject> m_SyncObjects => syncObjects;
         // objects that can synchronize themselves,  such as synclists
-        protected readonly List<SyncObject> m_SyncObjects = new List<SyncObject>();
+        protected readonly List<SyncObject> syncObjects = new List<SyncObject>();
 
         // NetworkIdentity component caching for easier access
-        NetworkIdentity m_netIdentity;
+        NetworkIdentity netIdentityCache;
         public NetworkIdentity netIdentity
         {
             get
             {
-                m_netIdentity = m_netIdentity ?? GetComponent<NetworkIdentity>();
-                if (m_netIdentity == null)
+                netIdentityCache = netIdentityCache ?? GetComponent<NetworkIdentity>();
+                if (netIdentityCache == null)
                 {
                     Debug.LogError("There is no NetworkIdentity on " + name + ". Please add one.");
                 }
-                return m_netIdentity;
+                return netIdentityCache;
             }
         }
 
@@ -71,14 +68,21 @@ namespace Mirror
         // We collect all of them and we synchronize them with OnSerialize/OnDeserialize
         protected void InitSyncObject(SyncObject syncObject)
         {
-            m_SyncObjects.Add(syncObject);
+            syncObjects.Add(syncObject);
         }
 
-        // ----------------------------- Commands --------------------------------
-
+        #region Commands
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SendCommandInternal(Type invokeClass, string cmdName, NetworkWriter writer, int channelId)
         {
+            // this was in Weaver before
+            // NOTE: we could remove this later to allow calling Cmds on Server
+            //       to avoid Wrapper functions. a lot of people requested this.
+            if (!NetworkClient.active)
+            {
+                Debug.LogError("Command Function " + cmdName + " called on server without an active client.");
+                return;
+            }
             // local players can always send commands, regardless of authority, other objects must have authority.
             if (!(isLocalPlayer || hasAuthority))
             {
@@ -93,26 +97,34 @@ namespace Mirror
             }
 
             // construct the message
-            CommandMessage message = new CommandMessage();
-            message.netId = netId;
-            message.componentIndex = ComponentIndex;
-            message.cmdHash = (invokeClass + ":" + cmdName).GetStableHashCode(); // type+func so Inventory.RpcUse != Equipment.RpcUse
-            message.payload = writer.ToArray();
+            CommandMessage message = new CommandMessage
+            {
+                netId = netId,
+                componentIndex = ComponentIndex,
+                functionHash = (invokeClass + ":" + cmdName).GetStableHashCode(), // type+func so Inventory.RpcUse != Equipment.RpcUse
+                payload = writer.ToArray()
+            };
 
-            ClientScene.readyConnection.Send((short)MsgType.Command, message, channelId);
+            ClientScene.readyConnection.Send(message, channelId);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual bool InvokeCommand(int cmdHash, NetworkReader reader)
         {
-            return InvokeHandlerDelegate(cmdHash, UNetInvokeType.Command, reader);
+            return InvokeHandlerDelegate(cmdHash, MirrorInvokeType.Command, reader);
         }
+        #endregion
 
-        // ----------------------------- Client RPCs --------------------------------
-
+        #region Client RPCs
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SendRPCInternal(Type invokeClass, string rpcName, NetworkWriter writer, int channelId)
         {
+            // this was in Weaver before
+            if (!NetworkServer.active)
+            {
+                Debug.LogError("RPC Function " + rpcName + " called on Client.");
+                return;
+            }
             // This cannot use NetworkServer.active, as that is not specific to this object.
             if (!isServer)
             {
@@ -121,18 +133,37 @@ namespace Mirror
             }
 
             // construct the message
-            RpcMessage message = new RpcMessage();
-            message.netId = netId;
-            message.componentIndex = ComponentIndex;
-            message.rpcHash = (invokeClass + ":" + rpcName).GetStableHashCode(); // type+func so Inventory.RpcUse != Equipment.RpcUse
-            message.payload = writer.ToArray();
+            RpcMessage message = new RpcMessage
+            {
+                netId = netId,
+                componentIndex = ComponentIndex,
+                functionHash = (invokeClass + ":" + rpcName).GetStableHashCode(), // type+func so Inventory.RpcUse != Equipment.RpcUse
+                payload = writer.ToArray()
+            };
 
-            NetworkServer.SendToReady(gameObject, (short)MsgType.Rpc, message, channelId);
+            NetworkServer.SendToReady(netIdentity, message, channelId);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SendTargetRPCInternal(NetworkConnection conn, Type invokeClass, string rpcName, NetworkWriter writer, int channelId)
         {
+            // this was in Weaver before
+            if (!NetworkServer.active)
+            {
+                Debug.LogError("TargetRPC Function " + rpcName + " called on client.");
+                return;
+            }
+            // connection parameter is optional. assign if null.
+            if (conn == null)
+            {
+                conn = connectionToClient;
+            }
+            // this was in Weaver before
+            if (conn is ULocalConnectionToServer)
+            {
+                Debug.LogError("TargetRPC Function " + rpcName + " called on connection to server");
+                return;
+            }
             // This cannot use NetworkServer.active, as that is not specific to this object.
             if (!isServer)
             {
@@ -141,23 +172,25 @@ namespace Mirror
             }
 
             // construct the message
-            RpcMessage message = new RpcMessage();
-            message.netId = netId;
-            message.componentIndex = ComponentIndex;
-            message.rpcHash = (invokeClass + ":" + rpcName).GetStableHashCode(); // type+func so Inventory.RpcUse != Equipment.RpcUse
-            message.payload = writer.ToArray();
+            RpcMessage message = new RpcMessage
+            {
+                netId = netId,
+                componentIndex = ComponentIndex,
+                functionHash = (invokeClass + ":" + rpcName).GetStableHashCode(), // type+func so Inventory.RpcUse != Equipment.RpcUse
+                payload = writer.ToArray()
+            };
 
-            conn.Send((short)MsgType.Rpc, message, channelId);
+            conn.Send(message, channelId);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual bool InvokeRPC(int rpcHash, NetworkReader reader)
         {
-            return InvokeHandlerDelegate(rpcHash, UNetInvokeType.ClientRpc, reader);
+            return InvokeHandlerDelegate(rpcHash, MirrorInvokeType.ClientRpc, reader);
         }
+        #endregion
 
-        // ----------------------------- Sync Events --------------------------------
-
+        #region Sync Events
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SendEventInternal(Type invokeClass, string eventName, NetworkWriter writer, int channelId)
         {
@@ -168,86 +201,85 @@ namespace Mirror
             }
 
             // construct the message
-            SyncEventMessage message = new SyncEventMessage();
-            message.netId = netId;
-            message.componentIndex = ComponentIndex;
-            message.eventHash = (invokeClass + ":" + eventName).GetStableHashCode(); // type+func so Inventory.RpcUse != Equipment.RpcUse
-            message.payload = writer.ToArray();
+            SyncEventMessage message = new SyncEventMessage
+            {
+                netId = netId,
+                componentIndex = ComponentIndex,
+                functionHash = (invokeClass + ":" + eventName).GetStableHashCode(), // type+func so Inventory.RpcUse != Equipment.RpcUse
+                payload = writer.ToArray()
+            };
 
-            NetworkServer.SendToReady(gameObject, (short)MsgType.SyncEvent, message, channelId);
+            NetworkServer.SendToReady(netIdentity,message, channelId);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual bool InvokeSyncEvent(int eventHash, NetworkReader reader)
         {
-            return InvokeHandlerDelegate(eventHash, UNetInvokeType.SyncEvent, reader);
+            return InvokeHandlerDelegate(eventHash, MirrorInvokeType.SyncEvent, reader);
         }
+        #endregion
 
-        // ----------------------------- Code Gen Path Helpers  --------------------------------
-
+        #region Code Gen Path Helpers
         public delegate void CmdDelegate(NetworkBehaviour obj, NetworkReader reader);
 
         protected class Invoker
         {
-            public UNetInvokeType invokeType;
+            public MirrorInvokeType invokeType;
             public Type invokeClass;
             public CmdDelegate invokeFunction;
         }
 
-        static Dictionary<int, Invoker> s_CmdHandlerDelegates = new Dictionary<int, Invoker>();
+        static Dictionary<int, Invoker> cmdHandlerDelegates = new Dictionary<int, Invoker>();
 
         // helper function register a Command/Rpc/SyncEvent delegate
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected static void RegisterDelegate(Type invokeClass, string cmdName, UNetInvokeType invokerType, CmdDelegate func)
+        protected static void RegisterDelegate(Type invokeClass, string cmdName, MirrorInvokeType invokerType, CmdDelegate func)
         {
             int cmdHash = (invokeClass + ":" + cmdName).GetStableHashCode(); // type+func so Inventory.RpcUse != Equipment.RpcUse
 
-            if (s_CmdHandlerDelegates.ContainsKey(cmdHash))
+            if (cmdHandlerDelegates.ContainsKey(cmdHash))
             {
                 // something already registered this hash
-                Invoker oldInvoker = s_CmdHandlerDelegates[cmdHash];
+                Invoker oldInvoker = cmdHandlerDelegates[cmdHash];
                 if (oldInvoker.invokeClass == invokeClass && oldInvoker.invokeType == invokerType && oldInvoker.invokeFunction == func)
                 {
                     // it's all right,  it was the same function
                     return;
                 }
 
-                Debug.LogError(string.Format(
-                    "Function {0}.{1} and {2}.{3} have the same hash.  Please rename one of them",
-                    oldInvoker.invokeClass,
-                    oldInvoker.invokeFunction.GetMethodName(),
-                    invokeClass,
-                    oldInvoker.invokeFunction.GetMethodName()));
+                Debug.LogError($"Function {oldInvoker.invokeClass}.{oldInvoker.invokeFunction.GetMethodName()} and {invokeClass}.{oldInvoker.invokeFunction.GetMethodName()} have the same hash.  Please rename one of them");
             }
-            Invoker invoker = new Invoker();
-            invoker.invokeType = invokerType;
-            invoker.invokeClass = invokeClass;
-            invoker.invokeFunction = func;
-            s_CmdHandlerDelegates[cmdHash] = invoker;
-            if (LogFilter.Debug) { Debug.Log("RegisterDelegate hash:" + cmdHash + " invokerType: " + invokerType + " method:" + func.GetMethodName()); }
+            Invoker invoker = new Invoker
+            {
+                invokeType = invokerType,
+                invokeClass = invokeClass,
+                invokeFunction = func
+            };
+            cmdHandlerDelegates[cmdHash] = invoker;
+            if (LogFilter.Debug) Debug.Log("RegisterDelegate hash:" + cmdHash + " invokerType: " + invokerType + " method:" + func.GetMethodName());
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected static void RegisterCommandDelegate(Type invokeClass, string cmdName, CmdDelegate func)
         {
-            RegisterDelegate(invokeClass, cmdName, UNetInvokeType.Command, func);
+            RegisterDelegate(invokeClass, cmdName, MirrorInvokeType.Command, func);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected static void RegisterRpcDelegate(Type invokeClass, string rpcName, CmdDelegate func)
         {
-            RegisterDelegate(invokeClass, rpcName, UNetInvokeType.ClientRpc, func);
+            RegisterDelegate(invokeClass, rpcName, MirrorInvokeType.ClientRpc, func);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected static void RegisterEventDelegate(Type invokeClass, string eventName, CmdDelegate func)
         {
-            RegisterDelegate(invokeClass, eventName, UNetInvokeType.SyncEvent, func);
+            RegisterDelegate(invokeClass, eventName, MirrorInvokeType.SyncEvent, func);
         }
 
-        static bool GetInvokerForHash(int cmdHash, UNetInvokeType invokeType, out Invoker invoker)
+        static bool GetInvokerForHash(int cmdHash, MirrorInvokeType invokeType, out Invoker invoker)
         {
-            if (s_CmdHandlerDelegates.TryGetValue(cmdHash, out invoker) &&
+            if (cmdHandlerDelegates.TryGetValue(cmdHash, out invoker) &&
                 invoker != null &&
                 invoker.invokeType == invokeType)
             {
@@ -257,15 +289,14 @@ namespace Mirror
             // debug message if not found, or null, or mismatched type
             // (no need to throw an error, an attacker might just be trying to
             //  call an cmd with an rpc's hash)
-            if (LogFilter.Debug) { Debug.Log("GetInvokerForHash hash:" + cmdHash + " not found"); }
+            if (LogFilter.Debug) Debug.Log("GetInvokerForHash hash:" + cmdHash + " not found");
             return false;
         }
 
         // InvokeCmd/Rpc/SyncEventDelegate can all use the same function here
-        internal bool InvokeHandlerDelegate(int cmdHash, UNetInvokeType invokeType, NetworkReader reader)
+        internal bool InvokeHandlerDelegate(int cmdHash, MirrorInvokeType invokeType, NetworkReader reader)
         {
-            Invoker invoker;
-            if (GetInvokerForHash(cmdHash, invokeType, out invoker) &&
+            if (GetInvokerForHash(cmdHash, invokeType, out Invoker invoker) &&
                 invoker.invokeClass.IsInstanceOfType(this))
             {
                 invoker.invokeFunction(this, reader);
@@ -273,14 +304,14 @@ namespace Mirror
             }
             return false;
         }
+        #endregion
 
-        // ----------------------------- Helpers  --------------------------------
-
+        #region Helpers
         // helper function for [SyncVar] GameObjects.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetSyncVarGameObject(GameObject newGameObject, ref GameObject gameObjectField, ulong dirtyBit, ref uint netIdField)
         {
-            if (m_SyncVarGuard)
+            if (syncVarHookGuard)
                 return;
 
             uint newNetId = 0;
@@ -300,7 +331,7 @@ namespace Mirror
             // netId changed?
             if (newNetId != netIdField)
             {
-                if (LogFilter.Debug) { Debug.Log("SetSyncVar GameObject " + GetType().Name + " bit [" + dirtyBit + "] netfieldId:" + netIdField + "->" + newNetId); }
+                if (LogFilter.Debug) Debug.Log("SetSyncVar GameObject " + GetType().Name + " bit [" + dirtyBit + "] netfieldId:" + netIdField + "->" + newNetId);
                 SetDirtyBit(dirtyBit);
                 gameObjectField = newGameObject; // assign new one on the server, and in case we ever need it on client too
                 netIdField = newNetId;
@@ -320,8 +351,7 @@ namespace Mirror
 
             // client always looks up based on netId because objects might get in and out of range
             // over and over again, which shouldn't null them forever
-            NetworkIdentity identity;
-            if (NetworkIdentity.spawned.TryGetValue(netId, out identity) && identity != null)
+            if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity) && identity != null)
                 return identity.gameObject;
             return null;
         }
@@ -330,7 +360,7 @@ namespace Mirror
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetSyncVarNetworkIdentity(NetworkIdentity newIdentity, ref NetworkIdentity identityField, ulong dirtyBit, ref uint netIdField)
         {
-            if (m_SyncVarGuard)
+            if (syncVarHookGuard)
                 return;
 
             uint newNetId = 0;
@@ -346,7 +376,7 @@ namespace Mirror
             // netId changed?
             if (newNetId != netIdField)
             {
-                if (LogFilter.Debug) { Debug.Log("SetSyncVarNetworkIdentity NetworkIdentity " + GetType().Name + " bit [" + dirtyBit + "] netIdField:" + netIdField + "->" + newNetId); }
+                if (LogFilter.Debug) Debug.Log("SetSyncVarNetworkIdentity NetworkIdentity " + GetType().Name + " bit [" + dirtyBit + "] netIdField:" + netIdField + "->" + newNetId);
                 SetDirtyBit(dirtyBit);
                 netIdField = newNetId;
                 identityField = newIdentity; // assign new one on the server, and in case we ever need it on client too
@@ -366,8 +396,7 @@ namespace Mirror
 
             // client always looks up based on netId because objects might get in and out of range
             // over and over again, which shouldn't null them forever
-            NetworkIdentity identity;
-            NetworkIdentity.spawned.TryGetValue(netId, out identity);
+            NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity);
             return identity;
         }
 
@@ -378,33 +407,54 @@ namespace Mirror
             if ((value == null && fieldValue != null) ||
                 (value != null && !value.Equals(fieldValue)))
             {
-                if (LogFilter.Debug) { Debug.Log("SetSyncVar " + GetType().Name + " bit [" + dirtyBit + "] " + fieldValue + "->" + value); }
+                if (LogFilter.Debug) Debug.Log("SetSyncVar " + GetType().Name + " bit [" + dirtyBit + "] " + fieldValue + "->" + value);
                 SetDirtyBit(dirtyBit);
                 fieldValue = value;
             }
         }
+        #endregion
 
         // these are masks, not bit numbers, ie. 0x004 not 2
         public void SetDirtyBit(ulong dirtyBit)
         {
-            m_SyncVarDirtyBits |= dirtyBit;
+            syncVarDirtyBits |= dirtyBit;
         }
 
         public void ClearAllDirtyBits()
         {
-            m_LastSendTime = Time.time;
-            m_SyncVarDirtyBits = 0L;
+            lastSyncTime = Time.time;
+            syncVarDirtyBits = 0L;
 
             // flush all unsynchronized changes in syncobjects
-            m_SyncObjects.ForEach(obj => obj.Flush());
+            // note: don't use List.ForEach here, this is a hot path
+            // List.ForEach: 432b/frame
+            // for: 231b/frame
+            for (int i = 0; i < syncObjects.Count; ++i)
+            {
+                syncObjects[i].Flush();
+            }
+        }
+
+        bool AnySyncObjectDirty()
+        {
+            // note: don't use Linq here. 1200 networked objects:
+            //   Linq: 187KB GC/frame;, 2.66ms time
+            //   for: 8KB GC/frame; 1.28ms time
+            for (int i = 0; i < syncObjects.Count; ++i)
+            {
+                if (syncObjects[i].IsDirty)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         internal bool IsDirty()
         {
-            if (Time.time - m_LastSendTime >= syncInterval)
+            if (Time.time - lastSyncTime >= syncInterval)
             {
-                return m_SyncVarDirtyBits != 0L
-                        || m_SyncObjects.Any(obj => obj.IsDirty);
+                return syncVarDirtyBits != 0L || AnySyncObjectDirty();
             }
             return false;
         }
@@ -436,9 +486,9 @@ namespace Mirror
         ulong DirtyObjectBits()
         {
             ulong dirtyObjects = 0;
-            for (int i = 0; i < m_SyncObjects.Count; i++)
+            for (int i = 0; i < syncObjects.Count; i++)
             {
-                SyncObject syncObject = m_SyncObjects[i];
+                SyncObject syncObject = syncObjects[i];
                 if (syncObject.IsDirty)
                 {
                     dirtyObjects |= 1UL << i;
@@ -450,9 +500,9 @@ namespace Mirror
         public bool SerializeObjectsAll(NetworkWriter writer)
         {
             bool dirty = false;
-            for (int i = 0; i < m_SyncObjects.Count; i++)
+            for (int i = 0; i < syncObjects.Count; i++)
             {
-                SyncObject syncObject = m_SyncObjects[i];
+                SyncObject syncObject = syncObjects[i];
                 syncObject.OnSerializeAll(writer);
                 dirty = true;
             }
@@ -465,9 +515,9 @@ namespace Mirror
             // write the mask
             writer.WritePackedUInt64(DirtyObjectBits());
             // serializable objects, such as synclists
-            for (int i = 0; i < m_SyncObjects.Count; i++)
+            for (int i = 0; i < syncObjects.Count; i++)
             {
-                SyncObject syncObject = m_SyncObjects[i];
+                SyncObject syncObject = syncObjects[i];
                 if (syncObject.IsDirty)
                 {
                     syncObject.OnSerializeDelta(writer);
@@ -477,21 +527,21 @@ namespace Mirror
             return dirty;
         }
 
-        private void DeSerializeObjectsAll(NetworkReader reader)
+        void DeSerializeObjectsAll(NetworkReader reader)
         {
-            for (int i = 0; i < m_SyncObjects.Count; i++)
+            for (int i = 0; i < syncObjects.Count; i++)
             {
-                SyncObject syncObject = m_SyncObjects[i];
+                SyncObject syncObject = syncObjects[i];
                 syncObject.OnDeserializeAll(reader);
             }
         }
 
-        private void DeSerializeObjectsDelta(NetworkReader reader)
+        void DeSerializeObjectsDelta(NetworkReader reader)
         {
             ulong dirty = reader.ReadPackedUInt64();
-            for (int i = 0; i < m_SyncObjects.Count; i++)
+            for (int i = 0; i < syncObjects.Count; i++)
             {
-                SyncObject syncObject = m_SyncObjects[i];
+                SyncObject syncObject = syncObjects[i];
                 if ((dirty & (1UL << i)) != 0)
                 {
                     syncObject.OnDeserializeDelta(reader);
@@ -514,9 +564,7 @@ namespace Mirror
             return false;
         }
 
-        public virtual void OnSetLocalVisibility(bool vis)
-        {
-        }
+        public virtual void OnSetLocalVisibility(bool vis) {}
 
         public virtual bool OnCheckObserver(NetworkConnection conn)
         {

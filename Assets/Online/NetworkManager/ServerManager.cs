@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
+using System;
 
 public class ServerManager : NetworkManager, ValueChangeCallBack
 {
+
+    public const int DefaultServerMaxConnections = 3000;
+    public const int DefaultMaxConnections = 30;
+
+    public int maxClientUserCount = DefaultMaxConnections;
 
     #region UIData
 
@@ -138,7 +144,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
         base.OnStartServer();
         // Debug.Log ("OnStartServer");
         // CallBack
-        //initCreateDataIdentityCallBack ();
+        // initCreateDataIdentityCallBack ();
     }
 
     public override void OnServerReady(NetworkConnection conn)
@@ -223,56 +229,62 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
     private long checkInstanceId = 0;
     private bool alreadyReady = true;
 
-    public NetworkClient myStartClient()
+    // TODO Can hoan thien check startClient success
+    public bool myStartClient()
     {
-        // NetworkServer.RegisterHandler(ClientReadyMsgType, OnReceiveMsgClientReady);
-        NetworkClient networkClient = this.StartClient();
-        client.RegisterHandler(CheckClientInstanceIdMsgType, OnReceiveMsgClientReady);
-        // init value to check
+        bool isSuccess = true;
         {
-            alreadyReady = false;
-            // checkInstanceId
+            this.StartClient();
+            // register handler
             {
-                checkInstanceId = 0;
+                // NetworkClient.RegisterHandler(CheckClientInstanceIdMsgType, OnReceiveMsgClientReady);
+                NetworkClient.RegisterHandler<ServerInstanceIdMessage>(OnReceiveMsgClientReady);
+            }
+            // init value to check
+            {
+                alreadyReady = false;
+                // checkInstanceId
                 {
-                    if (this.data != null)
+                    checkInstanceId = 0;
                     {
-                        Server server = this.data.server.v.data;
-                        if (server != null)
+                        if (this.data != null)
                         {
-                            if (server.state.v.getType() == Server.State.Type.Disconnect)
+                            Server server = this.data.server.v.data;
+                            if (server != null)
                             {
-                                if (FindObjectOfType<DataIdentity>() != null)
+                                if (server.state.v.getType() == Server.State.Type.Disconnect)
                                 {
-                                    checkInstanceId = server.instanceId.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("Don't have any dataIdentities");
+                                    if (FindObjectOfType<DataIdentity>() != null)
+                                    {
+                                        checkInstanceId = server.instanceId.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("Don't have any dataIdentities");
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("server null: " + this);
+                            else
+                            {
+                                Debug.LogError("server null: " + this);
+                            }
                         }
                     }
-                }
 
+                }
             }
         }
-        return networkClient;
+        return isSuccess;
     }
 
     private long lastServerInstanceId = 0;
 
-    void OnReceiveMsgClientReady(NetworkMessage msg)
+    void OnReceiveMsgClientReady(NetworkConnection networkConnection, ServerInstanceIdMessage serverInstanceIdMessage)
     {
-        Debug.LogError("OnReceiveMsgClientReady: " + msg);
+        Debug.LogError("OnReceiveMsgClientReady: " + serverInstanceIdMessage);
         // check need delete
         bool needDelete = false;
         {
-            ServerInstanceIdMessage serverInstanceIdMessage = msg.ReadMessage<ServerInstanceIdMessage>();
             if (serverInstanceIdMessage != null)
             {
                 if (lastServerInstanceId == 0)
@@ -311,9 +323,9 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
                 }
             }
             // client ready
-            if (this.client.connection != null)
+            if (NetworkClient.connection != null)
             {
-                ClientScene.Ready(this.client.connection);
+                ClientScene.Ready(NetworkClient.connection);
                 // ClientScene.AddPlayer (0);
                 ClientScene.AddPlayer();
             }
@@ -460,13 +472,9 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
                 {
                     // Stop Client
                     {
-                        if (this.client != null)
-                        {
-                            // only shutdown this client, not ALL clients.
-                            this.client.Disconnect();
-                            this.client.Shutdown();
-                            this.client = null;
-                        }
+                        // only shutdown this client, not ALL clients.
+                        NetworkClient.Disconnect();
+                        NetworkClient.Shutdown();
                     }
                     // Debug.LogError("OnClientDisconnect: " + conn + ", " + server.state.property);
                     switch (server.state.v.getType())

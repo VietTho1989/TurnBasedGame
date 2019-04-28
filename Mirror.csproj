@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_13;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_13;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;MIRROR;MIRROR_1726_OR_NEWER;MIRROR_3_0_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -64,34 +64,67 @@
     <Compile Include="Assets\Mirror\Runtime\CustomAttributes.cs" />
     <Compile Include="Assets\Mirror\Runtime\DotNetCompatibility.cs" />
     <Compile Include="Assets\Mirror\Runtime\ExponentialMovingAverage.cs" />
-    <Compile Include="Assets\Mirror\Runtime\Extensions.cs" />
+    <Compile Include="Assets\Mirror\Runtime\FloatBytePacker.cs" />
     <Compile Include="Assets\Mirror\Runtime\LocalClient.cs" />
     <Compile Include="Assets\Mirror\Runtime\LocalConnections.cs" />
     <Compile Include="Assets\Mirror\Runtime\LogFilter.cs" />
+    <Compile Include="Assets\Mirror\Runtime\MessagePacker.cs" />
     <Compile Include="Assets\Mirror\Runtime\Messages.cs" />
-    <Compile Include="Assets\Mirror\Runtime\NetworkAnimator.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkBehaviour.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkClient.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkConnection.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkIdentity.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkManager.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkManagerHUD.cs" />
-    <Compile Include="Assets\Mirror\Runtime\NetworkProximityChecker.cs" />
+    <Compile Include="Assets\Mirror\Runtime\NetworkMessage.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkReader.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkServer.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkStartPosition.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkTime.cs" />
-    <Compile Include="Assets\Mirror\Runtime\NetworkTransform.cs" />
-    <Compile Include="Assets\Mirror\Runtime\NetworkTransformBase.cs" />
-    <Compile Include="Assets\Mirror\Runtime\NetworkTransformChild.cs" />
     <Compile Include="Assets\Mirror\Runtime\NetworkWriter.cs" />
+    <Compile Include="Assets\Mirror\Runtime\StringHash.cs" />
+    <Compile Include="Assets\Mirror\Runtime\SyncDictionary.cs" />
     <Compile Include="Assets\Mirror\Runtime\SyncList.cs" />
     <Compile Include="Assets\Mirror\Runtime\SyncObject.cs" />
+    <Compile Include="Assets\Mirror\Runtime\SyncSet.cs" />
     <Compile Include="Assets\Mirror\Runtime\Transport\LLAPITransport.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\MultiplexTransport.cs" />
     <Compile Include="Assets\Mirror\Runtime\Transport\TelepathyTransport.cs" />
-    <Compile Include="Assets\Mirror\Runtime\Transport\TelepathyWebsocketsMultiplexTransport.cs" />
     <Compile Include="Assets\Mirror\Runtime\Transport\Transport.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Client.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\ClientJs.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\BufferPool.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\EntityTooLargeException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\InvalidHttpResponseCodeException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\SecWebSocketKeyMissingException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\ServerListenerSocketException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\WebSocketBufferOverflowException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\WebSocketHandshakeFailedException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\WebSocketVersionNotSupportedException.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\HttpHelper.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\IBufferPool.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\BinaryReaderWriter.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\Events.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketFrame.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketFrameCommon.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketFrameReader.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketFrameWriter.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketImplementation.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Internal\WebSocketOpCode.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\IPingPongManager.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\IWebSocketClientFactory.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\IWebSocketServerFactory.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\PingPongManager.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\PongEventArgs.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\WebSocketClientFactory.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\WebSocketClientOptions.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\WebSocketHttpContext.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\WebSocketServerFactory.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\WebSocketServerOptions.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\Server.cs" />
+    <Compile Include="Assets\Mirror\Runtime\Transport\Websocket\WebsocketTransport.cs" />
     <Compile Include="Assets\Mirror\Runtime\UNetwork.cs" />
+    <None Include="Assets\Mirror\Runtime\Transport\Websocket\Ninja.WebSockets\Exceptions\README.txt" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.3.13f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -431,17 +464,20 @@
     <Reference Include="Foundation.Server.Unity3d">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Foundation/Plugins/Foundation.Server.Unity3d.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.CecilX.Mdb">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX.Pdb">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX.Rocks">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Telepathy">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Runtime/Transport/Telepathy.1.0.252/lib/net35/Telepathy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil.Pdb">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil.Mdb">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.Mdb.dll</HintPath>
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

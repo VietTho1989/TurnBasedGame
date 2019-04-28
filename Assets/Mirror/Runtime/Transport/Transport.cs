@@ -1,41 +1,82 @@
-﻿// transport layer backend
-// - set to telepathy by default
-// - can be changed by assigning Transport.layer to whatever you want
+// abstract transport layer component
+// note: not all transports need a port, so add it to yours if needed.
+using System;
+using System.ComponentModel;
+using UnityEngine;
+using UnityEngine.Events;
+
 namespace Mirror
 {
-    // Transport class used by HLAPI ///////////////////////////////////////////
-    public static class Transport
-    {
-        // selected transport layer
-        // the transport is normally initialized in NetworkManager InitializeTransport
-        // initialize it yourself if you are not using NetworkManager
-        public static TransportLayer layer;
-    }
+    // UnityEvent definitions
+    [Serializable] public class UnityEventByteArray : UnityEvent<byte[]> {}
+    [Serializable] public class UnityEventException : UnityEvent<Exception> {}
+    [Serializable] public class UnityEventInt : UnityEvent<int> {}
+    [Serializable] public class UnityEventIntByteArray : UnityEvent<int, byte[]> {}
+    [Serializable] public class UnityEventIntException : UnityEvent<int, Exception> {}
 
-    // abstract transport layer class //////////////////////////////////////////
-    // note: 'address' is ip / websocket url / ...
-    public enum TransportEvent { Connected, Data, Disconnected }
-    public interface TransportLayer
+    public abstract class Transport : MonoBehaviour
     {
+        // static Transport which receives all network events
+        // this is usually set by NetworkManager, but doesn't have to be.
+        public static Transport activeTransport;
+
+        // determines if the transport is available for this platform
+        // by default a transport is available in all platforms except webgl
+        public virtual bool Available()
+        {
+            return Application.platform != RuntimePlatform.WebGLPlayer;
+        }
+
         // client
-        bool ClientConnected();
-        void ClientConnect(string address, ushort port);
-        bool ClientSend(int channelId, byte[] data);
-        bool ClientGetNextMessage(out TransportEvent transportEvent, out byte[] data);
-        void ClientDisconnect();
+        [HideInInspector] public UnityEvent OnClientConnected;
+        [HideInInspector] public UnityEventByteArray OnClientDataReceived;
+        [HideInInspector] public UnityEventException OnClientError;
+        [HideInInspector] public UnityEvent OnClientDisconnected;
+
+        public abstract bool ClientConnected();
+        public abstract void ClientConnect(string address);
+        public abstract bool ClientSend(int channelId, byte[] data);
+        public abstract void ClientDisconnect();
 
         // server
-        bool ServerActive();
-        void ServerStart(string address, ushort port);
-        void ServerStartWebsockets(string address, ushort port);
-        bool ServerSend(int connectionId, int channelId, byte[] data);
-        bool ServerGetNextMessage(out int connectionId, out TransportEvent transportEvent, out byte[] data);
-        bool ServerDisconnect(int connectionId);
-        bool GetConnectionInfo(int connectionId, out string address);
-        void ServerStop();
+        [HideInInspector] public UnityEventInt OnServerConnected;
+        [HideInInspector] public UnityEventIntByteArray OnServerDataReceived;
+        [HideInInspector] public UnityEventIntException OnServerError;
+        [HideInInspector] public UnityEventInt OnServerDisconnected;
+
+        public abstract bool ServerActive();
+        public abstract void ServerStart();
+        public abstract bool ServerSend(int connectionId, int channelId, byte[] data);
+        public abstract bool ServerDisconnect(int connectionId);
+
+        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use ServerGetClientAddress(int connectionId) instead")]
+        public virtual bool GetConnectionInfo(int connectionId, out string address)
+        {
+            address = ServerGetClientAddress(connectionId);
+            return true;
+        }
+
+        public abstract string ServerGetClientAddress(int connectionId);
+        public abstract void ServerStop();
 
         // common
-        void Shutdown();
-        int GetMaxPacketSize(int channelId=Channels.DefaultReliable);
+        public abstract void Shutdown();
+        public abstract int GetMaxPacketSize(int channelId = Channels.DefaultReliable);
+
+        // block Update() to force Transports to use LateUpdate to avoid race
+        // conditions. messages should be processed after all the game state
+        // was processed in Update.
+        // -> in other words: use LateUpdate!
+        // -> uMMORPG 480 CCU stress test: when bot machine stops, it causes
+        //    'Observer not ready for ...' log messages when using Update
+        // -> occupying a public Update() function will cause Warnings if a
+        //    transport uses Update.
+        //
+        // IMPORTANT: set script execution order to >1000 to call Transport's
+        //            LateUpdate after all others. Fixes race condition where
+        //            e.g. in uSurvival Transport would apply Cmds before
+        //            ShoulderRotation.LateUpdate, resulting in projectile
+        //            spawns at the point before shoulder rotation.
+        public void Update() {}
     }
 }

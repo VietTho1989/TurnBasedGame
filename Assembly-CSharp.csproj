@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_13;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_13;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;MIRROR;MIRROR_1726_OR_NEWER;MIRROR_3_0_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -1319,6 +1319,32 @@
     <Compile Include="Assets\Main\Online\Server\ServerOnlineUI.cs" />
     <Compile Include="Assets\Main\Test\TestSelectable.cs" />
     <Compile Include="Assets\Main\UIDrag.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkAnimator.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkLobbyManager.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkLobbyPlayer.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkProximityChecker.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkTransform.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkTransformBase.cs" />
+    <Compile Include="Assets\Mirror\Components\NetworkTransformChild.cs" />
+    <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\AdditiveNetworkManager.cs" />
+    <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\ShootingTankBehaviour.cs" />
+    <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\ZoneHandler.cs" />
+    <Compile Include="Assets\Mirror\Examples\Basic\Scripts\Player.cs" />
+    <Compile Include="Assets\Mirror\Examples\ListServer\ListServer.cs" />
+    <Compile Include="Assets\Mirror\Examples\ListServer\UI\UIServerStatusSlot.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\NetworkLobbyManagerExt.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\NetworkLobbyPlayerExt.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\OfflineGUI.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\Reward.cs" />
+    <Compile Include="Assets\Mirror\Examples\Lobby\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Mirror\Examples\Pong\Scripts\Ball.cs" />
+    <Compile Include="Assets\Mirror\Examples\Pong\Scripts\NetworkManagerPong.cs" />
+    <Compile Include="Assets\Mirror\Examples\Pong\Scripts\Player.cs" />
+    <Compile Include="Assets\Mirror\Examples\Tanks\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Mirror\Examples\Tanks\Scripts\Tank.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\ClientStateUpdate.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\ClientUpdate.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\SubStateUpdate\ClientConnectStateUpdate.cs" />
@@ -4010,7 +4036,9 @@
     <None Include="Assets\Foundation\Resources\Localization\German\Examples.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\UIAdditive.shader" />
     <None Include="Assets\StreamingAssets\AlwaysIn\Reversi\s44table.txt" />
+    <None Include="Assets\Mirror\Readme.txt" />
     <None Include="Assets\Instructions.txt" />
+    <None Include="Assets\Mirror\License.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Dutch\Examples.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Turkish\Examples.txt" />
@@ -4023,6 +4051,8 @@
     <None Include="Assets\unity-ui-extensions\Scripts\Utilities\Serialization\Surrogates\SurrogatesReadMe.txt" />
     <None Include="Assets\StreamingAssets\AlwaysIn\Reversi\edgetable.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
+    <None Include="Assets\Mirror\Examples\Tanks\Models\(Public Domain) Recon_Tank\Recon_Tank - License.txt" />
+    <None Include="Assets\Mirror\Examples\Tanks\Textures\(Public Domain) Dirt Hand Painted Texture\Dirt Hand Painted Texture - License.txt" />
     <None Include="Assets\StreamingAssets\AlwaysIn\Reversi\pE2Xtable.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Portuguese\Examples.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Polish\Examples.txt" />
@@ -4043,15 +4073,6 @@
     <None Include="Assets\unity-ui-extensions\Shaders\UIScreen.shader" />
     <None Include="Assets\StreamingAssets\AlwaysIn\Reversi\p33table.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Chinese\Examples.txt" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.3.13f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -4337,17 +4358,20 @@
     <Reference Include="Foundation.Server.Unity3d">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Foundation/Plugins/Foundation.Server.Unity3d.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.CecilX.Mdb">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX.Pdb">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX.Rocks">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Telepathy">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Runtime/Transport/Telepathy.1.0.252/lib/net35/Telepathy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil.Pdb">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cecil.Mdb">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Weaver/Cecil/Unity.Cecil.Mdb.dll</HintPath>
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
@@ -4712,13 +4736,13 @@
       <Project>{C8533D25-6B89-1DBB-B78D-610409A61CF1}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="Mirror.csproj">
-      <Project>{ADDFC587-7AEA-D758-2107-03A1075B5B31}</Project>
-      <Name>Mirror</Name>
-    </ProjectReference>
     <ProjectReference Include="Mirror.Weaver.csproj">
       <Project>{8AB81085-EFF9-E9DE-19FA-063186E372E7}</Project>
       <Name>Mirror.Weaver</Name>
+    </ProjectReference>
+    <ProjectReference Include="Mirror.csproj">
+      <Project>{ADDFC587-7AEA-D758-2107-03A1075B5B31}</Project>
+      <Name>Mirror</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

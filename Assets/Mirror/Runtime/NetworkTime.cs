@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Stopwatch = System.Diagnostics.Stopwatch;
 
@@ -13,7 +13,7 @@ namespace Mirror
         // average out the last few results from Ping
         public static int PingWindowSize = 10;
 
-        internal static double lastPingTime;
+        static double lastPingTime;
 
 
         // Date and time when the application started
@@ -28,8 +28,8 @@ namespace Mirror
         static ExponentialMovingAverage _offset = new ExponentialMovingAverage(10);
 
         // the true offset guaranteed to be in this range
-        private static double offsetMin = Double.MinValue;
-        private static double offsetMax = Double.MaxValue;
+        static double offsetMin = double.MinValue;
+        static double offsetMax = double.MaxValue;
 
         // returns the clock time _in this system_
         static double LocalTime()
@@ -41,21 +41,16 @@ namespace Mirror
         {
             _rtt = new ExponentialMovingAverage(PingWindowSize);
             _offset = new ExponentialMovingAverage(PingWindowSize);
-            offsetMin = Double.MinValue;
-            offsetMax = Double.MaxValue;
+            offsetMin = double.MinValue;
+            offsetMax = double.MaxValue;
         }
 
-        internal static NetworkPingMessage GetPing()
-        {
-            return new NetworkPingMessage(LocalTime());
-        }
-
-        internal static void UpdateClient(NetworkClient networkClient)
+        internal static void UpdateClient()
         {
             if (Time.time - lastPingTime >= PingFrequency)
             {
-                NetworkPingMessage pingMessage = GetPing();
-                networkClient.Send((short)MsgType.Ping, pingMessage);
+                NetworkPingMessage pingMessage = new NetworkPingMessage(LocalTime());
+                NetworkClient.Send(pingMessage);
                 lastPingTime = Time.time;
             }
         }
@@ -63,40 +58,37 @@ namespace Mirror
         // executed at the server when we receive a ping message
         // reply with a pong containing the time from the client
         // and time from the server
-        internal static void OnServerPing(NetworkMessage netMsg)
+        internal static void OnServerPing(NetworkConnection conn, NetworkPingMessage msg)
         {
-            var pingMsg = netMsg.ReadMessage<NetworkPingMessage>();
+            if (LogFilter.Debug) Debug.Log("OnPingServerMessage  conn=" + conn);
 
-            if (LogFilter.Debug) { Debug.Log("OnPingServerMessage  conn=" + netMsg.conn); }
-
-            var pongMsg = new NetworkPongMessage
+            NetworkPongMessage pongMsg = new NetworkPongMessage
             {
-                clientTime = pingMsg.value,
+                clientTime = msg.value,
                 serverTime = LocalTime()
             };
 
-            netMsg.conn.Send((short)MsgType.Pong, pongMsg);
+            conn.Send(pongMsg);
         }
 
         // Executed at the client when we receive a Pong message
         // find out how long it took since we sent the Ping
         // and update time offset
-        internal static void OnClientPong(NetworkMessage netMsg)
+        internal static void OnClientPong(NetworkConnection conn, NetworkPongMessage msg)
         {
-            NetworkPongMessage pongMsg = netMsg.ReadMessage<NetworkPongMessage>();
             double now = LocalTime();
 
             // how long did this message take to come back
-            double rtt = now - pongMsg.clientTime;
+            double rtt = now - msg.clientTime;
             _rtt.Add(rtt);
 
             // the difference in time between the client and the server
             // but subtract half of the rtt to compensate for latency
             // half of rtt is the best approximation we have
-            double offset = now - rtt * 0.5f - pongMsg.serverTime;
+            double offset = now - rtt * 0.5f - msg.serverTime;
 
-            double newOffsetMin = now - rtt - pongMsg.serverTime;
-            double newOffsetMax = now - pongMsg.serverTime;
+            double newOffsetMin = now - rtt - msg.serverTime;
+            double newOffsetMax = now - msg.serverTime;
             offsetMin = Math.Max(offsetMin, newOffsetMin);
             offsetMax = Math.Min(offsetMax, newOffsetMax);
 
@@ -124,69 +116,27 @@ namespace Mirror
         // after 60 days, accuracy is 454 ms
         // in other words,  if the server is running for 2 months,
         // and you cast down to float,  then the time will jump in 0.4s intervals.
-        public static double time
-        {
-            get
-            {
-                // Notice _offset is 0 at the server
-                return LocalTime() - _offset.Value;
-            }
-        }
+        // Notice _offset is 0 at the server
+        public static double time => LocalTime() - _offset.Value;
 
         // measure volatility of time.
         // the higher the number,  the less accurate the time is
-        public static double timeVar
-        {
-            get
-            {
-                return _offset.Var;
-            }
-        }
+        public static double timeVar => _offset.Var;
 
         // standard deviation of time
-        public static double timeSd
-        {
-            get
-            {
-                return Math.Sqrt(timeVar);
-            }
-        }
+        public static double timeSd => Math.Sqrt(timeVar);
 
-        public static double offset
-        {
-            get
-            {
-                return _offset.Value;
-            }
-        }
+        public static double offset => _offset.Value;
 
         // how long does it take for a message to go
         // to the server and come back
-        public static double rtt
-        {
-            get
-            {
-                return _rtt.Value;
-            }
-        }
+        public static double rtt => _rtt.Value;
 
         // measure volatility of rtt
         // the higher the number,  the less accurate rtt is
-        public static double rttVar
-        {
-            get
-            {
-                return _rtt.Var;
-            }
-        }
+        public static double rttVar => _rtt.Var;
 
         // standard deviation of rtt
-        public static double rttSd
-        {
-            get
-            {
-                return Math.Sqrt(rttVar);
-            }
-        }
+        public static double rttSd => Math.Sqrt(rttVar);
     }
 }

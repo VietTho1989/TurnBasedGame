@@ -1,9 +1,10 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Mirror
 {
-    [Obsolete("Use NetworkBehaviour.syncInterval field instead. Can be modified in the Inspector too.")]
+    [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use NetworkBehaviour.syncInterval field instead. Can be modified in the Inspector too.")]
     [AttributeUsage(AttributeTargets.Class)]
     public class NetworkSettingsAttribute : Attribute
     {
@@ -41,22 +42,17 @@ namespace Mirror
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ServerAttribute : Attribute
-    {
-    }
+    public class ServerAttribute : Attribute {}
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ServerCallbackAttribute : Attribute
-    {
-    }
+    public class ServerCallbackAttribute : Attribute {}
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ClientAttribute : Attribute
-    {
-    }
+    public class ClientAttribute : Attribute {}
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ClientCallbackAttribute : Attribute
-    {
-    }
+    public class ClientCallbackAttribute : Attribute {}
+
+    // For Scene property Drawer
+    public class SceneAttribute : PropertyAttribute {}
 }

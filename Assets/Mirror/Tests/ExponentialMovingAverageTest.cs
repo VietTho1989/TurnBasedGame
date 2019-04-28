@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
-using System;
-namespace Mirror
+using NUnit.Framework;
+namespace Mirror.Tests
 {
     [TestFixture]
     public class ExponentialMovingAverageTest
@@ -8,7 +7,7 @@ namespace Mirror
         [Test]
         public void TestInitial()
         {
-            var ema = new ExponentialMovingAverage(10);
+            ExponentialMovingAverage ema = new ExponentialMovingAverage(10);
 
             ema.Add(3);
 
@@ -19,7 +18,7 @@ namespace Mirror
         [Test]
         public void TestMovingAverage()
         {
-            var ema = new ExponentialMovingAverage(10);
+            ExponentialMovingAverage ema = new ExponentialMovingAverage(10);
 
             ema.Add(5);
             ema.Add(6);
@@ -31,7 +30,7 @@ namespace Mirror
         [Test]
         public void TestVar()
         {
-            var ema = new ExponentialMovingAverage(10);
+            ExponentialMovingAverage ema = new ExponentialMovingAverage(10);
 
             ema.Add(5);
             ema.Add(6);

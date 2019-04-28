@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SwissTournament/SwissTournamentTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Mirror/Runtime/Transport/Websocket/WebsocketTransport.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Weiqi/UI/UITransformOrganizer.cs" Line="92" Column="64" />
-      <File FileName="Assets/SwissTournament/SwissTournamentTest.cs" Line="1" Column="1" />
+      <File FileName="Assets/Mirror/Runtime/Transport/Websocket/WebsocketTransport.cs" Line="8" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

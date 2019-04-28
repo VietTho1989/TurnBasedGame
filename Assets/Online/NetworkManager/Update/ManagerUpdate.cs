@@ -62,7 +62,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                             if (serverManager != null)
                                             {
                                                 // Start
-                                                if (serverManager.StartHost() != null)
+                                                /*if (serverManager.StartHost() != null)
                                                 {
                                                     this.data.startState.v = Server.StartState.Success;
                                                 }
@@ -70,7 +70,9 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                                 {
                                                     Debug.LogError("start host fail: " + this);
                                                     this.data.startState.v = Server.StartState.Fail;
-                                                }
+                                                }*/
+                                                serverManager.StartHost();
+                                                this.data.startState.v = Server.StartState.Success;
                                             }
                                             else
                                             {
@@ -83,7 +85,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                             ServerManager clientManager = ServerManager.instance;
                                             if (clientManager != null)
                                             {
-                                                if (clientManager.myStartClient() != null)
+                                                if (clientManager.myStartClient())
                                                 {
                                                     this.data.startState.v = Server.StartState.Success;
                                                 }
