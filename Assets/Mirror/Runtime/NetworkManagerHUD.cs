@@ -1,14 +1,15 @@
 // vis2k: GUILayout instead of spacey += ...; removed Update hotkeys to avoid
 // confusion if someone accidentally presses one.
+using System;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Mirror
 {
     [AddComponentMenu("Network/NetworkManagerHUD")]
     [RequireComponent(typeof(NetworkManager))]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    [HelpURL("https://vis2k.github.io/Mirror/Components/NetworkManagerHUD")]
     public class NetworkManagerHUD : MonoBehaviour
     {
         NetworkManager manager;
@@ -19,6 +20,12 @@ namespace Mirror
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
+
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
+            {
+                // headless mode. Just start the server
+                manager.StartServer();
+            }
         }
 
         void OnGUI()
@@ -26,10 +33,13 @@ namespace Mirror
             if (!showGUI)
                 return;
 
+            bool noConnection = (manager.client == null || manager.client.connection == null ||
+                                 manager.client.connection.connectionId == -1);
+
             GUILayout.BeginArea(new Rect(10 + offsetX, 40 + offsetY, 215, 9999));
-            if (!NetworkClient.isConnected && !NetworkServer.active)
+            if (!manager.IsClientConnected() && !NetworkServer.active)
             {
-                if (!NetworkClient.active)
+                if (noConnection)
                 {
                     // LAN Host
                     if (Application.platform != RuntimePlatform.WebGLPlayer)
@@ -63,7 +73,7 @@ namespace Mirror
                 else
                 {
                     // Connecting
-                    GUILayout.Label("Connecting to " + manager.networkAddress + "..");
+                    GUILayout.Label("Connecting to " + manager.networkAddress + ":" + manager.networkPort + "..");
                     if (GUILayout.Button("Cancel Connection Attempt"))
                     {
                         manager.StopClient();
@@ -75,20 +85,26 @@ namespace Mirror
                 // server / client status message
                 if (NetworkServer.active)
                 {
-                    GUILayout.Label("Server: active. Transport: " + Transport.activeTransport);
+                    string serverMsg = "Server: port=" + manager.networkPort;
+                    if (manager.useWebSockets)
+                    {
+                        serverMsg += " (Using WebSockets)";
+                    }
+
+                    GUILayout.Label(serverMsg);
                 }
-                if (NetworkClient.isConnected)
+                if (manager.IsClientConnected())
                 {
-                    GUILayout.Label("Client: address=" + manager.networkAddress);
+                    GUILayout.Label("Client: address=" + manager.networkAddress + " port=" + manager.networkPort);
                 }
             }
 
             // client ready
-            if (NetworkClient.isConnected && !ClientScene.ready)
+            if (manager.IsClientConnected() && !ClientScene.ready)
             {
                 if (GUILayout.Button("Client Ready"))
                 {
-                    ClientScene.Ready(NetworkClient.connection);
+                    ClientScene.Ready(manager.client.connection);
 
                     if (ClientScene.localPlayer == null)
                     {
@@ -98,7 +114,7 @@ namespace Mirror
             }
 
             // stop
-            if (NetworkServer.active || NetworkClient.isConnected)
+            if (NetworkServer.active || manager.IsClientConnected())
             {
                 if (GUILayout.Button("Stop"))
                 {

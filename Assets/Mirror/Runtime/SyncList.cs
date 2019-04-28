@@ -2,46 +2,98 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace Mirror
 {
     public class SyncListString : SyncList<string>
     {
-        protected override void SerializeItem(NetworkWriter writer, string item) => writer.Write(item);
-        protected override string DeserializeItem(NetworkReader reader) => reader.ReadString();
+        protected override void SerializeItem(NetworkWriter writer, string item)
+        {
+            writer.Write(item);
+        }
+
+        protected override string DeserializeItem(NetworkReader reader)
+        {
+            return reader.ReadString();
+        }
     }
 
     public class SyncListFloat : SyncList<float>
     {
-        protected override void SerializeItem(NetworkWriter writer, float item) => writer.Write(item);
-        protected override float DeserializeItem(NetworkReader reader) => reader.ReadSingle();
+        protected override void SerializeItem(NetworkWriter writer, float item)
+        {
+            writer.Write(item);
+        }
+
+        protected override float DeserializeItem(NetworkReader reader)
+        {
+            return reader.ReadSingle();
+        }
     }
 
     public class SyncListInt : SyncList<int>
     {
-        protected override void SerializeItem(NetworkWriter writer, int item) => writer.WritePackedInt32(item);
-        protected override int DeserializeItem(NetworkReader reader) => reader.ReadPackedInt32();
+        protected override void SerializeItem(NetworkWriter writer, int item)
+        {
+            writer.WritePackedUInt32((uint)item);
+        }
+
+        protected override int DeserializeItem(NetworkReader reader)
+        {
+            return (int)reader.ReadPackedUInt32();
+        }
     }
 
     public class SyncListUInt : SyncList<uint>
     {
-        protected override void SerializeItem(NetworkWriter writer, uint item) => writer.WritePackedUInt32(item);
-        protected override uint DeserializeItem(NetworkReader reader) => reader.ReadPackedUInt32();
+        protected override void SerializeItem(NetworkWriter writer, uint item)
+        {
+            writer.WritePackedUInt32(item);
+        }
+
+        protected override uint DeserializeItem(NetworkReader reader)
+        {
+            return reader.ReadPackedUInt32();
+        }
     }
 
     public class SyncListBool : SyncList<bool>
     {
-        protected override void SerializeItem(NetworkWriter writer, bool item) => writer.Write(item);
-        protected override bool DeserializeItem(NetworkReader reader) => reader.ReadBoolean();
+        protected override void SerializeItem(NetworkWriter writer, bool item)
+        {
+            writer.Write(item);
+        }
+
+        protected override bool DeserializeItem(NetworkReader reader)
+        {
+            return reader.ReadBoolean();
+        }
     }
 
     // Original UNET name is SyncListStruct and original Weaver weavers anything
     // that contains the name 'SyncListStruct', without considering the name-
     // space.
-    [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use SyncList<MyStruct> instead")]
+    //
+    // In other words, we need another name until the original Weaver is removed
+    // in Unity 2019.1.
+    //
+    // TODO rename back to SyncListStruct after 2019.1!
     public class SyncListSTRUCT<T> : SyncList<T> where T : struct
     {
-        public T GetItem(int i) => base[i];
+        protected override void SerializeItem(NetworkWriter writer, T item)
+        {
+        }
+
+        protected override T DeserializeItem(NetworkReader reader)
+        {
+            return new T();
+        }
+
+        public T GetItem(int i)
+        {
+            return base[i];
+        }
     }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -49,10 +101,12 @@ namespace Mirror
     {
         public delegate void SyncListChanged(Operation op, int itemIndex, T item);
 
-        readonly IList<T> objects;
+        readonly List<T> m_Objects = new List<T>();
 
-        public int Count => objects.Count;
-        public bool IsReadOnly { get; private set; }
+        private bool _isReadOnly = false;
+
+        public int Count { get { return m_Objects.Count; } }
+        public bool IsReadOnly { get { return _isReadOnly; } }
         public event SyncListChanged Callback;
 
         public enum Operation : byte
@@ -73,32 +127,30 @@ namespace Mirror
             internal T item;
         }
 
-        readonly List<Change> changes = new List<Change>();
+        readonly List<Change> Changes = new List<Change>();
         // how many changes we need to ignore
-        // this is needed because when we initialize the list,
+        // this is needed because when we initialize the list,  
         // we might later receive changes that have already been applied
         // so we need to skip them
-        int changesAhead;
+        int changesAhead = 0;
 
-        protected virtual void SerializeItem(NetworkWriter writer, T item) {}
-        protected virtual T DeserializeItem(NetworkReader reader) => default;
+        protected abstract void SerializeItem(NetworkWriter writer, T item);
+        protected abstract T DeserializeItem(NetworkReader reader);
 
-
-        protected SyncList()
+        public bool IsDirty 
         {
-            objects = new List<T>();
+            get 
+            {
+                return Changes.Count > 0;
+            }
         }
-
-        protected SyncList(IList<T> objects)
-        {
-            this.objects = objects;
-        }
-
-        public bool IsDirty => changes.Count > 0;
 
         // throw away all the changes
         // this should be called after a successfull sync
-        public void Flush() => changes.Clear();
+        public void Flush()
+        {
+            Changes.Clear();
+        }
 
         void AddOperation(Operation op, int itemIndex, T item)
         {
@@ -114,21 +166,28 @@ namespace Mirror
                 item = item
             };
 
-            changes.Add(change);
+            Changes.Add(change);
 
-            Callback?.Invoke(op, itemIndex, item);
+            SyncListChanged listChanged = Callback;
+            if (listChanged != null)
+            {
+                listChanged(op, itemIndex, item);
+            }
         }
 
-        void AddOperation(Operation op, int itemIndex) => AddOperation(op, itemIndex, default);
+        void AddOperation(Operation op, int itemIndex)
+        {
+            AddOperation(op, itemIndex, default(T));
+        }
 
         public void OnSerializeAll(NetworkWriter writer)
         {
             // if init,  write the full list content
-            writer.WritePackedUInt32((uint)objects.Count);
+            writer.Write(m_Objects.Count);
 
-            for (int i = 0; i < objects.Count; i++)
+            for (int i = 0; i < m_Objects.Count; i++)
             {
-                T obj = objects[i];
+                T obj = m_Objects[i];
                 SerializeItem(writer, obj);
             }
 
@@ -136,34 +195,41 @@ namespace Mirror
             // thus the client will need to skip all the pending changes
             // or they would be applied again.
             // So we write how many changes are pending
-            writer.WritePackedUInt32((uint)changes.Count);
+            writer.Write(Changes.Count);
         }
 
         public void OnSerializeDelta(NetworkWriter writer)
         {
             // write all the queued up changes
-            writer.WritePackedUInt32((uint)changes.Count);
+            writer.Write(Changes.Count);
 
-            for (int i = 0; i < changes.Count; i++)
+            for (int i = 0; i < Changes.Count; i++)
             {
-                Change change = changes[i];
+                Change change = Changes[i];
                 writer.Write((byte)change.operation);
 
                 switch (change.operation)
                 {
                     case Operation.OP_ADD:
-                    case Operation.OP_REMOVE:
                         SerializeItem(writer, change.item);
                         break;
 
                     case Operation.OP_CLEAR:
                         break;
 
+                    case Operation.OP_INSERT:
+                        writer.WritePackedUInt32((uint)change.index);
+                        SerializeItem(writer, change.item);
+                        break;
+
+                    case Operation.OP_REMOVE:
+                        SerializeItem(writer, change.item);
+                        break;
+
                     case Operation.OP_REMOVEAT:
                         writer.WritePackedUInt32((uint)change.index);
                         break;
 
-                    case Operation.OP_INSERT:
                     case Operation.OP_SET:
                     case Operation.OP_DIRTY:
                         writer.WritePackedUInt32((uint)change.index);
@@ -176,32 +242,32 @@ namespace Mirror
         public void OnDeserializeAll(NetworkReader reader)
         {
             // This list can now only be modified by synchronization
-            IsReadOnly = true;
+            _isReadOnly = true;
 
             // if init,  write the full list content
-            int count = (int)reader.ReadPackedUInt32();
+            int count = reader.ReadInt32();
 
-            objects.Clear();
-            changes.Clear();
+            m_Objects.Clear();
+            Changes.Clear();
 
             for (int i = 0; i < count; i++)
             {
                 T obj = DeserializeItem(reader);
-                objects.Add(obj);
+                m_Objects.Add(obj);
             }
 
             // We will need to skip all these changes
             // the next time the list is synchronized
             // because they have already been applied
-            changesAhead = (int)reader.ReadPackedUInt32();
+            changesAhead = reader.ReadInt32();
         }
 
         public void OnDeserializeDelta(NetworkReader reader)
         {
             // This list can now only be modified by synchronization
-            IsReadOnly = true;
+            _isReadOnly = true;
 
-            int changesCount = (int)reader.ReadPackedUInt32();
+            int changesCount = reader.ReadInt32();
 
             for (int i = 0; i < changesCount; i++)
             {
@@ -211,7 +277,7 @@ namespace Mirror
                 // that we have not applied yet
                 bool apply = changesAhead == 0;
                 int index = 0;
-                T item = default;
+                T item = default(T);
 
                 switch (operation)
                 {
@@ -219,15 +285,15 @@ namespace Mirror
                         item = DeserializeItem(reader);
                         if (apply)
                         {
-                            index = objects.Count;
-                            objects.Add(item);
+                            index = m_Objects.Count;
+                            m_Objects.Add(item);
                         }
                         break;
 
                     case Operation.OP_CLEAR:
                         if (apply)
                         {
-                            objects.Clear();
+                            m_Objects.Clear();
                         }
                         break;
 
@@ -236,7 +302,7 @@ namespace Mirror
                         item = DeserializeItem(reader);
                         if (apply)
                         {
-                            objects.Insert(index, item);
+                            m_Objects.Insert(index, item);
                         }
                         break;
 
@@ -244,7 +310,7 @@ namespace Mirror
                         item = DeserializeItem(reader);
                         if (apply)
                         {
-                            objects.Remove(item);
+                            m_Objects.Remove(item);
                         }
                         break;
 
@@ -252,8 +318,8 @@ namespace Mirror
                         index = (int)reader.ReadPackedUInt32();
                         if (apply)
                         {
-                            item = objects[index];
-                            objects.RemoveAt(index);
+                            item = m_Objects[index];
+                            m_Objects.RemoveAt(index);
                         }
                         break;
 
@@ -263,17 +329,19 @@ namespace Mirror
                         item = DeserializeItem(reader);
                         if (apply)
                         {
-                            objects[index] = item;
+                            m_Objects[index] = item;
                         }
                         break;
                 }
 
-                if (apply)
+                SyncListChanged listChanged = Callback;
+                if (apply && listChanged != null)
                 {
-                    Callback?.Invoke(operation, index, item);
+                    listChanged(operation, index, item);
                 }
+
                 // we just skipped this change
-                else
+                if (!apply)
                 {
                     changesAhead--;
                 }
@@ -282,39 +350,40 @@ namespace Mirror
 
         public void Add(T item)
         {
-            objects.Add(item);
-            AddOperation(Operation.OP_ADD, objects.Count - 1, item);
+            m_Objects.Add(item);
+            AddOperation(Operation.OP_ADD, m_Objects.Count - 1, item);
         }
 
         public void Clear()
         {
-            objects.Clear();
+            m_Objects.Clear();
             AddOperation(Operation.OP_CLEAR, 0);
         }
 
-        public bool Contains(T item) => objects.Contains(item);
-
-        public void CopyTo(T[] array, int index) => objects.CopyTo(array, index);
-
-        public int IndexOf(T item) => objects.IndexOf(item);
-
-        public int FindIndex(Predicate<T> match)
+        public bool Contains(T item)
         {
-            for (int i = 0; i < objects.Count; ++i)
-                if (match(objects[i]))
-                    return i;
-            return -1;
+            return m_Objects.Contains(item);
+        }
+
+        public void CopyTo(T[] array, int index)
+        {
+            m_Objects.CopyTo(array, index);
+        }
+
+        public int IndexOf(T item)
+        {
+            return m_Objects.IndexOf(item);
         }
 
         public void Insert(int index, T item)
         {
-            objects.Insert(index, item);
+            m_Objects.Insert(index, item);
             AddOperation(Operation.OP_INSERT, index, item);
         }
 
         public bool Remove(T item)
         {
-            bool result = objects.Remove(item);
+            var result = m_Objects.Remove(item);
             if (result)
             {
                 AddOperation(Operation.OP_REMOVE, 0, item);
@@ -324,22 +393,22 @@ namespace Mirror
 
         public void RemoveAt(int index)
         {
-            objects.RemoveAt(index);
+            m_Objects.RemoveAt(index);
             AddOperation(Operation.OP_REMOVEAT, index);
         }
 
         public void Dirty(int index)
         {
-            AddOperation(Operation.OP_DIRTY, index, objects[index]);
+            AddOperation(Operation.OP_DIRTY, index, m_Objects[index]);
         }
 
         public T this[int i]
         {
-            get => objects[i];
+            get { return m_Objects[i]; }
             set
             {
                 bool changed = false;
-                if (objects[i] == null)
+                if (m_Objects[i] == null)
                 {
                     if (value == null)
                         return;
@@ -348,10 +417,10 @@ namespace Mirror
                 }
                 else
                 {
-                    changed = !objects[i].Equals(value);
+                    changed = !m_Objects[i].Equals(value);
                 }
 
-                objects[i] = value;
+                m_Objects[i] = value;
                 if (changed)
                 {
                     AddOperation(Operation.OP_SET, i, value);
@@ -359,8 +428,14 @@ namespace Mirror
             }
         }
 
-        public IEnumerator<T> GetEnumerator() => objects.GetEnumerator();
+        public IEnumerator<T> GetEnumerator()
+        {
+            return m_Objects.GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

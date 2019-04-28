@@ -1,8 +1,7 @@
 {
     "name": "Mirror.Tests",
     "references": [
-        "Mirror",
-        "Mirror.Weaver"
+        "Mirror"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
@@ -11,9 +10,5 @@
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": []
+    "allowUnsafeCode": false
 }

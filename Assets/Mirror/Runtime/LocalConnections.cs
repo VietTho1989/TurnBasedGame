@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Mirror
@@ -6,15 +7,18 @@ namespace Mirror
     // sending messages on this connection causes the client's handler function to be invoked directly
     class ULocalConnectionToClient : NetworkConnection
     {
-        public ULocalConnectionToClient() : base ("localClient")
+        LocalClient m_LocalClient;
+
+        public LocalClient localClient { get {  return m_LocalClient; } }
+
+        public ULocalConnectionToClient(LocalClient localClient) : base ("localClient")
         {
-            // local player always has connectionId == 0
-            connectionId = 0;
+            m_LocalClient = localClient;
         }
 
-        internal override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
+        protected override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
         {
-            NetworkClient.localClientPacketQueue.Enqueue(bytes);
+            m_LocalClient.InvokeBytesOnClient(bytes);
             return true;
         }
     }
@@ -25,22 +29,16 @@ namespace Mirror
     {
         public ULocalConnectionToServer() : base("localServer")
         {
-            // local player always has connectionId == 0
-            connectionId = 0;
         }
 
-        internal override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
+        protected override bool SendBytes(byte[] bytes, int channelId = Channels.DefaultReliable)
         {
             if (bytes.Length == 0)
             {
-                Debug.LogError("LocalConnection.SendBytes cannot send zero bytes");
+                Debug.LogError("LocalConnection:SendBytes cannot send zero bytes");
                 return false;
             }
-
-            // handle the server's message directly
-            // TODO any way to do this without NetworkServer.localConnection?
-            NetworkServer.localConnection.TransportReceive(bytes);
-            return true;
+            return NetworkServer.InvokeBytes(this, bytes);
         }
     }
 }

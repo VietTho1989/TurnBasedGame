@@ -6,7 +6,7 @@ public class Server : Data
 {
 
 #pragma warning disable CS0618 // Type or member is obsolete
-    public int maxClientUserCount = ServerManager.DefaultMaxConnections;
+    public int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
 #pragma warning restore CS0618 // Type or member is obsolete
 
     public VP<ServerConfig> serverConfig;

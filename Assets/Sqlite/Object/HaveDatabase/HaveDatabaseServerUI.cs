@@ -154,14 +154,14 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                         {
                             case Server.Type.Server:
 #pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + ServerManager.DefaultServerMaxConnections;
+                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultServerMaxConnections;
 #pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             case Server.Type.Client:
                             case Server.Type.Host:
                             case Server.Type.Offline:
 #pragma warning disable CS0618 // Type or member is obsolete
-                                edtMaxClientUserCount.text = "" + ServerManager.DefaultMaxConnections;
+                                edtMaxClientUserCount.text = "" + LLAPITransport.DefaultMaxConnections;
 #pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             default:

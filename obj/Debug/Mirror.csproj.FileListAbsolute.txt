@@ -833,8 +833,3 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Mono.CecilX.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Mono.CecilX.Mdb.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Mono.CecilX.Pdb.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Mono.CecilX.Rocks.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll

@@ -12,14 +12,17 @@ namespace Mirror
     [CanEditMultipleObjects]
     public class NetworkBehaviourInspector : Editor
     {
-        bool initialized;
-        protected List<string> syncVarNames = new List<string>();
-        bool syncsAnything;
-        bool[] showSyncLists;
+        bool m_Initialized;
+        protected List<string> m_SyncVarNames = new List<string>();
+        bool m_SyncsAnything;
+        bool[] m_ShowSyncLists;
 
-        readonly GUIContent syncVarIndicatorContent = new GUIContent("SyncVar", "This variable has been marked with the [SyncVar] attribute.");
+        GUIContent m_SyncVarIndicatorContent = new GUIContent("SyncVar", "This variable has been marked with the [SyncVar] attribute.");
 
-        internal virtual bool HideScriptField => false;
+        internal virtual bool hideScriptField
+        {
+            get { return false; }
+        }
 
         // does this type sync anything? otherwise we don't need to show syncInterval
         bool SyncsAnything(Type scriptClass)
@@ -53,7 +56,7 @@ namespace Mirror
 
         void Init(MonoScript script)
         {
-            initialized = true;
+            m_Initialized = true;
             Type scriptClass = script.GetClass();
 
             // find public SyncVars to show (user doesn't want protected ones to be shown in inspector)
@@ -62,7 +65,7 @@ namespace Mirror
                 Attribute[] fieldMarkers = (Attribute[])field.GetCustomAttributes(typeof(SyncVarAttribute), true);
                 if (fieldMarkers.Length > 0)
                 {
-                    syncVarNames.Add(field.Name);
+                    m_SyncVarNames.Add(field.Name);
                 }
             }
 
@@ -71,15 +74,15 @@ namespace Mirror
                          field.FieldType.BaseType.Name.Contains("SyncList"));
             if (numSyncLists > 0)
             {
-                showSyncLists = new bool[numSyncLists];
+                m_ShowSyncLists = new bool[numSyncLists];
             }
 
-            syncsAnything = SyncsAnything(scriptClass);
+            m_SyncsAnything = SyncsAnything(scriptClass);
         }
 
         public override void OnInspectorGUI()
         {
-            if (!initialized)
+            if (!m_Initialized)
             {
                 serializedObject.Update();
                 SerializedProperty scriptProperty = serializedObject.FindProperty("m_Script");
@@ -98,12 +101,12 @@ namespace Mirror
             bool expanded = true;
             while (property.NextVisible(expanded))
             {
-                bool isSyncVar = syncVarNames.Contains(property.name);
+                bool isSyncVar = m_SyncVarNames.Contains(property.name);
                 if (property.propertyType == SerializedPropertyType.ObjectReference)
                 {
                     if (property.name == "m_Script")
                     {
-                        if (HideScriptField)
+                        if (hideScriptField)
                         {
                             continue;
                         }
@@ -115,7 +118,7 @@ namespace Mirror
 
                     if (isSyncVar)
                     {
-                        GUILayout.Label(syncVarIndicatorContent, EditorStyles.miniLabel, GUILayout.Width(EditorStyles.miniLabel.CalcSize(syncVarIndicatorContent).x));
+                        GUILayout.Label(m_SyncVarIndicatorContent, EditorStyles.miniLabel, GUILayout.Width(EditorStyles.miniLabel.CalcSize(m_SyncVarIndicatorContent).x));
                     }
 
                     if (property.name == "m_Script")
@@ -131,7 +134,7 @@ namespace Mirror
 
                     if (isSyncVar)
                     {
-                        GUILayout.Label(syncVarIndicatorContent, EditorStyles.miniLabel, GUILayout.Width(EditorStyles.miniLabel.CalcSize(syncVarIndicatorContent).x));
+                        GUILayout.Label(m_SyncVarIndicatorContent, EditorStyles.miniLabel, GUILayout.Width(EditorStyles.miniLabel.CalcSize(m_SyncVarIndicatorContent).x));
                     }
 
                     EditorGUILayout.EndHorizontal();
@@ -143,18 +146,19 @@ namespace Mirror
 
             // find SyncLists.. they are not properties.
             int syncListIndex = 0;
-            foreach (FieldInfo field in serializedObject.targetObject.GetType().GetFields())
+            foreach (var field in serializedObject.targetObject.GetType().GetFields())
             {
                 if (field.FieldType.BaseType != null && field.FieldType.BaseType.Name.Contains("SyncList"))
                 {
-                    showSyncLists[syncListIndex] = EditorGUILayout.Foldout(showSyncLists[syncListIndex], "SyncList " + field.Name + "  [" + field.FieldType.Name + "]");
-                    if (showSyncLists[syncListIndex])
+                    m_ShowSyncLists[syncListIndex] = EditorGUILayout.Foldout(m_ShowSyncLists[syncListIndex], "SyncList " + field.Name + "  [" + field.FieldType.Name + "]");
+                    if (m_ShowSyncLists[syncListIndex])
                     {
                         EditorGUI.indentLevel += 1;
-                        if (field.GetValue(serializedObject.targetObject) is IEnumerable synclist)
+                        var synclist = field.GetValue(serializedObject.targetObject) as IEnumerable;
+                        if (synclist != null)
                         {
                             int index = 0;
-                            IEnumerator enu = synclist.GetEnumerator();
+                            var enu = synclist.GetEnumerator();
                             while (enu.MoveNext())
                             {
                                 if (enu.Current != null)
@@ -172,17 +176,16 @@ namespace Mirror
 
             // only show SyncInterval if we have an OnSerialize function.
             // No need to show it if the class only has Cmds/Rpcs and no sync.
-            if (syncsAnything)
+            if (m_SyncsAnything)
             {
-                NetworkBehaviour networkBehaviour = target as NetworkBehaviour;
-                if (networkBehaviour != null)
+                var beh = target as NetworkBehaviour;
+                if (beh != null)
                 {
                     // [0,2] should be enough. anything >2s is too laggy anyway.
-                    serializedObject.FindProperty("syncInterval").floatValue = EditorGUILayout.Slider(
+                    beh.syncInterval = EditorGUILayout.Slider(
                         new GUIContent("Network Sync Interval",
                                        "Time in seconds until next change is synchronized to the client. '0' means send immediately if changed. '0.5' means only send changes every 500ms.\n(This is for state synchronization like SyncVars, SyncLists, OnSerialize. Not for Cmds, Rpcs, etc.)"),
-                        networkBehaviour.syncInterval, 0, 2);
-                    serializedObject.ApplyModifiedProperties();
+                        beh.syncInterval, 0, 2);
                 }
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,55 +9,59 @@ namespace Mirror
     [CanEditMultipleObjects]
     public class NetworkIdentityEditor : Editor
     {
-        SerializedProperty serverOnlyProperty;
-        SerializedProperty localPlayerAuthorityProperty;
+        SerializedProperty m_ServerOnlyProperty;
+        SerializedProperty m_LocalPlayerAuthorityProperty;
 
-        readonly GUIContent serverOnlyLabel = new GUIContent("Server Only", "True if the object should only exist on the server.");
-        readonly GUIContent localPlayerAuthorityLabel = new GUIContent("Local Player Authority", "True if this object will be controlled by a player on a client.");
-        readonly GUIContent spawnLabel = new GUIContent("Spawn Object", "This causes an unspawned server object to be spawned on clients");
+        GUIContent m_ServerOnlyLabel;
+        GUIContent m_LocalPlayerAuthorityLabel;
+        GUIContent m_SpawnLabel;
 
-        NetworkIdentity networkIdentity;
-        bool initialized;
-        bool showObservers;
+        NetworkIdentity m_NetworkIdentity;
+        bool m_Initialized;
+        bool m_ShowObservers;
 
         void Init()
         {
-            if (initialized)
+            if (m_Initialized)
             {
                 return;
             }
-            initialized = true;
-            networkIdentity = target as NetworkIdentity;
+            m_Initialized = true;
+            m_NetworkIdentity = target as NetworkIdentity;
 
-            serverOnlyProperty = serializedObject.FindProperty("serverOnly");
-            localPlayerAuthorityProperty = serializedObject.FindProperty("localPlayerAuthority");
+            m_ServerOnlyProperty = serializedObject.FindProperty("m_ServerOnly");
+            m_LocalPlayerAuthorityProperty = serializedObject.FindProperty("m_LocalPlayerAuthority");
+
+            m_ServerOnlyLabel = new GUIContent("Server Only", "True if the object should only exist on the server.");
+            m_LocalPlayerAuthorityLabel = new GUIContent("Local Player Authority", "True if this object will be controlled by a player on a client.");
+            m_SpawnLabel = new GUIContent("Spawn Object", "This causes an unspawned server object to be spawned on clients");
         }
 
         public override void OnInspectorGUI()
         {
-            if (serverOnlyProperty == null)
+            if (m_ServerOnlyProperty == null)
             {
-                initialized = false;
+                m_Initialized = false;
             }
 
             Init();
 
             serializedObject.Update();
 
-            if (serverOnlyProperty.boolValue)
+            if (m_ServerOnlyProperty.boolValue)
             {
-                EditorGUILayout.PropertyField(serverOnlyProperty, serverOnlyLabel);
+                EditorGUILayout.PropertyField(m_ServerOnlyProperty, m_ServerOnlyLabel);
                 EditorGUILayout.LabelField("Local Player Authority cannot be set for server-only objects");
             }
-            else if (localPlayerAuthorityProperty.boolValue)
+            else if (m_LocalPlayerAuthorityProperty.boolValue)
             {
                 EditorGUILayout.LabelField("Server Only cannot be set for Local Player Authority objects");
-                EditorGUILayout.PropertyField(localPlayerAuthorityProperty, localPlayerAuthorityLabel);
+                EditorGUILayout.PropertyField(m_LocalPlayerAuthorityProperty, m_LocalPlayerAuthorityLabel);
             }
             else
             {
-                EditorGUILayout.PropertyField(serverOnlyProperty, serverOnlyLabel);
-                EditorGUILayout.PropertyField(localPlayerAuthorityProperty, localPlayerAuthorityLabel);
+                EditorGUILayout.PropertyField(m_ServerOnlyProperty, m_ServerOnlyLabel);
+                EditorGUILayout.PropertyField(m_LocalPlayerAuthorityProperty, m_LocalPlayerAuthorityLabel);
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -70,13 +75,13 @@ namespace Mirror
 
             EditorGUILayout.Separator();
 
-            if (networkIdentity.observers != null && networkIdentity.observers.Count > 0)
+            if (m_NetworkIdentity.observers != null && m_NetworkIdentity.observers.Count > 0)
             {
-                showObservers = EditorGUILayout.Foldout(showObservers, "Observers");
-                if (showObservers)
+                m_ShowObservers = EditorGUILayout.Foldout(m_ShowObservers, "Observers");
+                if (m_ShowObservers)
                 {
                     EditorGUI.indentLevel += 1;
-                    foreach (KeyValuePair<int, NetworkConnection> kvp in networkIdentity.observers)
+                    foreach (KeyValuePair<int, NetworkConnection> kvp in m_NetworkIdentity.observers)
                     {
                         if (kvp.Value.playerController != null)
                             EditorGUILayout.ObjectField("Connection " + kvp.Value.connectionId, kvp.Value.playerController.gameObject, typeof(GameObject), false);
@@ -87,16 +92,22 @@ namespace Mirror
                 }
             }
 
-            if (PrefabUtility.IsPartOfPrefabAsset(networkIdentity.gameObject))
+#if UNITY_2018_3_OR_NEWER
+            if (PrefabUtility.IsPartOfPrefabAsset(m_NetworkIdentity.gameObject))
                 return;
+#else
+            PrefabType prefabType = PrefabUtility.GetPrefabType(m_NetworkIdentity.gameObject);
+            if (prefabType == PrefabType.Prefab)
+                return;
+#endif
 
-            if (networkIdentity.gameObject.activeSelf && networkIdentity.netId == 0 && NetworkServer.active)
+            if (m_NetworkIdentity.gameObject.activeSelf && m_NetworkIdentity.netId == 0 && NetworkServer.active)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(spawnLabel);
+                EditorGUILayout.LabelField(m_SpawnLabel);
                 if (GUILayout.Toggle(false, "Spawn", EditorStyles.miniButtonLeft))
                 {
-                    NetworkServer.Spawn(networkIdentity.gameObject);
+                    NetworkServer.Spawn(m_NetworkIdentity.gameObject);
                     EditorUtility.SetDirty(target);  // preview window STILL doens't update immediately..
                 }
                 EditorGUILayout.EndHorizontal();
