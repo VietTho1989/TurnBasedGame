@@ -56,7 +56,7 @@ namespace Weiqi
                         {
                             if (tvScore != null)
                             {
-                                tvScore.text = string.Format("black score: {0}, white score: {1}, dame: {2}, score: {3}, black capture: {4}, white capture: {5}", weiqi.scoreBlack.v, weiqi.scoreWhite.v, weiqi.dame.v, weiqi.score.v, weiqi.b.v.getCaptures((int)Common.stone.S_BLACK), weiqi.b.v.getCaptures((int)Common.stone.S_WHITE));
+                                tvScore.text = string.Format("black score: {0}, white score: {1}, dame: {2}, score: {3}, black capture: {4}, white capture: {5}", weiqi.scoreBlack.v, weiqi.scoreWhite.v, weiqi.dame.v, -weiqi.score.v, weiqi.b.v.getCaptures((int)Common.stone.S_BLACK), weiqi.b.v.getCaptures((int)Common.stone.S_WHITE));
                             }
                             else
                             {

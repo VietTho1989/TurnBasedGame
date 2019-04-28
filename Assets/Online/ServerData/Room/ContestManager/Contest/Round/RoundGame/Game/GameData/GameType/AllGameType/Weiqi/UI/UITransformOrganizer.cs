@@ -88,8 +88,8 @@ namespace Weiqi
                                             break;
                                         case Setting.BoardIndex.OutBoard:
                                             {
-                                                boardSizeX = 20f;
-                                                boardSizeY = 20f;
+                                                boardSizeX = 21f;
+                                                boardSizeY = 21f;
                                             }
                                             break;
                                         default:

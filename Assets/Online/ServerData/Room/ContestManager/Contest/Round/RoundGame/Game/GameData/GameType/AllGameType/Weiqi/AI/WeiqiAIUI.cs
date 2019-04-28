@@ -227,9 +227,9 @@ namespace Weiqi
                 }
                 // games
                 {
-                    this.games = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.games, new RequestChangeIntUI.UIData());
+                    this.games = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.games, null);
                     // event
-                    this.games.v.updateData.v.request.v = makeRequestChangeGames;
+                    // this.games.v.updateData.v.request.v = makeRequestChangeGames;
                 }
                 // engine
                 {

@@ -317,7 +317,7 @@ namespace Weiqi
             this.canResign = new VP<bool>(this, (byte)Property.canResign, true);
             this.useBook = new VP<bool>(this, (byte)Property.useBook, false);
             // this.useBook = new VP<bool> (this, (byte)Property.useBook, true);
-            this.time = new VP<int>(this, (byte)Property.time, 3000);
+            this.time = new VP<int>(this, (byte)Property.time, 5);
             this.games = new VP<int>(this, (byte)Property.games, -1);
             this.engine = new VP<int>(this, (byte)Property.engine, (int)Common.engine_id.E_UCT);
         }
