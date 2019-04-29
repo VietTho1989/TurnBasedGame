@@ -3,11 +3,11 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
 namespace Shogi
 {
     public class ChangedListsIdentity : DataIdentity
     {
-        // private static bool log = false;
 
         #region SyncVar
 

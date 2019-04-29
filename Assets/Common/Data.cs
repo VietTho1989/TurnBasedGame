@@ -11,6 +11,8 @@ using System.Text;
 public abstract class Data : AddCallBackInterface
 {
 
+#pragma warning disable CS0618
+
     public override string ToString()
     {
         return GetType().FullName + "-" + uid;
@@ -802,6 +804,11 @@ public abstract class Data : AddCallBackInterface
         }
         // return
         return needRequest;
+    }
+
+    public virtual bool isHaveIdentityPrefab()
+    {
+        return true;
     }
 
     #region Edit

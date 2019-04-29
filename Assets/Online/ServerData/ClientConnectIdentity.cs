@@ -9,6 +9,8 @@ using GameManager.Match.RoundRobin;
 using GameManager.Match.Elimination;
 using GameManager.Match.Swap;
 
+#pragma warning disable CS0618
+
 [RequireComponent(typeof(NetworkIdentity))]
 public class ClientConnectIdentity : NetworkBehaviour
 {

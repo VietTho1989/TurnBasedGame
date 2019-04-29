@@ -3,6 +3,8 @@ using UnityEngine.Networking;
 using System;
 using System.Collections;
 
+#pragma warning disable CS0618
+
 public class Human : GamePlayer.Inform
 {
 

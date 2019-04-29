@@ -5,17 +5,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
+#pragma warning disable CS0618
+
 [RequireComponent(typeof(RefreshDataIdentity))]
 [RequireComponent(typeof(GameObserver))]
 [RequireComponent(typeof(NetworkIdentity))]
 public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 {
 
-    public int GetNetworkChannel()
-    {
-        // TODO Can hoan thien
-        return 1;
-    }
+    public const int ChatChanel = 1;
+    public const int HistoryChannel = 2;
 
     public override void OnStartServer()
     {

@@ -2,8 +2,11 @@
 using UnityEngine.Networking;
 using System.Collections;
 
+#pragma warning disable CS0618
+
 public class CreateRoomMessage : MessageBase
 {
+
 	public GameType.Type gameType = GameType.Type.Xiangqi;
 	public string roomName = "";
 	public string password = "";
@@ -29,4 +32,3 @@ public class CreateRoomMessage : MessageBase
 	}
 
 }
-

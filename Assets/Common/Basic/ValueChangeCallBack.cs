@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public interface ValueChangeCallBack
 {
-	
-	void onAddCallBack<T> (T data) where T:Data;
+
+#pragma warning disable CS0618
+
+    void onAddCallBack<T> (T data) where T:Data;
 
 	void onRemoveCallBack<T> (T data, bool isHide) where T:Data;
 

@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
 namespace GameManager.Match
 {
     public class RequestNewRoundStateAskIdentity : DataIdentity

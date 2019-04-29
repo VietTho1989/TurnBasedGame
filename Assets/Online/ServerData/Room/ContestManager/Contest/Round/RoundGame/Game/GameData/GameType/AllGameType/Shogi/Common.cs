@@ -5,6 +5,7 @@ using System.Collections;
 using System.IO;
 using System.Text;
 
+#pragma warning disable CS0618
 namespace Shogi
 {
     public class Common

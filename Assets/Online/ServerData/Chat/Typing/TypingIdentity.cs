@@ -3,7 +3,9 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-// [NetworkSettings(channel = Constants.ChatChanel)]
+#pragma warning disable CS0618
+
+[NetworkSettings(channel = DataIdentity.ChatChanel)]
 public class TypingIdentity : DataIdentity
 {
 

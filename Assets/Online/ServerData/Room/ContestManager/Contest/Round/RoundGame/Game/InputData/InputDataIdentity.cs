@@ -3,171 +3,198 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class InputDataIdentity : DataIdentity
 {
-	#region SyncVar
 
-	#region UserSend
+    #region SyncVar
 
-	[SyncVar(hook="onChangeUserSend")]
-	public System.UInt32 userSend;
+    #region UserSend
 
-	public void onChangeUserSend(System.UInt32 newUserSend)
-	{
-		this.userSend = newUserSend;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.userSend.v = newUserSend;
-		} else {
-			// Debug.LogError ("clientData null");
-		}
-	}
+    [SyncVar(hook = "onChangeUserSend")]
+    public System.UInt32 userSend;
 
-	#endregion
+    public void onChangeUserSend(System.UInt32 newUserSend)
+    {
+        this.userSend = newUserSend;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.userSend.v = newUserSend;
+        }
+        else
+        {
+            // Debug.LogError ("clientData null");
+        }
+    }
 
-	#region serverTime
+    #endregion
 
-	[SyncVar(hook="onChangeServerTime")]
-	public float serverTime;
+    #region serverTime
 
-	public void onChangeServerTime(float newServerTime)
-	{
-		this.serverTime = newServerTime;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.serverTime.v = newServerTime;
-		} else {
-			// Debug.LogError ("clientData null");
-		}
-	}
+    [SyncVar(hook = "onChangeServerTime")]
+    public float serverTime;
 
-	#endregion
+    public void onChangeServerTime(float newServerTime)
+    {
+        this.serverTime = newServerTime;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.serverTime.v = newServerTime;
+        }
+        else
+        {
+            // Debug.LogError ("clientData null");
+        }
+    }
 
-	#region clientTime
+    #endregion
 
-	[SyncVar(hook="onChangeClientTime")]
-	public float clientTime;
+    #region clientTime
 
-	public void onChangeClientTime(float newClientTime)
-	{
-		this.clientTime = newClientTime;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.clientTime.v = newClientTime;
-		} else {
-			// Debug.LogError ("clientData null");
-		}
-	}
+    [SyncVar(hook = "onChangeClientTime")]
+    public float clientTime;
 
-	#endregion
+    public void onChangeClientTime(float newClientTime)
+    {
+        this.clientTime = newClientTime;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.clientTime.v = newClientTime;
+        }
+        else
+        {
+            // Debug.LogError ("clientData null");
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region NetData
+    #endregion
 
-	private NetData<InputData> netData = new NetData<InputData>();
+    #region NetData
 
-	public override NetDataDelegate getNetData ()
-	{
-		return this.netData;
-	}
+    private NetData<InputData> netData = new NetData<InputData>();
 
-	public override void refreshClientData ()
-	{
-		if (this.netData.clientData != null) {
-			this.onChangeUserSend (this.userSend);
-			this.onChangeServerTime (this.serverTime);
-			this.onChangeClientTime (this.clientTime);
-		} else {
-			Debug.Log ("clientData null");
-		}
-	}
+    public override NetDataDelegate getNetData()
+    {
+        return this.netData;
+    }
 
-	public override int refreshDataSize ()
-	{
-		int ret = GetDataSize (this.netId);
-		{
-			ret += GetDataSize (this.userSend);
-			ret += GetDataSize (this.serverTime);
-			ret += GetDataSize (this.clientTime);
-		}
-		return ret;
-	}
+    public override void refreshClientData()
+    {
+        if (this.netData.clientData != null)
+        {
+            this.onChangeUserSend(this.userSend);
+            this.onChangeServerTime(this.serverTime);
+            this.onChangeClientTime(this.clientTime);
+        }
+        else
+        {
+            Debug.Log("clientData null");
+        }
+    }
 
-	#endregion
+    public override int refreshDataSize()
+    {
+        int ret = GetDataSize(this.netId);
+        {
+            ret += GetDataSize(this.userSend);
+            ret += GetDataSize(this.serverTime);
+            ret += GetDataSize(this.clientTime);
+        }
+        return ret;
+    }
 
-	#region implemt callback
+    #endregion
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is InputData) {
-			InputData inputData = data as InputData;
-			// Set new parent
-			this.addTransformToParent();
-			// Set property
-			{
-				this.serialize (this.searchInfor, inputData.makeSearchInforms ());
-				this.userSend = inputData.userSend.v;
-				this.serverTime = inputData.serverTime.v;
-				this.clientTime = inputData.clientTime.v;
-			}
-			this.getDataSize ();
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.checkChange = new FollowParentObserver (observer);
-					observer.setCheckChangeData (inputData);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #region implemt callback
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is InputData) {
-			// InputData inputData = data as InputData;
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.setCheckChangeData (null);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is InputData)
+        {
+            InputData inputData = data as InputData;
+            // Set new parent
+            this.addTransformToParent();
+            // Set property
+            {
+                this.serialize(this.searchInfor, inputData.makeSearchInforms());
+                this.userSend = inputData.userSend.v;
+                this.serverTime = inputData.serverTime.v;
+                this.clientTime = inputData.clientTime.v;
+            }
+            this.getDataSize();
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.checkChange = new FollowParentObserver(observer);
+                    observer.setCheckChangeData(inputData);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is InputData) {
-			switch ((InputData.Property)wrapProperty.n) {
-			case InputData.Property.gameMove:
-				break;
-			case InputData.Property.userSend:
-				this.userSend = (uint)wrapProperty.getValue ();
-				break;
-			case InputData.Property.serverTime:
-				this.serverTime = (float)wrapProperty.getValue ();
-				break;
-			case InputData.Property.clientTime:
-				this.clientTime = (float)wrapProperty.getValue ();
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
-		
-	#endregion
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is InputData)
+        {
+            // InputData inputData = data as InputData;
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.setCheckChangeData(null);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is InputData)
+        {
+            switch ((InputData.Property)wrapProperty.n)
+            {
+                case InputData.Property.gameMove:
+                    break;
+                case InputData.Property.userSend:
+                    this.userSend = (uint)wrapProperty.getValue();
+                    break;
+                case InputData.Property.serverTime:
+                    this.serverTime = (float)wrapProperty.getValue();
+                    break;
+                case InputData.Property.clientTime:
+                    this.clientTime = (float)wrapProperty.getValue();
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
+
 }

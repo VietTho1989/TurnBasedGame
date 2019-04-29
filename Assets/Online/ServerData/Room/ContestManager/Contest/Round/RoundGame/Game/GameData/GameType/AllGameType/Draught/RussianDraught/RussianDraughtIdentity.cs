@@ -3,10 +3,12 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
 namespace RussianDraught
 {
     public class RussianDraughtIdentity : DataIdentity
     {
+
         #region SyncVar
 
         #region Board
@@ -24,6 +26,7 @@ namespace RussianDraught
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #region num_wpieces

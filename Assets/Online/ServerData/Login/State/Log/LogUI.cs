@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
 namespace LoginState
 {
     public class LogUI : UIHaveTransformDataBehavior<LogUI.UIData>

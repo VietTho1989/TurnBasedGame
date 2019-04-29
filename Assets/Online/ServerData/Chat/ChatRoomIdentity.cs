@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class ChatRoomIdentity : DataIdentity
 {
 

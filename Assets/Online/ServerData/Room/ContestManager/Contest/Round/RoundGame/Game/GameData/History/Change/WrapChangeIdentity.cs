@@ -3,7 +3,9 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-// [NetworkSettings(channel = 4)]
+#pragma warning disable CS0618
+
+[NetworkSettings(channel = DataIdentity.HistoryChannel)]
 public class WrapChangeIdentity : DataIdentity
 {
 

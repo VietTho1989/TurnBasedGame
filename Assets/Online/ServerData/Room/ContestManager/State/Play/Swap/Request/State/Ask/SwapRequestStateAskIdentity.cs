@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
 namespace GameManager.Match.Swap
 {
     public class SwapRequestStateAskIdentity : DataIdentity
@@ -25,6 +26,7 @@ namespace GameManager.Match.Swap
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #endregion

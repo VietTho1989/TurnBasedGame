@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+#pragma warning disable CS0618
+
 [RequireComponent(typeof(DataIdentity))]
 public class GameObserver : NetworkBehaviour
 {

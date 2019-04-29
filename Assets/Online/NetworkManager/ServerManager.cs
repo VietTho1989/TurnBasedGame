@@ -2,6 +2,8 @@
 using UnityEngine.Networking;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class ServerManager : NetworkManager, ValueChangeCallBack
 {
 

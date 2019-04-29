@@ -3,175 +3,207 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class GamePlayerStateSurrenderAskIdentity : DataIdentity
 {
 
-	#region SyncVar
+    #region SyncVar
 
-	#region accepts
+    #region accepts
 
-	public SyncListUInt accepts = new SyncListUInt();
+    public SyncListUInt accepts = new SyncListUInt();
 
-	private void OnAcceptsChanged(SyncListUInt.Operation op, int index)
-	{
-		if (this.netData.clientData != null) {
-			IdentityUtils.onSyncListChange (this.netData.clientData.accepts, this.accepts, op, index);
-		} else {
-			// Debug.LogError ("clientData null: " + this);
-		}
-	}
-	#endregion
+    private void OnAcceptsChanged(SyncListUInt.Operation op, int index)
+    {
+        if (this.netData.clientData != null)
+        {
+            IdentityUtils.onSyncListChange(this.netData.clientData.accepts, this.accepts, op, index);
+        }
+        else
+        {
+            // Debug.LogError ("clientData null: " + this);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region NetData
+    #endregion
 
-	private NetData<GamePlayerStateSurrenderAsk> netData = new NetData<GamePlayerStateSurrenderAsk>();
+    #region NetData
 
-	public override NetDataDelegate getNetData ()
-	{
-		return this.netData;
-	}
+    private NetData<GamePlayerStateSurrenderAsk> netData = new NetData<GamePlayerStateSurrenderAsk>();
 
-	public override void addSyncListCallBack ()
-	{
-		base.addSyncListCallBack ();
-		this.accepts.Callback += OnAcceptsChanged;
-	}
+    public override NetDataDelegate getNetData()
+    {
+        return this.netData;
+    }
 
-	public override void refreshClientData ()
-	{
-		if (this.netData.clientData != null) {
-			IdentityUtils.refresh(this.netData.clientData.accepts, this.accepts);
-		} else {
-			Debug.Log ("clientData null");
-		}
-	}
+    public override void addSyncListCallBack()
+    {
+        base.addSyncListCallBack();
+        this.accepts.Callback += OnAcceptsChanged;
+    }
 
-	public override int refreshDataSize ()
-	{
-		int ret = GetDataSize (this.netId);
-		{
-			ret += GetDataSize (this.accepts);
-		}
-		return ret;
-	}
+    public override void refreshClientData()
+    {
+        if (this.netData.clientData != null)
+        {
+            IdentityUtils.refresh(this.netData.clientData.accepts, this.accepts);
+        }
+        else
+        {
+            Debug.Log("clientData null");
+        }
+    }
 
-	#endregion
+    public override int refreshDataSize()
+    {
+        int ret = GetDataSize(this.netId);
+        {
+            ret += GetDataSize(this.accepts);
+        }
+        return ret;
+    }
 
-	#region implemt callback
+    #endregion
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is GamePlayerStateSurrenderAsk) {
-			GamePlayerStateSurrenderAsk gamePlayerStateSurrenderAsk = data as GamePlayerStateSurrenderAsk;
-			// Set new parent
-			this.addTransformToParent();
-			// Set property
-			{
-				this.serialize (this.searchInfor, gamePlayerStateSurrenderAsk.makeSearchInforms ());
-				IdentityUtils.InitSync(this.accepts, gamePlayerStateSurrenderAsk.accepts.vs);
-			}
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.checkChange = new FollowParentObserver (observer);
-					observer.setCheckChangeData (gamePlayerStateSurrenderAsk);
-				} else {
-					Debug.LogError ("observer null: " + this);
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #region implemt callback
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is GamePlayerStateSurrenderAsk) {
-			// GamePlayerStateSurrenderAsk gamePlayerStateSurrenderAsk = data as GamePlayerStateSurrenderAsk;
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.setCheckChangeData (null);
-				} else {
-					Debug.LogError ("observer null: " + this);
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is GamePlayerStateSurrenderAsk)
+        {
+            GamePlayerStateSurrenderAsk gamePlayerStateSurrenderAsk = data as GamePlayerStateSurrenderAsk;
+            // Set new parent
+            this.addTransformToParent();
+            // Set property
+            {
+                this.serialize(this.searchInfor, gamePlayerStateSurrenderAsk.makeSearchInforms());
+                IdentityUtils.InitSync(this.accepts, gamePlayerStateSurrenderAsk.accepts.vs);
+            }
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.checkChange = new FollowParentObserver(observer);
+                    observer.setCheckChangeData(gamePlayerStateSurrenderAsk);
+                }
+                else
+                {
+                    Debug.LogError("observer null: " + this);
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is GamePlayerStateSurrenderAsk) {
-			switch ((GamePlayerStateSurrenderAsk.Property)wrapProperty.n) {
-			case GamePlayerStateSurrenderAsk.Property.whoCanAsks:
-				break;
-			case GamePlayerStateSurrenderAsk.Property.accepts:
-				IdentityUtils.UpdateSyncList (this.accepts, syncs, GlobalCast<T>.CastingUInt32);
-				break;
-			default:
-				Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is GamePlayerStateSurrenderAsk)
+        {
+            // GamePlayerStateSurrenderAsk gamePlayerStateSurrenderAsk = data as GamePlayerStateSurrenderAsk;
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.setCheckChangeData(null);
+                }
+                else
+                {
+                    Debug.LogError("observer null: " + this);
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	#endregion
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is GamePlayerStateSurrenderAsk)
+        {
+            switch ((GamePlayerStateSurrenderAsk.Property)wrapProperty.n)
+            {
+                case GamePlayerStateSurrenderAsk.Property.whoCanAsks:
+                    break;
+                case GamePlayerStateSurrenderAsk.Property.accepts:
+                    IdentityUtils.UpdateSyncList(this.accepts, syncs, GlobalCast<T>.CastingUInt32);
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#region accept
+    #endregion
 
-	public void requestAccept(uint userId)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdGamePlayerStateSurrenderAskAccept (this.netId, userId);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    #region accept
 
-	public void accept(uint userId)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.accept (userId);
-		} else {
-			Debug.LogError ("serverData null");
-		}
-	}
+    public void requestAccept(uint userId)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdGamePlayerStateSurrenderAskAccept(this.netId, userId);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
 
-	#endregion
+    public void accept(uint userId)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.accept(userId);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
 
-	#region refuse
+    #endregion
 
-	public void requestRefuse(uint userId)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdGamePlayerStateSurrenderAskRefuse (this.netId, userId);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    #region refuse
 
-	public void refuse(uint userId)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.refuse (userId);
-		} else {
-			Debug.LogError ("serverData null");
-		}
-	}
+    public void requestRefuse(uint userId)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdGamePlayerStateSurrenderAskRefuse(this.netId, userId);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
 
-	#endregion
+    public void refuse(uint userId)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.refuse(userId);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
+
+    #endregion
 
 }

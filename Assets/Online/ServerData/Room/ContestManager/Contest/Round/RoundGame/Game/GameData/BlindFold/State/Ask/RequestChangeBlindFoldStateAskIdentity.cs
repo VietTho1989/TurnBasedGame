@@ -3,6 +3,8 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class RequestChangeBlindFoldStateAskIdentity : DataIdentity
 {
 
@@ -23,6 +25,7 @@ public class RequestChangeBlindFoldStateAskIdentity : DataIdentity
             // Debug.LogError ("clientData null: " + this);
         }
     }
+
     #endregion
 
     #endregion

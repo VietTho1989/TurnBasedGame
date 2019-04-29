@@ -1,5 +1,7 @@
 ﻿using UnityEngine.Networking;
 
+#pragma warning disable CS0618
+
 public class ServerInstanceIdMessage : MessageBase
 {
 

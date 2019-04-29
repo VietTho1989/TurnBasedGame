@@ -3,8 +3,11 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class CreateDataIdentityUpdate : UpdateBehavior<Server>
 {
+
     public Dictionary<System.Type, DataIdentity> prefabDict = new Dictionary<System.Type, DataIdentity>();
 
     public override void onBeforeSetData(Server newData)
@@ -174,7 +177,10 @@ public class CreateDataIdentityUpdate : UpdateBehavior<Server>
         }
         else
         {
-            // Debug.Log ("dataPrefab null");
+            if(data!=null && data.isHaveIdentityPrefab())
+            {
+                Debug.Log("error, cannot find dataPrefab null: " + data);
+            }
         }
     }
 
