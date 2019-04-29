@@ -16,7 +16,7 @@ public class CreateDataIdentityUpdate : UpdateBehavior<Server>
         if (newData != null)
         {
             prefabDict.Clear();
-            ServerManager serverManager = ServerManager.instance;
+            ServerManager serverManager = (ServerManager)NetworkManager.singleton;
             if (serverManager != null)
             {
                 foreach (GameObject prefab in serverManager.spawnPrefabs)

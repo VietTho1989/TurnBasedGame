@@ -247,7 +247,10 @@ public abstract class Data : AddCallBackInterface
             // Process
             if (correctType)
             {
+                // Debug.LogError("removeCallBackAndDestroy: " + callBack);
+                // remove
                 this.removeCallBack(callBack);
+                // destroy
                 if (callBack is TrashMan.DespawnInterface)
                 {
                     TrashMan.DespawnInterface despawnInterface = callBack as TrashMan.DespawnInterface;

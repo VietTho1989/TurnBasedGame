@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using AdvancedCoroutines;
 using Foundation.Tasks;
 
+#pragma warning disable CS0618
+
 public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
 {
 
@@ -148,8 +150,35 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                     {
                         float rtt = 0;
                         {
-                            // TODO Can hoan thien
-                            // NetworkTime.rtt;
+                            Server server = connect.findDataInParent<Server>();
+                            if (server != null)
+                            {
+                                if (server.type.v == Server.Type.Client)
+                                {
+                                    ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(connect);
+                                    if (clientConnect != null)
+                                    {
+                                        if (clientConnect.connectionToServer != null)
+                                        {
+                                            byte error = 0;
+                                            rtt = NetworkTransport.GetCurrentRtt(clientConnect.connectionToServer.hostId, clientConnect.connectionToServer.connectionId, out error);
+                                            Debug.LogError("byte error: " + error);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("connectionToServer null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Debug.LogError("clientConnect null");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Debug.LogError("server null");
+                            }
                         }
                         tvPing.text = "Ping: " + rtt + "s";
                     }

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+#pragma warning disable CS0618
+
 public class DiscoveredServer : Data
 {
+
 	public VP<string> ipAddress;
 	public VP<int> port;
 	public VP<float> timestamp;
@@ -68,26 +71,28 @@ public class DiscoveredServers : Data
 
 }
 
-#pragma warning disable CS0618 // Type or member is obsolete
 public class ClientNetworkDiscovery : NetworkDiscovery
-#pragma warning restore CS0618 // Type or member is obsolete
 {
+
     public DiscoveredServers discoveredServers = new DiscoveredServers();
-	public const float ServerKeepAliveTime = 5.0f;
+    public const float ServerKeepAliveTime = 5.0f;
 
-	void Start()
-	{
-		showGUI = false;
-		InvokeRepeating("CleanServerList", 3, 1);
-		if (!Initialize ()) {
-			Debug.LogError ("#CaptainsMess# Network port is unavailable!");
-		} else {
-			Debug.LogError ("intialize success");
-		}
-	}
+    void Start()
+    {
+        showGUI = false;
+        InvokeRepeating("CleanServerList", 3, 1);
+        if (!Initialize())
+        {
+            Debug.LogError("#CaptainsMess# Network port is unavailable!");
+        }
+        else
+        {
+            Debug.LogError("intialize success");
+        }
 
+    }
 
-	/*#region Start
+    /*#region Start
 
 	private float time = 0;
 	private bool alreadyInit = false;
@@ -107,71 +112,79 @@ public class ClientNetworkDiscovery : NetworkDiscovery
 
 	#endregion*/
 
-	public void Reset()
-	{
-		discoveredServers.servers.clear();
-	}
+    public void Reset()
+    {
+        discoveredServers.servers.clear();
+    }
 
-	public void StartJoining()
-	{
-		// Debug.LogError ("startJoining");
-		Reset();
-		if (!Initialize ()) {
-			Debug.LogError ("#CaptainsMess# Network port is unavailable!");
-		} else {
-			Debug.LogError ("intialize success");
-		}
-		if (!StartAsClient ()) {
-			Debug.LogError ("#CaptainsMess# Unable to listen!");
-			// Clean up some data that Unity seems not to
-			if (hostId != -1) {
-#pragma warning disable CS0618 // Type or member is obsolete
-                NetworkTransport.RemoveHost (hostId);
-#pragma warning restore CS0618 // Type or member is obsolete
+    public void StartJoining()
+    {
+        // Debug.LogError ("startJoining");
+        Reset();
+        if (!Initialize())
+        {
+            Debug.LogError("#CaptainsMess# Network port is unavailable!");
+        }
+        else
+        {
+            Debug.LogError("intialize success");
+        }
+        if (!StartAsClient())
+        {
+            Debug.LogError("#CaptainsMess# Unable to listen!");
+            // Clean up some data that Unity seems not to
+            if (hostId != -1)
+            {
+                NetworkTransport.RemoveHost(hostId);
                 hostId = -1;
-			}
-		} else {
-			Debug.LogError ("startClient success");
-		}
-	}
+            }
+        }
+        else
+        {
+            Debug.LogError("startClient success");
+        }
+    }
 
-	public void CleanServerList()
-	{
-		for (int i = discoveredServers.servers.vs.Count - 1; i >= 0; i--) {
-			DiscoveredServer kvp = discoveredServers.servers.vs [i];
-			float timeSinceLastBroadcast = Time.time - kvp.timestamp.v;
-			if (timeSinceLastBroadcast > ServerKeepAliveTime) {
-				discoveredServers.servers.remove (kvp);
-			}
-		}
-	}
+    public void CleanServerList()
+    {
+        for (int i = discoveredServers.servers.vs.Count - 1; i >= 0; i--)
+        {
+            DiscoveredServer kvp = discoveredServers.servers.vs[i];
+            float timeSinceLastBroadcast = Time.time - kvp.timestamp.v;
+            if (timeSinceLastBroadcast > ServerKeepAliveTime)
+            {
+                discoveredServers.servers.remove(kvp);
+            }
+        }
+    }
 
-	public override void OnReceivedBroadcast(string aFromAddress, string aRawData)
-	{
-		// Debug.LogError ("onReceivedBroadcast: " + aFromAddress + ", " + aRawData);
-		BroadcastData data = new BroadcastData();
-		data.FromString(aRawData);
-	
-		DiscoveredServer server = discoveredServers.findByIp(aFromAddress);
-		// Add
-		{
-			if (server == null) {
-				// Debug.LogError ("make new server");
-				server = new DiscoveredServer ();
-				{
-					server.uid = discoveredServers.servers.makeId ();
-					server.ipAddress.v = aFromAddress;
-				}
-				discoveredServers.servers.add (server);
-			}
-		}
-		// Set value
-		{
-			server.port.v = data.port;
-			server.timestamp.v = Time.time;
-			server.version.v = data.version;
-			server.player.v = data.player;
-		}
-	}	
+    public override void OnReceivedBroadcast(string aFromAddress, string aRawData)
+    {
+        // Debug.LogError ("onReceivedBroadcast: " + aFromAddress + ", " + aRawData);
+        BroadcastData data = new BroadcastData();
+        data.FromString(aRawData);
+
+        DiscoveredServer server = discoveredServers.findByIp(aFromAddress);
+        // Add
+        {
+            if (server == null)
+            {
+                // Debug.LogError ("make new server");
+                server = new DiscoveredServer();
+                {
+                    server.uid = discoveredServers.servers.makeId();
+                    server.ipAddress.v = aFromAddress;
+                }
+                discoveredServers.servers.add(server);
+            }
+        }
+        // Set value
+        {
+            server.port.v = data.port;
+            server.timestamp.v = Time.time;
+            server.version.v = data.version;
+            server.player.v = data.player;
+        }
+    }
 
 }

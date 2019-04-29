@@ -3,6 +3,8 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class ManagerUpdate : UpdateBehavior<Server>
 {
 
@@ -37,7 +39,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                 {
                                     case Server.Type.Server:
                                         {
-                                            ServerManager serverManager = ServerManager.instance;
+                                            ServerManager serverManager = (ServerManager)NetworkManager.singleton;
                                             if (serverManager != null)
                                             {
                                                 if (serverManager.StartServer())
@@ -58,7 +60,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                         break;
                                     case Server.Type.Host:
                                         {
-                                            ServerManager serverManager = ServerManager.instance;
+                                            ServerManager serverManager = (ServerManager)NetworkManager.singleton;
                                             if (serverManager != null)
                                             {
                                                 // Start
@@ -80,7 +82,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                                         break;
                                     case Server.Type.Client:
                                         {
-                                            ServerManager clientManager = ServerManager.instance;
+                                            ServerManager clientManager = (ServerManager)NetworkManager.singleton;
                                             if (clientManager != null)
                                             {
                                                 if (clientManager.myStartClient() != null)
@@ -136,7 +138,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                         }
                         else
                         {
-                            Debug.LogError("startState not success: " + this);
+                            Debug.LogError("startState not success: " + this.data.startState.v);
                         }
                     }
                     // Tao profile cho admin

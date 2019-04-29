@@ -22,7 +22,7 @@ public class ClientConnectIdentity : NetworkBehaviour
         {
             if (ServerManager == null)
             {
-                ServerManager = ServerManager.instance;
+                ServerManager = (ServerManager)NetworkManager.singleton;
             }
             return ServerManager;
         }
@@ -78,29 +78,6 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
         return null;
     }
-
-    #region Delete when user lost connection
-
-    /*// TODO Them vao lai sau khi bo mirror
-    void OnPlayerDisconnected(NetworkPlayer player)
-    {
-        // Debug.Log("Clean up after player " + player);
-        Network.RemoveRPCs(player);
-        Network.DestroyPlayerObjects(player);
-    }
-
-    // TODO Them vao lai sau khi bo mirror
-    void OnDisconnectedFromServer(NetworkDisconnection info) {
-        if (Network.isServer) {
-            // Debug.LogError("Local server connection disconnected");
-        } else if (info == NetworkDisconnection.LostConnection) {
-            // Debug.LogError ("Lost connection to the server");
-        } else {
-            // Debug.LogError ("Successfully diconnected from the server");
-        }
-    }*/
-
-    #endregion
 
     #region Observer: only who have authority can
 

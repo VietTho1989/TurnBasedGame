@@ -28,7 +28,7 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
         {
             if (ServerManager == null)
             {
-                ServerManager = ServerManager.instance;
+                ServerManager = (ServerManager)NetworkManager.singleton;
             }
             return ServerManager;
         }

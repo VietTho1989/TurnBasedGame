@@ -320,6 +320,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                         if (clientNetworkDiscovery != null)
                         {
                             discoveredServerListUI.setData(null);
+                            clientNetworkDiscovery.StopBroadcast();
                         }
                         else
                         {

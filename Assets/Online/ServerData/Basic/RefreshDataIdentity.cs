@@ -4,13 +4,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+#pragma warning disable CS0618
+
 public class RefreshDataIdentity : UpdateBehavior<Server>
 {
     #region MonoBehavior
 
     void Awake()
     {
-        ServerManager clientManager = ServerManager.instance;
+        ServerManager clientManager = (ServerManager)NetworkManager.singleton;
         if (clientManager != null)
         {
             if (clientManager.data != null)
@@ -38,7 +40,7 @@ public class RefreshDataIdentity : UpdateBehavior<Server>
     public override void OnDestroy()
     {
         base.OnDestroy();
-        ServerManager clientManager = ServerManager.instance;
+        ServerManager clientManager = (ServerManager)NetworkManager.singleton;
         if (clientManager != null)
         {
             if (clientManager.data != null)
@@ -65,7 +67,7 @@ public class RefreshDataIdentity : UpdateBehavior<Server>
 
     private bool isClient()
     {
-        ServerManager clientManager = ServerManager.instance;
+        ServerManager clientManager = (ServerManager)NetworkManager.singleton;
         if (clientManager.data != null)
         {
             Server server = clientManager.data.server.v.data;

@@ -112,25 +112,10 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
 
     #endregion
 
-    #region singleton
+    #region lifeCycle
 
-    public static ServerManager instance;
-
-    public void Awake()
+    void OnDestroy()
     {
-        // Time.fixedDeltaTime = 0.02f;
-        instance = this;
-        // TODO co dung khong nhi?
-        NetworkServer.Reset();
-    }
-
-    public void OnDestroy()
-    {
-        // Debug.Log ("OnDestroy");
-        if (instance == this)
-        {
-            instance = null;
-        }
         NetworkServer.Shutdown();
     }
 
@@ -138,24 +123,11 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
 
     #region Server
 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        // Debug.Log ("OnStartServer");
-        // CallBack
-        //initCreateDataIdentityCallBack ();
-    }
-
-    public override void OnServerReady(NetworkConnection conn)
-    {
-        // Debug.Log ("OnServerReady: " + conn);
-        base.OnServerReady(conn);
-    }
-
     // called when a client disconnects
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         // Debug.Log ("OnServerDisconnect: " + conn);
+        base.OnServerDisconnect(conn);
         if (this.data != null)
         {
             if (this.data.server.v.data != null)
@@ -212,13 +184,6 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
         {
             Debug.LogError("data null");
         }
-        base.OnServerDisconnect(conn);
-    }
-
-    // called when a network error occurs
-    public override void OnServerError(NetworkConnection conn, int errorCode)
-    {
-        // Debug.Log ("OnServerError: " + conn + ", " + errorCode);
     }
 
     #region client
@@ -230,41 +195,48 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
 
     public NetworkClient myStartClient()
     {
-        // NetworkServer.RegisterHandler(ClientReadyMsgType, OnReceiveMsgClientReady);
+        Debug.LogError("myStartClient");
         NetworkClient networkClient = this.StartClient();
-        client.RegisterHandler(CheckClientInstanceIdMsgType, OnReceiveMsgClientReady);
-        // init value to check
+        if (networkClient != null)
         {
-            alreadyReady = false;
-            // checkInstanceId
+            networkClient.RegisterHandler(CheckClientInstanceIdMsgType, OnReceiveMsgClientReady);
+            // init value to check
             {
-                checkInstanceId = 0;
+                alreadyReady = false;
+                // checkInstanceId
                 {
-                    if (this.data != null)
+                    checkInstanceId = 0;
                     {
-                        Server server = this.data.server.v.data;
-                        if (server != null)
+                        if (this.data != null)
                         {
-                            if (server.state.v.getType() == Server.State.Type.Disconnect)
+                            Server server = this.data.server.v.data;
+                            if (server != null)
                             {
-                                if (FindObjectOfType<DataIdentity>() != null)
+                                if (server.state.v.getType() == Server.State.Type.Disconnect)
                                 {
-                                    checkInstanceId = server.instanceId.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("Don't have any dataIdentities");
+                                    if (FindObjectOfType<DataIdentity>() != null)
+                                    {
+                                        checkInstanceId = server.instanceId.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("Don't have any dataIdentities");
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("server null: " + this);
+                            else
+                            {
+                                Debug.LogError("server null: " + this);
+                            }
                         }
                     }
-                }
 
+                }
             }
+        }
+        else
+        {
+            Debug.LogError("networkClient null");
         }
         return networkClient;
     }
@@ -276,6 +248,7 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
         Debug.LogError("OnReceiveMsgClientReady: " + msg);
         // check need delete
         bool needDelete = false;
+        if(msg!=null)
         {
             ServerInstanceIdMessage serverInstanceIdMessage = msg.ReadMessage<ServerInstanceIdMessage>();
             if (serverInstanceIdMessage != null)
@@ -294,6 +267,10 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
             {
                 Debug.LogError("serverInstanceIdMessage null");
             }
+        }
+        else
+        {
+            Debug.LogError("msg null");
         }
         // update
         if (!alreadyReady)
@@ -418,7 +395,14 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
                 {
                     server.state.v = new Server.State.Offline();
                     // NetworkManager.Shutdown ();
-                    NetworkManager.singleton.StopClient();
+                    if (NetworkManager.singleton != null)
+                    {
+                        NetworkManager.singleton.StopClient();
+                    }
+                    else
+                    {
+                        Debug.LogError("NetworkManager singleton null");
+                    }
                     // destroy all identites
                     {
                         DataIdentity[] dataIdentities = FindObjectsOfType<DataIdentity>();

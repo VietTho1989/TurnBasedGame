@@ -20,7 +20,7 @@ public class GameObserver : NetworkBehaviour
         {
             if (ServerManager == null)
             {
-                ServerManager = ServerManager.instance;
+                ServerManager = (ServerManager)NetworkManager.singleton;
             }
             return ServerManager;
         }
