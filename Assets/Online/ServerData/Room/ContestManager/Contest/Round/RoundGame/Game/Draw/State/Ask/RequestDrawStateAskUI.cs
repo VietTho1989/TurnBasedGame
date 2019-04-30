@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 using RequestDrawAsk;
 
 public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStateAskUI.UIData>

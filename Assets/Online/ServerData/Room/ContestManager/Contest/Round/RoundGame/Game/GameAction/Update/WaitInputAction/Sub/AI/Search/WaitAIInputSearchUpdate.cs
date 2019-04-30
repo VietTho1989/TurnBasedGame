@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
-using Foundation.Tasks;
 using AdvancedCoroutines;
 
 public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
@@ -226,11 +225,9 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
             newThread.Start();
         }
         // Wait
+        while (!w.isDone)
         {
-            while (!w.isDone)
-            {
-                yield return new Wait(1f);
-            }
+            yield return new Wait(1f);
         }
         // check is playing
         {

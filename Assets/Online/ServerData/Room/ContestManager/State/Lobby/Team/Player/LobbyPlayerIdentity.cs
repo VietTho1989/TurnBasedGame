@@ -265,8 +265,15 @@ namespace GameManager.Match
             ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
             if (clientConnect != null)
             {
-                string strComputer = StringSerializationAPI.Serialize(typeof(Computer), computer);
-                clientConnect.CmdLobbyPlayerAdminChangeComputer(this.netId, userId, strComputer);
+                byte[] computerBytes = Data.MakeBinary(computer);
+                if (computerBytes != null)
+                {
+                    clientConnect.CmdLobbyPlayerAdminChangeComputer(this.netId, userId, computerBytes);
+                }
+                else
+                {
+                    Debug.LogError("computerBytes null");
+                }
             }
             else
             {

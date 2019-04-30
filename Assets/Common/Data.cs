@@ -513,26 +513,6 @@ public abstract class Data : AddCallBackInterface
 
     }
 
-    #region SIConvert
-
-    public class SIConvert<T> : ConvertDelegate<string, T>
-    {
-        public override string convert(T value)
-        {
-            if (value is List<Data.SI>)
-            {
-                return StringSerializationAPI.Serialize(typeof(List<Data.SI>), (List<Data.SI>)(object)value);
-            }
-            else
-            {
-                Debug.LogError("convert error: " + value);
-                return "";
-            }
-        }
-    }
-
-    #endregion
-
     public List<uint> makeUIntSearchInforms()
     {
         List<uint> ret = new List<uint>();

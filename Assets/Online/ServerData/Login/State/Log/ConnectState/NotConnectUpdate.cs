@@ -2,7 +2,6 @@
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using Foundation.Tasks;
 using AdvancedCoroutines;
 
 #pragma warning disable CS0618

@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
-using Foundation.Tasks;
 
 namespace NineMenMorris
 {
-	public class TestNineMenMorris
+    public class TestNineMenMorris
 	{
 
-		class Work 
+		private class Work 
 		{
 			public void DoWork()
 			{

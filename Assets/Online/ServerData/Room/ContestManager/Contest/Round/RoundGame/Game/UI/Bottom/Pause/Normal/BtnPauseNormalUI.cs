@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 using GameState;
 
 public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>

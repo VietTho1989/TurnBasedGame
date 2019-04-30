@@ -45,12 +45,6 @@ public abstract class WrapProperty
 
     public abstract void removeAt(int index);
 
-    public abstract void processAddValue(string strValue);
-
-    public abstract void processAddValue(string strValue, int index);
-
-    public abstract void processRemoveValue(string strValue, int index);
-
     public abstract void copyWrapProperty(WrapProperty otherWrapProperty);
 
     #endregion

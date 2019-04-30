@@ -3950,12 +3950,48 @@ public class ClientConnectIdentity : NetworkBehaviour
     }
 
     [Command]
-    public void CmdLobbyPlayerAdminChangeComputer(NetworkInstanceId networkIdentityId, uint userId, string strComputer)
+    public void CmdLobbyPlayerAdminChangeComputer(NetworkInstanceId networkIdentityId, uint userId, byte[] computerBytes)
     {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
-            Computer computer = StringSerializationAPI.Deserialize(typeof(Computer), strComputer) as Computer;
+            // find computer
+            Computer computer = null;
+            {
+                if (computerBytes != null)
+                {
+                    try
+                    {
+                        using (BinaryReader reader = new BinaryReader(new MemoryStream(computerBytes)))
+                        {
+                            Data computerData = Data.parseBinary(reader);
+                            if (computerData != null)
+                            {
+                                if (computerData is Computer)
+                                {
+                                    computer = computerData as Computer;
+                                }
+                                else
+                                {
+                                    Debug.LogError("why not computer");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("computerData null: " + this);
+                            }
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError(e);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("computerBytes null");
+                }
+            }
             if (computer != null)
             {
                 lobbyPlayerIdentity.adminChangeComputer(userId, computer);
@@ -4254,13 +4290,55 @@ public class ClientConnectIdentity : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSwapIdentityChangeComputer(NetworkInstanceId networkIdentityId, uint userId, int teamIndex, int playerIndex, string strComputer)
+    public void CmdSwapIdentityChangeComputer(NetworkInstanceId networkIdentityId, uint userId, int teamIndex, int playerIndex, byte[] computerBytes)
     {
         SwapIdentity swapIdentity = GetDataIdentity<SwapIdentity>(networkIdentityId);
         if (swapIdentity != null)
         {
-            Computer newComputer = StringSerializationAPI.Deserialize(typeof(Computer), strComputer) as Computer;
-            swapIdentity.changeComputer(userId, teamIndex, playerIndex, newComputer);
+            Computer newComputer = null;
+            {
+                if (computerBytes != null)
+                {
+                    try
+                    {
+                        using (BinaryReader reader = new BinaryReader(new MemoryStream(computerBytes)))
+                        {
+                            Data computerData = Data.parseBinary(reader);
+                            if (computerData != null)
+                            {
+                                if (computerData is Computer)
+                                {
+                                    newComputer = computerData as Computer;
+                                }
+                                else
+                                {
+                                    Debug.LogError("why not computer");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("computerData null: " + this);
+                            }
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError(e);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("computerBytes null");
+                }
+            }
+            if (newComputer != null)
+            {
+                swapIdentity.changeComputer(userId, teamIndex, playerIndex, newComputer);
+            }
+            else
+            {
+                Debug.LogError("newComputer null");
+            }
         }
         else
         {

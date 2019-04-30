@@ -422,9 +422,6 @@
     <Reference Include="Facebook.Unity.Editor">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/FacebookSDK/Plugins/Editor/Facebook.Unity.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Foundation.Server.Unity3d">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Foundation/Plugins/Foundation.Server.Unity3d.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>

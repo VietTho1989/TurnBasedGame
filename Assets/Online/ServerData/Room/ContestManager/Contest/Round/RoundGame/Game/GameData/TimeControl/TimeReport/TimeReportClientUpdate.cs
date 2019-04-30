@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 
 /**
  * TODO Can khoi tao o dataIdentity nua

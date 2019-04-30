@@ -1,32 +1,27 @@
-﻿using UnityEngine;
-using System.IO;
-using System.Collections;
-using System.Threading;
-using Foundation.Tasks;
-using org.mariuszgromada.math.janetsudoku;
+﻿using System.Threading;
 
 namespace Sudoku
 {
-	public class TestSudoku
-	{
+    public class TestSudoku
+    {
 
-		class Work 
-		{
+        class Work
+        {
 
-			public Work()
-			{
-				
-			}
+            public Work()
+            {
 
-			public void DoWork() 
-			{
-				SudokuDancingLink.main ();
-				// Samurai.main();
-				// Hexadoku.main();
-				// Dodeka.main();
+            }
 
-				{
-					/*int[,] board = {
+            public void DoWork()
+            {
+                SudokuDancingLink.main();
+                // Samurai.main();
+                // Hexadoku.main();
+                // Dodeka.main();
+
+                {
+                    /*int[,] board = {
 						{1, 2, 3, 0, 0, 0, 0, 0, 0},
 						{0, 0, 0, 0, 0, 0, 0, 0, 0},
 						{0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -38,7 +33,7 @@ namespace Sudoku
 						{0, 0, 0, 0, 0, 0, 0, 0, 0},
 					};
 					SudokuGenerator generator = new SudokuGenerator(board, SudokuGenerator.PARAM_DO_NOT_TRANSFORM);*/
-					/*SudokuGenerator generator = new SudokuGenerator (SudokuGenerator.PARAM_GEN_RND_BOARD);
+                    /*SudokuGenerator generator = new SudokuGenerator (SudokuGenerator.PARAM_GEN_RND_BOARD);
 					// setGeneratorOptions
 					{
 						 generator.enableRndSeedOnFilledCells ();
@@ -56,27 +51,27 @@ namespace Sudoku
 						Debug.LogError (">>> !!! Error while generating random puzzle !!! <<<");
 						Debug.LogError (generator.getMessages ());
 					}*/
-				}
-			}
-		}
+                }
+            }
+        }
 
 
-		public static void startTestMatch(int matchCount)
-		{
-			for (int i = 0; i < matchCount; i++) {
-				Work w = new Work();
-				{
-					// startThread
-					ThreadStart threadDelegate = new ThreadStart (w.DoWork);
-					Thread newThread = new Thread (threadDelegate, 1048576);
-					newThread.Start ();
-				}
-			}
-		}
+        public static void startTestMatch(int matchCount)
+        {
+            for (int i = 0; i < matchCount; i++)
+            {
+                Work w = new Work();
+                {
+                    // startThread
+                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    Thread newThread = new Thread(threadDelegate, 1048576);
+                    newThread.Start();
+                }
+            }
+        }
 
-	}
+    }
 }
-
 /*
 
 4 9 7 6 8 3 5 2 1 . . . 5 1 8 3 4 2 6 7 9 

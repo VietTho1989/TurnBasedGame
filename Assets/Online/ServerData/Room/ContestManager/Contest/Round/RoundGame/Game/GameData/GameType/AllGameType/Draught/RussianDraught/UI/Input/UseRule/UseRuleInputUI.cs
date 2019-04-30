@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 using RussianDraught.UseRule;
 
 namespace RussianDraught
@@ -202,24 +201,9 @@ namespace RussianDraught
             }
             if (russianDraught != null)
             {
-                List<RussianDraughtMove> legalMoves = new List<RussianDraughtMove>();
-                // Find legal inputData in other thread
-                var mtask = UnityTask.Run(() =>
-                {
-                    legalMoves = Core.unityGetLegalMoves(russianDraught, Core.CanCorrect);
-                });
+                List<RussianDraughtMove> legalMoves = Core.unityGetLegalMoves(russianDraught, Core.CanCorrect);
                 // Wait
-                {
-                    while (!mtask.IsCompleted)
-                    {
-                        yield return new Wait();
-                    }
-                    // yield return mtask;
-                    if (mtask.IsFaulted)
-                    {
-                        Debug.LogException(mtask.Exception);
-                    }
-                }
+                yield return new Wait();
                 // Change state
                 {
                     // Find show

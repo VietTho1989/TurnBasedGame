@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 
 public class UserDisconnectUpdate : UpdateBehavior<User>
 {

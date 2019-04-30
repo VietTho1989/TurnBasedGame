@@ -57,49 +57,6 @@ public class GamePlayer : Data
             return "";
         }
 
-        public static GamePlayer.Inform parse(Type type, string strInform)
-        {
-            switch (type)
-            {
-                case Type.None:
-                    {
-                        EmptyInform emptyInform = (EmptyInform)StringSerializationAPI.Deserialize(typeof(EmptyInform), strInform);
-                        return emptyInform;
-                    }
-                case Type.Human:
-                    {
-                        Human human = (Human)StringSerializationAPI.Deserialize(typeof(Human), strInform);
-                        return human;
-                    }
-                case Type.Computer:
-                    {
-                        Computer computer = (Computer)StringSerializationAPI.Deserialize(typeof(Computer), strInform);
-                        return computer;
-                    }
-                default:
-                    // Debug.LogError ("unknown type: " + type);
-                    break;
-            }
-            return null;
-        }
-
-        public bool isCorrectHuman(uint userId)
-        {
-            if (this.getType() == Type.Human)
-            {
-                Human human = this as Human;
-                if (human.playerId.v == userId)
-                {
-                    return true;
-                }
-                else
-                {
-                    // Other human
-                }
-            }
-            return false;
-        }
-
     }
 
     public VP<Inform> inform;

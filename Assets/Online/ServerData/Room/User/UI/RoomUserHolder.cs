@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using frame8.Logic.Misc.Visual.UI.ScrollRectItemsAdapter;
 using UnityEngine.UI;
-using Foundation.Tasks;
-using AdvancedCoroutines;
 
 public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 {

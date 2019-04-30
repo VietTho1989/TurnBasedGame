@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Foundation.Tasks;
-using AdvancedCoroutines;
 
 /**
  * MakeSub co cho sai, chua biet tai sao: khi doi tu computer sang human

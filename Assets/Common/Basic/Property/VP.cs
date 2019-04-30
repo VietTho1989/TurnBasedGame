@@ -106,30 +106,6 @@ public class VP<T> : WrapProperty
         }
     }
 
-    public override void processAddValue(string strValue)
-    {
-        T t = (T)StringSerializationAPI.Deserialize(typeof(T), strValue);
-        this.v = t;
-    }
-
-    public override void processAddValue(string strValue, int index)
-    {
-        if (index == 0)
-        {
-            this.processAddValue(strValue);
-        }
-        else
-        {
-            Debug.LogError("Why index!= 0: " + this);
-        }
-    }
-
-    public override void processRemoveValue(string strValue, int index)
-    {
-        // TODO can kiem tra lai
-        this.removeAt(index);
-    }
-
     #endregion
 
     public override Type getType()

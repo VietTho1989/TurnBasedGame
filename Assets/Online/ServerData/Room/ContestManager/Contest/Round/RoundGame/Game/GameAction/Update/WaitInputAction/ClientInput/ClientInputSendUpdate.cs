@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Foundation.Tasks;
 using AdvancedCoroutines;
 
 public class ClientInputSendUpdate : UpdateBehavior<ClientInputSend>

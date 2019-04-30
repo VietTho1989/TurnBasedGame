@@ -188,42 +188,6 @@ public class LP<T> : WrapProperty
 
     #endregion
 
-    public override void processAddValue(string strValue)
-    {
-        object vObject = StringSerializationAPI.Deserialize(typeof(T), strValue);
-        if (vObject != null)
-        {
-            T t = (T)vObject;
-            // Debug.Log ("process add value: " + strValue + ", " + t);
-            this.add(t);
-        }
-        else
-        {
-            Debug.LogError("processAddValue: why vObject null: " + this);
-        }
-    }
-
-    public override void processAddValue(string strValue, int index)
-    {
-        object vObject = StringSerializationAPI.Deserialize(typeof(T), strValue);
-        if (vObject != null)
-        {
-            T t = (T)vObject;
-            // Debug.Log ("process add value: " + strValue + ", " + t);
-            this.insert(index, t);
-        }
-        else
-        {
-            Debug.LogError("processAddValue why vObject null: " + this);
-        }
-    }
-
-    public override void processRemoveValue(string strValue, int index)
-    {
-        // TODO can kiem tra lai
-        this.removeAt(index);
-    }
-
     #endregion
 
     public override Type getType()

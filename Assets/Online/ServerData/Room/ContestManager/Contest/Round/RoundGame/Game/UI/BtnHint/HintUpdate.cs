@@ -3,7 +3,6 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 
 namespace Hint
 {
@@ -343,17 +342,25 @@ namespace Hint
                     GameData gameData = this.data.gameData.v.data;
                     if (gameData != null)
                     {
-                        Computer.AI ai = this.data.ai.v;
-                        hintMove = gameData.gameType.v.getAIMove(ai, true);
-                        if (hintMove != null)
+                        GameType gameType = gameData.gameType.v;
+                        if (gameType != null)
                         {
-                            hintMove = hintMove.getForHintMove(gameData.gameType.v);
-                            // get inform
-                            hintMove.getInforBeforeProcess(gameData.gameType.v);
+                            Computer.AI ai = this.data.ai.v;
+                            hintMove = gameType.getAIMove(ai, true);
+                            if (hintMove != null)
+                            {
+                                hintMove = hintMove.getForHintMove(gameData.gameType.v);
+                                // get inform
+                                hintMove.getInforBeforeProcess(gameData.gameType.v);
+                            }
+                            else
+                            {
+                                Debug.LogError("hintMove null");
+                            }
                         }
                         else
                         {
-                            Debug.LogError("hintMove null");
+                            Debug.LogError("gameType null");
                         }
                     }
                     else
@@ -392,9 +399,31 @@ namespace Hint
                     w.data = this.data;
                     w.isDone = false;
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-                    Thread newThread = new Thread(threadDelegate, Global.ThreadSize);
-                    newThread.Start();
+                    {
+                        int stackSize = Global.ThreadSize;
+                        {
+                            GameData gameData = this.data.gameData.v.data;
+                            if (gameData != null)
+                            {
+                                GameType gameType = gameData.gameType.v;
+                                if (gameType != null)
+                                {
+                                    stackSize = gameType.getStackSize();
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameType null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gameData null");
+                            }
+                        }
+                        ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                        Thread newThread = stackSize > 0 ? new Thread(threadDelegate, stackSize) : new Thread(threadDelegate);
+                        newThread.Start();
+                    }
                 }
                 // Wait
                 {

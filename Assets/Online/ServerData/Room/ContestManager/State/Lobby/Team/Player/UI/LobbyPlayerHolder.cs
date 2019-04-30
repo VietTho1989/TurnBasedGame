@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
-using frame8.Logic.Misc.Visual.UI.ScrollRectItemsAdapter;
-using Foundation.Tasks;
-using AdvancedCoroutines;
 
 namespace GameManager.Match
 {

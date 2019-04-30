@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
-using FullSerializer;
+// using FullSerializer;
 
-public static class StringSerializationAPI {
-	private static readonly fsSerializer _serializer = new fsSerializer();
+public static class StringSerializationAPI 
+{
+	
+    /*private static readonly fsSerializer _serializer = new fsSerializer();
 
 	public static string Serialize(Type type, object value) {
 		// serialize the data
@@ -31,5 +33,6 @@ public static class StringSerializationAPI {
 		}
 
 		return deserialized;
-	}
+	}*/
+
 }

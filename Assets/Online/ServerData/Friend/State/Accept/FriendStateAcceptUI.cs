@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 
 public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
 {

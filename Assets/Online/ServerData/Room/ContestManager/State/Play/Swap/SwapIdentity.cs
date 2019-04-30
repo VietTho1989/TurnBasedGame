@@ -154,8 +154,15 @@ namespace GameManager.Match.Swap
             ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
             if (clientConnect != null)
             {
-                string strComputer = StringSerializationAPI.Serialize(typeof(Computer), newComputer);
-                clientConnect.CmdSwapIdentityChangeComputer(this.netId, userId, teamIndex, playerIndex, strComputer);
+                byte[] computerBytes = Data.MakeBinary(newComputer);
+                if (computerBytes != null)
+                {
+                    clientConnect.CmdSwapIdentityChangeComputer(this.netId, userId, teamIndex, playerIndex, computerBytes);
+                }
+                else
+                {
+                    Debug.LogError("computerBytes null");
+                }
             }
             else
             {

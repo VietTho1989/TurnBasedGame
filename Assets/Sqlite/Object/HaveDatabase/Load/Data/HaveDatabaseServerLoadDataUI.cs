@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using SQLite4Unity3d;
 using AdvancedCoroutines;
-using Foundation.Tasks;
 
 public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDataUI.UIData>
 {
@@ -141,301 +140,311 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
         return ret;
     }
 
+    private class Work
+    {
+
+        public UIData data = null;
+
+        public bool isDone = false;
+        public bool success = false;
+
+        public Server server = null;
+
+        public void DoWork()
+        {
+            try
+            {
+                if (this.data != null)
+                {
+                    SQLiteConnection connection = this.data.connection.v;
+                    if (connection != null)
+                    {
+                        // get data dict
+                        Dictionary<int, List<SqliteData>> dataDict = new Dictionary<int, List<SqliteData>>();
+                        {
+                            TableQuery<SqliteObject> sqliteObjects = connection.Table<SqliteObject>();
+                            Debug.LogError("sqliteObjects: " + sqliteObjects.Count());
+                            foreach (SqliteObject sqliteObject in sqliteObjects)
+                            {
+                                SqliteData sqliteData = new SqliteData(sqliteObject);
+                                if (sqliteData.data != null)
+                                {
+                                    if (sqliteData.data is Server)
+                                    {
+                                        server = sqliteData.data as Server;
+                                    }
+                                    else
+                                    {
+                                        // get
+                                        List<SqliteData> dataList = null;
+                                        {
+                                            int idsCount = sqliteData.search.Count;
+                                            if (!dataDict.TryGetValue(idsCount, out dataList))
+                                            {
+                                                dataList = new List<SqliteData>();
+                                                dataDict.Add(idsCount, dataList);
+                                            }
+                                        }
+                                        // add
+                                        dataList.Add(sqliteData);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("sqliteData data null");
+                                }
+                            }
+                        }
+                        // add
+                        {
+                            // server
+                            {
+                                // server type
+                                Server.Type serverType = Server.Type.Offline;
+                                {
+                                    if (this.data != null)
+                                    {
+                                        SqliteServerUI.UIData sqliteServerUIData = this.data.findDataInParent<SqliteServerUI.UIData>();
+                                        if (sqliteServerUIData != null)
+                                        {
+                                            serverType = sqliteServerUIData.serverType;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("sqliteServerUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("data null");
+                                    }
+                                }// port
+                                int port = 7777;
+                                {
+                                    // find edtPort
+                                    InputField edtPort = null;
+                                    {
+                                        if (this.data != null)
+                                        {
+                                            HaveDatabaseServerUI.UIData haveDatabaseServerUIData = this.data.findDataInParent<HaveDatabaseServerUI.UIData>();
+                                            if (haveDatabaseServerUIData != null)
+                                            {
+                                                HaveDatabaseServerUI haveDatabaseServerUI = haveDatabaseServerUIData.findCallBack<HaveDatabaseServerUI>();
+                                                if (haveDatabaseServerUI != null)
+                                                {
+                                                    edtPort = haveDatabaseServerUI.edtPort;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("haveDatabaseServerUI null");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("haveDatabaseServerUIData null");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("data null");
+                                        }
+                                    }
+                                    // get
+                                    if (edtPort != null)
+                                    {
+                                        string strPort = edtPort.text;
+                                        if (int.TryParse(strPort, out port))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("strPort error: " + strPort);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("edtPort null: " + this);
+                                    }
+                                }
+                                // set
+                                if (server != null)
+                                {
+                                    server.init(serverType, port);
+                                    {
+                                        server.instanceId.v = Global.getRealTimeInMiliSeconds();
+                                    }
+                                    connection.Update(new SqliteObject(server));
+                                }
+                                else
+                                {
+                                    Debug.LogError("server null");
+                                    server = new Server();
+                                    {
+                                        server.init(serverType, port);
+                                    }
+                                    connection.Insert(new SqliteObject(server));
+                                }
+                            }
+                            List<History> histories = new List<History>();
+                            // other data
+                            {
+                                List<int> keyLists = new List<int>();
+                                {
+                                    keyLists.AddRange(dataDict.Keys);
+                                    keyLists.Sort((x, y) => x.CompareTo(y));
+                                }
+                                foreach (int key in keyLists)
+                                {
+                                    // Debug.LogError("add sqliteDatas: idsCount: "+key);
+                                    List<SqliteData> sqliteDatas = null;
+                                    if (dataDict.TryGetValue(key, out sqliteDatas))
+                                    {
+                                        foreach (SqliteData sqliteData in sqliteDatas)
+                                        {
+                                            // Debug.LogError("add sqlData: "+sqliteData.data);
+                                            if (!SqliteData.AddToServer(server, sqliteData))
+                                            {
+                                                Debug.LogError("why not add add correct: " + sqliteData.search.Count + ", " + sqliteData.data);
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError("add correct: "+sqliteData.search+", "+sqliteData.data);
+                                                // add to histories
+                                                if (sqliteData.data is History)
+                                                {
+                                                    histories.Add(sqliteData.data as History);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("key error: " + key);
+                                    }
+                                }
+                            }
+                            // histories
+                            {
+                                foreach (History history in histories)
+                                {
+                                    history.humanConnections.clear();
+                                }
+                            }
+                            // user offline
+                            {
+                                foreach (User user in server.users.vs)
+                                {
+                                    if (user.role.v == User.Role.Normal)
+                                    {
+                                        // Debug.LogError("user offline: "+user);
+                                        if (user.human.v.state.v.state.v == UserState.State.Online)
+                                        {
+                                            user.human.v.state.v.state.v = UserState.State.Disconnect;
+                                            user.human.v.connection.v = null;
+                                        }
+                                    }
+                                }
+                            }
+                            // max user client count
+                            {
+                                int maxClientUserCount = ServerManager.DefaultMaxConnections;
+                                {
+                                    // find edtMaxClientUserCount
+                                    InputField edtMaxClientUserCount = null;
+                                    {
+                                        if (this.data != null)
+                                        {
+                                            HaveDatabaseServerUI.UIData haveDatabaseServerUIData = this.data.findDataInParent<HaveDatabaseServerUI.UIData>();
+                                            if (haveDatabaseServerUIData != null)
+                                            {
+                                                HaveDatabaseServerUI haveDatabaseServerUI = haveDatabaseServerUIData.findCallBack<HaveDatabaseServerUI>();
+                                                if (haveDatabaseServerUI != null)
+                                                {
+                                                    edtMaxClientUserCount = haveDatabaseServerUI.edtMaxClientUserCount;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("haveDatabaseServerUI null");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("haveDatabaseServerUIData null");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("data null");
+                                        }
+                                    }
+                                    // get
+                                    if (edtMaxClientUserCount != null)
+                                    {
+                                        string strMaxClientUserCount = edtMaxClientUserCount.text;
+                                        if (int.TryParse(strMaxClientUserCount, out maxClientUserCount))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("strMaxClientUserCount error: " + strMaxClientUserCount);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("edtMaxClientUserCount null: " + this);
+                                    }
+                                }
+                                server.maxClientUserCount = maxClientUserCount;
+                            }
+                        }
+                        success = true;
+                    }
+                    else
+                    {
+                        Debug.LogError("connection null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Error: " + e);
+            }
+            isDone = true;
+        }
+
+    }
+
     public IEnumerator TaskLoad()
     {
         if (this.data != null)
         {
-            bool success = false;
-            Server server = null;
+            Work w = new Work();
             // Task
             {
-                var mtask = UnityTask.Run(() =>
-                {
-                    {
-                        try
-                        {
-                            if (this.data != null)
-                            {
-                                SQLiteConnection connection = this.data.connection.v;
-                                if (connection != null)
-                                {
-                                    // get data dict
-                                    Dictionary<int, List<SqliteData>> dataDict = new Dictionary<int, List<SqliteData>>();
-                                    {
-                                        TableQuery<SqliteObject> sqliteObjects = connection.Table<SqliteObject>();
-                                        Debug.LogError("sqliteObjects: " + sqliteObjects.Count());
-                                        foreach (SqliteObject sqliteObject in sqliteObjects)
-                                        {
-                                            SqliteData sqliteData = new SqliteData(sqliteObject);
-                                            if (sqliteData.data != null)
-                                            {
-                                                if (sqliteData.data is Server)
-                                                {
-                                                    server = sqliteData.data as Server;
-                                                }
-                                                else
-                                                {
-                                                    // get
-                                                    List<SqliteData> dataList = null;
-                                                    {
-                                                        int idsCount = sqliteData.search.Count;
-                                                        if (!dataDict.TryGetValue(idsCount, out dataList))
-                                                        {
-                                                            dataList = new List<SqliteData>();
-                                                            dataDict.Add(idsCount, dataList);
-                                                        }
-                                                    }
-                                                    // add
-                                                    dataList.Add(sqliteData);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("sqliteData data null");
-                                            }
-                                        }
-                                    }
-                                    // add
-                                    {
-                                        // server
-                                        {
-                                            // server type
-                                            Server.Type serverType = Server.Type.Offline;
-                                            {
-                                                if (this.data != null)
-                                                {
-                                                    SqliteServerUI.UIData sqliteServerUIData = this.data.findDataInParent<SqliteServerUI.UIData>();
-                                                    if (sqliteServerUIData != null)
-                                                    {
-                                                        serverType = sqliteServerUIData.serverType;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("sqliteServerUIData null");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("data null");
-                                                }
-                                            }// port
-                                            int port = 7777;
-                                            {
-                                                // find edtPort
-                                                InputField edtPort = null;
-                                                {
-                                                    if (this.data != null)
-                                                    {
-                                                        HaveDatabaseServerUI.UIData haveDatabaseServerUIData = this.data.findDataInParent<HaveDatabaseServerUI.UIData>();
-                                                        if (haveDatabaseServerUIData != null)
-                                                        {
-                                                            HaveDatabaseServerUI haveDatabaseServerUI = haveDatabaseServerUIData.findCallBack<HaveDatabaseServerUI>();
-                                                            if (haveDatabaseServerUI != null)
-                                                            {
-                                                                edtPort = haveDatabaseServerUI.edtPort;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("haveDatabaseServerUI null");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("haveDatabaseServerUIData null");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("data null");
-                                                    }
-                                                }
-                                                // get
-                                                if (edtPort != null)
-                                                {
-                                                    string strPort = edtPort.text;
-                                                    if (int.TryParse(strPort, out port))
-                                                    {
-
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("strPort error: " + strPort);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("edtPort null: " + this);
-                                                }
-                                            }
-                                            // set
-                                            if (server != null)
-                                            {
-                                                server.init(serverType, port);
-                                                {
-                                                    server.instanceId.v = Global.getRealTimeInMiliSeconds();
-                                                }
-                                                connection.Update(new SqliteObject(server));
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("server null");
-                                                server = new Server();
-                                                {
-                                                    server.init(serverType, port);
-                                                }
-                                                connection.Insert(new SqliteObject(server));
-                                            }
-                                        }
-                                        List<History> histories = new List<History>();
-                                        // other data
-                                        {
-                                            List<int> keyLists = new List<int>();
-                                            {
-                                                keyLists.AddRange(dataDict.Keys);
-                                                keyLists.Sort((x, y) => x.CompareTo(y));
-                                            }
-                                            foreach (int key in keyLists)
-                                            {
-                                                // Debug.LogError("add sqliteDatas: idsCount: "+key);
-                                                List<SqliteData> sqliteDatas = null;
-                                                if (dataDict.TryGetValue(key, out sqliteDatas))
-                                                {
-                                                    foreach (SqliteData sqliteData in sqliteDatas)
-                                                    {
-                                                        // Debug.LogError("add sqlData: "+sqliteData.data);
-                                                        if (!SqliteData.AddToServer(server, sqliteData))
-                                                        {
-                                                            Debug.LogError("why not add add correct: " + sqliteData.search.Count + ", " + sqliteData.data);
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError("add correct: "+sqliteData.search+", "+sqliteData.data);
-                                                            // add to histories
-                                                            if (sqliteData.data is History)
-                                                            {
-                                                                histories.Add(sqliteData.data as History);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("key error: " + key);
-                                                }
-                                            }
-                                        }
-                                        // histories
-                                        {
-                                            foreach (History history in histories)
-                                            {
-                                                history.humanConnections.clear();
-                                            }
-                                        }
-                                        // user offline
-                                        {
-                                            foreach (User user in server.users.vs)
-                                            {
-                                                if (user.role.v == User.Role.Normal)
-                                                {
-                                                    // Debug.LogError("user offline: "+user);
-                                                    if (user.human.v.state.v.state.v == UserState.State.Online)
-                                                    {
-                                                        user.human.v.state.v.state.v = UserState.State.Disconnect;
-                                                        user.human.v.connection.v = null;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        // max user client count
-                                        {
-                                            int maxClientUserCount = ServerManager.DefaultMaxConnections;
-                                            {
-                                                // find edtMaxClientUserCount
-                                                InputField edtMaxClientUserCount = null;
-                                                {
-                                                    if (this.data != null)
-                                                    {
-                                                        HaveDatabaseServerUI.UIData haveDatabaseServerUIData = this.data.findDataInParent<HaveDatabaseServerUI.UIData>();
-                                                        if (haveDatabaseServerUIData != null)
-                                                        {
-                                                            HaveDatabaseServerUI haveDatabaseServerUI = haveDatabaseServerUIData.findCallBack<HaveDatabaseServerUI>();
-                                                            if (haveDatabaseServerUI != null)
-                                                            {
-                                                                edtMaxClientUserCount = haveDatabaseServerUI.edtMaxClientUserCount;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("haveDatabaseServerUI null");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("haveDatabaseServerUIData null");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("data null");
-                                                    }
-                                                }
-                                                // get
-                                                if (edtMaxClientUserCount != null)
-                                                {
-                                                    string strMaxClientUserCount = edtMaxClientUserCount.text;
-                                                    if (int.TryParse(strMaxClientUserCount, out maxClientUserCount))
-                                                    {
-
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("strMaxClientUserCount error: " + strMaxClientUserCount);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("edtMaxClientUserCount null: " + this);
-                                                }
-                                            }
-                                            server.maxClientUserCount = maxClientUserCount;
-                                        }
-                                    }
-                                    success = true;
-                                }
-                                else
-                                {
-                                    Debug.LogError("connection null");
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("data null");
-                            }
-                        }
-                        catch (System.Exception e)
-                        {
-                            Debug.LogError("Error: " + e);
-                        }
-                    }
-                });
+                w.data = this.data;
+                w.isDone = false;
+                w.success = false;
+                // startThread
+                ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                new Thread(threadDelegate).Start();
                 // Wait
+                while (!w.isDone)
                 {
-                    while (!mtask.IsCompleted)
-                    {
-                        yield return new Wait();
-                    }
-                    // yield return mtask;
-                    if (mtask.IsFaulted)
-                    {
-                        Debug.LogException(mtask.Exception);
-                    }
+                    yield return new Wait(1f);
                 }
             }
             // Process
             if (this.data != null)
             {
-                if (success)
+                if (w.success)
                 {
-                    if (server != null)
+                    if (w.server != null)
                     {
                         HaveDatabaseServerUI.UIData haveDatabaseServerUIData = this.data.findDataInParent<HaveDatabaseServerUI.UIData>();
                         if (haveDatabaseServerUIData != null)
@@ -448,14 +457,14 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                                 // // sqliteUpdate
                                 {
                                     updateUIData.sqliteUpdate.v.connection.v = this.data.connection.v;
-                                    updateUIData.sqliteUpdate.v.server.v = new ReferenceData<Server>(server);
+                                    updateUIData.sqliteUpdate.v.server.v = new ReferenceData<Server>(w.server);
                                 }
                                 // serverManager
                                 {
                                     ServerManager.UIData severManagerUIData = new ServerManager.UIData();
                                     {
                                         severManagerUIData.uid = updateUIData.serverManager.makeId();
-                                        severManagerUIData.server.v = new ReferenceData<Server>(server);
+                                        severManagerUIData.server.v = new ReferenceData<Server>(w.server);
                                     }
                                     updateUIData.serverManager.v = severManagerUIData;
                                 }
