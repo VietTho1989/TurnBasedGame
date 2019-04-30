@@ -280,26 +280,25 @@ public class BoardIndexsUI : UIBehavior<BoardIndexsUI.UIData>
                                         break;
                                     case Setting.BoardIndex.OutBoard:
                                         {
-                                            for (int i = 0; i < 16; i++)
+                                            // x
+                                            for (int i = 0; i < 18; i++)
                                             {
-                                                // x
+                                                Index index = new Index();
                                                 {
-                                                    Index index = new Index();
-                                                    {
-                                                        index.type = BoardIndexUI.UIData.Type.X;
-                                                        index.index = i;
-                                                    }
-                                                    indexs.Add(index);
+                                                    index.type = BoardIndexUI.UIData.Type.X;
+                                                    index.index = i;
                                                 }
-                                                // y
+                                                indexs.Add(index);
+                                            }
+                                            // y
+                                            for (int i = 0; i < 20; i++)
+                                            {
+                                                Index index = new Index();
                                                 {
-                                                    Index index = new Index();
-                                                    {
-                                                        index.type = BoardIndexUI.UIData.Type.Y;
-                                                        index.index = i;
-                                                    }
-                                                    indexs.Add(index);
+                                                    index.type = BoardIndexUI.UIData.Type.Y;
+                                                    index.index = i;
                                                 }
+                                                indexs.Add(index);
                                             }
                                         }
                                         break;

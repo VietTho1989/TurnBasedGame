@@ -84,6 +84,51 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
     public Text tvPort;
     public Text tvPing;
 
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+        // ping
+        if (tvPing != null)
+        {
+            float rtt = 0;
+            {
+                Server.State.Connect connect = this.data.connect.v.data;
+                if (connect != null)
+                {
+                    Server server = connect.findDataInParent<Server>();
+                    if (server != null)
+                    {
+                        if (server.type.v == Server.Type.Client)
+                        {
+                            if (NetworkClient.allClients.Count > 0)
+                            {
+                                rtt = NetworkClient.allClients[0].GetRTT() / 1000.0f;
+                                // Debug.LogError("find rtt: " + NetworkClient.allClients[0].GetRTT());
+                            }
+                            else
+                            {
+                                // Debug.LogError("why don't have client");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Debug.LogError("server null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("connect null");
+                }
+            }
+            tvPing.text = "Ping: " + rtt + "s";
+        }
+        else
+        {
+            Debug.LogError("tvPing null");
+        }
+    }
+
     public override void refresh()
     {
         if (dirty)
@@ -144,47 +189,6 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                         {
                             Debug.LogError("serverConfig null");
                         }
-                    }
-                    // ping
-                    if (tvPing != null)
-                    {
-                        float rtt = 0;
-                        {
-                            Server server = connect.findDataInParent<Server>();
-                            if (server != null)
-                            {
-                                if (server.type.v == Server.Type.Client)
-                                {
-                                    ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(connect);
-                                    if (clientConnect != null)
-                                    {
-                                        if (clientConnect.connectionToServer != null)
-                                        {
-                                            byte error = 0;
-                                            rtt = NetworkTransport.GetCurrentRtt(clientConnect.connectionToServer.hostId, clientConnect.connectionToServer.connectionId, out error);
-                                            Debug.LogError("byte error: " + error);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("connectionToServer null");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // Debug.LogError("clientConnect null");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // Debug.LogError("server null");
-                            }
-                        }
-                        tvPing.text = "Ping: " + rtt + "s";
-                    }
-                    else
-                    {
-                        Debug.LogError("tvPing null");
                     }
                 }
                 else
