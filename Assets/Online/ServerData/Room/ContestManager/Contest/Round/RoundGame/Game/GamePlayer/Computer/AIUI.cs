@@ -815,12 +815,12 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("editAI null: " + this);
+                    // Debug.LogError("editAI null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

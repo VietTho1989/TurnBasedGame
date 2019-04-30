@@ -45,17 +45,17 @@ public class RequestChange
                     }
                     else
                     {
-                        Debug.LogError("server null");
+                        // Debug.LogError("server null");
                     }
                 }
                 else
                 {
-                    Debug.LogError("show null");
+                    // Debug.LogError("show null");
                 }
             }
             else
             {
-                Debug.LogError("editData null");
+                // Debug.LogError("editData null");
             }
         }
         return serverState;
@@ -145,22 +145,22 @@ public class RequestChange
                     }
                     else
                     {
-                        Debug.LogError("show null");
+                        // Debug.LogError("show null");
                     }
                 }
                 else
                 {
-                    Debug.LogError("requestChange null");
+                    // Debug.LogError("requestChange null");
                 }
             }
             else
             {
-                Debug.LogError("getValue null");
+                // Debug.LogError("getValue null");
             }
         }
         else
         {
-            Debug.LogError("editData null");
+            // Debug.LogError("editData null");
         }
     }
 

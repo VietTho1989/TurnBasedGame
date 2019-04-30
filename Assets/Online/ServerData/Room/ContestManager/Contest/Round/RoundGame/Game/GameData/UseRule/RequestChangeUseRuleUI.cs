@@ -271,12 +271,12 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("requestChangeUseRule null: " + this);
+                    // Debug.LogError("requestChangeUseRule null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

@@ -141,12 +141,12 @@ public class GamePlayerStateBtnUI : UIBehavior<GamePlayerStateBtnUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("state null");
+                    // Debug.LogError("state null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

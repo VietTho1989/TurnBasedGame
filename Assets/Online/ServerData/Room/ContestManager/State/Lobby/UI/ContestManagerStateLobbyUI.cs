@@ -298,7 +298,7 @@ namespace GameManager.Match
                             }
                             else
                             {
-                                Debug.LogError("roomSettingUIData null: " + this);
+                                // Debug.LogError("roomSettingUIData null: " + this);
                             }
                         }
                         // roomUserAdapter
@@ -366,7 +366,7 @@ namespace GameManager.Match
                             }
                             else
                             {
-                                Debug.LogError("contentFactoryUIData null: " + this);
+                                // Debug.LogError("contentFactoryUIData null: " + this);
                             }
                         }
                         // teamAdapter

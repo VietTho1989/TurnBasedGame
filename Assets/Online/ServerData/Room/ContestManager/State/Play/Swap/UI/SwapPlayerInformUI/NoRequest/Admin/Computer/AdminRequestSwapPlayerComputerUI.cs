@@ -331,7 +331,7 @@ namespace GameManager.Match.Swap
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("showComputer null: " + this);
+                                                        // Debug.LogError("showComputer null: " + this);
                                                         isDiffrent = false;
                                                     }
                                                 }

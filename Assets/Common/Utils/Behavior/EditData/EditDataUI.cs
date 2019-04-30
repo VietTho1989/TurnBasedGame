@@ -40,7 +40,7 @@ public class EditDataUI
                                 }
                                 else
                                 {
-                                    Debug.LogError("originParent null");
+                                    // Debug.LogError("originParent null");
                                 }
                             }
                             editChild.origin.v = new ReferenceData<T>(originChild);
@@ -56,7 +56,7 @@ public class EditDataUI
                                 }
                                 else
                                 {
-                                    Debug.LogError("showParent null");
+                                    // Debug.LogError("showParent null");
                                 }
                             }
                             editChild.show.v = new ReferenceData<T>(showChild);

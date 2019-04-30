@@ -46,7 +46,7 @@ public class GamePlayerIdentity : DataIdentity
         }
         else
         {
-            Debug.LogError("clientData null");
+            // Debug.LogError("clientData null");
         }
     }
 

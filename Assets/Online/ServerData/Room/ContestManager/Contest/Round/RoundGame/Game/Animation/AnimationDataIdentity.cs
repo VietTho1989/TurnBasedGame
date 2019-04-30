@@ -32,7 +32,7 @@ public class AnimationDataIdentity : DataIdentity
         }
         else
         {
-            Debug.Log("clientData null");
+            // Debug.Log("clientData null");
         }
     }
 

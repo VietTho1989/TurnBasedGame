@@ -27,7 +27,7 @@ public class GamePlayerStateNormalIdentity : DataIdentity
         }
         else
         {
-            Debug.Log("clientData null");
+            // Debug.Log("clientData null");
         }
     }
 

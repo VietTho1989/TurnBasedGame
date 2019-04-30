@@ -93,7 +93,7 @@ namespace Chess
             }
             else
             {
-                Debug.Log("clientData null");
+                // Debug.Log("clientData null");
             }
         }
 
@@ -104,8 +104,8 @@ namespace Chess
                 ret += GetDataSize(this.depth);
                 ret += GetDataSize(this.skillLevel);
                 ret += GetDataSize(this.duration);
-                return ret;
             }
+            return ret;
         }
 
         #endregion
