@@ -365,6 +365,9 @@
     <Reference Include="FacebookNamedPipeClient">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
     </Reference>
+    <Reference Include="Foundation.Server.Unity3d">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Foundation/Plugins/Foundation.Server.Unity3d.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>

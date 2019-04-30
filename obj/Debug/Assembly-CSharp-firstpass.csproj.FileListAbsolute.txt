@@ -389,6 +389,7 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Facebook.Unity.Settings.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/FacebookNamedPipeClient.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/FacebookStore.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Foundation.Server.Unity3d.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/I18N.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/I18N.MidEast.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/I18N.Other.dll
