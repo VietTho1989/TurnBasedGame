@@ -173,6 +173,14 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                     {
                         Debug.LogError("edtMaxClientUserCount null");
                     }
+                    if (edtPort != null)
+                    {
+                        edtPort.text = "" + Config.serverPort;
+                    }
+                    else
+                    {
+                        Debug.LogError("edtPort null");
+                    }
                 }
                 // port
                 if (edtPort != null && portContainer != null)

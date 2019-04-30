@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -162,6 +163,10 @@ public class LanClientPlayUI : UIBehavior<LanClientPlayUI.UIData>
             if (data is ServerManager.UIData)
             {
                 ServerManager.UIData subUIData = data as ServerManager.UIData;
+                // reset
+#pragma warning disable CS0618 // Type or member is obsolete
+                NetworkServer.Reset();
+#pragma warning restore CS0618 // Type or member is obsolete
                 // UI
                 {
                     if (serverPrefab != null)

@@ -130,6 +130,14 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                     {
                         Debug.LogError("edtMaxClientUserCount null");
                     }
+                    if (edtPort != null)
+                    {
+                        edtPort.text = "" + Config.serverPort;
+                    }
+                    else
+                    {
+                        Debug.LogError("edtPort null");
+                    }
                 }
                 // edtPort, edtMaxClientUserCount
                 {

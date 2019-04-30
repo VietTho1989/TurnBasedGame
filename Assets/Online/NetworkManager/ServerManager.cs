@@ -309,12 +309,11 @@ public class ServerManager : NetworkManager, ValueChangeCallBack
     public override void OnClientConnect(NetworkConnection conn)
     {
         Debug.LogError("OnClientConnect: " + conn);
-        //ClientScene.Ready (conn);
         if (checkInstanceId == 0)
         {
             alreadyReady = true;
             ClientScene.Ready(conn);
-            ClientScene.AddPlayer (0);
+            ClientScene.AddPlayer(0);
         }
         else
         {

@@ -86,6 +86,27 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
     public override void LateUpdate()
     {
         base.LateUpdate();
+        // port
+        if (tvPort != null)
+        {
+            int port = Config.serverPort;
+            {
+                ServerManager serverManager = (ServerManager)NetworkManager.singleton;
+                if (serverManager != null)
+                {
+                    port = serverManager.networkPort;
+                }
+                else
+                {
+                    Debug.LogError("serverManager null");
+                }
+            }
+            tvPort.text = txtPort.get() + ": " + port;
+        }
+        else
+        {
+            Debug.LogError("tvPort null");
+        }
         // ping
         if (tvPing != null)
         {

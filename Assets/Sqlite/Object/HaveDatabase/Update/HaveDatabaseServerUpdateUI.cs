@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using SQLite4Unity3d;
@@ -174,6 +175,10 @@ public class HaveDatabaseServerUpdateUI : UIBehavior<HaveDatabaseServerUpdateUI.
                 if (data is ServerManager.UIData)
                 {
                     ServerManager.UIData serverManagerUIData = data as ServerManager.UIData;
+                    // reset
+#pragma warning disable CS0618 // Type or member is obsolete
+                    NetworkServer.Reset();
+#pragma warning restore CS0618 // Type or member is obsolete
                     // UI
                     {
                         if (serverManagerPrefab != null)
