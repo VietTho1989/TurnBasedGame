@@ -26,8 +26,8 @@ namespace Ads
 
         static Admob()
         {
-            builder.AddTestDevice("1965CBDF93808AD1A4A6D2C32178BAA3");
             builder.AddTestDevice("5989669AAB5442D4DA67C24ADD14196A");
+            builder.AddTestDevice("1965CBDF93808AD1A4A6D2C32178BAA3");
         }
 
         #endregion

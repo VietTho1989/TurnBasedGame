@@ -380,9 +380,6 @@
     <Reference Include="Facebook.Unity.Editor">
       <HintPath>Assets/FacebookSDK/Plugins/Editor/Facebook.Unity.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Foundation.Server.Unity3d">
-      <HintPath>Assets/Foundation/Plugins/Foundation.Server.Unity3d.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -821,20 +818,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FacebookSDK\link.xml" />
-    <None Include="Assets\Foundation\README.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Chinese\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Dutch\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\English\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\French\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\German\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Greek\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Italian\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Polish\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Portuguese\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Russian\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Spanish\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Turkish\Examples.txt" />
-    <None Include="Assets\Foundation\Resources\Localization\Ukrainian\Examples.txt" />
     <None Include="Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
     <None Include="Assets\Instructions.txt" />
     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.102.0.txt" />

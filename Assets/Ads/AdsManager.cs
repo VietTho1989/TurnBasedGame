@@ -9,7 +9,7 @@ namespace Ads
     public class AdsManager : Data
     {
 
-        public const bool testMode = true;
+        public const bool testMode = false;
 
         public VP<bool> alreadyBuyAds;
 
