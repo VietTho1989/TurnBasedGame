@@ -1,1 +1,0 @@
-Eamples.ExampleString1, 你好朋友

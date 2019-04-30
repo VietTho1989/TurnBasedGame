@@ -1,1 +1,0 @@
-Eamples.ExampleString1, Привіт Друг

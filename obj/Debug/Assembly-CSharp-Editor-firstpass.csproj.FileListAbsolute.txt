@@ -11,7 +11,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Facebook.Unity.Settings.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/FacebookNamedPipeClient.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/FacebookStore.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Foundation.Server.Unity3d.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Google.IOSResolver_v1.2.102.0.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Google.JarResolver_v1.2.102.0.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Google.VersionHandler.dll
