@@ -530,6 +530,7 @@ namespace FairyChess.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(FairyChessMove fairyChessMove)
         {
             if (this.data != null)
@@ -552,6 +553,7 @@ namespace FairyChess.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

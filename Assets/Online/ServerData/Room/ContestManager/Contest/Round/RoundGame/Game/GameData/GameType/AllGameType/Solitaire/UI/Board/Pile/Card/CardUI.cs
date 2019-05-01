@@ -1102,6 +1102,7 @@ namespace Solitaire
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCard()
         {
             if (this.data != null)

@@ -172,6 +172,7 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnGameChat()
     {
         if (this.data != null)

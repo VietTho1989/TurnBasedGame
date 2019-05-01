@@ -772,6 +772,7 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -476,6 +476,7 @@ namespace Weiqi
 
         #region Button
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnToggleScore()
         {
             Debug.Log("onClickBtnToggleScore");

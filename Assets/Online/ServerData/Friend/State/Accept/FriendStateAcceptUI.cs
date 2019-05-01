@@ -364,6 +364,7 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnUnFriend()
     {
         if (this.data != null)

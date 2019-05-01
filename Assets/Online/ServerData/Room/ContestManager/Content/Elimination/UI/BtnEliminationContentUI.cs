@@ -402,6 +402,7 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEliminationContent()
         {
             if (this.data != null)

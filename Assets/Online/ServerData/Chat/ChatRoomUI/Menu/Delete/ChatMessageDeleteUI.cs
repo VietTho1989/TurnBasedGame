@@ -484,6 +484,7 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnDelete()
     {
         if (this.data != null)

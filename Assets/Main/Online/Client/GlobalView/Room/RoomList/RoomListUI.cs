@@ -566,6 +566,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreateMatch()
     {
         if (this.data != null)

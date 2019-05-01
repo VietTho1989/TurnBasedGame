@@ -336,6 +336,7 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

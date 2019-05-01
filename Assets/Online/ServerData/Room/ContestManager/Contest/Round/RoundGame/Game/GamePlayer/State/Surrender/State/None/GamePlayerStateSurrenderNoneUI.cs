@@ -490,6 +490,7 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequest()
     {
         if (this.data != null)

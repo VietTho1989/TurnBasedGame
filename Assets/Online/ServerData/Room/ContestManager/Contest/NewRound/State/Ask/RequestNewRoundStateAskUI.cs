@@ -586,6 +586,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)

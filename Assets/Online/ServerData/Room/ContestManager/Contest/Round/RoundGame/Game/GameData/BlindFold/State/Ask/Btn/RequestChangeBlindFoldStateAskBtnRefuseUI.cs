@@ -477,6 +477,7 @@ public class RequestChangeBlindFoldStateAskBtnRefuseUI : UIBehavior<RequestChang
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefuse()
     {
         if (this.data != null)

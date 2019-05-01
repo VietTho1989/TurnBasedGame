@@ -232,6 +232,7 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnUndoRedo()
     {
         if (this.data != null)

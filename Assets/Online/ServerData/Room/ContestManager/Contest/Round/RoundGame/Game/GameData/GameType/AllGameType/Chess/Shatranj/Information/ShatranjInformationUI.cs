@@ -458,6 +458,7 @@ namespace Shatranj
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCopyFen()
         {
             if (this.data != null)

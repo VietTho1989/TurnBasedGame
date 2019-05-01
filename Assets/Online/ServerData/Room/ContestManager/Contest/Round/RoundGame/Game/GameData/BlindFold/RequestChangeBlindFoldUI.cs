@@ -669,6 +669,7 @@ public class RequestChangeBlindFoldUI : UIBehavior<RequestChangeBlindFoldUI.UIDa
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

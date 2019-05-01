@@ -541,6 +541,7 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

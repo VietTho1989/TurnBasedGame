@@ -543,6 +543,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnSetting()
     {
         if (this.data != null)

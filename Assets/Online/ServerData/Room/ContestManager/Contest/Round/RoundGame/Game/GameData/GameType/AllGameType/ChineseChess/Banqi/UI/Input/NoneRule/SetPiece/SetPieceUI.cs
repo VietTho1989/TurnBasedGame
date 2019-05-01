@@ -458,6 +458,7 @@ namespace Banqi.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -482,6 +483,7 @@ namespace Banqi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnChoose()
         {
             if (this.data != null)

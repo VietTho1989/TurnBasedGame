@@ -411,6 +411,7 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnFreeze()
     {
         if (this.data != null)

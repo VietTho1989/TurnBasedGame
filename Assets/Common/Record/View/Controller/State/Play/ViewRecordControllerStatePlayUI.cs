@@ -234,6 +234,7 @@ namespace Record
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPlay()
         {
             if (this.data != null)

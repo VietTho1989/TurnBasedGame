@@ -382,6 +382,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPaste()
         {
             if (this.data != null)

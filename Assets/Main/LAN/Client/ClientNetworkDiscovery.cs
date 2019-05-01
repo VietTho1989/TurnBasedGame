@@ -145,6 +145,7 @@ public class ClientNetworkDiscovery : NetworkDiscovery
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void CleanServerList()
     {
         for (int i = discoveredServers.servers.vs.Count - 1; i >= 0; i--)

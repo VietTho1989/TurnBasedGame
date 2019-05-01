@@ -507,9 +507,9 @@ namespace CoTuongUp.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnFlip()
         {
-            Debug.LogError("onClickBtnFlip: " + this);
             if (this.data != null)
             {
                 CoTuongUp coTuongUp = null;

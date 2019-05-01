@@ -479,6 +479,7 @@ public class BtnPausePauseUI : UIBehavior<BtnPausePauseUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnResume()
     {
         if (this.data != null)

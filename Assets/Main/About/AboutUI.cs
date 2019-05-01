@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Scripting;
 
 public class AboutUI : UIBehavior<AboutUI.UIData>
 {
@@ -236,7 +235,7 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
 
     #endregion
 
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -202,6 +202,7 @@ public class ContestManagerBtnSettingUI : UIBehavior<ContestManagerBtnSettingUI.
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnSetting()
     {
         if (this.data != null)

@@ -209,6 +209,7 @@ public class BtnNewRoundUI : UIBehavior<BtnNewRoundUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequest()
     {
         if (this.data != null)

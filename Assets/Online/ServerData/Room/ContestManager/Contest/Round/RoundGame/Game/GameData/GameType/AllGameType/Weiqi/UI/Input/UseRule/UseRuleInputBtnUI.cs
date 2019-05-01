@@ -95,6 +95,7 @@ namespace Weiqi
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPass()
         {
             if (this.data != null)
@@ -123,6 +124,7 @@ namespace Weiqi
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnResign()
         {
             if (this.data != null)

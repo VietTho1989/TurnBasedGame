@@ -579,6 +579,7 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

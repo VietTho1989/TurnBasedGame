@@ -629,6 +629,7 @@ namespace Posture
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSet()
         {
             if (this.data != null)

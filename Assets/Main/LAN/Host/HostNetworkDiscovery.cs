@@ -9,9 +9,8 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class BroadcastData
 {
-	public static int VERSION = 1;
 
-	public int version = VERSION;
+	public int version = Global.VersionCode;
 	public int port = 0;
 	public int player = 0;
 
@@ -358,6 +357,7 @@ public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
         Invoke("RestartBroadcastInternal", 0.5f);
     }
 
+    [UnityEngine.Scripting.Preserve]
     private void RestartBroadcastInternal()
     {
         // Debug.Log("#CaptainsMess# Restarting server with data: " + broadcastData);

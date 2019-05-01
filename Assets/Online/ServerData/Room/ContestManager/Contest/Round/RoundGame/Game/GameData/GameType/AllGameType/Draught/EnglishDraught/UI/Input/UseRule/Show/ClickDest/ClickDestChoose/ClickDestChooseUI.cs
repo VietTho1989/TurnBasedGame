@@ -521,6 +521,7 @@ namespace EnglishDraught.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(EnglishDraughtMove englishDraughtMove)
         {
             if (this.data != null)
@@ -537,6 +538,7 @@ namespace EnglishDraught.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

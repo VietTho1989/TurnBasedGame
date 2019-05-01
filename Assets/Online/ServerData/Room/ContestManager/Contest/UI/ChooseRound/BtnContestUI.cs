@@ -404,6 +404,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnContest()
         {
             if (this.data != null)

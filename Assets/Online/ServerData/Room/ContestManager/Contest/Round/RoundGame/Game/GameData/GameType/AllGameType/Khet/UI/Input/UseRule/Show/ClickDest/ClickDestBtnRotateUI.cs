@@ -235,6 +235,7 @@ namespace Khet.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRotateAdd()
         {
             if (this.data != null)
@@ -263,6 +264,7 @@ namespace Khet.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRotateSub()
         {
             if (this.data != null)

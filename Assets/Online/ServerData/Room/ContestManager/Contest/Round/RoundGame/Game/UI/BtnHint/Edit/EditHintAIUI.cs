@@ -572,9 +572,9 @@ namespace Hint
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
-            Debug.LogError("onClickBtnBack: " + this);
             if (this.data != null)
             {
                 HintUI.UIData hintUIData = this.data.findDataInParent<HintUI.UIData>();
@@ -593,9 +593,9 @@ namespace Hint
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnApply()
         {
-            Debug.LogError("onClickBtnUpdate: " + this);
             if (this.data != null)
             {
                 // Find
@@ -635,9 +635,9 @@ namespace Hint
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnReset()
         {
-            Debug.LogError("onClickBtnReset: " + this);
             if (this.data != null)
             {
                 // Find

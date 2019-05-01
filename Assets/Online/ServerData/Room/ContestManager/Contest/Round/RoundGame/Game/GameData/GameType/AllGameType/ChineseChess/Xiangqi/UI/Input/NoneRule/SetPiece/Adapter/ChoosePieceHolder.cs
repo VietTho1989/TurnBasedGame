@@ -190,6 +190,7 @@ namespace Xiangqi.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnChoose()
         {
             if (this.data != null)

@@ -957,6 +957,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
     public InputField edtMessage;
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnSendMessage()
     {
         if (edtMessage != null)

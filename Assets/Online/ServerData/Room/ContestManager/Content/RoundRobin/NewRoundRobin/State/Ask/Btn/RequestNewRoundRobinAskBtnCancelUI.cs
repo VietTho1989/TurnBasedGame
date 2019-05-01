@@ -454,6 +454,7 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {
             if (this.data != null)

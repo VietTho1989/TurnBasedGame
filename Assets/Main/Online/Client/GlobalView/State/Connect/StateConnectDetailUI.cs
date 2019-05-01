@@ -499,6 +499,7 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

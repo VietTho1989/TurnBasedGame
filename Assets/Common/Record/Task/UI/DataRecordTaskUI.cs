@@ -384,6 +384,7 @@ namespace Record
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRecord()
         {
             if (this.data != null)

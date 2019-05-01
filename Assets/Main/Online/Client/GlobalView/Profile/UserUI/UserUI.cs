@@ -1202,6 +1202,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -1222,6 +1223,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnReset()
     {
         if (this.data != null)
@@ -1242,6 +1244,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChat()
     {
         if (this.data != null)

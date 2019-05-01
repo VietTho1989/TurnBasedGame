@@ -38,6 +38,7 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 
         #region implement ServerManager.UIData.OnClick
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickReturn()
         {
             LanUI.UIData lanUIData = this.findDataInParent<LanUI.UIData>();
@@ -413,6 +414,7 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         // Debug.LogError("onClickBtnBack: " + this);

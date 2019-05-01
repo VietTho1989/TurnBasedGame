@@ -338,6 +338,7 @@ public class AfterLoginMainBtnBackHostUI : UIBehavior<AfterLoginMainBtnBackHostU
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -1082,6 +1082,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -1106,6 +1107,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnLoad()
     {
         if (this.data != null)
@@ -1196,6 +1198,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRecord()
     {
         if (this.data != null)

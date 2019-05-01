@@ -236,6 +236,7 @@ public class StartFailUI : UIBehavior<StartFailUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnReturn()
     {
         Debug.LogError("onClickBtnReturn: " + this);

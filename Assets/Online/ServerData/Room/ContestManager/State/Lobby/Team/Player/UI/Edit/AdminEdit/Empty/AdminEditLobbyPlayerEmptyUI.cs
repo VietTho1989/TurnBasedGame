@@ -438,6 +438,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRequest()
         {
             if (this.data != null)

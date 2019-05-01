@@ -747,6 +747,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnShowExplorer()
         {
             if (this.data != null)
@@ -780,6 +781,7 @@ namespace FileSystem
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRefresh()
         {
             if (this.data != null)
@@ -800,6 +802,7 @@ namespace FileSystem
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnNewFolder()
         {
             if (this.data != null)

@@ -905,6 +905,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnAccept()
     {
         if (this.data != null)
@@ -934,6 +935,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefuse()
     {
         if (this.data != null)

@@ -640,6 +640,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnMakeFriend()
     {
         if (this.data != null)

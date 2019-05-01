@@ -601,6 +601,7 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequestDraw()
     {
         if (this.data != null)

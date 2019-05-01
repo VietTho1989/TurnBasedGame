@@ -384,6 +384,7 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChat()
     {
         if (this.data != null)

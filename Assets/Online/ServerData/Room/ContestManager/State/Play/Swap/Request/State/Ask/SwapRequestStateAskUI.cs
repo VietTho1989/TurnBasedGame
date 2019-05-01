@@ -941,6 +941,7 @@ namespace GameManager.Match.Swap
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnAccept()
         {
             if (this.data != null)
@@ -1007,6 +1008,7 @@ namespace GameManager.Match.Swap
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRefuse()
         {
             if (this.data != null)

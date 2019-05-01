@@ -240,6 +240,7 @@ public class ConfirmSaveDataUI : UIBehavior<ConfirmSaveDataUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)
@@ -260,6 +261,7 @@ public class ConfirmSaveDataUI : UIBehavior<ConfirmSaveDataUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnOK()
     {
         if (this.data != null)

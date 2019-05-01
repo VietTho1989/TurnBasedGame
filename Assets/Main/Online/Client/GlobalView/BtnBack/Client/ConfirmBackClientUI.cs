@@ -223,6 +223,7 @@ public class ConfirmBackClientUI : UIBehavior<ConfirmBackClientUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnConfirm()
     {
         if (this.data != null)
@@ -243,6 +244,7 @@ public class ConfirmBackClientUI : UIBehavior<ConfirmBackClientUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

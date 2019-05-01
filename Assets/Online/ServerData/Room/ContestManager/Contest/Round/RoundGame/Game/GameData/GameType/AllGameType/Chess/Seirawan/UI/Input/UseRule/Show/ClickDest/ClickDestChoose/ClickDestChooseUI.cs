@@ -528,6 +528,7 @@ namespace Seirawan.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(SeirawanMove seirawanMove)
         {
             if (this.data != null)
@@ -548,6 +549,7 @@ namespace Seirawan.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

@@ -346,6 +346,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRound()
         {
             if (this.data != null)

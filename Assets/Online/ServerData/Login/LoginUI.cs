@@ -919,6 +919,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

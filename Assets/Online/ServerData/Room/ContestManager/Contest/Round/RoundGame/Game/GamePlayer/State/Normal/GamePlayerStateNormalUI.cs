@@ -575,6 +575,7 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnSurrender()
     {
         if (this.data != null)

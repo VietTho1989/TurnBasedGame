@@ -636,6 +636,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -656,6 +657,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnEdit()
     {
         if (this.data != null)

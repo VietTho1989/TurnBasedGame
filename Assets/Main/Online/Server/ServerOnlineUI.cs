@@ -38,6 +38,7 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
 
         #region implement ServerManager.UIData.OnClick
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickReturn()
         {
             PlayOnlineUI.UIData playOnlineUIData = this.findDataInParent<PlayOnlineUI.UIData>();
@@ -402,6 +403,7 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -59,6 +59,7 @@ namespace Shogi.UseRule
             void onClickMove(ShogiMove shogiMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

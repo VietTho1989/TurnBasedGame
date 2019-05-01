@@ -59,6 +59,7 @@ namespace Chess.UseRule
             void onClickMove(ChessMove chessMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

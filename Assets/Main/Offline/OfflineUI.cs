@@ -38,6 +38,7 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
 
         #region implements ServerManager.UIData.OnClick
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickReturn()
         {
             MainUI.UIData mainUIData = this.findDataInParent<MainUI.UIData>();
@@ -411,6 +412,7 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

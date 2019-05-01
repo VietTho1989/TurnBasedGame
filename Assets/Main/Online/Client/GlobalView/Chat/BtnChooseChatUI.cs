@@ -405,6 +405,7 @@ public class BtnChooseChatUI : UIBehavior<BtnChooseChatUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnTopic()
     {
         if (this.data != null)

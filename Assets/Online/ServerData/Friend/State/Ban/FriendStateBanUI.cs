@@ -503,6 +503,7 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnUnBan()
     {
         if (this.data != null)

@@ -640,6 +640,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnAccept()
     {
         if (this.data != null)
@@ -669,6 +670,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefuse()
     {
         if (this.data != null)

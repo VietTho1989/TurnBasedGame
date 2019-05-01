@@ -530,6 +530,7 @@ namespace Chess.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(ChessMove chessMove)
         {
             if (this.data != null)
@@ -551,6 +552,7 @@ namespace Chess.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

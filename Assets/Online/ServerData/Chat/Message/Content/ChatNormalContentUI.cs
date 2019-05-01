@@ -668,6 +668,7 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnMenu()
     {
         if (this.data != null)

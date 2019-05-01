@@ -490,6 +490,7 @@ public class RequestChangeBlindFoldStateNoneUI : UIHaveTransformDataBehavior<Req
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequest()
     {
         if (this.data != null)

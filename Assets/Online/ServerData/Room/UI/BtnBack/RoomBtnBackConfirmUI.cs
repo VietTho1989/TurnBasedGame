@@ -226,6 +226,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnOk()
     {
         if (this.data != null)
@@ -254,6 +255,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

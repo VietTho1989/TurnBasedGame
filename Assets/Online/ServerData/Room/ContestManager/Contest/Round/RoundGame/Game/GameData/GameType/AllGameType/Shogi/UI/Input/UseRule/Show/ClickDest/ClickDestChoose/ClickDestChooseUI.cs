@@ -516,6 +516,7 @@ namespace Shogi.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(ShogiMove shogiMove)
         {
             if (this.data != null)
@@ -537,6 +538,7 @@ namespace Shogi.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

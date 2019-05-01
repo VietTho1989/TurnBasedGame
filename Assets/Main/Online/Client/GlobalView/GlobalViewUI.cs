@@ -1308,6 +1308,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #region btns
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRooms()
     {
         if (this.data != null)
@@ -1320,6 +1321,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChats()
     {
         if (this.data != null)
@@ -1332,6 +1334,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnFriends()
     {
         if (this.data != null)
@@ -1344,6 +1347,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnProfile()
     {
         if (this.data != null)

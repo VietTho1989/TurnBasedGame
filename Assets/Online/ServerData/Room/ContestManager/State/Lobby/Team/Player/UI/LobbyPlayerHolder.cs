@@ -569,6 +569,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEdit()
         {
             if (this.data != null)

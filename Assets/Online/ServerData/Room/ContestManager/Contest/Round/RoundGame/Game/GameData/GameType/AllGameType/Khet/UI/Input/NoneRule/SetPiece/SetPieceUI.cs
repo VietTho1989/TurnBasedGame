@@ -326,6 +326,7 @@ namespace Khet.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)

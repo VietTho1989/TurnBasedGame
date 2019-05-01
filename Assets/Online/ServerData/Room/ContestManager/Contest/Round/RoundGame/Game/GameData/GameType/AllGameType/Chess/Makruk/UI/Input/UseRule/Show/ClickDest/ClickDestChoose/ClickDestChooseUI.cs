@@ -530,6 +530,7 @@ namespace Makruk.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(MakrukMove makrukMove)
         {
             if (this.data != null)
@@ -552,6 +553,7 @@ namespace Makruk.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

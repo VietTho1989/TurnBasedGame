@@ -224,6 +224,7 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnUseRule()
     {
         if (this.data != null)

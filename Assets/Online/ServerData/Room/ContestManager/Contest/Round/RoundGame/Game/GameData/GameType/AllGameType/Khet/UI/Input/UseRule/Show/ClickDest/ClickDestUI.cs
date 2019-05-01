@@ -705,16 +705,19 @@ namespace Khet.UseRule
 
         #region rotate
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickRotateAdd()
         {
             this.onClickRotate(true);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickRotateSub()
         {
             this.onClickRotate(false);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickRotate(bool isAdd)
         {
             if (this.data != null)

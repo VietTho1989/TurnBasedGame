@@ -90,6 +90,7 @@ namespace Ads
 
         public Button btnUnityAds;
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnUnityAds()
         {
             AdsManager.get().lastClickBanner.v = AdsManager.get().time.v;

@@ -931,6 +931,7 @@ namespace Posture
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -951,17 +952,13 @@ namespace Posture
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPosture()
         {
             if (this.data != null)
             {
                 // container
                 {
-                    /*if (choosePostureContainer != null) {
-						choosePostureContainer.gameObject.SetActive (true);
-					} else {
-						Debug.LogError ("choosePostureContainer null: " + this);
-					}*/
                     UIRectTransform.SetActive(this.data.choosePostureUIData.v, true);
                 }
                 // uiData
@@ -1018,6 +1015,7 @@ namespace Posture
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnLoad()
         {
             if (this.data != null)

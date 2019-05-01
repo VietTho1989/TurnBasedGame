@@ -559,6 +559,7 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnMakeFriend()
     {
         if (this.data != null)
@@ -588,6 +589,7 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBan()
     {
         if (this.data != null)

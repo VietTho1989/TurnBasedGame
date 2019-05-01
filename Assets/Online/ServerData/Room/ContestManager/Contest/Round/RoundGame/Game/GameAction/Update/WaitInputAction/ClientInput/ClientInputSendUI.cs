@@ -207,9 +207,9 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancelSend()
     {
-        Debug.LogError("onClickBtnSend: " + this);
         if (this.data != null)
         {
             ClientInputSend clientInputSend = this.data.clientInputSend.v.data;

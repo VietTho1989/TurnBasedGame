@@ -713,6 +713,7 @@ namespace Hint
 
         #region back
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -766,6 +767,7 @@ namespace Hint
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnHint()
         {
             if (this.data != null)
@@ -804,9 +806,9 @@ namespace Hint
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnAI()
         {
-            // Debug.LogError ("onClickBtnAI: " + this);
             if (this.data != null)
             {
                 EditHintAIUI.UIData editHintAIUIData = this.data.editHintAIUIData.newOrOld<EditHintAIUI.UIData>();

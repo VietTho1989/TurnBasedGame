@@ -727,6 +727,7 @@ namespace HEX
 
         #region Click Button
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSwitchSide()
         {
             if (this.data != null)

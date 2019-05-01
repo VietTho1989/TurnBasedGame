@@ -579,6 +579,7 @@ namespace Khet.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -603,6 +604,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSetPiece()
         {
             if (this.data != null)
@@ -628,6 +630,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnMove()
         {
             if (this.data != null)
@@ -653,6 +656,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEnd()
         {
             if (this.data != null)
@@ -677,6 +681,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnClear()
         {
             if (this.data != null)
@@ -701,6 +706,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRotateAdd()
         {
             if (this.data != null)
@@ -713,6 +719,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRotateSub()
         {
             if (this.data != null)
@@ -725,6 +732,7 @@ namespace Khet.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         private void onClickBtnRotate(bool isAdd)
         {
             if (this.data != null)

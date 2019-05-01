@@ -222,6 +222,7 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChangeToForce()
     {
         if (this.data != null)

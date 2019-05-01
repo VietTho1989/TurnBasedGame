@@ -211,6 +211,7 @@ public class BtnNewRoundRobinUI : UIBehavior<BtnNewRoundRobinUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequest()
     {
         if (this.data != null)

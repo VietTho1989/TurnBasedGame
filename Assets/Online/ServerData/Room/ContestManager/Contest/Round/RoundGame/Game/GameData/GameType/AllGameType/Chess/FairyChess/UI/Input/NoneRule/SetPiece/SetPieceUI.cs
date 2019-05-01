@@ -54,7 +54,7 @@ namespace FairyChess.NoneRule
                             SetPieceUI setPieceUI = this.findCallBack<SetPieceUI>();
                             if (setPieceUI != null)
                             {
-                                setPieceUI.onClickBtnBtnBack();
+                                setPieceUI.onClickBtnBack();
                             }
                             else
                             {
@@ -331,7 +331,8 @@ namespace FairyChess.NoneRule
 
         #endregion
 
-        public void onClickBtnBtnBack()
+        [UnityEngine.Scripting.Preserve]
+        public void onClickBtnBack()
         {
             if (this.data != null)
             {

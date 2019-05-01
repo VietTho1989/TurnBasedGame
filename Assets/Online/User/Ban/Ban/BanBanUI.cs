@@ -506,9 +506,10 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
-	#endregion
+    #endregion
 
-	public void onClickBtnUnBan()
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnUnBan()
 	{
 		if (this.data != null) {
             switch (this.data.state.v)

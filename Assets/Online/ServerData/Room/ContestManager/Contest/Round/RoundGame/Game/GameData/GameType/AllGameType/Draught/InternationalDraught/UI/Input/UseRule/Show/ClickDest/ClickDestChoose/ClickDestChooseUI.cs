@@ -513,6 +513,7 @@ namespace InternationalDraught.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(InternationalDraughtMove internationalDraughtMove)
         {
             if (this.data != null)
@@ -529,6 +530,7 @@ namespace InternationalDraught.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

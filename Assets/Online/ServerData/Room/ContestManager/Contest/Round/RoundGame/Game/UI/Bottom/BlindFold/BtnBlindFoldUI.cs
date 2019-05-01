@@ -224,6 +224,7 @@ public class BtnBlindFoldUI : UIBehavior<BtnBlindFoldUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBlindFold()
     {
         if (this.data != null)

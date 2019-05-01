@@ -211,6 +211,7 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnPerspective()
     {
         if (this.data != null)

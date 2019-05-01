@@ -98,6 +98,7 @@ public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserU
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRoomUser()
     {
         if (this.data != null)

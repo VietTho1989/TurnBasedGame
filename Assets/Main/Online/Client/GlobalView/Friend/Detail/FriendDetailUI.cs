@@ -506,6 +506,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -59,13 +59,18 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
             bool isProcess = false;
             {
                 // back
-                if (!isProcess) {
-                    if (InputEvent.isBackEvent(e)) {
+                if (!isProcess)
+                {
+                    if (InputEvent.isBackEvent(e))
+                    {
                         JoinRoomUI joinRoomUI = this.findCallBack<JoinRoomUI>();
-                        if (joinRoomUI != null) {
+                        if (joinRoomUI != null)
+                        {
                             joinRoomUI.onClickBtnCancel();
                             isProcess = true;
-                        } else {
+                        }
+                        else
+                        {
                             Debug.LogError("joinRoomUI null: " + this);
                         }
                     }
@@ -585,16 +590,22 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     public IEnumerator TaskWait()
     {
-        if (this.data != null) {
+        if (this.data != null)
+        {
             yield return new Wait(Global.WaitSendTime);
-            if (this.data != null) {
+            if (this.data != null)
+            {
                 this.data.requestState.v = UIData.State.None;
-            } else {
+            }
+            else
+            {
                 Debug.LogError("data null: " + this);
             }
             Toast.showMessage("request error");
             Debug.LogError("request error: " + this);
-        } else {
+        }
+        else
+        {
             Debug.LogError("data null: " + this);
         }
     }
@@ -618,7 +629,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     public override void onAddCallBack<T>(T data)
     {
-        if (data is UIData) {
+        if (data is UIData)
+        {
             UIData uiData = data as UIData;
             // Setting
             Setting.get().addCallBack(this);
@@ -630,7 +642,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
             return;
         }
         // Setting
-        if (data is Setting) {
+        if (data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -716,7 +729,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     public override void onRemoveCallBack<T>(T data, bool isHide)
     {
-        if (data is UIData) {
+        if (data is UIData)
+        {
             UIData uiData = data as UIData;
             // Setting
             Setting.get().removeCallBack(this);
@@ -728,7 +742,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
             return;
         }
         // Setting
-        if (data is Setting) {
+        if (data is Setting)
+        {
             return;
         }
         // Child
@@ -796,11 +811,14 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
     {
-        if (WrapProperty.checkError(wrapProperty)) {
+        if (WrapProperty.checkError(wrapProperty))
+        {
             return;
         }
-        if (wrapProperty.p is UIData) {
-            switch ((UIData.Property)wrapProperty.n) {
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
                 case UIData.Property.room:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -817,8 +835,10 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
             return;
         }
         // Setting
-        if (wrapProperty.p is Setting) {
-            switch ((Setting.Property)wrapProperty.n) {
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
                 case Setting.Property.language:
                     dirty = true;
                     break;
@@ -840,8 +860,10 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
         {
             // Room
             {
-                if (wrapProperty.p is Room) {
-                    switch ((Room.Property)wrapProperty.n) {
+                if (wrapProperty.p is Room)
+                {
+                    switch ((Room.Property)wrapProperty.n)
+                    {
                         case Room.Property.changeRights:
                             break;
                         case Room.Property.name:
@@ -880,14 +902,17 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                     return;
                 }
                 // Parent
-                if (wrapProperty.p is Server) {
+                if (wrapProperty.p is Server)
+                {
                     Server.State.OnUpdateSyncStateChange(wrapProperty, this);
                     return;
                 }
                 // Child
                 {
-                    if (wrapProperty.p is RoomUser) {
-                        switch ((RoomUser.Property)wrapProperty.n) {
+                    if (wrapProperty.p is RoomUser)
+                    {
+                        switch ((RoomUser.Property)wrapProperty.n)
+                        {
                             case RoomUser.Property.role:
                                 dirty = true;
                                 break;
@@ -908,8 +933,10 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                     }
                     // Child
                     {
-                        if (wrapProperty.p is Human) {
-                            switch ((Human.Property)wrapProperty.n) {
+                        if (wrapProperty.p is Human)
+                        {
+                            switch ((Human.Property)wrapProperty.n)
+                            {
                                 case Human.Property.playerId:
                                     break;
                                 case Human.Property.account:
@@ -939,7 +966,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                             return;
                         }
                         // Child
-                        if (wrapProperty.p is Account) {
+                        if (wrapProperty.p is Account)
+                        {
                             Account.OnUpdateSyncAccount(wrapProperty, this);
                             return;
                         }
@@ -952,9 +980,11 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnJoin()
     {
-        if (this.data != null) {
+        if (this.data != null)
+        {
             switch (this.data.requestState.v)
             {
                 case UIData.State.None:
@@ -970,21 +1000,30 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                     Debug.LogError("unknown request state: " + this.data.requestState.v);
                     break;
             }
-        } else {
+        }
+        else
+        {
             Debug.LogError("data null: " + this);
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
-        if (this.data != null) {
+        if (this.data != null)
+        {
             RoomListUI.UIData roomListUIData = this.data.findDataInParent<RoomListUI.UIData>();
-            if (roomListUIData != null) {
+            if (roomListUIData != null)
+            {
                 roomListUIData.sub.v = null;
-            } else {
+            }
+            else
+            {
                 Debug.LogError("roomListUIData null: " + this);
             }
-        } else {
+        }
+        else
+        {
             Debug.LogError("data null: " + this);
         }
     }

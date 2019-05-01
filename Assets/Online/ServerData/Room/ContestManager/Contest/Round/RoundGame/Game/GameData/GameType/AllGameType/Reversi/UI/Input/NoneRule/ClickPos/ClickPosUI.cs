@@ -496,6 +496,7 @@ namespace Reversi.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -520,6 +521,7 @@ namespace Reversi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSetPiece()
         {
             if (this.data != null)
@@ -545,6 +547,7 @@ namespace Reversi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnMove()
         {
             if (this.data != null)
@@ -570,6 +573,7 @@ namespace Reversi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEnd()
         {
             if (this.data != null)
@@ -594,6 +598,7 @@ namespace Reversi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnClear()
         {
             if (this.data != null)

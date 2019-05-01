@@ -246,6 +246,7 @@ namespace FairyChess.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnMove()
         {
             Debug.LogError("onClickBtnMove: " + this);
@@ -273,6 +274,7 @@ namespace FairyChess.UseRule
             resetMoveOrChoose();
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnChoose()
         {
             Debug.LogError("onClickBtnChoose: " + this);
@@ -333,6 +335,7 @@ namespace FairyChess.UseRule
             resetMoveOrChoose();
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {
             Debug.LogError("onClickBtnCancel: " + this);

@@ -911,6 +911,7 @@ namespace GameState
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnUnPause()
         {
             if (this.data != null)

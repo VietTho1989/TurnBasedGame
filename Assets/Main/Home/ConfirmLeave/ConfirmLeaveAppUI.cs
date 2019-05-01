@@ -222,11 +222,13 @@ public class ConfirmLeaveAppUI : UIBehavior<ConfirmLeaveAppUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnConfirm()
     {
         Application.Quit();
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

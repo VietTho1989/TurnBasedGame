@@ -231,6 +231,7 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequestDraw()
     {
         if (this.data != null)

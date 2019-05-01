@@ -173,6 +173,7 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnHint()
     {
         if (this.data != null)

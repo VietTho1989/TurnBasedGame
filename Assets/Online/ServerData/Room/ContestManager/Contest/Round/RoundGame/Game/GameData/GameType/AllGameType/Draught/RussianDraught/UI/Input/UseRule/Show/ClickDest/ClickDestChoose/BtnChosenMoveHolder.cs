@@ -59,6 +59,7 @@ namespace RussianDraught.UseRule
             void onClickMove(RussianDraughtMove russianDraughtMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

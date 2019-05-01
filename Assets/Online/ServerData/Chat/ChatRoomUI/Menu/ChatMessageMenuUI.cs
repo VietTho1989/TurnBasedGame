@@ -739,6 +739,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -759,6 +760,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnEdit()
     {
         if (this.data != null)
@@ -783,6 +785,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickCopyToClipboard()
     {
         if (this.data != null)
@@ -825,6 +828,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnViewHistory()
     {
         if (this.data != null)

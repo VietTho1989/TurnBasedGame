@@ -585,6 +585,7 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnLoadMore()
     {
         if (this.data != null)

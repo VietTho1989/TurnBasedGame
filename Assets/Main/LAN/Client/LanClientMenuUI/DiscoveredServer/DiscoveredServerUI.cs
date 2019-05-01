@@ -182,9 +182,9 @@ public class DiscoveredServerUI : UIBehavior<DiscoveredServer>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnJoin()
     {
-        Debug.LogError("onClickBtnJoin: " + this.data);
         if (this.data != null)
         {
             LanClientMenuUI.UIData lanClientMenu = this.data.findDataInParent<LanClientMenuUI.UIData>();

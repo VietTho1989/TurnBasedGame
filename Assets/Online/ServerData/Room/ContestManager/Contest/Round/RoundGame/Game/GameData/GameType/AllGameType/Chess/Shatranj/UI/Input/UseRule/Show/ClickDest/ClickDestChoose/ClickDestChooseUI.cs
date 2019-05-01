@@ -528,6 +528,7 @@ namespace Shatranj.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(ShatranjMove shatranjMove)
         {
             if (this.data != null)
@@ -548,6 +549,7 @@ namespace Shatranj.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

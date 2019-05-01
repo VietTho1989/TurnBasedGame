@@ -462,6 +462,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {
             if (this.data != null)
@@ -482,6 +483,7 @@ namespace FileSystem
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnOK()
         {
             if (this.data != null)

@@ -477,6 +477,7 @@ public class RequestChangeUseRuleStateAskBtnRefuseUI : UIBehavior<RequestChangeU
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefuse()
     {
         if (this.data != null)

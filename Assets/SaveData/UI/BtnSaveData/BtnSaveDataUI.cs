@@ -376,6 +376,7 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnSaveData()
     {
         if (this.data != null)

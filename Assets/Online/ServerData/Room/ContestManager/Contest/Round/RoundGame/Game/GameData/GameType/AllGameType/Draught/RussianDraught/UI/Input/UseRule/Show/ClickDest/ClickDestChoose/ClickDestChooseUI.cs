@@ -522,6 +522,7 @@ namespace RussianDraught.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(RussianDraughtMove russianDraughtMove)
         {
             if (this.data != null)
@@ -539,6 +540,7 @@ namespace RussianDraught.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
             Debug.LogError("onClickCancel: " + this);

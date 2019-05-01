@@ -48,6 +48,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
 
         #region Join
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickJoin(DiscoveredServer discoveredServer)
         {
             // Debug.LogError ("onClickJoin: " + discoveredServer);
@@ -428,6 +429,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnJoin()
     {
         // Debug.LogError ("onClickBtnJoin");
@@ -452,6 +454,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         // Debug.LogError ("onClickBtnBack");

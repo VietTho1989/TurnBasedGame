@@ -538,6 +538,7 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBan()
     {
         if (this.data != null)

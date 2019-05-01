@@ -884,6 +884,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -904,6 +905,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnApply()
     {
         if (this.data != null)
@@ -953,6 +955,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnReset()
     {
         if (this.data != null)
@@ -1002,6 +1005,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefreshUI()
     {
         MonoBehaviour[] allGameObjects = FindObjectsOfType<MonoBehaviour>();

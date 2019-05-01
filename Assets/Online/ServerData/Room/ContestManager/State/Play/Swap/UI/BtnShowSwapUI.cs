@@ -231,6 +231,7 @@ namespace GameManager.Match.Swap
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnShow()
         {
             if (this.data != null)

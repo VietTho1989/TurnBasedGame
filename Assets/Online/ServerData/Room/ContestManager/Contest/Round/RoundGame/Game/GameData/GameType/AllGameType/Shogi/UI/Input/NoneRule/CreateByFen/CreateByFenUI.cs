@@ -339,6 +339,7 @@ namespace Shogi.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -363,6 +364,7 @@ namespace Shogi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPaste()
         {
             if (this.data != null)
@@ -382,6 +384,7 @@ namespace Shogi.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCreate()
         {
             if (this.data != null)

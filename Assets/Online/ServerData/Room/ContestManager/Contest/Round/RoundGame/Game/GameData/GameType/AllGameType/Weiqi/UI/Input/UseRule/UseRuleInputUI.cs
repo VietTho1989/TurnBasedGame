@@ -860,18 +860,21 @@ namespace Weiqi
 
         #region Click Button
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPass()
         {
             Debug.LogError("onClickBtnPass: " + this);
             this.onClickBtnPassOrResign(Common.pass);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnResign()
         {
             Debug.LogError("onClickBtnResign: " + this);
             this.onClickBtnPassOrResign(Common.resign);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnPassOrResign(int passOrResign)
         {
             if (this.data != null)

@@ -432,6 +432,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

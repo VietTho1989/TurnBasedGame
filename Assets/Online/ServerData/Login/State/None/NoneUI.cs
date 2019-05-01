@@ -486,6 +486,7 @@ namespace LoginState
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnLogin()
         {
             if (this.data != null)

@@ -153,6 +153,7 @@ namespace Posture
 
         #region Update
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRefresh()
         {
             Debug.LogError("onClickBtnRefresh");

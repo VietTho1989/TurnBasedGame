@@ -237,6 +237,7 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnAuto()
     {
         if (this.data != null)
@@ -269,6 +270,7 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChange()
     {
         if (this.data != null)

@@ -480,6 +480,7 @@ namespace Xiangqi.NoneRule
 
         #region back
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)

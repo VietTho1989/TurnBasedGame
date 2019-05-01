@@ -390,6 +390,7 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRoundRobin()
         {
             if (this.data != null)

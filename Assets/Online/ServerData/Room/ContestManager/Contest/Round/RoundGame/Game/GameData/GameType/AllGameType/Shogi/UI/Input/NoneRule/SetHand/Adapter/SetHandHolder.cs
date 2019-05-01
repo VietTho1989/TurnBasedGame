@@ -398,6 +398,7 @@ namespace Shogi.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnChose()
         {
             if (this.data != null)

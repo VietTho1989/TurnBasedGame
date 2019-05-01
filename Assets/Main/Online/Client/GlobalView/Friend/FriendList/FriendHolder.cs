@@ -631,6 +631,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnViewDetail()
     {
         if (this.data != null)

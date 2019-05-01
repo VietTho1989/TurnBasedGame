@@ -303,6 +303,7 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickButtonShowDetail()
     {
         if (this.data != null)

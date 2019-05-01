@@ -305,6 +305,7 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -347,6 +348,7 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnNext()
     {
         if (this.data != null)

@@ -542,6 +542,7 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

@@ -59,6 +59,7 @@ namespace Makruk.UseRule
             void onClickMove(MakrukMove makrukMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

@@ -363,6 +363,7 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnHistory()
     {
         if (this.data != null)

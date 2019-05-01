@@ -873,6 +873,7 @@ namespace GameManager.Match.Swap
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnRequest()
         {
             if (this.data != null)
@@ -905,6 +906,7 @@ namespace GameManager.Match.Swap
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnReset()
         {
             if (this.data != null)

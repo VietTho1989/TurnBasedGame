@@ -1170,6 +1170,7 @@ namespace GameManager.Match
 
         public Button btnSetting;
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSetting()
         {
             if (this.data != null)

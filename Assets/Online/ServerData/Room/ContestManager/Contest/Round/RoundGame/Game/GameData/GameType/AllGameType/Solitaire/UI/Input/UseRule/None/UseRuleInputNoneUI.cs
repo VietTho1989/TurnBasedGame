@@ -235,6 +235,7 @@ namespace Solitaire
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnReset()
         {
             if (this.data != null)

@@ -434,6 +434,7 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnShow()
     {
         if (this.data != null)

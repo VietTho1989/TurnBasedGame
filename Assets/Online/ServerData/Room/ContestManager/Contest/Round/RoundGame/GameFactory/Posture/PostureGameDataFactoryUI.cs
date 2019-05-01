@@ -756,6 +756,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
     #region EditGameData
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnEditGameData()
     {
         Debug.LogError("onClickBtnEditGameData");

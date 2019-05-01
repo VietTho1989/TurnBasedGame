@@ -171,6 +171,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBackWard()
         {
             if (this.data != null)

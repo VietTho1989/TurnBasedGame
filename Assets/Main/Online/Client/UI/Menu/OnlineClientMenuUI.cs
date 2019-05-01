@@ -337,6 +337,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -361,6 +362,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnStart()
     {
         if (this.data != null)

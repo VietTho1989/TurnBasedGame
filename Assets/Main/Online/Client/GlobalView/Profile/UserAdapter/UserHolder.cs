@@ -557,6 +557,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnView()
     {
         if (this.data != null)

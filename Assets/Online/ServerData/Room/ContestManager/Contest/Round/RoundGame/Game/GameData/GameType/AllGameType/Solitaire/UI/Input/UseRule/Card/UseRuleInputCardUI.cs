@@ -896,6 +896,7 @@ namespace Solitaire
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -920,6 +921,7 @@ namespace Solitaire
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnFlip()
         {
 

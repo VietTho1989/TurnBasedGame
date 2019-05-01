@@ -557,6 +557,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEmpty()
         {
             if (this.data != null)

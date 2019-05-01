@@ -457,6 +457,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnGlobal()
     {
         if (this.data != null)
@@ -469,6 +470,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnLimit()
     {
         if (this.data != null)

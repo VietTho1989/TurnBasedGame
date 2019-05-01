@@ -447,6 +447,7 @@ namespace GameManager.ContestManager
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnAccept()
         {
             if (this.data != null)

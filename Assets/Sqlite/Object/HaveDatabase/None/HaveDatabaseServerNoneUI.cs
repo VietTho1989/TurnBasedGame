@@ -309,6 +309,7 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChooseFile()
     {
         if (this.data != null)
@@ -412,6 +413,7 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnLoad()
     {
         if (this.data != null)

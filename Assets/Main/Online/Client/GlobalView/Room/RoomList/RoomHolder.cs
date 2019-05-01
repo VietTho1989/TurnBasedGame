@@ -853,6 +853,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
     #region Click Button
 
+    [UnityEngine.Scripting.Preserve]
     public void OnClickCell()
     {
         if (this.data != null)
@@ -885,6 +886,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnDelete()
     {
         if (this.data != null)

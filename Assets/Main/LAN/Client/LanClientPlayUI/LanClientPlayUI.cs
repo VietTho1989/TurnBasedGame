@@ -47,6 +47,7 @@ public class LanClientPlayUI : UIBehavior<LanClientPlayUI.UIData>
 
         #region implement ServerManagerOnClick
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickReturn()
         {
             LanClientUI.UIData lanClientUIData = this.findDataInParent<LanClientUI.UIData>();

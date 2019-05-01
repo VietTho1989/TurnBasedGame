@@ -783,6 +783,7 @@ namespace Posture
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -803,6 +804,7 @@ namespace Posture
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnLoad()
         {
             if (this.data != null)

@@ -821,6 +821,7 @@ namespace UndoRedo
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnAccept()
         {
             if (this.data != null)
@@ -857,6 +858,7 @@ namespace UndoRedo
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {
             if (this.data != null)

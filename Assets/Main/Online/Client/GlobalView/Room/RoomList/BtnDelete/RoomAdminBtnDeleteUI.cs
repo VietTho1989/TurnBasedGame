@@ -948,6 +948,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnDelete()
     {
         if (this.data != null)
@@ -974,6 +975,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

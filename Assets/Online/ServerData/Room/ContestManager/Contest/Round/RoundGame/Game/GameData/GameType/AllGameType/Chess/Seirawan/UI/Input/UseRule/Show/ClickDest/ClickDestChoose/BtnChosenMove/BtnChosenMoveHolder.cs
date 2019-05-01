@@ -59,6 +59,7 @@ namespace Seirawan.UseRule
             void onClickMove(SeirawanMove seirawanMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

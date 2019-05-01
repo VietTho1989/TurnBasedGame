@@ -484,6 +484,7 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnJoin()
     {
         if (this.data != null)
@@ -509,6 +510,7 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

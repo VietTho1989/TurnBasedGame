@@ -220,6 +220,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnConfirm()
     {
         if (this.data != null)
@@ -240,6 +241,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

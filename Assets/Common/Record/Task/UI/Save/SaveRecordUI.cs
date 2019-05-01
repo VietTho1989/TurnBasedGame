@@ -579,6 +579,7 @@ namespace Record
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -608,6 +609,7 @@ namespace Record
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSaveRecord()
         {
             if (this.data != null)

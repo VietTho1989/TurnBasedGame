@@ -229,8 +229,9 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
         Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
-	#endregion
+    #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickButtonShowDetail()
     {
         if (this.data != null)

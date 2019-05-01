@@ -518,6 +518,7 @@ namespace GameManager.Match
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnHuman()
         {
             if (this.data != null)
@@ -530,6 +531,7 @@ namespace GameManager.Match
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnComputer()
         {
             if (this.data != null)
@@ -542,6 +544,7 @@ namespace GameManager.Match
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnEmpty()
         {
             if (this.data != null)

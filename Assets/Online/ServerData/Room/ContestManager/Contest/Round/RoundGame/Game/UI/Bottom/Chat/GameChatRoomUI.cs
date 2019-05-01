@@ -634,6 +634,7 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
 
     #region back
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

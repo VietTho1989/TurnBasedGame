@@ -59,6 +59,7 @@ namespace Shatranj.UseRule
             void onClickMove(ShatranjMove shatranjMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

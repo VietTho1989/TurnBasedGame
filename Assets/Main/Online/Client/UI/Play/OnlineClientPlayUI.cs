@@ -52,6 +52,7 @@ public class OnlineClientPlayUI : UIBehavior<OnlineClientPlayUI.UIData>
 
         #region implement ServerManager.UIData.OnClick
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickReturn()
         {
             PlayOnlineUI.UIData playOnlineUIData = this.findDataInParent<PlayOnlineUI.UIData>();

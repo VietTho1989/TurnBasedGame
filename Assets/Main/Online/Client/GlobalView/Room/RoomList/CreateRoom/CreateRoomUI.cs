@@ -790,6 +790,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreate()
     {
         if (this.data != null)
@@ -859,6 +860,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
         if (this.data != null)

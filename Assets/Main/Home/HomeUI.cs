@@ -438,9 +438,9 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #region Click Button
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnPlayOnline()
     {
-        // Debug.LogError ("onClickBtnPlayOnline");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -463,9 +463,9 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnPlayOffline()
     {
-        // Debug.LogError ("onClickBtnPlayOffline");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -488,9 +488,9 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnPlayLAN()
     {
-        // Debug.LogError ("onClickBtnPlayLAN");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -513,9 +513,9 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnLoadGame()
     {
-        // Debug.LogError("onClickBtnLoadGame");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -538,9 +538,9 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnAbout()
     {
-        // Debug.LogError("onClickBtnAbout");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -563,6 +563,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnViewAds()
     {
         AdsManager.get().showFullScreenAds();
@@ -572,6 +573,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

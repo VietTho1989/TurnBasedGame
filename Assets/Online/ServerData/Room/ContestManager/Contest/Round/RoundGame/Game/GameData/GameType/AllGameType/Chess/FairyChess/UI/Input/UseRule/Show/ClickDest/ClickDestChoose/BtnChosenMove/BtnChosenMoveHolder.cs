@@ -59,6 +59,7 @@ namespace FairyChess.UseRule
             void onClickMove(FairyChessMove fairyChessMove);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove()
         {
             if (this.data != null)

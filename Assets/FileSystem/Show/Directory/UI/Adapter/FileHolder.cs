@@ -489,6 +489,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickFile()
         {
             if (this.data != null)

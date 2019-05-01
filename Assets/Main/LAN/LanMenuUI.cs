@@ -232,6 +232,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         // Debug.LogError ("onClickBtnBack");
@@ -260,6 +261,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnHost()
     {
         // Debug.LogError ("onClickBtnHost");
@@ -288,6 +290,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnClient()
     {
         // Debug.LogError ("onClickBtnClient");

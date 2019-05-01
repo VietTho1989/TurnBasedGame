@@ -211,6 +211,7 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequest()
     {
         if (this.data != null)

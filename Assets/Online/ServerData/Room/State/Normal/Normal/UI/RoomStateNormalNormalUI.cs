@@ -411,6 +411,7 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnNormal()
     {
         if (this.data != null)

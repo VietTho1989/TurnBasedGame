@@ -468,6 +468,7 @@ namespace FairyChess.UseRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickMove(FairyChessMove fairyChessMove)
         {
             if (this.data != null)
@@ -527,9 +528,9 @@ namespace FairyChess.UseRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickCancel()
         {
-            Debug.LogError("onClickCancel: " + this);
             if (this.data != null)
             {
                 ShowUI.UIData showUI = this.data.findDataInParent<ShowUI.UIData>();

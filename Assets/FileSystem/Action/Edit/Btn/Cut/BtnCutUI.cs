@@ -624,6 +624,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCut()
         {
             if (this.data != null)

@@ -393,6 +393,7 @@ namespace LoginState
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {
             // Debug.Log ("onClickBtnCancel");

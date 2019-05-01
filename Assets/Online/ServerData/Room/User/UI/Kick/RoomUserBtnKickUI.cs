@@ -489,6 +489,7 @@ public class RoomUserBtnKickUI : UIBehavior<RoomUserBtnKickUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnKick()
     {
         if (this.data != null)

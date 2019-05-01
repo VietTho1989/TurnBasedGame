@@ -363,6 +363,7 @@ namespace FairyChess.NoneRule
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
             if (this.data != null)
@@ -387,6 +388,7 @@ namespace FairyChess.NoneRule
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnSet()
         {
             if (this.data != null)

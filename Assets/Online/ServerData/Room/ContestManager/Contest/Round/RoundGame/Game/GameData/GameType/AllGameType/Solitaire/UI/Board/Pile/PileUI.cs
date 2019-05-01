@@ -415,6 +415,7 @@ namespace Solitaire
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickPile()
         {
             if (this.data != null)

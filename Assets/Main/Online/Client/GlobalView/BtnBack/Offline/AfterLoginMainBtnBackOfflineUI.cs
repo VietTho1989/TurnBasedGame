@@ -340,6 +340,7 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

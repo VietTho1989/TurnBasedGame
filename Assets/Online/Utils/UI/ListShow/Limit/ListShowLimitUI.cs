@@ -331,6 +331,7 @@ public class ListShowLimitUI : UIHaveTransformDataBehavior<ListShowLimitUI.UIDat
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)
@@ -351,6 +352,7 @@ public class ListShowLimitUI : UIHaveTransformDataBehavior<ListShowLimitUI.UIDat
         }
     }
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnNext()
     {
         if (this.data != null)

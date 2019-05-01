@@ -1109,6 +1109,7 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
         if (this.data != null)

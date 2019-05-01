@@ -491,6 +491,7 @@ public class RequestChangeUseRuleStateAskBtnAcceptUI : UIBehavior<RequestChangeU
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnAccept()
     {
         if (this.data != null)

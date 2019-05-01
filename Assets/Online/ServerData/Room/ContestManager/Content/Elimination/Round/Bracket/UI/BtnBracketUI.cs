@@ -403,6 +403,7 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnBracket()
         {
             if (this.data != null)

@@ -682,6 +682,7 @@ namespace FileSystem
 
         #endregion
 
+        [UnityEngine.Scripting.Preserve]
         public void onClickBtnDelete()
         {
             if (this.data != null)

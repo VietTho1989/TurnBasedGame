@@ -569,6 +569,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnUpdate()
     {
         if (this.data != null)

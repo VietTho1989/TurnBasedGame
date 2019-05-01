@@ -388,6 +388,7 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
 
     #endregion
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreateRoom()
     {
         if (this.data != null)
