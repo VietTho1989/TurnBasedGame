@@ -22,7 +22,8 @@ public class MainUI : UIBehavior<MainUI.UIData>
                 Online,
                 Offline,
                 Lan,
-                LoadData
+                LoadData,
+                About
             }
 
             public abstract Type getType();
@@ -279,6 +280,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
     public OfflineUI playOfflinePrefab;
     public LanUI lanPrefab;
     public LoadDataUI loadDataPrefab;
+    public AboutUI aboutPrefab;
 
     public ShowSettingUI showSettingPrefab;
 
@@ -344,6 +346,12 @@ public class MainUI : UIBehavior<MainUI.UIData>
                             {
                                 LoadDataUI.UIData loadDataUIData = sub as LoadDataUI.UIData;
                                 UIUtils.Instantiate(loadDataUIData, loadDataPrefab, this.transform);
+                            }
+                            break;
+                        case UIData.Sub.Type.About:
+                            {
+                                AboutUI.UIData aboutUIData = sub as AboutUI.UIData;
+                                UIUtils.Instantiate(aboutUIData, aboutPrefab, this.transform);
                             }
                             break;
                         default:
@@ -427,6 +435,12 @@ public class MainUI : UIBehavior<MainUI.UIData>
                             {
                                 LoadDataUI.UIData loadDataUIData = sub as LoadDataUI.UIData;
                                 loadDataUIData.removeCallBackAndDestroy(typeof(LoadDataUI));
+                            }
+                            break;
+                        case UIData.Sub.Type.About:
+                            {
+                                AboutUI.UIData aboutUIData = sub as AboutUI.UIData;
+                                aboutUIData.removeCallBackAndDestroy(typeof(AboutUI));
                             }
                             break;
                         default:

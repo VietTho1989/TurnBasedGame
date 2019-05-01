@@ -734,6 +734,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
 
     public GameObject btnChangePassword;
 
+    [UnityEngine.Scripting.Preserve]
     public void onClickBtnChangePassword()
     {
         if (this.data != null)

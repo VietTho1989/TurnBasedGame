@@ -104,6 +104,10 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     public Text tvLoad;
     private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
 
+    public Button btnAbout;
+    public Text tvAbout;
+    private static readonly TxtLanguage txtAbout = new TxtLanguage("About");
+
     public Button btnViewAds;
     public Text tvViewAds;
     private static readonly TxtLanguage txtViewAds = new TxtLanguage("View Ads");
@@ -116,6 +120,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         txtLan.add(Language.Type.vi, "Chơi Mạng Lan");
         txtOnline.add(Language.Type.vi, "Chơi Online");
         txtLoad.add(Language.Type.vi, "Tải");
+        txtAbout.add(Language.Type.vi, "Thông Tin");
         txtViewAds.add(Language.Type.vi, "Xem Quảng Cáo");
         txtThankYou.add(Language.Type.vi, "Cảm ơn bạn rất nhiều");
     }
@@ -157,7 +162,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("tvOffline null: " + this);
+                        Debug.LogError("tvOffline null");
                     }
                     if (tvLan != null)
                     {
@@ -165,7 +170,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("tvLan null: " + this);
+                        Debug.LogError("tvLan null");
                     }
                     if (tvOnline != null)
                     {
@@ -173,7 +178,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("tvOnline null: " + this);
+                        Debug.LogError("tvOnline null: ");
                     }
                     if (tvLoad != null)
                     {
@@ -181,7 +186,15 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("tvLoad null: " + this);
+                        Debug.LogError("tvLoad null");
+                    }
+                    if (tvAbout != null)
+                    {
+                        tvAbout.text = txtAbout.get();
+                    }
+                    else
+                    {
+                        Debug.LogError("tvAbout null");
                     }
                     if (tvViewAds != null)
                     {
@@ -502,7 +515,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     public void onClickBtnLoadGame()
     {
-        Debug.LogError("onClickBtnLoadGame");
+        // Debug.LogError("onClickBtnLoadGame");
         if (this.data != null)
         {
             MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
@@ -513,6 +526,31 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
                 }
                 mainUIData.sub.v = loadDataUIData;
+            }
+            else
+            {
+                Debug.LogError("mainUIData null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public void onClickBtnAbout()
+    {
+        // Debug.LogError("onClickBtnAbout");
+        if (this.data != null)
+        {
+            MainUI.UIData mainUIData = this.data.findDataInParent<MainUI.UIData>();
+            if (mainUIData != null)
+            {
+                AboutUI.UIData aboutUIData = mainUIData.sub.newOrOld<AboutUI.UIData>();
+                {
+
+                }
+                mainUIData.sub.v = aboutUIData;
             }
             else
             {
