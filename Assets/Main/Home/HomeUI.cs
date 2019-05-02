@@ -131,6 +131,8 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     public Button btnBack;
 
+    public RectTransform menuContainer;
+
     public override void refresh()
     {
         if (dirty)
@@ -152,6 +154,147 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     else
                     {
                         Debug.LogError("btnViewAds null");
+                    }
+                }
+                // UI
+                {
+                    float deltaY = 0;
+                    bool isFirst = true;
+                    // btnOffline
+                    if (btnOffline != null)
+                    {
+                        if (btnOffline.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnOffline.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnOffline null");
+                    }
+                    // btnLan
+                    if (btnLan != null)
+                    {
+                        if (btnLan.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnLan.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnLan null");
+                    }
+                    // btnOnline
+                    if (btnOnline != null)
+                    {
+                        if (btnOnline.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnOnline.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnOnline null");
+                    }
+                    // btnLoad
+                    if (btnLoad != null)
+                    {
+                        if (btnLoad.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnLoad.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnLoad null");
+                    }
+                    // btnAbout
+                    if (btnAbout != null)
+                    {
+                        if (btnAbout.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnAbout.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnAbout null");
+                    }
+                    // btnViewAds
+                    if (btnViewAds != null)
+                    {
+                        if (btnViewAds.gameObject.activeSelf)
+                        {
+                            if (!isFirst)
+                            {
+                                deltaY += 20;
+                            }
+                            else
+                            {
+                                isFirst = false;
+                            }
+                            UIRectTransform.SetPosY((RectTransform)btnViewAds.transform, deltaY);
+                            deltaY += 30;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnViewAds null");
+                    }
+                    // set height
+                    if (menuContainer != null)
+                    {
+                        UIRectTransform rect = UIRectTransform.CreateCenterRect(0, deltaY);
+                        rect.set(menuContainer);
+                    }
+                    else
+                    {
+                        Debug.LogError("menuContainer null");
                     }
                 }
                 // txt
@@ -245,7 +388,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             return;
         }
         // Ads
-        if(data is AdsManager)
+        if (data is AdsManager)
         {
             dirty = true;
             return;
@@ -257,7 +400,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             return;
         }
         // Child
-        if(data is ConfirmLeaveAppUI.UIData)
+        if (data is ConfirmLeaveAppUI.UIData)
         {
             ConfirmLeaveAppUI.UIData confirmLeave = data as ConfirmLeaveAppUI.UIData;
             // UI
@@ -291,7 +434,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             return;
         }
         // Ads
-        if(data is AdsManager)
+        if (data is AdsManager)
         {
             return;
         }
@@ -336,7 +479,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             return;
         }
         // Ads
-        if(wrapProperty.p is AdsManager)
+        if (wrapProperty.p is AdsManager)
         {
             switch ((AdsManager.Property)wrapProperty.n)
             {
