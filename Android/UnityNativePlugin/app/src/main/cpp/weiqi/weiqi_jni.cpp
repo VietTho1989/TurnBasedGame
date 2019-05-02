@@ -21,10 +21,6 @@
 #include "distributed/engines/weiqi_patternplay.hpp"
 #include "distributed/engines/weiqi_montecarlo.hpp"
 
-#ifndef UsePThread
-#include <boost/regex/pending/static_mutex.hpp>
-#endif
-
 namespace weiqi
 {
     
