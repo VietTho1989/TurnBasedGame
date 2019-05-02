@@ -169,6 +169,18 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
 
     #endregion
 
+    static void DoWork(object work)
+    {
+        if(work is Work)
+        {
+            ((Work)work).DoWork();
+        }
+        else
+        {
+            Debug.LogError("why not work: " + work);
+        }
+    }
+
     public IEnumerator TaskFindAIMove()
     {
         // TODO Co nen cho cai nay ko nhi?
@@ -179,9 +191,9 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
             w.isDone = false;
             // startThread
             {
-                // ThreadPool.QueueUserWorkItem(w => w.DoWork());
-
-                ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                // TODO Tam bo
+                /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                 // remove old thread
                 destroyNewThread();
                 // find stackSize
@@ -225,7 +237,7 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
                 }
                 // make new thread
                 newThread = (stackSize > 0) ? new Thread(threadDelegate, stackSize) : new Thread(threadDelegate);
-                newThread.Start();
+                newThread.Start();*/
             }
         }
         // Wait

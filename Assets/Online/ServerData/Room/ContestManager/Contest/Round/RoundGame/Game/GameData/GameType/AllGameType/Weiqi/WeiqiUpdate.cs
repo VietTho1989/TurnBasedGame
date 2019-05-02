@@ -138,6 +138,18 @@ namespace Weiqi
 
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public IEnumerator TaskUpdateScore()
         {
             if (this.data != null)
@@ -151,9 +163,11 @@ namespace Weiqi
                         w.data = this.data;
                         // start thread
                         {
-                            ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                            ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                            // TODO Tam bo
+                            /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                             Thread newThread = new Thread(threadDelegate, Global.ThreadSize);
-                            newThread.Start();
+                            newThread.Start();*/
                         }
                         // Wait
                         while (!w.isDone)
