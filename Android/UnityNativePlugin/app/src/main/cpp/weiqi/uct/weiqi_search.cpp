@@ -223,14 +223,14 @@ namespace weiqi
             pthread_attr_init(&a);
             pthread_attr_setstacksize(&a, 1048576);
             pthread_create(&threads[ti], &a, spawn_worker, ctx);
-#endif*/
+#endif
             if (UDEBUGL(4))
                 printf("Spawned worker %d\n", ti);
         }
             
 #ifndef UsePThread
             threads->join_all();
-#endif
+#endif*/
         
         /* ...and collect them back: */
         while (joined < u->threads) {
@@ -369,74 +369,21 @@ namespace weiqi
             s->ctx.ti = ti;
         }
         //mctx = (struct uct_thread_ctx) { .u = u, .b = b, .color = color, .t = t, .seed = fast_random(65536), .ti = ti };
+#ifndef UsePThread
+        u->finish_serializer->lock();
+        u->finish_mutex->lock();
+        // create thread
         {
-            /* In thread_manager, we use only some of the ctx fields. */
-            struct uct_thread_ctx* mctx = &s->ctx;
-            struct uct *u = mctx->u;
-            struct tree *t = mctx->t;
-            fast_srandom(mctx->seed);
-            
-            int32_t played_games = 0;
-            
-            int32_t joined = 0;
-            
-            mctx->u->uct_halt = 0;
-            // printf("spawn thread manager: %p, %p, %d\n", threads, threads[u->finish_thread], u->threads);
-            
-            /* Garbage collect the tree by preference when pondering. */
-            if (u->pondering && t->nodes && t->nodes_size >= t->pruning_threshold) {
-                t->root = tree_garbage_collect(t, t->root);
-            }
-            
-            /* Make sure the root node is expanded. */
-            {
-                enum stone player_color = mctx->color;
-                struct tree_node *n = t->root;
-                enum stone node_color = stone_other(player_color);
-                {
-                    // assert(node_color == t->root_color);
-                    if(!(node_color == t->root_color)){
-                        printf("error, assert(node_color == t->root_color)\n");
-                        node_color = t->root_color;
-                    }
-                }
-                
-#ifdef _MSC_VER
-                bool oldValue = n->is_expanded;
-                n->is_expanded = 1;
-                if (tree_leaf_node(n) && !oldValue){
-#else
-                    if (tree_leaf_node(n) && !__sync_lock_test_and_set(&n->is_expanded, 1)){
-#endif
-                        // printf("spawn_thread_manager: tree_expand_node: %d\n", n->coord);
-                        tree_expand_node(t, n, mctx->b, player_color, u, 1);
-                    }
-                }
-                
-                /* Spawn threads... */
-                // for (int32_t ti = 0; ti < u->threads; ti++)
-                for (int32_t ti = 0; ti < 1; ti++)
-                {
-                    // TODO cai nay can xem lai
-                    // TODO test callloc
-                    struct uct_thread_ctx* ctx = (struct uct_thread_ctx*)calloc(1, sizeof(*ctx));// malloc2(sizeof(*ctx));
-                    ctx->u = u; ctx->b = mctx->b; ctx->color = mctx->color;
-                    mctx->t = ctx->t = t;
-                    ctx->tid = ti; ctx->seed = fast_random(65536) + ti;
-                    ctx->ti = mctx->ti;
-                    
-                    // TODO Tam them vao
-                    {
-                        /* Setup */
-                        fast_srandom(ctx->seed);
-                        /* Run */
-                        ctx->games = uct_playouts(ctx->u, ctx->b, ctx->color, ctx->t, ctx->ti);
-                    }
-                    if (UDEBUGL(4))
-                        printf("Spawned worker %d\n", ti);
-                }
-            }
+            u->thread_manager = new boost::thread(spawn_thread_manager, &s->ctx);
+            u->thread_manager->detach();
+            u->thread_manager->join();
         }
+#else
+        pthread_mutex_lock(u->finish_serializer);
+        pthread_mutex_lock(u->finish_mutex);
+        pthread_create(u->thread_manager, NULL, spawn_thread_manager, &s->ctx);
+#endif
+        u->thread_manager_running = true;
     }
     
     struct uct_thread_ctx* uct_search_stop(struct uct *u)
