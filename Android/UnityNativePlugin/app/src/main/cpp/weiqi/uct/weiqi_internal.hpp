@@ -22,13 +22,6 @@
 #include "../weiqi_debug.hpp"
 #include "../weiqi_playout.hpp"
 
-#ifndef UsePThread
-#include <boost/thread.hpp>
-#include <boost/regex/pending/static_mutex.hpp>
-#else
-#include <pthread.h>
-#endif
-
 namespace weiqi
 {
     /* How many games to consider at minimum before judging groups. */
@@ -150,29 +143,9 @@ namespace weiqi
         /* Game state - maintained by setup_state(), reset_state(). */
         struct tree *t;
         
-        // TODO tu them vao
-        bool thread_manager_running;
         volatile sig_atomic_t uct_halt = 0;
-        
-        // TODO them vao
-#ifndef UsePThread
-        boost::thread* thread_manager = NULL;
-        boost::mutex* finish_mutex = NULL;// = PTHREAD_MUTEX_INITIALIZER;
-        boost::condition_variable* finish_cond = NULL;// = PTHREAD_COND_INITIALIZER;
-        // bo volatile
-        int32_t finish_thread;
-        boost::mutex* finish_serializer = NULL;// = PTHREAD_MUTEX_INITIALIZER;
-        
         struct uct_thread_ctx *pctx = NULL;
-        // bool stop = false;
-#else
-        pthread_t* thread_manager;
-        pthread_mutex_t* finish_mutex;// = PTHREAD_MUTEX_INITIALIZER;
-        pthread_cond_t* finish_cond;// = PTHREAD_COND_INITIALIZER;
-        // bo volatile
-        int32_t finish_thread;
-        pthread_mutex_t* finish_serializer;// = PTHREAD_MUTEX_INITIALIZER;
-#endif
+        
         int64_t time_start = 0;
         int64_t time = 5;
     };

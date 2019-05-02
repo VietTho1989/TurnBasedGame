@@ -328,6 +328,7 @@ namespace weiqi
     // bo static
     int32_t uct_search(struct uct *u, struct board *b, struct time_info *ti, enum stone color, struct tree *t, bool print_progress)
     {
+        printf("uct_search\n");
         struct uct_search_state s;
         // printf("uct_search: uct_search_start\n");
         uct_search_start(u, b, color, t, ti, &s);
@@ -383,7 +384,7 @@ namespace weiqi
             u->playout->debug_level = u->debug_after.level;
             u->uct_halt = false;
             
-            uct_playouts(u, b, color, t, &debug_ti);
+            uct_playouts(u, b, color, t, &debug_ti, &s);
             tree_dump(t, u->dumpthres);
             
             printf("uct_halt true\n");
@@ -403,19 +404,20 @@ namespace weiqi
      * to stop the background search for a slave in the distributed engine. */
     void uct_pondering_stop(struct uct *u)
     {
-        if (!u->thread_manager_running)
-            return;
-        
         /* Stop the thread manager. */
         struct uct_thread_ctx *ctx = uct_search_stop(u);
-        if (UDEBUGL(1)) {
-            if (u->pondering)
-                printf("(pondering) ");
-            uct_progress_status(u, ctx->t, ctx->color, ctx->games, NULL);
-        }
-        if (u->pondering) {
-            free(ctx->b);
-            u->pondering = false;
+        if(ctx!=NULL){
+            if (UDEBUGL(1)) {
+                if (u->pondering)
+                    printf("(pondering) ");
+                uct_progress_status(u, ctx->t, ctx->color, ctx->games, NULL);
+            }
+            if (u->pondering) {
+                free(ctx->b);
+                u->pondering = false;
+            }
+        }else{
+            printf("error, ctx null\n");
         }
     }
     
@@ -1236,31 +1238,6 @@ namespace weiqi
         uct_prior_done(u->prior);
         joseki_done(u->jdict);
         pluginset_done(u->plugins);
-        
-#ifndef UsePThread
-        if(u->thread_manager!=NULL){
-            delete u->thread_manager;
-            u->thread_manager = NULL;
-        }
-        if(u->finish_mutex!=NULL){
-            delete u->finish_mutex;
-            u->finish_mutex = NULL;
-        }
-        if(u->finish_cond!=NULL){
-            delete u->finish_cond;
-            u->finish_cond = NULL;
-        }
-        if(u->finish_serializer!=NULL){
-            delete u->finish_serializer;
-            u->finish_serializer = NULL;
-        }
-        if(u->pctx!=NULL){
-            free(u->pctx);
-            u->pctx = NULL;
-        }
-#else
-        
-#endif
         
         // free uct
         free(u);

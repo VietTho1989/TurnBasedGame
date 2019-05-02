@@ -67,57 +67,16 @@ namespace weiqi
      static pthread_mutex_t finish_serializer = PTHREAD_MUTEX_INITIALIZER;*/
     
     // bo static
-#ifndef UsePThread
-    void spawn_worker(void *ctx_)
-#else
-    void* spawn_worker(void *ctx_)
-#endif
+    void* spawn_worker(void *ctx_, struct uct_search_state *s)
     {
         printf("spawn_worker\n");
         struct uct_thread_ctx* ctx = (struct uct_thread_ctx*)ctx_;
         /* Setup */
         fast_srandom(ctx->seed);
         /* Run */
-        ctx->games = uct_playouts(ctx->u, ctx->b, ctx->color, ctx->t, ctx->ti);
+        ctx->games = uct_playouts(ctx->u, ctx->b, ctx->color, ctx->t, ctx->ti, s);
         printf("spawn_worker before lock\n");
-        /* Finish */
-#ifndef UsePThread
-        if(ctx->u!=NULL){
-            if(ctx->u->finish_serializer!=NULL){
-                ctx->u->finish_serializer->lock();
-            }else{
-                printf("error, finish_serializer NULL\n");
-            }
-            if(ctx->u->finish_mutex!=NULL){
-                ctx->u->finish_mutex->lock();
-            }else{
-                printf("error, finish_mutex NULL\n");
-            }
-            ctx->u->finish_thread = ctx->tid;
-            printf("spawn_worker: finish_cond notify_all\n");
-            if(ctx->u->finish_cond!=NULL){
-                ctx->u->finish_cond->notify_all();
-            }else{
-                printf("error, finish_cond NULL\n");
-            }
-            printf("spawn_worker unlock\n");
-            if(ctx->u->finish_mutex!=NULL){
-                ctx->u->finish_mutex->unlock();
-            }else{
-                printf("error, finish_mutex NULL\n");
-            }
-        }else{
-            printf("error, ctx u null\n");
-        }
-#else
-        pthread_mutex_lock(ctx->u->finish_serializer);
-        pthread_mutex_lock(ctx->u->finish_mutex);
-        ctx->u->finish_thread = ctx->tid;
-        printf("u->finish_cond send signal\n");
-        pthread_cond_signal(ctx->u->finish_cond);
-        pthread_mutex_unlock(ctx->u->finish_mutex);
         return ctx;
-#endif
     }
     
     /* Thread manager, controlling worker threads. It must be called with
@@ -129,7 +88,7 @@ namespace weiqi
      * used for the actual search, on return
      * it will set mctx->games to the number of performed simulations. */
     // bo static
-    void* spawn_thread_manager(void *ctx_)
+    void* spawn_thread_manager(void *ctx_, struct uct_search_state *s)
     {
         /* In thread_manager, we use only some of the ctx fields. */
         struct uct_thread_ctx* mctx = (struct uct_thread_ctx*)ctx_;
@@ -138,14 +97,6 @@ namespace weiqi
         fast_srandom(mctx->seed);
 
         int32_t played_games = 0;
-        
-#ifndef UsePThread
-        boost::thread_group* threads = new boost::thread_group();
-#else
-        pthread_t* threads= new pthread_t[u->threads];
-#endif
-        
-        int32_t joined = 0;
         
         mctx->u->uct_halt = 0;
         // printf("spawn thread manager: %p, %p, %d\n", threads, threads[u->finish_thread], u->threads);
@@ -182,124 +133,25 @@ namespace weiqi
         
         /* Spawn threads... */
         // for (int32_t ti = 0; ti < u->threads; ti++)
-        for (int32_t ti = 0; ti < 1; ti++)
         {
             // TODO cai nay can xem lai
             // TODO test callloc
-            struct uct_thread_ctx* ctx = (struct uct_thread_ctx*)calloc(1, sizeof(*ctx));// malloc2(sizeof(*ctx));
-            {
-                // TODO Test
-#ifndef UsePThread
-                u->pctx = ctx;
-#endif
-            }
+            struct uct_thread_ctx* ctx = (struct uct_thread_ctx*)ctx_;// (struct uct_thread_ctx*)calloc(1, sizeof(*ctx));// malloc2(sizeof(*ctx));
             ctx->u = u; ctx->b = mctx->b; ctx->color = mctx->color;
             mctx->t = ctx->t = t;
-            ctx->tid = ti; ctx->seed = fast_random(65536) + ti;
+            ctx->tid = 0; ctx->seed = fast_random(65536) + 0;
             ctx->ti = mctx->ti;
-#ifndef UsePThread
-            printf("spawn_thread_manager\n");
-            boost::thread::attributes attrs;
+            // spawn worker
             {
-                attrs.set_stack_size(1048576);
+                // TODO Tu them
+                u->pctx = ctx;
+                spawn_worker(ctx_, s);
             }
-            // boost::thread* t = new boost::thread(spawn_worker, (void*)ctx);
-            boost::thread* t = new boost::thread(attrs, boost::bind(spawn_worker, (void*)ctx));
-            t->detach();
-            threads->add_thread(t);
-#else
-            pthread_attr_t a;
-            pthread_attr_init(&a);
-            pthread_attr_setstacksize(&a, 1048576);
-            pthread_create(&threads[ti], &a, spawn_worker, ctx);
-#endif
-            if (UDEBUGL(4))
-                printf("Spawned worker %d\n", ti);
-        }
-            
-#ifndef UsePThread
-            threads->join_all();
-#endif
-        
-        /* ...and collect them back: */
-        while (joined < u->threads) {
-            printf("uct_halt: check stop by caller: %d\n", u->finish_thread);
-            /* Wait for some thread to finish... */
-#ifndef UsePThread
-            /*boost::unique_lock<boost::mutex> lock(*u->finish_mutex);
-            u->finish_cond->wait(lock);
-            printf("lock wait: finish_cond\n");*/
-            boost::this_thread::sleep_for (boost::chrono::seconds(1));
-            while (!u->uct_halt) {
-                // printf("u stop\n");
-                continue;
-            }
-#else
-            pthread_cond_wait(u->finish_cond, u->finish_mutex);
-#endif
-            
-            if (u->finish_thread < 0)
-            {
-                /* Stop-by-caller. Tell the workers to wrap up
-                 * and unblock them from terminating. */
-                printf("uct_halt: stop by caller: %d\n", u->finish_thread);
-                mctx->u->uct_halt = 1;
-                
-                /* We need to make sure the workers do not complete
-                 * the termination sequence before we get officially
-                 * stopped - their wake and the stop wake could get
-                 * coalesced. */
-#ifndef UsePThread
-                printf("finish_serializer unlock\n");
-                u->finish_serializer->unlock();
-#else
-                pthread_mutex_unlock(u->finish_serializer);
-#endif
-                
-                continue;
-            }
-            /* ...and gather its remnants. */
-            struct uct_thread_ctx *ctx;
-            // printf("join thread finish thread: %p, %p, %d\n", threads, threads[u->finish_thread], u->threads);
-#ifndef UsePThread
-            threads->interrupt_all();
-            boost::this_thread::sleep_for (boost::chrono::seconds(1));
-            ctx = u->pctx;
-#else
-            pthread_join(threads[u->finish_thread], (void **) &ctx);
-#endif
             played_games += ctx->games;
-            joined++;
-            
-#ifndef UsePThread
-
-#else
-            free(ctx);
-#endif
-            
-            if (UDEBUGL(4))
-                printf("Joined worker %d\n", u->finish_thread);
-#ifndef UsePThread
-            printf("finish_serializer unlock: 1\n");
-            u->finish_serializer->unlock();
-#else
-            pthread_mutex_unlock(u->finish_serializer);
-#endif
+            // free(ctx);
         }
-        
-#ifndef UsePThread
-        u->finish_mutex->unlock();
-#else
-        pthread_mutex_unlock(u->finish_mutex);
-#endif
         
         mctx->games = played_games;
-        
-#ifndef UsePThread
-        delete threads;
-#else
-        delete [] threads;
-#endif
         
         return mctx;
     }
@@ -341,12 +193,6 @@ namespace weiqi
                 printf("error, assert(u->threads > 0)\n");
             }
         }
-        {
-            // assert(!u->thread_manager_running);
-            if(u->thread_manager_running){
-                printf("error, assert(!u->thread_manager_running)\n");
-            }
-        }
         // TODO init uct_thread_ctx
         // printf("uct_search_start\n");
         {
@@ -358,65 +204,16 @@ namespace weiqi
             s->ctx.ti = ti;
         }
         //mctx = (struct uct_thread_ctx) { .u = u, .b = b, .color = color, .t = t, .seed = fast_random(65536), .ti = ti };
-#ifndef UsePThread
-        u->finish_serializer->lock();
-        u->finish_mutex->lock();
-        // create thread
+        // spawn_thread_manager
         {
-            u->thread_manager = new boost::thread(spawn_thread_manager, &s->ctx);
-            u->thread_manager->detach();
-            u->thread_manager->join();
+            spawn_thread_manager(&s->ctx, s);
         }
-#else
-        pthread_mutex_lock(u->finish_serializer);
-        pthread_mutex_lock(u->finish_mutex);
-        pthread_create(u->thread_manager, NULL, spawn_thread_manager, &s->ctx);
-#endif
-        u->thread_manager_running = true;
     }
     
     struct uct_thread_ctx* uct_search_stop(struct uct *u)
     {
-        {
-            // assert(u->thread_manager_running);
-            if(!(u->thread_manager_running)){
-                printf("error, assert(u->thread_manager_running)\n");
-            }
-        }
-        
-        /* Signal thread manager to stop the workers. */
-#ifndef UsePThread
-        printf("uct_search_stop: lock\n");
         u->uct_halt = true;
-        u->finish_mutex->lock();
-        printf("uct_search_stop finish thread\n");
-        u->finish_thread = -1;
-        printf("uct_search_stop: notify_all\n");
-        u->finish_cond->notify_all();
-        printf("uct_search_stop: unlock\n");
-        u->finish_mutex->unlock();
-#else
-        pthread_mutex_lock(u->finish_mutex);
-        u->finish_thread = -1;
-        pthread_cond_signal(u->finish_cond);
-        pthread_mutex_unlock(u->finish_mutex);
-#endif
-        
-        /* Collect the thread manager. */
-        struct uct_thread_ctx *pctx;
-        u->thread_manager_running = false;
-        // printf("join thread manager\n");
-#ifndef UsePThread
-        // TODO Tam bo
-        // pthread_join(*u->thread_manager, (void **) &pctx);
-        printf("error, how to join?\n");
-        u->thread_manager->interrupt();
-        boost::this_thread::sleep_for (boost::chrono::seconds(1));
-        pctx = u->pctx;
-#else
-        pthread_join(*u->thread_manager, (void **) &pctx);
-#endif
-        return pctx;
+        return u->pctx;
     }
     
     void uct_search_progress(struct uct *u, struct board *b, enum stone color, struct tree *t, struct time_info *ti, struct uct_search_state *s, int32_t i)
@@ -573,7 +370,7 @@ namespace weiqi
     
     bool uct_search_check_stop(struct uct *u, struct board *b, enum stone color, struct tree *t, struct time_info *ti, struct uct_search_state *s, int32_t i)
     {
-        // printf("uct_search_check_stop: %d, %d\n", u->playOutCount, i);
+        // printf("uct_search_check_stop: %d\n", i);
         struct uct_thread_ctx *ctx = &s->ctx;
         
         /* Never consider stopping if we played too few simulations.

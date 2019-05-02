@@ -23,6 +23,10 @@ namespace weiqi
     void uct_progress_text(struct uct *u, struct tree *t, enum stone color, int32_t playouts)
     {
         struct board *b = t->board;
+        if(b!=NULL){
+            printf("board null\n");
+            return;
+        }
         if (!UDEBUGL(0))
             return;
         
@@ -329,14 +333,6 @@ namespace weiqi
             ps.prepolicy_hook = uct_playout_prepolicy;
             ps.postpolicy_hook = uct_playout_postpolicy;
             ps.hook_data = &upc;
-        }
-        // TODO Tu them vao
-        {
-            if(u->uct_halt)
-            {
-                printf("error, uct_halt\n");
-                return 0;
-            }
         }
         int32_t result = play_random_game(&ps, b, next_color, u->playout_amaf ? amaf : NULL, &u->ownermap, u->playout);
         if (next_color == S_WHITE) {
@@ -822,13 +818,22 @@ namespace weiqi
         return result;
     }
 
-    int32_t uct_playouts(struct uct *u, struct board *b, enum stone color, struct tree *t, struct time_info *ti)
+    int32_t uct_playouts(struct uct *u, struct board *b, enum stone color, struct tree *t, struct time_info *ti, struct uct_search_state *s)
     {
-        printf("uct_playouts\n");
+        // printf("uct_playouts\n");
         int32_t i;
+        int lastI = 0;
         for (i = 0; !u->uct_halt; i++) {
             // printf("uct_playout: %d\n", i);
             uct_playout(u, b, color, t);
+            // check stop
+            {
+                if(i-lastI>=10){
+                    if (uct_search_check_stop(u, b, color, t, ti, s, i))
+                        break;
+                    lastI = i;
+                }
+            }
         }
         return i;
     }

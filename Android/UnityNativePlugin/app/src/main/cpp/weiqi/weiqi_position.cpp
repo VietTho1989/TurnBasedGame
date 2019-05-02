@@ -26,36 +26,6 @@ namespace weiqi
             board_copy(&board, &b);
             // make uct
             struct uct* u = uct_state_init(NULL, &board);
-            // init thread
-            {
-#ifndef UsePThread
-                // init
-                boost::thread* thread_manager = NULL;
-                boost::mutex* finish_mutex = new boost::mutex();// (0);
-                boost::condition_variable* finish_cond = new boost::condition_variable();// (0);
-                // volatile int finish_thread;
-                boost::mutex* finish_serializer = new boost::mutex();// (0);
-                // set
-                u->thread_manager = thread_manager;
-                u->finish_mutex = finish_mutex;
-                u->finish_cond = finish_cond;
-                u->finish_thread = 0;// -1;
-                u->finish_serializer = finish_serializer;
-#else
-                // init
-                pthread_t thread_manager;
-                pthread_mutex_t finish_mutex = PTHREAD_MUTEX_INITIALIZER;
-                pthread_cond_t finish_cond = PTHREAD_COND_INITIALIZER;
-                // volatile int finish_thread;
-                pthread_mutex_t finish_serializer = PTHREAD_MUTEX_INITIALIZER;
-                // set
-                u->thread_manager = &thread_manager;
-                u->finish_mutex = &finish_mutex;
-                u->finish_cond = &finish_cond;
-                u->finish_thread = 0;// -1;
-                u->finish_serializer = &finish_serializer;
-#endif
-            }
             // find dead group list
             uct_dead_group_list(u, &board, &q);
             // update position
