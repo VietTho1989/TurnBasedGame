@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812555"
+            timestampString = "578075814.783784"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "weiqi_initCore()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1082,11 +1082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812636"
+            timestampString = "578075814.784318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1146,11 +1146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812719"
+            timestampString = "578075814.784814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "weiqi_setFileName(const char* newSpatialDictFileName, const char* newPatternFileName)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1162,11 +1162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812764"
+            timestampString = "578075814.7849571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "weiqi_setFileName(const char* newSpatialDictFileName, const char* newPatternFileName)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1178,11 +1178,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812807"
+            timestampString = "578075814.785066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "weiqi_setFileName(const char* newSpatialDictFileName, const char* newPatternFileName)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1194,11 +1194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812849"
+            timestampString = "578075814.785149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "setPatternFileName(const char* newPatternFileName)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1226,11 +1226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812904"
+            timestampString = "578075814.785272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1274,11 +1274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.812969"
+            timestampString = "578075814.785468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1155"
-            endingLineNumber = "1155"
+            startingLineNumber = "1159"
+            endingLineNumber = "1159"
             landmarkName = "weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &amp;outRet)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1290,11 +1290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.813013"
+            timestampString = "578075814.785534"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1268"
-            endingLineNumber = "1268"
+            startingLineNumber = "1272"
+            endingLineNumber = "1272"
             landmarkName = "weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &amp;outRet)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1770,11 +1770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.813362"
+            timestampString = "578075814.788414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3573,11 +3573,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.815199"
+            timestampString = "578075814.791478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1403"
-            endingLineNumber = "1403"
+            startingLineNumber = "1407"
+            endingLineNumber = "1407"
             landmarkName = "weiqi_printMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3589,11 +3589,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.815261"
+            timestampString = "578075814.791558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1429"
-            endingLineNumber = "1429"
+            startingLineNumber = "1433"
+            endingLineNumber = "1433"
             landmarkName = "weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3605,11 +3605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8153059"
+            timestampString = "578075814.791633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1405"
-            endingLineNumber = "1405"
+            startingLineNumber = "1409"
+            endingLineNumber = "1409"
             landmarkName = "weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3621,11 +3621,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.815349"
+            timestampString = "578075814.791706"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1426"
-            endingLineNumber = "1426"
+            startingLineNumber = "1430"
+            endingLineNumber = "1430"
             landmarkName = "weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3685,11 +3685,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8154269"
+            timestampString = "578075814.792208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
             landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3701,43 +3701,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8154711"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
-            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8155119"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "639"
-            endingLineNumber = "639"
-            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8155529"
+            timestampString = "578075814.792286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "641"
             endingLineNumber = "641"
+            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
+            timestampString = "578075814.792359"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "643"
+            endingLineNumber = "643"
+            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
+            timestampString = "578075814.792432"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -3813,11 +3813,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.815639"
+            timestampString = "578075814.792677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1389"
-            endingLineNumber = "1389"
+            startingLineNumber = "1393"
+            endingLineNumber = "1393"
             landmarkName = "weiqi_printMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3829,11 +3829,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.815681"
+            timestampString = "578075814.792749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -4053,11 +4053,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8158571"
+            timestampString = "578075814.7930911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1300"
-            endingLineNumber = "1300"
+            startingLineNumber = "1304"
+            endingLineNumber = "1304"
             landmarkName = "weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &amp;outRet)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4069,11 +4069,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/weiqi_jni.cpp"
-            timestampString = "578487981.8159029"
+            timestampString = "578075814.793245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1299"
-            endingLineNumber = "1299"
+            startingLineNumber = "1303"
+            endingLineNumber = "1303"
             landmarkName = "weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &amp;outRet)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4101,7 +4101,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.815963"
+            timestampString = "578075814.793811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -4117,11 +4117,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.816247"
+            timestampString = "578075814.794499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4133,11 +4133,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.816486"
+            timestampString = "578075814.795042"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
+            startingLineNumber = "606"
+            endingLineNumber = "606"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4149,11 +4149,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.81672"
+            timestampString = "578075814.795548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4165,11 +4165,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.816959"
+            timestampString = "578075814.7960041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
@@ -4181,11 +4181,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Android/UnityNativePlugin/app/src/main/cpp/weiqi/uct/weiqi_search.cpp"
-            timestampString = "578487981.817191"
+            timestampString = "578075814.796404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
             landmarkName = "spawn_thread_manager(void *ctx_)"
             landmarkType = "9">
          </BreakpointContent>
