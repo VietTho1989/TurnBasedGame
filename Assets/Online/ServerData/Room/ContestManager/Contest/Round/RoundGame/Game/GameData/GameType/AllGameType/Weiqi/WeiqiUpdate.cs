@@ -152,7 +152,7 @@ namespace Weiqi
                         // start thread
                         {
                             ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-                            Thread newThread = new Thread(threadDelegate);
+                            Thread newThread = new Thread(threadDelegate, Global.ThreadSize);
                             newThread.Start();
                         }
                         // Wait
