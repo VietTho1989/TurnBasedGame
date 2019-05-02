@@ -24,6 +24,7 @@
 
 #ifndef UsePThread
 #include <boost/thread.hpp>
+#include <boost/regex/pending/static_mutex.hpp>
 #else
 #include <pthread.h>
 #endif

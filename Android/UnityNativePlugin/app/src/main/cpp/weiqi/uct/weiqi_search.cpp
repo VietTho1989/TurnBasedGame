@@ -197,18 +197,7 @@ namespace weiqi
             mctx->t = ctx->t = t;
             ctx->tid = ti; ctx->seed = fast_random(65536) + ti;
             ctx->ti = mctx->ti;
-            
-            // TODO Tam them vao
-            {
-                struct uct_thread_ctx* ctx = (struct uct_thread_ctx*)ctx_;
-                /* Setup */
-                fast_srandom(ctx->seed);
-                /* Run */
-                ctx->games = uct_playouts(ctx->u, ctx->b, ctx->color, ctx->t, ctx->ti);
-            }
- 
-            // TODO Tam bo
-/*#ifndef UsePThread
+#ifndef UsePThread
             printf("spawn_thread_manager\n");
             boost::thread::attributes attrs;
             {
@@ -230,7 +219,7 @@ namespace weiqi
             
 #ifndef UsePThread
             threads->join_all();
-#endif*/
+#endif
         
         /* ...and collect them back: */
         while (joined < u->threads) {

@@ -1087,8 +1087,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
             endingLineNumber = "79"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "weiqi_initCore()"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1231,8 +1231,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "172"
             endingLineNumber = "172"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "setPatternFileName(const char* newPatternFileName)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3610,7 +3610,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1409"
             endingLineNumber = "1409"
-            landmarkName = "weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
+            landmarkName = "weiqi_printMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3738,8 +3738,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "645"
             endingLineNumber = "645"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3834,8 +3834,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "647"
             endingLineNumber = "647"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &amp;outRet)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
