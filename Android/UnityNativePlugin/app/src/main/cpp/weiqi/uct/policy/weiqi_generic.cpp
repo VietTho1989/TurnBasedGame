@@ -18,7 +18,10 @@ namespace weiqi
     struct tree_node* uctp_generic_choose(struct uct_policy *p, struct tree_node *node, struct board *b, enum stone color, coord_t exclude)
     {
         struct tree_node* nbest = node->children;
-        if (!nbest) return NULL;
+        if (!nbest) {
+            printf("don't have nbest\n");
+            return NULL;
+        }
         struct tree_node *nbest2 = nbest->sibling;
         
         /* This function is called while the tree is updated by other threads.

@@ -23,7 +23,8 @@ namespace weiqi
     void uct_progress_text(struct uct *u, struct tree *t, enum stone color, int32_t playouts)
     {
         struct board *b = t->board;
-        if(b!=NULL){
+        if(b==NULL)
+        {
             printf("board null\n");
             return;
         }

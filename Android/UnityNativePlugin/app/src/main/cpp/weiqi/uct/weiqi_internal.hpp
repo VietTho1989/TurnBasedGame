@@ -181,7 +181,7 @@ namespace weiqi
     typedef void (*uctp_done)(struct uct_policy *p);
     
     struct uct_policy {
-        struct uct *uct;
+        struct uct *uct = NULL;
         uctp_choose choose;
         uctp_winner winner;
         uctp_evaluate evaluate;

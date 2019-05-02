@@ -93,8 +93,8 @@ namespace weiqi
         // Test
         volatile uint32_t hash = 0;
         
-        struct board *board;
-        struct tree_node *root;
+        struct board *board = NULL;
+        struct tree_node *root = NULL;
         struct board_symmetry root_symmetry;
         enum stone root_color;
         
@@ -121,16 +121,16 @@ namespace weiqi
          * is ignored. Values in root node are ignored. */
         /* The value corresponds to black-to-play as usual; i.e. if white
          * succeeds in its replies, the values will be low. */
-        struct tree_node *ltree_black;
+        struct tree_node *ltree_black = NULL;
         /* ltree_white has white-first sequences as children. */
-        struct tree_node *ltree_white;
+        struct tree_node *ltree_white = NULL;
         /* Aging factor; 2 means halve all playout values after each turn.
          * 1 means don't age at all. */
         floating_t ltree_aging;
         
         /* Hash table used when working as slave for the distributed engine.
          * Maps coordinate path to tree node. */
-        struct tree_hash* htable;
+        struct tree_hash* htable = NULL;
         int32_t hbits;
         
         // Statistics

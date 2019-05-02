@@ -1228,7 +1228,7 @@ namespace weiqi
     
     void my_uct_done(struct uct *u)
     {
-        uct_pondering_stop(u);
+        // TODO Tam bo uct_pondering_stop(u);
         if (u->t) reset_state(u);
         if (u->dynkomi) u->dynkomi->done(u->dynkomi);
         
