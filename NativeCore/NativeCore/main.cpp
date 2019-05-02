@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
             break;
         }
         const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbasedGame/NativeCore/Resources";
-        int matchCount = 1;
+        int matchCount = 10;
         // StockFishChess::chess_main(matchCount, ResourcePath);
         // Shatranj::shatranj_main(matchCount, ResourcePath);
         // Makruk::makruk_main(matchCount, ResourcePath);

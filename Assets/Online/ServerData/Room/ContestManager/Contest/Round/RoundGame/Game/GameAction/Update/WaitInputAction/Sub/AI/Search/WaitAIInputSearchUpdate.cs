@@ -178,51 +178,55 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
             w.data = this.data;
             w.isDone = false;
             // startThread
-            ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-            // remove old thread
-            destroyNewThread();
-            // find stackSize
-            int stackSize = Global.ThreadSize;
             {
-                // find gameType
-                GameType gameType = null;
+                // ThreadPool.QueueUserWorkItem(w => w.DoWork());
+
+                ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                // remove old thread
+                destroyNewThread();
+                // find stackSize
+                int stackSize = Global.ThreadSize;
                 {
-                    // find gameData
-                    GameData gameData = null;
+                    // find gameType
+                    GameType gameType = null;
                     {
-                        Game game = this.data.findDataInParent<Game>();
-                        if (game != null)
+                        // find gameData
+                        GameData gameData = null;
                         {
-                            gameData = game.gameData.v;
+                            Game game = this.data.findDataInParent<Game>();
+                            if (game != null)
+                            {
+                                gameData = game.gameData.v;
+                            }
+                            else
+                            {
+                                Debug.LogError("Why game null");
+                            }
+                        }
+                        // process
+                        if (gameData != null)
+                        {
+                            gameType = gameData.gameType.v;
                         }
                         else
                         {
-                            Debug.LogError("Why game null");
+                            Debug.LogError("gameData null");
                         }
                     }
                     // process
-                    if (gameData != null)
+                    if (gameType != null)
                     {
-                        gameType = gameData.gameType.v;
+                        stackSize = gameType.getStackSize();
                     }
                     else
                     {
-                        Debug.LogError("gameData null");
+                        Debug.LogError("gameType null");
                     }
                 }
-                // process
-                if (gameType != null)
-                {
-                    stackSize = gameType.getStackSize();
-                }
-                else
-                {
-                    Debug.LogError("gameType null");
-                }
+                // make new thread
+                newThread = (stackSize > 0) ? new Thread(threadDelegate, stackSize) : new Thread(threadDelegate);
+                newThread.Start();
             }
-            // make new thread
-            newThread = (stackSize > 0) ? new Thread(threadDelegate, stackSize) : new Thread(threadDelegate);
-            newThread.Start();
         }
         // Wait
         while (!w.isDone)
