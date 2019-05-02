@@ -708,7 +708,7 @@ namespace Weiqi
 
         public override int getStackSize()
         {
-            return Global.ThreadSize;
+            return 10 * Global.ThreadSize;
         }
 
         public override GameMove getAIMove(Computer.AI computerAI, bool isFindHint)
