@@ -1528,6 +1528,7 @@ namespace weiqi
             
             coord_t *stones = enemy[i].stones;
             for (int32_t j = 0; stones[j]; j++) {
+                printf("stones j: %d, %d\n", j, stones[j]);
                 board_at(b, stones[j]) = other_color;
                 group_at(b, stones[j]) = old_group;
                 groupnext_at(b, stones[j]) = stones[j + 1];
