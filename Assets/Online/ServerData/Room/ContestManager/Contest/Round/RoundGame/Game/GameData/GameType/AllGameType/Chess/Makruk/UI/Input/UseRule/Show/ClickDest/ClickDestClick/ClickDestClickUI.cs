@@ -217,7 +217,7 @@ namespace Makruk.UseRule
 									Debug.LogError ("show null: " + this);
 								}
 							}
-							Debug.LogError ("clickDestClickUI: " + GameUtils.Utils.getListString (legalMoves) + "; " + this);
+							// Debug.LogError ("clickDestClickUI: " + GameUtils.Utils.getListString (legalMoves) + "; " + this);
 							// Make UI
 							{
 								for (int legalMoveIndex = 0; legalMoveIndex < legalMoves.Count; legalMoveIndex++) {

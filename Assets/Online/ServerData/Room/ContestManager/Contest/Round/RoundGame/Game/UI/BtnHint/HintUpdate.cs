@@ -291,14 +291,7 @@ namespace Hint
                                 break;
                             case HintUI.UIData.State.Type.Getting:
                                 {
-                                    if (Routine.IsNull(findHintRoutine))
-                                    {
-                                        findHintRoutine = CoroutineManager.StartCoroutine(TaskFindHint(), this.gameObject);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("Why routine != null: " + this);
-                                    }
+                                    startRoutine(ref this.findHintRoutine, TaskFindHint());
                                 }
                                 break;
                             case HintUI.UIData.State.Type.Show:
@@ -390,6 +383,18 @@ namespace Hint
             return ret;
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public IEnumerator TaskFindHint()
         {
             if (this.data != null)
@@ -400,7 +405,9 @@ namespace Hint
                     w.isDone = false;
                     // startThread
                     {
-                        int stackSize = Global.ThreadSize;
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                        // TODO Tam bo
+                        /*int stackSize = Global.ThreadSize;
                         {
                             GameData gameData = this.data.gameData.v.data;
                             if (gameData != null)
@@ -422,7 +429,7 @@ namespace Hint
                         }
                         ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                         Thread newThread = stackSize > 0 ? new Thread(threadDelegate, stackSize) : new Thread(threadDelegate);
-                        newThread.Start();
+                        newThread.Start();*/
                     }
                 }
                 // Wait

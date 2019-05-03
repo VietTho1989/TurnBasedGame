@@ -310,7 +310,7 @@ public abstract class GameType : Data
         GameType.Type.InternationalDraught,
         GameType.Type.EnglishDraught,
         GameType.Type.RussianDraught,
-        GameType.Type.ChineseCheckers,
+        // GameType.Type.ChineseCheckers,
 
         GameType.Type.MineSweeper,
         GameType.Type.Hex,

@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Weiqi/WeiqiUpdate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUpdate.cs">
     <Files>
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUpdate.cs" Line="403" Column="18" />
       <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameAction/Update/WaitInputAction/Sub/AI/Search/WaitAIInputSearchUpdate.cs" Line="194" Column="75" />
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Weiqi/WeiqiUpdate.cs" Line="165" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
