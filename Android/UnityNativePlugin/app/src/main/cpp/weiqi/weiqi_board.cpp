@@ -338,7 +338,7 @@ namespace weiqi
                     gi->lib[gi->libs++] = c;
         });
         
-        group_at(board, coord) = group;
+        group_set(board, coord, group);
         groupnext_at(board, coord) = 0;
         
         if (!u)
@@ -957,7 +957,7 @@ namespace weiqi
         coord_t last_in_group;
         foreach_in_group(board, group_from) {
             last_in_group = c;
-            group_at(board, c) = group_to;
+            group_set(board, c, group_to);
         } foreach_in_group_end;
         
         if (u) u->merged[++u->nmerged_tmp].last = last_in_group;
@@ -1013,8 +1013,8 @@ namespace weiqi
     void board_remove_stone(struct board *board, group_t group, coord_t c, struct board_undo *u)
     {
         enum stone color = board_at(board, c);
-        board_at(board, c) = S_NONE;
-        group_at(board, c) = 0;
+        board_set(board, c, S_NONE);
+        group_set(board, c, 0);
         if (!u){
             board_hash_update(board, c, color);
         }
@@ -1069,7 +1069,7 @@ namespace weiqi
     // bo static
     void profiling_noinline add_to_group(struct board *board, group_t group, coord_t prevstone, coord_t coord, struct board_undo *u)
     {
-        group_at(board, coord) = group;
+        group_set(board, coord, group);
         groupnext_at(board, coord) = groupnext_at(board, prevstone);
         groupnext_at(board, prevstone) = coord;
         
@@ -1153,7 +1153,7 @@ namespace weiqi
             group = play_one_neighbor(board, coord, color, other_color, c, group, u);
         });
         
-        board_at(board, coord) = color;
+        board_set(board, coord, color);
         if (unlikely(!group))
             group = new_group(board, coord, u);
         
@@ -1254,7 +1254,7 @@ namespace weiqi
             }
         }
         
-        board_at(board, coord) = color;
+        board_set(board, coord, color);
         group_t group = new_group(board, coord, u);
         
         if (!u) {
@@ -1430,7 +1430,7 @@ namespace weiqi
 #endif
             
             foreach_in_group(b, old_group) {
-                group_at(b, c) = old_group;
+                group_set(b, c, old_group);
             } foreach_in_group_end;
         }
         
@@ -1461,8 +1461,8 @@ namespace weiqi
             
             coord_t *stones = enemy[i].stones;
             for (int32_t j = 0; stones[j]; j++) {
-                board_at(b, stones[j]) = other_color;
-                group_at(b, stones[j]) = old_group;
+                board_set(b, stones[j], other_color);
+                group_set(b, stones[j], old_group);
                 groupnext_at(b, stones[j]) = stones[j + 1];
                 
                 foreach_neighbor(b, stones[j], {
@@ -1499,8 +1499,8 @@ namespace weiqi
         else			// Single stone group undo
             memset(&board_group_info(b, group_at(b, coord)), 0, sizeof(struct group));
         
-        board_at(b, coord) = S_NONE;
-        group_at(b, coord) = 0;
+        board_set(b, coord, S_NONE);
+        group_set(b, coord, 0);
         groupnext_at(b, coord) = u->next_at;
         
         foreach_neighbor(b, coord, {
@@ -1528,9 +1528,9 @@ namespace weiqi
             
             coord_t *stones = enemy[i].stones;
             for (int32_t j = 0; stones[j]; j++) {
-                printf("stones j: %d, %d\n", j, stones[j]);
-                board_at(b, stones[j]) = other_color;
-                group_at(b, stones[j]) = old_group;
+                // printf("stones j: %d, %d\n", j, stones[j]);
+                board_set(b, stones[j], other_color);
+                group_set(b, stones[j], old_group);
                 groupnext_at(b, stones[j]) = stones[j + 1];
                 
                 foreach_neighbor(b, stones[j], {
@@ -1569,8 +1569,8 @@ namespace weiqi
         
         undo_merge(b, u, m);
         
-        board_at(b, coord) = S_NONE;
-        group_at(b, coord) = 0;
+        board_set(b, coord, S_NONE);
+        group_set(b, coord, 0);
         groupnext_at(b, coord) = u->next_at;
         
         foreach_neighbor(b, coord, {

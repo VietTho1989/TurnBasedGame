@@ -297,7 +297,7 @@ namespace weiqi
                             if(!(board_at(b, c) != S_NONE || c == m->coord)){
                                 printf("error, assert(board_at(b, c) != S_NONE || c == m->coord)\n");
                                 c = m->coord - 1;
-                                board_at(b, c) = S_NONE;
+                                board_set(b, c, S_NONE);
                             }
                         }
                         if (board_at(b, c) != m->color)

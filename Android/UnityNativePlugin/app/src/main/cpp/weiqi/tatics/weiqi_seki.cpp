@@ -105,7 +105,7 @@ namespace weiqi
                     // assert(!group_at(b, g3));
                     if(group_at(b, g3)){
                         printf("error, assert(!group_at(b, g3))\n");
-                        group_at(b, g3) = 1;
+                        group_set(b, g3, 1);
                     }
                 }
                 safe = dragon_is_safe(b, g, color);

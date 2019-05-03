@@ -700,11 +700,69 @@ namespace weiqi
 #  define board_bits2(b_) ((b_)->bits2)
 #endif
     
-#define board_at(b_, c) ((b_)->b[c])
-#define board_atxy(b_, x, y) ((b_)->b[(x) + board_size(b_) * (y)])
+// #define board_at(b_, c) ((b_)->b[c])
+    static enum stone board_at(struct board *b, coord_t c)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->b[c];
+        }else{
+            // printf("board_at error: %d\n", c);
+            return S_NONE;
+        }
+    }
     
-#define group_at(b_, c) ((b_)->g[c])
-#define group_atxy(b_, x, y) ((b_)->g[(x) + board_size(b_) * (y)])
+    static void board_set(struct board *b, coord_t c, enum stone stone)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            b->b[c] = stone;
+        }else{
+            // printf("board_set error: %d\n", c);
+        }
+    }
+    
+// #define board_atxy(b_, x, y) ((b_)->b[(x) + board_size(b_) * (y)])
+    static enum stone board_atxy(struct board *b, int x, int y)
+    {
+        int c = (x) + board_size(b) * (y);
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->b[c];
+        }else{
+            // printf("board_atxy error: %d\n", c);
+            return S_NONE;
+        }
+    }
+    
+// #define group_at(b_, c) ((b_)->g[c])
+    static group_t group_at(struct board *b, coord_t c)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->g[c];
+        }else{
+            // printf("group_at error: %d\n", c);
+            return 0;
+        }
+    }
+    
+    static void group_set(struct board *b, coord_t c, group_t group)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            b->g[c] = group;
+        }else{
+            // printf("group_set error: %d\n", c);
+        }
+    }
+    
+// #define group_atxy(b_, x, y) ((b_)->g[(x) + board_size(b_) * (y)])
+    static group_t group_atxy(struct board *b, int x, int y)
+    {
+        coord_t c = (x) + board_size(b) * (y);
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->g[c];
+        }else{
+            // printf("group_atxy error: %d\n", c);
+            return 0;
+        }
+    }
     
     /* Warning! Neighbor count is not kept up-to-date for S_NONE! */
 #define neighbor_count_at(b_, coord, color) ((b_)->n[coord].colors[(enum stone) color])

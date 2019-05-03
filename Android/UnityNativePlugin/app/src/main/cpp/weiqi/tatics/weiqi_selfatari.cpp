@@ -231,7 +231,7 @@ namespace weiqi
                     // assert(!group_at(b, to));
                     if(group_at(b, to)){
                         printf("error, assert(!group_at(b, to))\n");
-                        group_at(b, to) = 1;
+                        group_set(b, to, 1);
                     }
                 }
                 dead_shape = nakade_dead_shape(b, to, stone_other(color));
