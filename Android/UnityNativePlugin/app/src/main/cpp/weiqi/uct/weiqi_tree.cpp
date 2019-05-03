@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
 
 #include "weiqi_tree.hpp"
 #include "weiqi_prior.hpp"
@@ -202,16 +201,12 @@ namespace weiqi
                 free(t);
             return;
         }
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-        
-        pthread_t thread;
-        struct subtree_ctx* ctx = (struct subtree_ctx*)calloc(1, sizeof(struct subtree_ctx));
-        ctx->t = t;
-        ctx->n = n;
-        pthread_create(&thread, &attr, tree_done_node_worker, ctx);
-        pthread_attr_destroy(&attr);
+        {
+            struct subtree_ctx* ctx = (struct subtree_ctx*)calloc(1, sizeof(struct subtree_ctx));
+            ctx->t = t;
+            ctx->n = n;
+            tree_done_node_worker(ctx);
+        }
     }
     
     void tree_done(struct tree *t)

@@ -16,13 +16,12 @@ namespace weiqi
     
     
     /********************************************************************************************/
-/*#ifdef _WIN32
+#ifdef _WIN32
     
     // bo static
     int32_t tls_index = -1;
     
-    // bo static
-    void __attribute__((constructor)) init_fast_random()
+    void random_init(void)
     {
         tls_index = TlsAlloc();
         fast_srandom(29264);
@@ -47,7 +46,7 @@ namespace weiqi
     }
     
     
-#else*/
+#else
     
     
     /********************************************************************************************/
@@ -128,7 +127,7 @@ namespace weiqi
         return p.f - 1.0f;
     }
     
-//#endif
+#endif
 }
 
 //#endif

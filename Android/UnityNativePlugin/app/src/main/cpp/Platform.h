@@ -18,7 +18,8 @@
 # ifdef WIN_EXPORT
 #   define EXPORTED  __declspec( dllexport )
 # else
-#   define EXPORTED  __declspec( dllimport )
+// #   define EXPORTED  __declspec( dllimport )
+#   define EXPORTED  __declspec( dllexport )
 # endif
 #else
 # define EXPORTED
