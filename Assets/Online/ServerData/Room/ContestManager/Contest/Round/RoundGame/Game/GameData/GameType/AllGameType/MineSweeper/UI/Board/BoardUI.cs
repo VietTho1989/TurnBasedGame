@@ -65,7 +65,7 @@ namespace MineSweeper
             public UIData() : base()
             {
                 this.mineSweeper = new VP<ReferenceData<MineSweeper>>(this, (byte)Property.mineSweeper, new ReferenceData<MineSweeper>(null));
-                this.boundary = new VP<BoundaryUI.UIData>(this, (byte)Property.boundary, new BoundaryUI.UIData());
+                this.boundary = new VP<BoundaryUI.UIData>(this, (byte)Property.boundary, null);
                 this.scrollView = new VP<ScrollViewUI.UIData>(this, (byte)Property.scrollView, new ScrollViewUI.UIData());
 
                 this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
