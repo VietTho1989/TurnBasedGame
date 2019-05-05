@@ -142,6 +142,30 @@ namespace GameManager.Match.Swap
                 }
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminRequestSwapPlayerHumanUI adminRequestSwapPlayerHumanUI = this.findCallBack<AdminRequestSwapPlayerHumanUI>();
+                            if (adminRequestSwapPlayerHumanUI != null)
+                            {
+                                isProcess = adminRequestSwapPlayerHumanUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminRequestSwapPlayerHumanUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

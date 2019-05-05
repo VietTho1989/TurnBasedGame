@@ -27,6 +27,30 @@ public class BtnSaveGameUI : UIBehavior<BtnSaveGameUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnSaveGameUI btnSaveGameUI = this.findCallBack<BtnSaveGameUI>();
+                        if (btnSaveGameUI != null)
+                        {
+                            isProcess = btnSaveGameUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnSaveGameUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

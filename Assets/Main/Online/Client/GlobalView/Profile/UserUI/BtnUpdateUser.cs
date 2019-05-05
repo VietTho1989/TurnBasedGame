@@ -39,6 +39,30 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnUpdateUser btnUpdateUser = this.findCallBack<BtnUpdateUser>();
+                        if (btnUpdateUser != null)
+                        {
+                            isProcess = btnUpdateUser.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnUpdateUser null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

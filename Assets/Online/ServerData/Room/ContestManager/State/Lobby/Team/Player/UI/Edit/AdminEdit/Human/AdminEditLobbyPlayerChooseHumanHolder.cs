@@ -51,6 +51,30 @@ namespace GameManager.Match
                 this.human.v = new ReferenceData<Human>(human);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminEditLobbyPlayerChooseHumanHolder adminEditLobbyPlayerChooseHumanHolder = this.findCallBack<AdminEditLobbyPlayerChooseHumanHolder>();
+                            if (adminEditLobbyPlayerChooseHumanHolder != null)
+                            {
+                                isProcess = adminEditLobbyPlayerChooseHumanHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminEditLobbyPlayerChooseHumanHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

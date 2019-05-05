@@ -39,6 +39,30 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnCreateRoomUI btnCreateRoomUI = this.findCallBack<BtnCreateRoomUI>();
+                        if (btnCreateRoomUI != null)
+                        {
+                            isProcess = btnCreateRoomUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnCreateRoomUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

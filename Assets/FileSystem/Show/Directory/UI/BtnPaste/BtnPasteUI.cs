@@ -30,6 +30,30 @@ namespace FileSystem
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnPasteUI btnPasteUI = this.findCallBack<BtnPasteUI>();
+                            if (btnPasteUI != null)
+                            {
+                                isProcess = btnPasteUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnPasteUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

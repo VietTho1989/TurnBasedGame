@@ -48,6 +48,30 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatMessageDeleteUI chatMessageDeleteUI = this.findCallBack<ChatMessageDeleteUI>();
+                        if (chatMessageDeleteUI != null)
+                        {
+                            isProcess = chatMessageDeleteUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatMessageDeleteUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

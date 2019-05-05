@@ -42,15 +42,34 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                 // back
                 if (!isProcess)
                 {
-                    ChatMessageViewHistoryUI chatMessageViewHistoryUI = this.findCallBack<ChatMessageViewHistoryUI>();
-                    if (chatMessageViewHistoryUI != null)
+                    if (InputEvent.isBackEvent(e))
                     {
-                        chatMessageViewHistoryUI.onClickBtnBack();
-                        isProcess = true;
+                        ChatMessageViewHistoryUI chatMessageViewHistoryUI = this.findCallBack<ChatMessageViewHistoryUI>();
+                        if (chatMessageViewHistoryUI != null)
+                        {
+                            chatMessageViewHistoryUI.onClickBtnBack();
+                            isProcess = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("chatMessageViewHistoryUI null");
+                        }
                     }
-                    else
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
                     {
-                        Debug.LogError("chatMessageViewHistoryUI null");
+                        ChatMessageViewHistoryUI chatMessageViewHistoryUI = this.findCallBack<ChatMessageViewHistoryUI>();
+                        if (chatMessageViewHistoryUI != null)
+                        {
+                            isProcess = chatMessageViewHistoryUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatMessageViewHistoryUI null: " + this);
+                        }
                     }
                 }
             }

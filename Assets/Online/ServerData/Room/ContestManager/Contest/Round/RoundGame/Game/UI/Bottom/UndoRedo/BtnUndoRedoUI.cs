@@ -27,6 +27,30 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnUndoRedoUI btnUndoRedoUI = this.findCallBack<BtnUndoRedoUI>();
+                        if (btnUndoRedoUI != null)
+                        {
+                            isProcess = btnUndoRedoUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnUndoRedoUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

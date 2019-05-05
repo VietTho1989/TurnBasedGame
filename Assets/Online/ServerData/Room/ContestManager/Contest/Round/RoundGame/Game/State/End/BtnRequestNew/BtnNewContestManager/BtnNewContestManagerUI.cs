@@ -34,6 +34,30 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
             return Type.ContestManager;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnNewContestManagerUI btnNewContestManagerUI = this.findCallBack<BtnNewContestManagerUI>();
+                        if (btnNewContestManagerUI != null)
+                        {
+                            isProcess = btnNewContestManagerUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnNewContestManagerUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

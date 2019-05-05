@@ -51,6 +51,22 @@ namespace FileSystem
                             Debug.LogError("renameFile null: " + this);
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnRenameFileUI btnRenameFileUI = this.findCallBack<BtnRenameFileUI>();
+                            if (btnRenameFileUI != null)
+                            {
+                                isProcess = btnRenameFileUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnRenameFileUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

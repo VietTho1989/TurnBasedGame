@@ -27,6 +27,30 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnUseRuleUI btnUseRuleUI = this.findCallBack<BtnUseRuleUI>();
+                        if (btnUseRuleUI != null)
+                        {
+                            isProcess = btnUseRuleUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnUseRuleUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

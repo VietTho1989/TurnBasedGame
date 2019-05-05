@@ -34,6 +34,30 @@ namespace GameManager.Match.Elimination
                 return Type.EliminationRound;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnEliminationRoundUI btnEliminationRoundUI = this.findCallBack<BtnEliminationRoundUI>();
+                            if (btnEliminationRoundUI != null)
+                            {
+                                isProcess = btnEliminationRoundUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnEliminationRoundUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

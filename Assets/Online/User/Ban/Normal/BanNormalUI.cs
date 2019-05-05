@@ -53,6 +53,30 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BanNormalUI banNormalUI = this.findCallBack<BanNormalUI>();
+                        if (banNormalUI != null)
+                        {
+                            isProcess = banNormalUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("banNormalUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

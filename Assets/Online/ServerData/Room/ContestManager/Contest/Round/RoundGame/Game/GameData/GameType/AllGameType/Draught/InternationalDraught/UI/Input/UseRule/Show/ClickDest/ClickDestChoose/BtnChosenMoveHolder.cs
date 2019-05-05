@@ -52,6 +52,30 @@ namespace InternationalDraught.UseRule
                 this.internationalDraughtMove.v = new ReferenceData<InternationalDraughtMove>(internationalDraughtMove);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnChosenMoveHolder btnChosenMoveHolder = this.findCallBack<BtnChosenMoveHolder>();
+                            if (btnChosenMoveHolder != null)
+                            {
+                                isProcess = btnChosenMoveHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnChosenMoveHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         public interface OnClick

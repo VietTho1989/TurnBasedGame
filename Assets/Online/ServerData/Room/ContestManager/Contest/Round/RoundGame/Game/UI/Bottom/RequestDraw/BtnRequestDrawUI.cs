@@ -27,6 +27,30 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
 
         #endregion
 
+        public bool process(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnRequestDrawUI btnRequestDrawUI = this.findCallBack<BtnRequestDrawUI>();
+                        if (btnRequestDrawUI != null)
+                        {
+                            isProcess = btnRequestDrawUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRequestDrawUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

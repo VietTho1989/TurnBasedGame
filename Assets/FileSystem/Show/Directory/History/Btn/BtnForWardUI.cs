@@ -29,6 +29,30 @@ namespace FileSystem
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnForWardUI btnForWardUI = this.findCallBack<BtnForWardUI>();
+                            if (btnForWardUI != null)
+                            {
+                                isProcess = btnForWardUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnForWardUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

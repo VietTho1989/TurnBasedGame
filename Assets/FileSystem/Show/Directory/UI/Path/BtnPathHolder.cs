@@ -50,6 +50,30 @@ namespace FileSystem
                 this.dir.v = dir;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnPathHolder btnPathHolder = this.findCallBack<BtnPathHolder>();
+                            if (btnPathHolder != null)
+                            {
+                                isProcess = btnPathHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnPathHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

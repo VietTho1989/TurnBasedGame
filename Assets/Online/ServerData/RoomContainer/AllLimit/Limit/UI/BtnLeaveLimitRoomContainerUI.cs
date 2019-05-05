@@ -43,6 +43,30 @@ public class BtnLeaveLimitRoomContainerUI : UIBehavior<BtnLeaveLimitRoomContaine
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnLeaveLimitRoomContainerUI btnLeaveLimitRoomContainerUI = this.findCallBack<BtnLeaveLimitRoomContainerUI>();
+                        if (btnLeaveLimitRoomContainerUI != null)
+                        {
+                            isProcess = btnLeaveLimitRoomContainerUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnLeaveLimitRoomContainerUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

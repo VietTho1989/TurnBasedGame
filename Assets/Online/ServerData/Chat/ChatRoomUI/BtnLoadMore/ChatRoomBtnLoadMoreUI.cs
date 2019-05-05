@@ -48,6 +48,30 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatRoomBtnLoadMoreUI chatRoomBtnLoadMoreUI = this.findCallBack<ChatRoomBtnLoadMoreUI>();
+                        if (chatRoomBtnLoadMoreUI != null)
+                        {
+                            isProcess = chatRoomBtnLoadMoreUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoomBtnLoadMoreUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

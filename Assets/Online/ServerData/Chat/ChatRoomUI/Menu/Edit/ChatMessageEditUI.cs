@@ -70,6 +70,22 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatMessageEditUI chatMessageEditUI = this.findCallBack<ChatMessageEditUI>();
+                        if (chatMessageEditUI != null)
+                        {
+                            isProcess = chatMessageEditUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatMessageEditUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

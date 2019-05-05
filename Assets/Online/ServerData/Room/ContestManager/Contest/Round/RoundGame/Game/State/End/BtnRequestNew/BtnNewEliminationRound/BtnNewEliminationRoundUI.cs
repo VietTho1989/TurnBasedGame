@@ -35,6 +35,30 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
             return Type.EliminationRound;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnNewEliminationRoundUI btnNewEliminationRoundUI = this.findCallBack<BtnNewEliminationRoundUI>();
+                        if (btnNewEliminationRoundUI != null)
+                        {
+                            isProcess = btnNewEliminationRoundUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnNewContestManagerUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

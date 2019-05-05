@@ -28,6 +28,30 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnHintUI btnHintUI = this.findCallBack<BtnHintUI>();
+                        if (btnHintUI != null)
+                        {
+                            isProcess = btnHintUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnHintUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

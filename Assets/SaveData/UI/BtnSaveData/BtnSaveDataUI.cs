@@ -50,6 +50,22 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
                         Debug.LogError("confirmSave null: " + this);
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnSaveDataUI btnSaveDataUI = this.findCallBack<BtnSaveDataUI>();
+                        if (btnSaveDataUI != null)
+                        {
+                            isProcess = btnSaveDataUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnSaveDataUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

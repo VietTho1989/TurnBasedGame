@@ -92,6 +92,22 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatMessageMenuUI chatMessageMenuUI = this.findCallBack<ChatMessageMenuUI>();
+                        if (chatMessageMenuUI != null)
+                        {
+                            isProcess = chatMessageMenuUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatMessageMenuUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -41,6 +41,30 @@ namespace Posture
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnSetEditPostureGameData btnSetEditPostureGameData = this.findCallBack<BtnSetEditPostureGameData>();
+                            if (btnSetEditPostureGameData != null)
+                            {
+                                isProcess = btnSetEditPostureGameData.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnSetEditPostureGameData null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

@@ -33,6 +33,30 @@ public class BtnNewRoundUI : UIBehavior<BtnNewRoundUI.UIData>
             return Type.Round;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnNewRoundUI btnNewRoundUI = this.findCallBack<BtnNewRoundUI>();
+                        if (btnNewRoundUI != null)
+                        {
+                            isProcess = btnNewRoundUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnNewRoundUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

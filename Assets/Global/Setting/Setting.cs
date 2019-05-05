@@ -40,6 +40,8 @@ public class Setting : Data
 
 	public VP<Language.Type> language;
 
+    public VP<bool> useShortKey;
+
     #region style
 
     public enum Style
@@ -358,6 +360,7 @@ public class Setting : Data
     public enum Property
 	{
 		language,
+        useShortKey,
         style,
 
         contentTextSize,
@@ -380,6 +383,7 @@ public class Setting : Data
 	public Setting() : base()
 	{
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
+        this.useShortKey = new VP<bool>(this, (byte)Property.useShortKey, false);
         this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);
         // textSize
         {

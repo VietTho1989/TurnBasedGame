@@ -40,6 +40,30 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
             return ChatMessage.Content.Type.Normal;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatNormalContentUI chatNormalContentUI = this.findCallBack<ChatNormalContentUI>();
+                        if (chatNormalContentUI != null)
+                        {
+                            isProcess = chatNormalContentUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatNormalContentUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

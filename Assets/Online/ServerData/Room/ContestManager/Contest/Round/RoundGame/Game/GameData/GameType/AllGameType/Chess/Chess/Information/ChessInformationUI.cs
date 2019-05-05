@@ -46,7 +46,22 @@ namespace Chess
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChessInformationUI chessInformationUI = this.findCallBack<ChessInformationUI>();
+                            if (chessInformationUI != null)
+                            {
+                                isProcess = chessInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chessInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

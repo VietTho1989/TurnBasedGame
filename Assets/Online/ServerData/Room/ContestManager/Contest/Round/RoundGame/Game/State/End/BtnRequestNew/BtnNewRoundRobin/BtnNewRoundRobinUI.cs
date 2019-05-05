@@ -35,6 +35,30 @@ public class BtnNewRoundRobinUI : UIBehavior<BtnNewRoundRobinUI.UIData>
             return Type.RoundRobin;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnNewRoundRobinUI btnNewRoundRobinUI = this.findCallBack<BtnNewRoundRobinUI>();
+                        if (btnNewRoundRobinUI != null)
+                        {
+                            isProcess = btnNewRoundRobinUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnNewRoundRobinUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

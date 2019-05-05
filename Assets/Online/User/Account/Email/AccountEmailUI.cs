@@ -299,6 +299,30 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
             return Account.Type.EMAIL;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        AccountEmailUI accountEmailUI = this.findCallBack<AccountEmailUI>();
+                        if (accountEmailUI != null)
+                        {
+                            isProcess = accountEmailUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("accountEmailUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

@@ -60,7 +60,22 @@ namespace UndoRedo
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AskUI askUI = this.findCallBack<AskUI>();
+                            if (askUI != null)
+                            {
+                                isProcess = askUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("askUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

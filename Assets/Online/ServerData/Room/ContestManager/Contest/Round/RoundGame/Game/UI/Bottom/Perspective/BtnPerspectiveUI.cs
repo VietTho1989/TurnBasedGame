@@ -27,6 +27,30 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnPerspectiveUI btnPerspectiveUI = this.findCallBack<BtnPerspectiveUI>();
+                        if (btnPerspectiveUI != null)
+                        {
+                            isProcess = btnPerspectiveUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnPerspectiveUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

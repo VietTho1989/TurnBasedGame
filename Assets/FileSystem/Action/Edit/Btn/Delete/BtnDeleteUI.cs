@@ -51,6 +51,22 @@ namespace FileSystem
                             Debug.LogError("btnDeleteConfirm null: " + this);
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnDeleteUI btnDeleteUI = this.findCallBack<BtnDeleteUI>();
+                            if (btnDeleteUI != null)
+                            {
+                                isProcess = btnDeleteUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnDeleteUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

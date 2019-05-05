@@ -27,6 +27,30 @@ public class BtnBlindFoldUI : UIBehavior<BtnBlindFoldUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnBlindFoldUI btnBlindFoldUI = this.findCallBack<BtnBlindFoldUI>();
+                        if (btnBlindFoldUI != null)
+                        {
+                            isProcess = btnBlindFoldUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBlindFoldUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

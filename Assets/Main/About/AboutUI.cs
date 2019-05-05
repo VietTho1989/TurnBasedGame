@@ -45,12 +45,28 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                         if (aboutUI != null)
                         {
                             aboutUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("aboutUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        AboutUI aboutUI = this.findCallBack<AboutUI>();
+                        if (aboutUI != null)
+                        {
+                            isProcess = aboutUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("aboutUI null: " + this);
+                        }
                     }
                 }
             }
@@ -234,6 +250,18 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (Setting.get().useShortKey.v)
+            {
+
+            }
+        }
+        return isProcess;
+    }
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()

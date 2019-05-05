@@ -64,6 +64,30 @@ namespace GameManager.Match
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminEditLobbyPlayerComputerUI adminEditLobbyPlayerComputerUI = this.findCallBack<AdminEditLobbyPlayerComputerUI>();
+                            if (adminEditLobbyPlayerComputerUI != null)
+                            {
+                                isProcess = adminEditLobbyPlayerComputerUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminEditLobbyPlayerComputerUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

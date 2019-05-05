@@ -51,6 +51,30 @@ namespace GameManager.Match.Swap
                 this.human.v = new ReferenceData<Human>(human);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminRequestSwapPlayerChooseHumanHolder adminRequestSwapPlayerChooseHumanHolder = this.findCallBack<AdminRequestSwapPlayerChooseHumanHolder>();
+                            if (adminRequestSwapPlayerChooseHumanHolder != null)
+                            {
+                                isProcess = adminRequestSwapPlayerChooseHumanHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminRequestSwapPlayerChooseHumanHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

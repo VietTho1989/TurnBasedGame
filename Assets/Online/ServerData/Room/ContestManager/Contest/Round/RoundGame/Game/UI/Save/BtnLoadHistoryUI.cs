@@ -43,6 +43,30 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnLoadHistoryUI btnLoadHistoryUI = this.findCallBack<BtnLoadHistoryUI>();
+                        if (btnLoadHistoryUI != null)
+                        {
+                            isProcess = btnLoadHistoryUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnLoadHistoryUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

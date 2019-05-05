@@ -90,6 +90,22 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                         Debug.LogError("chatMessageMenu null: " + this);
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChatRoomUI chatRoomUI = this.findCallBack<ChatRoomUI>();
+                        if (chatRoomUI != null)
+                        {
+                            isProcess = chatRoomUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoomUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -29,6 +29,30 @@ namespace GameManager.Match.Swap
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnShowSwapUI btnShowSwapUI = this.findCallBack<BtnShowSwapUI>();
+                            if (btnShowSwapUI != null)
+                            {
+                                isProcess = btnShowSwapUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnShowSwapUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

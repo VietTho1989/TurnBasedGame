@@ -142,6 +142,30 @@ namespace GameManager.Match
                 }
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminEditLobbyPlayerHumanUI adminEditLobbyPlayerHumanUI = this.findCallBack<AdminEditLobbyPlayerHumanUI>();
+                            if (adminEditLobbyPlayerHumanUI != null)
+                            {
+                                isProcess = adminEditLobbyPlayerHumanUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminEditLobbyPlayerHumanUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

@@ -101,7 +101,22 @@ namespace GameManager.Match
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            AdminEditLobbyPlayerUI adminEditLobbyPlayerUI = this.findCallBack<AdminEditLobbyPlayerUI>();
+                            if (adminEditLobbyPlayerUI != null)
+                            {
+                                isProcess = adminEditLobbyPlayerUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("adminEditLobbyPlayerUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

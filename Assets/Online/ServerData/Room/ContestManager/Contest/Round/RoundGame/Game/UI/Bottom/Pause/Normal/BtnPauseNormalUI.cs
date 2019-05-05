@@ -54,6 +54,30 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnPauseNormalUI btnPauseNormalUI = this.findCallBack<BtnPauseNormalUI>();
+                        if (btnPauseNormalUI != null)
+                        {
+                            isProcess = btnPauseNormalUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnPauseNormalUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

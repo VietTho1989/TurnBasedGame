@@ -27,6 +27,30 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnGameChatUI btnGameChatUI = this.findCallBack<BtnGameChatUI>();
+                        if (btnGameChatUI != null)
+                        {
+                            isProcess = btnGameChatUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnGameChatUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

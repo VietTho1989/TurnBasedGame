@@ -34,7 +34,22 @@ namespace FileSystem
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnCopyUI btnCopyUI = this.findCallBack<BtnCopyUI>();
+                            if (btnCopyUI != null)
+                            {
+                                isProcess = btnCopyUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCopyUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

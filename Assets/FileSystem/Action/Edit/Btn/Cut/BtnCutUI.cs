@@ -34,7 +34,22 @@ namespace FileSystem
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnCutUI btnCutUI = this.findCallBack<BtnCutUI>();
+                            if (btnCutUI != null)
+                            {
+                                isProcess = btnCutUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCutUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

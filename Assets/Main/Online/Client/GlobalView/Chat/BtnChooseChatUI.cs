@@ -27,6 +27,30 @@ public class BtnChooseChatUI : UIBehavior<BtnChooseChatUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        BtnChooseChatUI btnChooseChatUI = this.findCallBack<BtnChooseChatUI>();
+                        if (btnChooseChatUI != null)
+                        {
+                            isProcess = btnChooseChatUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnChooseChatUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

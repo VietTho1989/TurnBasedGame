@@ -34,6 +34,30 @@ namespace GameManager.Match
                 return Type.Contest;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            BtnContestUI btnContestUI = this.findCallBack<BtnContestUI>();
+                            if (btnContestUI != null)
+                            {
+                                isProcess = btnContestUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnContestUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion
