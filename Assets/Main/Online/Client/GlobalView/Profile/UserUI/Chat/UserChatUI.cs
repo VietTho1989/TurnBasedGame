@@ -52,6 +52,22 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
                         Debug.LogError("chatRoomUIData null: " + this);
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        UserChatUI userChatUI = this.findCallBack<UserChatUI>();
+                        if (userChatUI != null)
+                        {
+                            isProcess = userChatUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("userChatUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

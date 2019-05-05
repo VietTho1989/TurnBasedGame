@@ -35,7 +35,22 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        NoDatabaseServerNoneUI noDatabaseServerNoneUI = this.findCallBack<NoDatabaseServerNoneUI>();
+                        if (noDatabaseServerNoneUI != null)
+                        {
+                            isProcess = noDatabaseServerNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("noDatabaseServerNoneUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

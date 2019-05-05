@@ -86,6 +86,22 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ViewSaveDataUI viewSaveDataUI = this.findCallBack<ViewSaveDataUI>();
+                        if (viewSaveDataUI != null)
+                        {
+                            isProcess = viewSaveDataUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("viewSaveDataUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

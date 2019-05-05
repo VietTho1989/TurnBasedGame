@@ -45,12 +45,28 @@ public class StartFailUI : UIBehavior<StartFailUI.UIData>
                         if (startFailUI != null)
                         {
                             startFailUI.onClickBtnReturn();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("startFailUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        StartFailUI startFailUI = this.findCallBack<StartFailUI>();
+                        if (startFailUI != null)
+                        {
+                            isProcess = startFailUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("startFailUI null: " + this);
+                        }
                     }
                 }
             }

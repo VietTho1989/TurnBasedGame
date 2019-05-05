@@ -131,6 +131,22 @@ namespace Hint
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            HintUI hintUI = this.findCallBack<HintUI>();
+                            if (hintUI != null)
+                            {
+                                isProcess = hintUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("hintUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

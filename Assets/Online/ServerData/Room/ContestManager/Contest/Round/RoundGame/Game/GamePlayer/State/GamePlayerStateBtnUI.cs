@@ -48,6 +48,22 @@ public class GamePlayerStateBtnUI : UIBehavior<GamePlayerStateBtnUI.UIData>
                         // Debug.LogError("stateUIData null");
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GamePlayerStateBtnUI gamePlayerStateBtnUI = this.findCallBack<GamePlayerStateBtnUI>();
+                        if (gamePlayerStateBtnUI != null)
+                        {
+                            isProcess = gamePlayerStateBtnUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateBtnUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

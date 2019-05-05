@@ -46,7 +46,22 @@ namespace Khet
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            KhetInformationUI khetInformationUI = this.findCallBack<KhetInformationUI>();
+                            if (khetInformationUI != null)
+                            {
+                                isProcess = khetInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("khetInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

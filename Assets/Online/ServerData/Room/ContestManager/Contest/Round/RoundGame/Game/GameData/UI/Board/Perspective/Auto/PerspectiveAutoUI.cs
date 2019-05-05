@@ -36,7 +36,22 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        PerspectiveAutoUI perspectiveAutoUI = this.findCallBack<PerspectiveAutoUI>();
+                        if (perspectiveAutoUI != null)
+                        {
+                            isProcess = perspectiveAutoUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("perspectiveAutoUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

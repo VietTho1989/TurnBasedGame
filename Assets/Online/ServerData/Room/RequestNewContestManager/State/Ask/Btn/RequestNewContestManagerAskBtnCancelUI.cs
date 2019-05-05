@@ -52,6 +52,30 @@ namespace GameManager.ContestManager
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewContestManagerAskBtnCancelUI requestNewContestManagerAskBtnCancelUI = this.findCallBack<RequestNewContestManagerAskBtnCancelUI>();
+                            if (requestNewContestManagerAskBtnCancelUI != null)
+                            {
+                                isProcess = requestNewContestManagerAskBtnCancelUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewContestManagerAskBtnCancelUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

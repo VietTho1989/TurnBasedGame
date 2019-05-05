@@ -90,6 +90,22 @@ namespace GameManager.Match.Elimination
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewEliminationRoundStateAskUI requestNewEliminationRoundStateAskUI = this.findCallBack<RequestNewEliminationRoundStateAskUI>();
+                            if (requestNewEliminationRoundStateAskUI != null)
+                            {
+                                isProcess = requestNewEliminationRoundStateAskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewEliminationRoundStateAskUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

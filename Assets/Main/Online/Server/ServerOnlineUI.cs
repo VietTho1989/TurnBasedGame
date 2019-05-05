@@ -84,6 +84,22 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ServerOnlineUI serverOnlineUI = this.findCallBack<ServerOnlineUI>();
+                        if (serverOnlineUI != null)
+                        {
+                            isProcess = serverOnlineUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("serverOnlineUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

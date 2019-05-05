@@ -57,27 +57,27 @@ public class MainUI : UIBehavior<MainUI.UIData>
         public bool processEvent(Event e)
         {
             Debug.LogError("processEvent: " + e + "; " + this);
-            bool isProcessed = false;
+            bool isProcess = false;
             {
                 // Child
                 {
                     // setting
-                    if (!isProcessed)
+                    if (!isProcess)
                     {
                         ShowSettingUI.UIData showSettingUIData = this.showSettingUIData.v;
                         if (showSettingUIData != null)
                         {
-                            isProcessed = showSettingUIData.processEvent(e);
-                            isProcessed = true;
+                            isProcess = showSettingUIData.processEvent(e);
+                            isProcess = true;
                         }
                     }
                     // sub
-                    if (!isProcessed)
+                    if (!isProcess)
                     {
                         UIData.Sub sub = this.sub.v;
                         if (this.sub.v != null)
                         {
-                            isProcessed = this.sub.v.processEvent(e);
+                            isProcess = this.sub.v.processEvent(e);
                         }
                         else
                         {
@@ -85,10 +85,24 @@ public class MainUI : UIBehavior<MainUI.UIData>
                         }
                     }
                 }
-                // short key
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        MainUI mainUI = this.findCallBack<MainUI>();
+                        if (mainUI != null)
+                        {
+                            isProcess = mainUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("mainUI null: " + this);
+                        }
+                    }
+                }
             }
-            return isProcessed;
+            return isProcess;
         }
 
         public void reset()

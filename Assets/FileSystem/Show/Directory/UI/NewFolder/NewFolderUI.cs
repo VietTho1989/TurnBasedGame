@@ -50,6 +50,22 @@ namespace FileSystem
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            NewFolderUI newFolderUI = this.findCallBack<NewFolderUI>();
+                            if (newFolderUI != null)
+                            {
+                                isProcess = newFolderUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("newFolderUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

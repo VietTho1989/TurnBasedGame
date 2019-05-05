@@ -215,6 +215,22 @@ namespace Weiqi
                         }
                         isProcess = true;
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            UseRuleInputUI useRuleInputUI = this.findCallBack<UseRuleInputUI>();
+                            if (useRuleInputUI != null)
+                            {
+                                isProcess = useRuleInputUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("useRuleInputUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

@@ -94,6 +94,10 @@ namespace Ads
         public void onClickBtnUnityAds()
         {
             AdsManager.get().lastClickBanner.v = AdsManager.get().time.v;
+            if (Setting.get().useShortKey.v)
+            {
+                Debug.LogError("TODO Can de phong il2cpp");
+            }
         }
 
         public void hideBanner()

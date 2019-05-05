@@ -76,6 +76,22 @@ namespace GameManager.Match
                             Debug.LogError("roomBtnBackUIData null: " + this);
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RoomBtnUI roomBtnUI = this.findCallBack<RoomBtnUI>();
+                            if (roomBtnUI != null)
+                            {
+                                isProcess = roomBtnUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("roomBtnUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

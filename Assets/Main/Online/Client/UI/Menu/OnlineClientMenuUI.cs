@@ -51,6 +51,22 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        OnlineClientMenuUI onlineClientMenuUI = this.findCallBack<OnlineClientMenuUI>();
+                        if (onlineClientMenuUI != null)
+                        {
+                            isProcess = onlineClientMenuUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("onlineClientMenuUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

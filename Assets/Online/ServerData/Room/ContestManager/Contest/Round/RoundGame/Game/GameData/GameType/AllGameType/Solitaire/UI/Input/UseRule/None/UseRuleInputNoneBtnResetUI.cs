@@ -27,6 +27,30 @@ namespace Solitaire
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            UseRuleInputNoneBtnResetUI useRuleInputNoneBtnResetUI = this.findCallBack<UseRuleInputNoneBtnResetUI>();
+                            if (useRuleInputNoneBtnResetUI != null)
+                            {
+                                isProcess = useRuleInputNoneBtnResetUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("useRuleInputNoneBtnResetUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

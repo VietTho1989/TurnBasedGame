@@ -52,6 +52,22 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        StateConnectDetailUI stateConnectDetailUI = this.findCallBack<StateConnectDetailUI>();
+                        if (stateConnectDetailUI != null)
+                        {
+                            isProcess = stateConnectDetailUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("stateConnectDetailUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

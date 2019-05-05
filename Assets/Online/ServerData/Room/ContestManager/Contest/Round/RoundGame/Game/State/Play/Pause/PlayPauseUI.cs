@@ -54,6 +54,30 @@ namespace GameState
                 return Play.Sub.Type.Pause;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            PlayPauseUI playPauseUI = this.findCallBack<PlayPauseUI>();
+                            if (playPauseUI != null)
+                            {
+                                isProcess = playPauseUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("playPauseUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

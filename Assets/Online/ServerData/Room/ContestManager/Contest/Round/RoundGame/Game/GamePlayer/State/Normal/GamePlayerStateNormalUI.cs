@@ -57,7 +57,22 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GamePlayerStateNormalUI gamePlayerStateNormalUI = this.findCallBack<GamePlayerStateNormalUI>();
+                        if (gamePlayerStateNormalUI != null)
+                        {
+                            isProcess = gamePlayerStateNormalUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateNormalUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

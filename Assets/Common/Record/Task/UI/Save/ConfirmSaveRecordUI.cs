@@ -51,6 +51,22 @@ namespace Record
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ConfirmSaveRecordUI confirmSaveRecordUI = this.findCallBack<ConfirmSaveRecordUI>();
+                            if (confirmSaveRecordUI != null)
+                            {
+                                isProcess = confirmSaveRecordUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("confirmSaveRecordUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

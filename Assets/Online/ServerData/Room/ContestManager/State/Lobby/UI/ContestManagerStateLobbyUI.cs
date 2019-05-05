@@ -85,7 +85,7 @@ namespace GameManager.Match
 
             public override bool processEvent(Event e)
             {
-                Debug.LogError("processEvent: " + e + "; " + this);
+                // Debug.LogError("processEvent: " + e + "; " + this);
                 bool isProcess = false;
                 {
                     // editLobbyPlayer
@@ -151,6 +151,22 @@ namespace GameManager.Match
                     // teamAdapter
                     {
                         // ko can
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ContestManagerStateLobbyUI contestManagerStateLobbyUI = this.findCallBack<ContestManagerStateLobbyUI>();
+                            if (contestManagerStateLobbyUI != null)
+                            {
+                                isProcess = contestManagerStateLobbyUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("contestManagerStateLobbyUI null: " + this);
+                            }
+                        }
                     }
                 }
                 return isProcess;

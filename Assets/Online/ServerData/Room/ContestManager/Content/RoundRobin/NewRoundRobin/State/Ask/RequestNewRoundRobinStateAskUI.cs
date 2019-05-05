@@ -90,6 +90,22 @@ namespace GameManager.Match.RoundRobin
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewRoundRobinStateAskUI requestNewRoundRobinStateAskUI = this.findCallBack<RequestNewRoundRobinStateAskUI>();
+                            if (requestNewRoundRobinStateAskUI != null)
+                            {
+                                isProcess = requestNewRoundRobinStateAskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewRoundRobinStateAskUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

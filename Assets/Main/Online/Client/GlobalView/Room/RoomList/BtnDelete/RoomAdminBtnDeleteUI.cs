@@ -75,6 +75,22 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomAdminBtnDeleteUI roomAdminBtnDeleteUI = this.findCallBack<RoomAdminBtnDeleteUI>();
+                        if (roomAdminBtnDeleteUI != null)
+                        {
+                            isProcess = roomAdminBtnDeleteUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomAdminBtnDeleteUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

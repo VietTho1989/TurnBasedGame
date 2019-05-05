@@ -29,6 +29,30 @@ namespace Weiqi
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            InformationUI informationUI = this.findCallBack<InformationUI>();
+                            if (informationUI != null)
+                            {
+                                isProcess = informationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("informationUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

@@ -82,6 +82,22 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                             break;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomManagerUI roomManagerUI = this.findCallBack<RoomManagerUI>();
+                        if (roomManagerUI != null)
+                        {
+                            isProcess = roomManagerUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomManagerUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -49,6 +49,30 @@ namespace FairyChess.NoneRule
                 this.piece.v = piece;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SetHandHolder setHandHolder = this.findCallBack<SetHandHolder>();
+                            if (setHandHolder != null)
+                            {
+                                isProcess = setHandHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("setHandHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

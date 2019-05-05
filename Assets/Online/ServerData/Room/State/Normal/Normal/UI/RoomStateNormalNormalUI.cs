@@ -53,6 +53,30 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomStateNormalNormalUI roomStateNormalNormalUI = this.findCallBack<RoomStateNormalNormalUI>();
+                        if (roomStateNormalNormalUI != null)
+                        {
+                            isProcess = roomStateNormalNormalUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomStateNormalNormalUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

@@ -48,6 +48,30 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
             this.room.v = new ReferenceData<Room>(room);
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomHolder roomHolder = this.findCallBack<RoomHolder>();
+                        if (roomHolder != null)
+                        {
+                            isProcess = roomHolder.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomHolder null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

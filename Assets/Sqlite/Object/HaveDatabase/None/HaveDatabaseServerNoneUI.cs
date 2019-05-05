@@ -51,6 +51,22 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
                         Debug.LogError("chooseDatabaseUIData null: " + this);
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        HaveDatabaseServerNoneUI haveDatabaseServerNoneUI = this.findCallBack<HaveDatabaseServerNoneUI>();
+                        if (haveDatabaseServerNoneUI != null)
+                        {
+                            isProcess = haveDatabaseServerNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("haveDatabaseServerNoneUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

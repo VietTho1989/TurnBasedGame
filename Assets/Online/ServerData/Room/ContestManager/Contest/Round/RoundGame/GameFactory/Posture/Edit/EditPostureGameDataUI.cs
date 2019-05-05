@@ -121,12 +121,28 @@ namespace Posture
                             if (editPostureGameDataUI != null)
                             {
                                 editPostureGameDataUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("editPostureGameDataUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            EditPostureGameDataUI editPostureGameDataUI = this.findCallBack<EditPostureGameDataUI>();
+                            if (editPostureGameDataUI != null)
+                            {
+                                isProcess = editPostureGameDataUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("editPostureGameDataUI null: " + this);
+                            }
                         }
                     }
                 }

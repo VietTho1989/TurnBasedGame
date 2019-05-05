@@ -46,7 +46,22 @@ namespace Xiangqi
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            XiangqiInformationUI xiangqiInformationUI = this.findCallBack<XiangqiInformationUI>();
+                            if (xiangqiInformationUI != null)
+                            {
+                                isProcess = xiangqiInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("xiangqiInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

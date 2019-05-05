@@ -64,6 +64,30 @@ namespace GameManager.Match
                 this.contestManager.v = new ReferenceData<ContestManager>(contestManager);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseContestManagerHolder chooseContestManagerHolder = this.findCallBack<ChooseContestManagerHolder>();
+                            if (chooseContestManagerHolder != null)
+                            {
+                                isProcess = chooseContestManagerHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseContestManagerHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

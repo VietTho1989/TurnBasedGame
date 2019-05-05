@@ -59,6 +59,22 @@ namespace EnglishDraught.UseRule
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickDestChooseUI clickDestChooseUI = this.findCallBack<ClickDestChooseUI>();
+                            if (clickDestChooseUI != null)
+                            {
+                                isProcess = clickDestChooseUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickDestChooseUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

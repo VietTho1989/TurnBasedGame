@@ -71,12 +71,28 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
                         if (friendDetailUI != null)
                         {
                             friendDetailUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("friendDetalUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        FriendDetailUI friendDetailUI = this.findCallBack<FriendDetailUI>();
+                        if (friendDetailUI != null)
+                        {
+                            isProcess = friendDetailUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendDetailUI null: " + this);
+                        }
                     }
                 }
             }

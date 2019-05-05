@@ -46,7 +46,22 @@ namespace Makruk
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            MakrukInformationUI makrukInformationUI = this.findCallBack<MakrukInformationUI>();
+                            if (makrukInformationUI != null)
+                            {
+                                isProcess = makrukInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("makrukInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

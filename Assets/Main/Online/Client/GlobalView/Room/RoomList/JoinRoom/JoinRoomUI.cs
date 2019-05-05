@@ -75,6 +75,22 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        JoinRoomUI joinRoomUI = this.findCallBack<JoinRoomUI>();
+                        if (joinRoomUI != null)
+                        {
+                            isProcess = joinRoomUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("joinRoomUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

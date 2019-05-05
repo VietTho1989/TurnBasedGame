@@ -52,6 +52,7 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
         {
             bool isProcess = false;
             {
+                // back
                 if (!isProcess)
                 {
                     if (InputEvent.isBackEvent(e))
@@ -66,6 +67,22 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
                             Debug.LogError("joinLimitRoomContainerUI null");
                         }
                         isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        JoinLimitRoomContainerUI joinLimitRoomContainerUI = this.findCallBack<JoinLimitRoomContainerUI>();
+                        if (joinLimitRoomContainerUI != null)
+                        {
+                            isProcess = joinLimitRoomContainerUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("joinLimitRoomContainerUI null: " + this);
+                        }
                     }
                 }
             }

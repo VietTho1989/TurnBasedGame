@@ -122,6 +122,22 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GameHistoryUI gameHistoryUI = this.findCallBack<GameHistoryUI>();
+                        if (gameHistoryUI != null)
+                        {
+                            isProcess = gameHistoryUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gameHistoryUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

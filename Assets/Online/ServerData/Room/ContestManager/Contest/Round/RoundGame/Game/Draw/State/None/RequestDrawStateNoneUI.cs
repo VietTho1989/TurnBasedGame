@@ -57,7 +57,22 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestDrawStateNoneUI requestDrawStateNoneUI = this.findCallBack<RequestDrawStateNoneUI>();
+                        if (requestDrawStateNoneUI != null)
+                        {
+                            isProcess = requestDrawStateNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDrawStateNoneUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

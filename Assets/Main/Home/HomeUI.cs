@@ -68,10 +68,21 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                         }
                     }
                 }
-                // short key
+                // shortKey
                 if (!isProcess)
                 {
-                    // TODO Can hoan thien
+                    if (Setting.get().useShortKey.v)
+                    {
+                        HomeUI homeUI = this.findCallBack<HomeUI>();
+                        if (homeUI != null)
+                        {
+                            isProcess = homeUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("homeUI null: " + this);
+                        }
+                    }
                 }
             }
             return isProcess;

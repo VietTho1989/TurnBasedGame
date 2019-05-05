@@ -51,6 +51,30 @@ namespace GameManager.Match
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewRoundAskBtnCancelUI requestNewRoundAskBtnCancelUI = this.findCallBack<RequestNewRoundAskBtnCancelUI>();
+                            if (requestNewRoundAskBtnCancelUI != null)
+                            {
+                                isProcess = requestNewRoundAskBtnCancelUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewRoundAskBtnCancelUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

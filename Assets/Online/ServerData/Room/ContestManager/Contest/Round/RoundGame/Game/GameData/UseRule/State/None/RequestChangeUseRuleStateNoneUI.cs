@@ -52,7 +52,22 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeUseRuleStateNoneUI requestChangeUseRuleStateNoneUI = this.findCallBack<RequestChangeUseRuleStateNoneUI>();
+                        if (requestChangeUseRuleStateNoneUI != null)
+                        {
+                            isProcess = requestChangeUseRuleStateNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeUseRuleStateNoneUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

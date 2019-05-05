@@ -113,6 +113,22 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        LanClientMenuUI lanClientMenuUI = this.findCallBack<LanClientMenuUI>();
+                        if (lanClientMenuUI != null)
+                        {
+                            isProcess = lanClientMenuUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("lanClientMenuUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

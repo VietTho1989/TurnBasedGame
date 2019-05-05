@@ -93,6 +93,22 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomBtnBackUI roomBtnBackUI = this.findCallBack<RoomBtnBackUI>();
+                        if (roomBtnBackUI != null)
+                        {
+                            isProcess = roomBtnBackUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomBtnBackUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

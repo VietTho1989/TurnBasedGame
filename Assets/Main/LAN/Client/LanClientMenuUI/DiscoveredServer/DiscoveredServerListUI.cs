@@ -5,83 +5,105 @@ using System.Collections.Generic;
 public class DiscoveredServerListUI : UIBehavior<DiscoveredServers>
 {
 
-	#region Refresh
+    #region Refresh
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-		}
-	}
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+        }
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public DiscoveredServerUI serverPrefab;
-	public Transform content;
+    public DiscoveredServerUI serverPrefab;
+    public Transform content;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is DiscoveredServers) {
-			DiscoveredServers discoveredServers = data as DiscoveredServers;
-			{
-				discoveredServers.servers.allAddCallBack (this);
-			}
-			return;
-		}
-		if (data is DiscoveredServer) {
-			DiscoveredServer server = data as DiscoveredServer;
-			UIUtils.Instantiate<DiscoveredServer> (server, serverPrefab, content);
-			return;
-		}
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is DiscoveredServers)
+        {
+            DiscoveredServers discoveredServers = data as DiscoveredServers;
+            // Child
+            {
+                discoveredServers.servers.allAddCallBack(this);
+            }
+            return;
+        }
+        // Child
+        if (data is DiscoveredServer)
+        {
+            DiscoveredServer server = data as DiscoveredServer;
+            // UI
+            {
+                UIUtils.Instantiate(server, serverPrefab, content);
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is DiscoveredServers) {
-			DiscoveredServers discoveredServers = data as DiscoveredServers;
-			{
-				for (int i = 0; i < discoveredServers.servers.vs.Count; i++) {
-					DiscoveredServer discoveredServer = discoveredServers.servers.vs [i];
-					discoveredServer.removeCallBack (this);
-				}
-			}
-			// set data null
-			this.setDataNull (discoveredServers);
-			return;
-		}
-		if (data is DiscoveredServer) {
-			DiscoveredServer server = data as DiscoveredServer;
-			// remove UI
-			server.removeCallBackAndDestroy (typeof(DiscoveredServerUI));
-			return;
-		}
-	}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is DiscoveredServers)
+        {
+            DiscoveredServers discoveredServers = data as DiscoveredServers;
+            // Child
+            {
+                discoveredServers.servers.allRemoveCallBack(this);
+            }
+            // set data null
+            this.setDataNull(discoveredServers);
+            return;
+        }
+        // UI
+        if (data is DiscoveredServer)
+        {
+            DiscoveredServer server = data as DiscoveredServer;
+            // UI
+            {
+                server.removeCallBackAndDestroy(typeof(DiscoveredServerUI));
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is DiscoveredServers) {
-			switch ((DiscoveredServers.Property)wrapProperty.n) {
-			case DiscoveredServers.Property.servers:
-				ValueChangeUtils.replaceCallBack (this, syncs);
-				break;
-			default:
-				Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-	}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is DiscoveredServers)
+        {
+            switch ((DiscoveredServers.Property)wrapProperty.n)
+            {
+                case DiscoveredServers.Property.servers:
+                    ValueChangeUtils.replaceCallBack(this, syncs);
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if(wrapProperty.p is DiscoveredServer)
+        {
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
 }

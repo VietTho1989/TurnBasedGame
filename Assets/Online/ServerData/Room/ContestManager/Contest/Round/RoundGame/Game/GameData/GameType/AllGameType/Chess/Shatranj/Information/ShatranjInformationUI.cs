@@ -46,7 +46,22 @@ namespace Shatranj
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ShatranjInformationUI shatranjInformationUI = this.findCallBack<ShatranjInformationUI>();
+                            if (shatranjInformationUI != null)
+                            {
+                                isProcess = shatranjInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("shatranjInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

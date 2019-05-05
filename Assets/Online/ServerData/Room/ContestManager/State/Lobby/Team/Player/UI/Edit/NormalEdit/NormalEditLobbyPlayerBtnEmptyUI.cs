@@ -54,6 +54,30 @@ namespace GameManager.Match
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            NormalEditLobbyPlayerBtnEmptyUI normalEditLobbyPlayerBtnEmptyUI = this.findCallBack<NormalEditLobbyPlayerBtnEmptyUI>();
+                            if (normalEditLobbyPlayerBtnEmptyUI != null)
+                            {
+                                isProcess = normalEditLobbyPlayerBtnEmptyUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("normalEditLobbyPlayerBtnEmptyUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

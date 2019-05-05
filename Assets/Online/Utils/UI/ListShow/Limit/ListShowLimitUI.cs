@@ -62,6 +62,30 @@ public class ListShowLimitUI : UIHaveTransformDataBehavior<ListShowLimitUI.UIDat
             return ListShow.Type.Limit;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ListShowLimitUI listShowLimitUI = this.findCallBack<ListShowLimitUI>();
+                        if (listShowLimitUI != null)
+                        {
+                            isProcess = listShowLimitUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("listShowLimitUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

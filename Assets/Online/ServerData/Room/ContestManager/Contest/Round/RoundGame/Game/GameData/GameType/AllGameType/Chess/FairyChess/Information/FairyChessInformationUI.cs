@@ -46,7 +46,22 @@ namespace FairyChess
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            FairyChessInformationUI fairyChessInformationUI = this.findCallBack<FairyChessInformationUI>();
+                            if (fairyChessInformationUI != null)
+                            {
+                                isProcess = fairyChessInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("fairyChessInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

@@ -58,6 +58,22 @@ namespace GameManager.Match
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseContestManagerUI chooseContestManagerUI = this.findCallBack<ChooseContestManagerUI>();
+                            if (chooseContestManagerUI != null)
+                            {
+                                isProcess = chooseContestManagerUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseContestManagerUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

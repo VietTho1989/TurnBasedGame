@@ -94,10 +94,33 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             this.visibility = new VP<Visibility>(this, (byte)Property.visibility, Setting.get().defaultChatRoomStyle.v.getVisibility());
             this.style = new VP<Style>(this, (byte)Property.style, Setting.get().defaultChatRoomStyle.v.getStyle());
             this.newMessageCountUIData = new VP<ChatRoomNewMessageCountUI.UIData>(this, (byte)Property.newMessageCountUIData, new ChatRoomNewMessageCountUI.UIData());
-            // Debug.LogWarning("btnChat constructor: " + this.visibility.v + ", " + this.style.v);
         }
 
         #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ContestManagerBtnChatUI contestManagerBtnChatUI = this.findCallBack<ContestManagerBtnChatUI>();
+                        if (contestManagerBtnChatUI != null)
+                        {
+                            isProcess = contestManagerBtnChatUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("contestManagerBtnChatUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
 
     }
 

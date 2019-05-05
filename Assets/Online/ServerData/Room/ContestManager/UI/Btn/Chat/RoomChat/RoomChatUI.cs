@@ -158,6 +158,22 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomChatUI roomChatUI = this.findCallBack<RoomChatUI>();
+                        if (roomChatUI != null)
+                        {
+                            isProcess = roomChatUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomChatUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

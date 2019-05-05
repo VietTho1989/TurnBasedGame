@@ -37,6 +37,31 @@ public class DiscoveredServer : Data
 	}
 
 	#endregion
+
+    public bool processEvent(Event e)
+    {
+        bool isProcess = false;
+        {
+            // shortKey
+            if (!isProcess)
+            {
+                if (Setting.get().useShortKey.v)
+                {
+                    DiscoveredServerUI discoveredServerUI = this.findCallBack<DiscoveredServerUI>();
+                    if (discoveredServerUI != null)
+                    {
+                        isProcess = discoveredServerUI.useShortKey(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("discoveredServerUI null: " + this);
+                    }
+                }
+            }
+        }
+        return isProcess;
+    }
+
 }
 
 public class DiscoveredServers : Data
@@ -46,13 +71,6 @@ public class DiscoveredServers : Data
 
 	public DiscoveredServer findByIp(string ipAddress){
 		return this.servers.vs.Find (server => server.ipAddress.v == ipAddress);
-		/*for (int i = 0; i < servers.vs.Count; i++) {
-			DiscoveredServer server = servers.vs [i];
-			if (server.ipAddress.v == ipAddress) {
-				return server;
-			}
-		}
-		return null;*/
 	}
 
 	#region Constructor
@@ -79,6 +97,9 @@ public class ClientNetworkDiscovery : NetworkDiscovery
 
     void Start()
     {
+        // TODO Them vao de khong bi remove
+        CleanServerList();
+
         showGUI = false;
         InvokeRepeating("CleanServerList", 3, 1);
         if (!Initialize())

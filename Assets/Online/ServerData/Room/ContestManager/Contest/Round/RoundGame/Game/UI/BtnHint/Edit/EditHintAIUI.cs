@@ -58,6 +58,22 @@ namespace Hint
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            EditHintAIUI editHintAIUI = this.findCallBack<EditHintAIUI>();
+                            if (editHintAIUI != null)
+                            {
+                                isProcess = editHintAIUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("editHintAIUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

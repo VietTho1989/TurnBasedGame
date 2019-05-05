@@ -41,6 +41,30 @@ namespace Solitaire
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            PileUI pileUI = this.findCallBack<PileUI>();
+                            if (pileUI != null)
+                            {
+                                isProcess = pileUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("pileUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

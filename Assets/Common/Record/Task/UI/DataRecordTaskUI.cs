@@ -62,6 +62,22 @@ namespace Record
                             Debug.LogError("saveRecordUIData null: " + this);
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            DataRecordTaskUI dataRecordTaskUI = this.findCallBack<DataRecordTaskUI>();
+                            if (dataRecordTaskUI != null)
+                            {
+                                isProcess = dataRecordTaskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("dataRecordTaskUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

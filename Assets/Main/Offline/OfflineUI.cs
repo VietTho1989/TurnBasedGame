@@ -85,6 +85,22 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        OfflineUI offlineUI = this.findCallBack<OfflineUI>();
+                        if (offlineUI != null)
+                        {
+                            isProcess = offlineUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("offlineUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

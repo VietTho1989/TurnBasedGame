@@ -25,6 +25,30 @@ public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserU
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ContestManagerBtnRoomUserUI contestManagerBtnRoomUserUI = this.findCallBack<ContestManagerBtnRoomUserUI>();
+                        if (contestManagerBtnRoomUserUI != null)
+                        {
+                            isProcess = contestManagerBtnRoomUserUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("contestManagerBtnChatUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

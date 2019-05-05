@@ -46,6 +46,22 @@ public class ConfirmBackServerUI : UIBehavior<ConfirmBackServerUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ConfirmBackServerUI confirmBackServerUI = this.findCallBack<ConfirmBackServerUI>();
+                        if (confirmBackServerUI != null)
+                        {
+                            isProcess = confirmBackServerUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmBackServerUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

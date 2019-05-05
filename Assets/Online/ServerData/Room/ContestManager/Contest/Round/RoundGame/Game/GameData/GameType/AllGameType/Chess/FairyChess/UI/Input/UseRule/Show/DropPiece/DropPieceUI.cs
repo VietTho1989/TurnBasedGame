@@ -51,12 +51,28 @@ namespace FairyChess.UseRule
                             if (dropPieceUI != null)
                             {
                                 dropPieceUI.onClickCancel();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("dropPieceUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            DropPieceUI dropPieceUI = this.findCallBack<DropPieceUI>();
+                            if (dropPieceUI != null)
+                            {
+                                isProcess = dropPieceUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("dropPieceUI null: " + this);
+                            }
                         }
                     }
                 }

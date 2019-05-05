@@ -61,12 +61,28 @@ namespace FileSystem
                             if (renameFileUI != null)
                             {
                                 renameFileUI.onClickBtnCancel();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("renameFileUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RenameFileUI renameFileUI = this.findCallBack<RenameFileUI>();
+                            if (renameFileUI != null)
+                            {
+                                isProcess = renameFileUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("renameFileUI null: " + this);
+                            }
                         }
                     }
                 }

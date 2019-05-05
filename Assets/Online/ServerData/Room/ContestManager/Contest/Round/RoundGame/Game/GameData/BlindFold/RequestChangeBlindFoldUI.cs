@@ -103,6 +103,22 @@ public class RequestChangeBlindFoldUI : UIBehavior<RequestChangeBlindFoldUI.UIDa
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeBlindFoldUI requestChangeBlindFoldUI = this.findCallBack<RequestChangeBlindFoldUI>();
+                        if (requestChangeBlindFoldUI != null)
+                        {
+                            isProcess = requestChangeBlindFoldUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeBlindFoldUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

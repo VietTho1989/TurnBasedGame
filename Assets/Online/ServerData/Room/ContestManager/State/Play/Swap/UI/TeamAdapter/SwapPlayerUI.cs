@@ -33,6 +33,30 @@ namespace GameManager.Match.Swap
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SwapPlayerUI swapPlayerUI = this.findCallBack<SwapPlayerUI>();
+                            if (swapPlayerUI != null)
+                            {
+                                isProcess = swapPlayerUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("swapPlayerUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

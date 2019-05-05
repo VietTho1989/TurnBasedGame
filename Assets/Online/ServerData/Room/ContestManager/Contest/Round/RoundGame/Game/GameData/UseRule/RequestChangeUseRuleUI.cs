@@ -103,6 +103,22 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeUseRuleUI requestChangeUseRuleUI = this.findCallBack<RequestChangeUseRuleUI>();
+                        if (requestChangeUseRuleUI != null)
+                        {
+                            isProcess = requestChangeUseRuleUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeUseRuleUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

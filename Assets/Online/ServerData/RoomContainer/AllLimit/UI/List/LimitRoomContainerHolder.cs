@@ -47,6 +47,30 @@ public class LimitRoomContainerHolder : SriaHolderBehavior<LimitRoomContainerHol
             this.limitRoomContainer.v = new ReferenceData<LimitRoomContainer>(limitRoomContainer);
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        LimitRoomContainerHolder limitRoomContainerHolder = this.findCallBack<LimitRoomContainerHolder>();
+                        if (limitRoomContainerHolder != null)
+                        {
+                            isProcess = limitRoomContainerHolder.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("limitRoomContainerHolder null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

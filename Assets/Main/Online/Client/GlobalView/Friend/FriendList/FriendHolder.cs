@@ -62,6 +62,31 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             // Update
             this.friend.v = new ReferenceData<Friend>(friend);
         }
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        FriendHolder friendHolder = this.findCallBack<FriendHolder>();
+                        if (friendHolder != null)
+                        {
+                            isProcess = friendHolder.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendHolder null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

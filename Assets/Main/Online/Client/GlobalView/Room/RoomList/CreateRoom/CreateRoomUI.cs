@@ -181,12 +181,28 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                         if (createRoomUI != null)
                         {
                             createRoomUI.onClickBtnCancel();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("createRoomUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        CreateRoomUI createRoomUI = this.findCallBack<CreateRoomUI>();
+                        if (createRoomUI != null)
+                        {
+                            isProcess = createRoomUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("createRoomUI null: " + this);
+                        }
                     }
                 }
             }

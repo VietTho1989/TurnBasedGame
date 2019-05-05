@@ -53,6 +53,30 @@ namespace GameManager.Match.Elimination
                 this.bracketContest.v = new ReferenceData<BracketContest>(bracketContest);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseBracketContestHolder chooseBracketContestHolder = this.findCallBack<ChooseBracketContestHolder>();
+                            if (chooseBracketContestHolder != null)
+                            {
+                                isProcess = chooseBracketContestHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseBracketContestHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

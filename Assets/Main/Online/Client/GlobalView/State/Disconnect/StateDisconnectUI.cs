@@ -6,35 +6,35 @@ using System.Collections.Generic;
 public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : GlobalStateUI.UIData.Sub
-	{
+    public class UIData : GlobalStateUI.UIData.Sub
+    {
 
-		public VP<ReferenceData<Server.State.Disconnect>> disconnect;
+        public VP<ReferenceData<Server.State.Disconnect>> disconnect;
 
-		public VP<StateDisconnectDetailUI.UIData> detail;
+        public VP<StateDisconnectDetailUI.UIData> detail;
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
-			disconnect,
-			detail
-		}
+        public enum Property
+        {
+            disconnect,
+            detail
+        }
 
-		public UIData() : base()
-		{
-			this.disconnect = new VP<ReferenceData<Server.State.Disconnect>>(this, (byte)Property.disconnect, new ReferenceData<Server.State.Disconnect>(null));
+        public UIData() : base()
+        {
+            this.disconnect = new VP<ReferenceData<Server.State.Disconnect>>(this, (byte)Property.disconnect, new ReferenceData<Server.State.Disconnect>(null));
             this.detail = new VP<StateDisconnectDetailUI.UIData>(this, (byte)Property.detail, new StateDisconnectDetailUI.UIData());
-		}
+        }
 
-		#endregion
+        #endregion
 
-		public override Server.State.Type getType ()
-		{
-			return Server.State.Type.Disconnect;
-		}
+        public override Server.State.Type getType()
+        {
+            return Server.State.Type.Disconnect;
+        }
 
         public override bool processEvent(Event e)
         {
@@ -53,23 +53,42 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                         // Debug.LogError("detail null");
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        StateDisconnectUI stateDisconnectUI = this.findCallBack<StateDisconnectUI>();
+                        if (stateDisconnectUI != null)
+                        {
+                            isProcess = stateDisconnectUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("stateDisconnectUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }
 
     }
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region Refresh
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				Server.State.Disconnect disconnect = this.data.disconnect.v.data;
-				if (disconnect != null) {
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                Server.State.Disconnect disconnect = this.data.disconnect.v.data;
+                if (disconnect != null)
+                {
                     // detail
                     {
                         StateDisconnectDetailUI.UIData detail = this.data.detail.v;
@@ -82,19 +101,23 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                             Debug.LogError("detail null");
                         }
                     }
-                } else {
-					Debug.LogError ("disconnect null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+                }
+                else
+                {
+                    Debug.LogError("disconnect null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
     #endregion
 
@@ -102,9 +125,9 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 
     public StateDisconnectDetailUI detailPrefab;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if(data is UIData)
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
         {
             UIData uiData = data as UIData;
             // Child
@@ -122,7 +145,7 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                 dirty = true;
                 return;
             }
-            if(data is StateDisconnectDetailUI.UIData)
+            if (data is StateDisconnectDetailUI.UIData)
             {
                 StateDisconnectDetailUI.UIData detailUIData = data as StateDisconnectDetailUI.UIData;
                 // UI
@@ -153,11 +176,11 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                 return;
             }
         }
-        Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
@@ -185,14 +208,15 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                 return;
             }
         }
-        Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if(WrapProperty.checkError(wrapProperty)){
-			return;
-		}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
         if (wrapProperty.p is UIData)
         {
             switch ((UIData.Property)wrapProperty.n)
@@ -226,8 +250,8 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
                 return;
             }
         }
-        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
     #endregion
 

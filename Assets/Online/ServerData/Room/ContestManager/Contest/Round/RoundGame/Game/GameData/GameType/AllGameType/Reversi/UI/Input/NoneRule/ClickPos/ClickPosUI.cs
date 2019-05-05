@@ -48,12 +48,28 @@ namespace Reversi.NoneRule
                             if (clickPosUI != null)
                             {
                                 clickPosUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("clickPosUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickPosUI clickPosUI = this.findCallBack<ClickPosUI>();
+                            if (clickPosUI != null)
+                            {
+                                isProcess = clickPosUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickPosUI null: " + this);
+                            }
                         }
                     }
                 }

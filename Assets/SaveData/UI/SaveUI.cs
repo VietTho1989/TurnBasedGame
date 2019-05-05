@@ -79,12 +79,28 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                         if (saveUI != null)
                         {
                             saveUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("saveUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        SaveUI saveUI = this.findCallBack<SaveUI>();
+                        if (saveUI != null)
+                        {
+                            isProcess = saveUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("saveUI null: " + this);
+                        }
                     }
                 }
             }

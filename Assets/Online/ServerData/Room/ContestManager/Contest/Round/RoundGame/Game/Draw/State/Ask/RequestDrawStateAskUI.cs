@@ -64,7 +64,22 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestDrawStateAskUI requestDrawStateAskUI = this.findCallBack<RequestDrawStateAskUI>();
+                        if (requestDrawStateAskUI != null)
+                        {
+                            isProcess = requestDrawStateAskUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDrawStateAskUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

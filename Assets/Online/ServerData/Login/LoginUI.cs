@@ -114,6 +114,22 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        LoginUI loginUI = this.findCallBack<LoginUI>();
+                        if (loginUI != null)
+                        {
+                            isProcess = loginUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("loginUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

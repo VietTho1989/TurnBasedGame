@@ -46,7 +46,22 @@ namespace Seirawan
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SeirawanInformationUI seirawanInformationUI = this.findCallBack<SeirawanInformationUI>();
+                            if (seirawanInformationUI != null)
+                            {
+                                isProcess = seirawanInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("seirawanInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

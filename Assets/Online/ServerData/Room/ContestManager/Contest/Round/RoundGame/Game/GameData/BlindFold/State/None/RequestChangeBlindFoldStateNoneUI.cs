@@ -52,7 +52,22 @@ public class RequestChangeBlindFoldStateNoneUI : UIHaveTransformDataBehavior<Req
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeBlindFoldStateNoneUI requestChangeBlindFoldStateNoneUI = this.findCallBack<RequestChangeBlindFoldStateNoneUI>();
+                        if (requestChangeBlindFoldStateNoneUI != null)
+                        {
+                            isProcess = requestChangeBlindFoldStateNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeBlindFoldStateNoneUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -67,7 +67,22 @@ namespace Solitaire
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            UseRuleInputNoneUI useRuleInputNoneUI = this.findCallBack<UseRuleInputNoneUI>();
+                            if (useRuleInputNoneUI != null)
+                            {
+                                isProcess = useRuleInputNoneUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("useRuleInputNoneUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

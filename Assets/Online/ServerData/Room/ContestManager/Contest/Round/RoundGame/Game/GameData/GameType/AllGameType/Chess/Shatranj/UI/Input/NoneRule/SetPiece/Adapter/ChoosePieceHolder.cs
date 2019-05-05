@@ -49,6 +49,30 @@ namespace Shatranj.NoneRule
                 this.piece.v = piece;
             }
 
+            public void processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChoosePieceHolder choosePieceHolder = this.findCallBack<ChoosePieceHolder>();
+                            if (choosePieceHolder != null)
+                            {
+                                isProcess = choosePieceHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("choosePieceHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

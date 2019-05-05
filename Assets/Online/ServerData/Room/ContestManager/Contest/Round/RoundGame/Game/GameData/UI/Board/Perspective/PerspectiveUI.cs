@@ -103,6 +103,22 @@ public class PerspectiveUI : UIBehavior<PerspectiveUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        PerspectiveUI perspectiveUI = this.findCallBack<PerspectiveUI>();
+                        if (perspectiveUI != null)
+                        {
+                            isProcess = perspectiveUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("perspectiveUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -50,12 +50,28 @@ namespace GameManager.Match.Swap
                             if (swapUI != null)
                             {
                                 swapUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("swapUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SwapUI swapUI = this.findCallBack<SwapUI>();
+                            if (swapUI != null)
+                            {
+                                isProcess = swapUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("swapUI null: " + this);
+                            }
                         }
                     }
                 }

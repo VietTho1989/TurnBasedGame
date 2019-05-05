@@ -53,6 +53,30 @@ namespace GameManager.Match
                 this.round.v = new ReferenceData<Round>(round);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseRoundHolder chooseRoundHolder = this.findCallBack<ChooseRoundHolder>();
+                            if (chooseRoundHolder != null)
+                            {
+                                isProcess = chooseRoundHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseRoundHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

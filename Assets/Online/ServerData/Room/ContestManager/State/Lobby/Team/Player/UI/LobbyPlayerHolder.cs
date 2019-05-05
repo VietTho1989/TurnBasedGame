@@ -36,6 +36,30 @@ namespace GameManager.Match
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            LobbyPlayerHolder lobbyPlayerHolder = this.findCallBack<LobbyPlayerHolder>();
+                            if (lobbyPlayerHolder != null)
+                            {
+                                isProcess = lobbyPlayerHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("lobbyPlayerHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

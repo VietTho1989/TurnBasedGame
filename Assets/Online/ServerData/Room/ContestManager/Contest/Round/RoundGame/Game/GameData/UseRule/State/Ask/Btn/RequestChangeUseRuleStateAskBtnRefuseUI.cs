@@ -48,6 +48,30 @@ public class RequestChangeUseRuleStateAskBtnRefuseUI : UIBehavior<RequestChangeU
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeUseRuleStateAskBtnRefuseUI requestChangeUseRuleStateAskBtnRefuseUI = this.findCallBack<RequestChangeUseRuleStateAskBtnRefuseUI>();
+                        if (requestChangeUseRuleStateAskBtnRefuseUI != null)
+                        {
+                            isProcess = requestChangeUseRuleStateAskBtnRefuseUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeUseRuleStateAskBtnRefuseUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

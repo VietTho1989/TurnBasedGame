@@ -53,6 +53,30 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        FriendStateBanUI friendStateBanUI = this.findCallBack<FriendStateBanUI>();
+                        if (friendStateBanUI != null)
+                        {
+                            isProcess = friendStateBanUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendStateBanUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

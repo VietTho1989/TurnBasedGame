@@ -103,6 +103,22 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestDrawUI requestDrawUI = this.findCallBack<RequestDrawUI>();
+                        if (requestDrawUI != null)
+                        {
+                            isProcess = requestDrawUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDrawUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

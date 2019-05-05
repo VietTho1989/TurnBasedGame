@@ -43,6 +43,22 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
                     }
                     isProcess = true;
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ConfirmBackOfflineUI confirmBackOfflineUI = this.findCallBack<ConfirmBackOfflineUI>();
+                        if (confirmBackOfflineUI != null)
+                        {
+                            isProcess = confirmBackOfflineUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmBackOfflineUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

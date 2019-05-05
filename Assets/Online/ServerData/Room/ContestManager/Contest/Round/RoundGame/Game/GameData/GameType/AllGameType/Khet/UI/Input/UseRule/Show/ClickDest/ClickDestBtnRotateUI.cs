@@ -27,6 +27,30 @@ namespace Khet.UseRule
 
             #endregion
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickDestBtnRotateUI clickDestBtnRotateUI = this.findCallBack<ClickDestBtnRotateUI>();
+                            if (clickDestBtnRotateUI != null)
+                            {
+                                isProcess = clickDestBtnRotateUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickDestBtnRotateUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

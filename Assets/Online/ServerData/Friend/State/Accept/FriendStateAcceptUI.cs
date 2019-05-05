@@ -53,6 +53,30 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        FriendStateAcceptUI friendStateAcceptUI = this.findCallBack<FriendStateAcceptUI>();
+                        if (friendStateAcceptUI != null)
+                        {
+                            isProcess = friendStateAcceptUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendStateAcceptUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

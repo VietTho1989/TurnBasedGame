@@ -83,6 +83,22 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GameInformationUI gameInformationUI = this.findCallBack<GameInformationUI>();
+                        if (gameInformationUI != null)
+                        {
+                            isProcess = gameInformationUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gameInformationUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

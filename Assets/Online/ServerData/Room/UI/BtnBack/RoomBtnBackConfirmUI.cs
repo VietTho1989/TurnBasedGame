@@ -38,12 +38,28 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
                         if (roomBtnBackConfirmUI != null)
                         {
                             roomBtnBackConfirmUI.onClickBtnCancel();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("roomBtnBackConfirmUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomBtnBackConfirmUI roomBtnBackConfirmUI = this.findCallBack<RoomBtnBackConfirmUI>();
+                        if (roomBtnBackConfirmUI != null)
+                        {
+                            isProcess = roomBtnBackConfirmUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomBtnBackConfirmUI null: " + this);
+                        }
                     }
                 }
             }

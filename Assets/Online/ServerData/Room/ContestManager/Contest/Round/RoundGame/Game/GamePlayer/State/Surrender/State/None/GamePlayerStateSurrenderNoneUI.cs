@@ -53,6 +53,30 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GamePlayerStateSurrenderNoneUI gamePlayerStateSurrenderNoneUI = this.findCallBack<GamePlayerStateSurrenderNoneUI>();
+                        if (gamePlayerStateSurrenderNoneUI != null)
+                        {
+                            isProcess = gamePlayerStateSurrenderNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateSurrenderNoneUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

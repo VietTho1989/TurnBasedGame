@@ -77,6 +77,23 @@ namespace Posture
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            // TODO Con phan refresh o update nua
+                            ChoosePostureUI choosePostureUI = this.findCallBack<ChoosePostureUI>();
+                            if (choosePostureUI != null)
+                            {
+                                isProcess = choosePostureUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("choosePostureUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

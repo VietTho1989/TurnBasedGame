@@ -47,6 +47,30 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        UserMakeFriendUI userMakeFriendUI = this.findCallBack<UserMakeFriendUI>();
+                        if (userMakeFriendUI != null)
+                        {
+                            isProcess = userMakeFriendUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("userMakeFriendUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

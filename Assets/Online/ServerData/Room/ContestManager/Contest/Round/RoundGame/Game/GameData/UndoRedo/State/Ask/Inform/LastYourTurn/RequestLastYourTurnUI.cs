@@ -57,6 +57,30 @@ namespace UndoRedo
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestLastYourTurnUI requestLastYourTurnUI = this.findCallBack<RequestLastYourTurnUI>();
+                            if (requestLastYourTurnUI != null)
+                            {
+                                isProcess = requestLastYourTurnUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestLastYourTurnUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

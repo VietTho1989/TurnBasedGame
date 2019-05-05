@@ -128,6 +128,22 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        LoadDataUI loadDataUI = this.findCallBack<LoadDataUI>();
+                        if (loadDataUI != null)
+                        {
+                            isProcess = loadDataUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("loadDataUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

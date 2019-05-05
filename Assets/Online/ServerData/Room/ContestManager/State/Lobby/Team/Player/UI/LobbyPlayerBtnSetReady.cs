@@ -50,6 +50,30 @@ namespace GameManager.Match
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            LobbyPlayerBtnSetReady lobbyPlayerBtnSetReady = this.findCallBack<LobbyPlayerBtnSetReady>();
+                            if (lobbyPlayerBtnSetReady != null)
+                            {
+                                isProcess = lobbyPlayerBtnSetReady.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("lobbyPlayerBtnSetReady null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

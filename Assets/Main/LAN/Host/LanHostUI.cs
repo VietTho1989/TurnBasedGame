@@ -92,6 +92,22 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        LanHostUI lanHostUI = this.findCallBack<LanHostUI>();
+                        if (lanHostUI != null)
+                        {
+                            isProcess = lanHostUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("lanHostUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

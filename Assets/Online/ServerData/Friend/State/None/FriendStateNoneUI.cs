@@ -55,6 +55,30 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        FriendStateNoneUI friendStateNoneUI = this.findCallBack<FriendStateNoneUI>();
+                        if (friendStateNoneUI != null)
+                        {
+                            isProcess = friendStateNoneUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendStateNoneUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

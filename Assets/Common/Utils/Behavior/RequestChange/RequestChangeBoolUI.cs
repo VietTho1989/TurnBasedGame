@@ -62,6 +62,30 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 
         #endregion
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeBoolUI requestChangeBoolUI = this.findCallBack<RequestChangeBoolUI>();
+                        if (requestChangeBoolUI != null)
+                        {
+                            isProcess = requestChangeBoolUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeBoolUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

@@ -53,6 +53,22 @@ public class StateDisconnectDetailUI : UIBehavior<StateDisconnectDetailUI.UIData
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        StateDisconnectDetailUI stateDisconnectDetailUI = this.findCallBack<StateDisconnectDetailUI>();
+                        if (stateDisconnectDetailUI != null)
+                        {
+                            isProcess = stateDisconnectDetailUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("stateDisconnectDetailUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

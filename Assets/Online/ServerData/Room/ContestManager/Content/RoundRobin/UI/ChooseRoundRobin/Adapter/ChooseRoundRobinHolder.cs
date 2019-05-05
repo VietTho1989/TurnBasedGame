@@ -53,6 +53,30 @@ namespace GameManager.Match.RoundRobin
                 this.roundRobin.v = new ReferenceData<RoundRobin>(roundRobin);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseRoundRobinHolder chooseRoundRobinHolder = this.findCallBack<ChooseRoundRobinHolder>();
+                            if (chooseRoundRobinHolder != null)
+                            {
+                                isProcess = chooseRoundRobinHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseRoundRobinHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

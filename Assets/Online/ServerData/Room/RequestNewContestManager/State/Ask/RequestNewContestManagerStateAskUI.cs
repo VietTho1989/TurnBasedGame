@@ -91,6 +91,22 @@ namespace GameManager.ContestManager
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewContestManagerStateAskUI requestNewContestManagerStateAskUI = this.findCallBack<RequestNewContestManagerStateAskUI>();
+                            if (requestNewContestManagerStateAskUI != null)
+                            {
+                                isProcess = requestNewContestManagerStateAskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewContestManagerStateAskUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

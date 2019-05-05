@@ -46,7 +46,22 @@ namespace InternationalDraught
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            InternationalDraughtInformationUI internationalDraughtInformationUI = this.findCallBack<InternationalDraughtInformationUI>();
+                            if (internationalDraughtInformationUI != null)
+                            {
+                                isProcess = internationalDraughtInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("internationalDraughtInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

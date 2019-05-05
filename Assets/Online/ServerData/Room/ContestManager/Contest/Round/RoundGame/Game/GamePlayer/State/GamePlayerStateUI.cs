@@ -82,6 +82,22 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GamePlayerStateUI gamePlayerStateUI = this.findCallBack<GamePlayerStateUI>();
+                        if (gamePlayerStateUI != null)
+                        {
+                            isProcess = gamePlayerStateUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

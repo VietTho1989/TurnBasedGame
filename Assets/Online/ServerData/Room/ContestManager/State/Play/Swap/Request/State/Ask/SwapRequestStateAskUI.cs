@@ -152,6 +152,30 @@ namespace GameManager.Match.Swap
                 this.state.v = none;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SwapRequestStateAskUI swapRequestStateAskUI = this.findCallBack<SwapRequestStateAskUI>();
+                            if (swapRequestStateAskUI != null)
+                            {
+                                isProcess = swapRequestStateAskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("swapRequestStateAskUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

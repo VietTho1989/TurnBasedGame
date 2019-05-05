@@ -54,6 +54,22 @@ namespace GameManager.Match
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseRoundGameUI chooseRoundGameUI = this.findCallBack<ChooseRoundGameUI>();
+                            if (chooseRoundGameUI != null)
+                            {
+                                isProcess = chooseRoundGameUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseRoundGameUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

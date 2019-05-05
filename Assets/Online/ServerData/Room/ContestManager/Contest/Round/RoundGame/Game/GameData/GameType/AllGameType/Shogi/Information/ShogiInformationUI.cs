@@ -46,7 +46,22 @@ namespace Shogi
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ShogiInformationUI shogiInformationUI = this.findCallBack<ShogiInformationUI>();
+                            if (shogiInformationUI != null)
+                            {
+                                isProcess = shogiInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("shogiInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

@@ -49,6 +49,30 @@ namespace FileSystem
                 this.file.v = fileSystemInfo;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            FileHolder fileHolder = this.findCallBack<FileHolder>();
+                            if (fileHolder != null)
+                            {
+                                isProcess = fileHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("fileHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

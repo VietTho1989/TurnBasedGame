@@ -53,6 +53,22 @@ namespace Seirawan.NoneRule
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            CreateByFenUI createByFenUI = this.findCallBack<CreateByFenUI>();
+                            if (createByFenUI != null)
+                            {
+                                isProcess = createByFenUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("createByFenUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

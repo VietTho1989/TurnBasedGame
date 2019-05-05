@@ -31,7 +31,22 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ViewSaveGameHistoryUI viewSaveGameHistoryUI = this.findCallBack<ViewSaveGameHistoryUI>();
+                        if (viewSaveGameHistoryUI != null)
+                        {
+                            isProcess = viewSaveGameHistoryUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("viewSaveGameHistoryUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

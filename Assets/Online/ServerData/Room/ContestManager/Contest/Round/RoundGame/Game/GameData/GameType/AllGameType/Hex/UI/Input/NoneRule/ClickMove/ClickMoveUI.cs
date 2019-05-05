@@ -150,6 +150,22 @@ namespace HEX.NoneRule
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickMoveUI clickMoveUI = this.findCallBack<ClickMoveUI>();
+                            if (clickMoveUI != null)
+                            {
+                                isProcess = clickMoveUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickMoveUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

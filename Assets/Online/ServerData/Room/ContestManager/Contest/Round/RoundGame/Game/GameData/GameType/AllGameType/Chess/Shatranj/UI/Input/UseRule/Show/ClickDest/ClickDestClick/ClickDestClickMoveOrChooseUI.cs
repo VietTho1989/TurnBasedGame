@@ -54,6 +54,22 @@ namespace Shatranj.UseRule
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickDestClickMoveOrChooseUI clickDestClickMoveOrChooseUI = this.findCallBack<ClickDestClickMoveOrChooseUI>();
+                            if (clickDestClickMoveOrChooseUI != null)
+                            {
+                                isProcess = clickDestClickMoveOrChooseUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickDestClickMoveOrChooseUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

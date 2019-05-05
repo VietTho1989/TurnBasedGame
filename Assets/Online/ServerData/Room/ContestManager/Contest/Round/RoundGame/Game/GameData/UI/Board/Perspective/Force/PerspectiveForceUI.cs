@@ -36,7 +36,22 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
         {
             bool isProcess = false;
             {
-
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        PerspectiveForceUI perspectiveForceUI = this.findCallBack<PerspectiveForceUI>();
+                        if (perspectiveForceUI != null)
+                        {
+                            isProcess = perspectiveForceUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("perspectiveForceUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

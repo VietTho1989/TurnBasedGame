@@ -46,7 +46,22 @@ namespace RussianDraught
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RussianDraughtInformationUI russianDraughtInformationUI = this.findCallBack<RussianDraughtInformationUI>();
+                            if (russianDraughtInformationUI != null)
+                            {
+                                isProcess = russianDraughtInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("russianDraughtInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

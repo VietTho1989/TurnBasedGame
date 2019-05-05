@@ -172,6 +172,22 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             break;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GlobalViewUI globalViewUI = this.findCallBack<GlobalViewUI>();
+                        if (globalViewUI != null)
+                        {
+                            isProcess = globalViewUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("globalViewUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

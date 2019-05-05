@@ -90,6 +90,22 @@ namespace GameManager.Match
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewRoundStateAskUI requestNewRoundStateAskUI = this.findCallBack<RequestNewRoundStateAskUI>();
+                            if (requestNewRoundStateAskUI != null)
+                            {
+                                isProcess = requestNewRoundStateAskUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewRoundStateAskUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

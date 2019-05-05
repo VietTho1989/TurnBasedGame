@@ -54,6 +54,22 @@ namespace GameManager.Match.Elimination
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseBracketUI chooseBracketUI = this.findCallBack<ChooseBracketUI>();
+                            if (chooseBracketUI != null)
+                            {
+                                isProcess = chooseBracketUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseBracketUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

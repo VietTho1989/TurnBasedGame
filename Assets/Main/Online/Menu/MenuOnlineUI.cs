@@ -52,6 +52,22 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        MenuOnlineUI menuOnlineUI = this.findCallBack<MenuOnlineUI>();
+                        if (menuOnlineUI != null)
+                        {
+                            isProcess = menuOnlineUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("menuOnlineUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

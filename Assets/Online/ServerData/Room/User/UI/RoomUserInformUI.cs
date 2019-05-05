@@ -72,12 +72,28 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
                         if (roomUserInformUI != null)
                         {
                             roomUserInformUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("roomUserInformUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomUserInformUI roomUserInformUI = this.findCallBack<RoomUserInformUI>();
+                        if (roomUserInformUI != null)
+                        {
+                            isProcess = roomUserInformUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUserInformUI null: " + this);
+                        }
                     }
                 }
             }

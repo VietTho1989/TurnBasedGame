@@ -59,6 +59,22 @@ namespace Shogi.UseRule
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            DropPieceUI dropPieceUI = this.findCallBack<DropPieceUI>();
+                            if (dropPieceUI != null)
+                            {
+                                isProcess = dropPieceUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("dropPieceUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

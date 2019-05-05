@@ -46,6 +46,22 @@ public class ConfirmLeaveAppUI : UIBehavior<ConfirmLeaveAppUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ConfirmLeaveAppUI confirmLeaveAppUI = this.findCallBack<ConfirmLeaveAppUI>();
+                        if (confirmLeaveAppUI != null)
+                        {
+                            isProcess = confirmLeaveAppUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmLeaveAppUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

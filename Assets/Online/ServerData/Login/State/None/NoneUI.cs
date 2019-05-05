@@ -47,6 +47,30 @@ namespace LoginState
                 return Login.State.Type.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            NoneUI noneUI = this.findCallBack<NoneUI>();
+                            if (noneUI != null)
+                            {
+                                isProcess = noneUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("noneUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

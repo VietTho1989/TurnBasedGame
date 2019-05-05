@@ -34,6 +34,30 @@ namespace Record
                 return ViewRecordControllerUI.UIData.State.Type.Play;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ViewRecordControllerStatePlayUI viewRecordControllerStatePlayUI = this.findCallBack<ViewRecordControllerStatePlayUI>();
+                            if (viewRecordControllerStatePlayUI != null)
+                            {
+                                isProcess = viewRecordControllerStatePlayUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("viewRecordControllerStatePlayUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

@@ -55,12 +55,28 @@ namespace Makruk.NoneRule
                             if (setPieceUI != null)
                             {
                                 setPieceUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("setPieceUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SetPieceUI setPieceUI = this.findCallBack<SetPieceUI>();
+                            if (setPieceUI != null)
+                            {
+                                isProcess = setPieceUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("setPieceUI null: " + this);
+                            }
                         }
                     }
                 }

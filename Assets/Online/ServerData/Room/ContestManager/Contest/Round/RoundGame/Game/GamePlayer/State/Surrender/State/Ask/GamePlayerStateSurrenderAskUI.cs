@@ -60,6 +60,30 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GamePlayerStateSurrenderAskUI gamePlayerStateSurrenderAskUI = this.findCallBack<GamePlayerStateSurrenderAskUI>();
+                        if (gamePlayerStateSurrenderAskUI != null)
+                        {
+                            isProcess = gamePlayerStateSurrenderAskUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateSurrenderAskUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

@@ -97,7 +97,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
         public override bool processEvent(Event e)
         {
-            Debug.LogError("processEvent: " + e + "; " + this);
+            // Debug.LogError("processEvent: " + e + "; " + this);
             bool isProcess = false;
             {
                 // editPostureGameData
@@ -111,6 +111,22 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     else
                     {
                         Debug.LogError("editPostureGameDataUIData null: " + this);
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        PostureGameDataFactoryUI postureGameDataFactoryUI = this.findCallBack<PostureGameDataFactoryUI>();
+                        if (postureGameDataFactoryUI != null)
+                        {
+                            isProcess = postureGameDataFactoryUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("postureGameDataFactoryUI null: " + this);
+                        }
                     }
                 }
             }

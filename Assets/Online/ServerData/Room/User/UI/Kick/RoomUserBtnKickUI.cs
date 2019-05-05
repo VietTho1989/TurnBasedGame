@@ -48,6 +48,30 @@ public class RoomUserBtnKickUI : UIBehavior<RoomUserBtnKickUI.UIData>
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomUserBtnKickUI roomUserBtnKickUI = this.findCallBack<RoomUserBtnKickUI>();
+                        if (roomUserBtnKickUI != null)
+                        {
+                            isProcess = roomUserBtnKickUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUserBtnKickUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

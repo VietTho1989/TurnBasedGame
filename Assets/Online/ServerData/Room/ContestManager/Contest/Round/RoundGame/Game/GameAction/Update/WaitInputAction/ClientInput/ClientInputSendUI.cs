@@ -32,6 +32,30 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
             return ClientInput.Sub.Type.Send;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ClientInputSendUI clientInputSendUI = this.findCallBack<ClientInputSendUI>();
+                        if (clientInputSendUI != null)
+                        {
+                            isProcess = clientInputSendUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("clientInputSendUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

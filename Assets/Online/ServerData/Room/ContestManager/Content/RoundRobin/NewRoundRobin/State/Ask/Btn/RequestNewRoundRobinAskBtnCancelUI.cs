@@ -51,6 +51,30 @@ namespace GameManager.Match.RoundRobin
                 this.state.v = State.None;
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            RequestNewRoundRobinAskBtnCancelUI requestNewRoundRobinAskBtnCancelUI = this.findCallBack<RequestNewRoundRobinAskBtnCancelUI>();
+                            if (requestNewRoundRobinAskBtnCancelUI != null)
+                            {
+                                isProcess = requestNewRoundRobinAskBtnCancelUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestNewRoundRobinAskBtnCancelUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

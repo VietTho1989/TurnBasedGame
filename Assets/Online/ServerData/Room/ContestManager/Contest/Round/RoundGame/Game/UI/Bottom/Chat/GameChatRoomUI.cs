@@ -95,6 +95,22 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        GameChatRoomUI gameChatRoomUI = this.findCallBack<GameChatRoomUI>();
+                        if (gameChatRoomUI != null)
+                        {
+                            isProcess = gameChatRoomUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("gameChatRoomUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

@@ -81,6 +81,22 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
                         Debug.LogError("sub null: " + this);
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomListUI roomListUI = this.findCallBack<RoomListUI>();
+                        if (roomListUI != null)
+                        {
+                            isProcess = roomListUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomListUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

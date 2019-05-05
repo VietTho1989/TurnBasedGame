@@ -52,6 +52,30 @@ namespace Posture
                 this.postureGameData.v = new ReferenceData<PostureGameData>(postureGameData);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChoosePostureHolder choosePostureHolder = this.findCallBack<ChoosePostureHolder>();
+                            if (choosePostureHolder != null)
+                            {
+                                isProcess = choosePostureHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("choosePostureHolder null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

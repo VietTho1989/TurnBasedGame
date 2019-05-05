@@ -89,6 +89,22 @@ namespace GameManager.Match
                             }
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            EditLobbyPlayerUI editLobbyPlayerUI = this.findCallBack<EditLobbyPlayerUI>();
+                            if (editLobbyPlayerUI != null)
+                            {
+                                isProcess = editLobbyPlayerUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("editLobbyPlayerUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

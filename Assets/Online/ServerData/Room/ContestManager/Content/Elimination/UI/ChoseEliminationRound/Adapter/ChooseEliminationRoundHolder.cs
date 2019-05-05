@@ -54,6 +54,30 @@ namespace GameManager.Match.Elimination
                 this.eliminationRound.v = new ReferenceData<EliminationRound>(eliminationRound);
             }
 
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseEliminationRoundHolder chooseEliminationRoundHolder = this.findCallBack<ChooseEliminationRoundHolder>();
+                            if (chooseEliminationRoundHolder != null)
+                            {
+                                isProcess = chooseEliminationRoundHolder.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseDatabaseUI null: " + this);
+                            }
+                        }
+                    }
+                }
+                return isProcess;
+            }
+
         }
 
         #endregion

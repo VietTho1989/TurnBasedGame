@@ -104,6 +104,22 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        UndoRedoRequestUI undoRedoRequestUI = this.findCallBack<UndoRedoRequestUI>();
+                        if (undoRedoRequestUI != null)
+                        {
+                            isProcess = undoRedoRequestUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("swapUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

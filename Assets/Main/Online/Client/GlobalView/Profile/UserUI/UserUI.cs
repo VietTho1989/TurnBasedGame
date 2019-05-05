@@ -163,12 +163,28 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         if (userUI != null)
                         {
                             userUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("userUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        UserUI userUI = this.findCallBack<UserUI>();
+                        if (userUI != null)
+                        {
+                            isProcess = userUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("userUI null: " + this);
+                        }
                     }
                 }
             }

@@ -42,6 +42,30 @@ public class ContestManagerBtnSettingUI : UIBehavior<ContestManagerBtnSettingUI.
             this.visibility.v = Visibility.Hide;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ContestManagerBtnSettingUI contestManagerBtnSettingUI = this.findCallBack<ContestManagerBtnSettingUI>();
+                        if (contestManagerBtnSettingUI != null)
+                        {
+                            isProcess = contestManagerBtnSettingUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("contestManagerBtnSettingUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

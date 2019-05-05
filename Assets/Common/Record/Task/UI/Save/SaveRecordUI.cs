@@ -81,12 +81,28 @@ namespace Record
                             if (saveRecordUI != null)
                             {
                                 saveRecordUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("saveRecordUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SaveRecordUI saveRecordUI = this.findCallBack<SaveRecordUI>();
+                            if (saveRecordUI != null)
+                            {
+                                isProcess = saveRecordUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("saveRecordUI null: " + this);
+                            }
                         }
                     }
                 }

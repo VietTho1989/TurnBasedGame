@@ -48,6 +48,30 @@ public class RequestChangeBlindFoldStateAskBtnAcceptUI : UIBehavior<RequestChang
             this.state.v = State.None;
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RequestChangeBlindFoldStateAskBtnAcceptUI requestChangeBlindFoldStateAskBtnAcceptUI = this.findCallBack<RequestChangeBlindFoldStateAskBtnAcceptUI>();
+                        if (requestChangeBlindFoldStateAskBtnAcceptUI != null)
+                        {
+                            isProcess = requestChangeBlindFoldStateAskBtnAcceptUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeBlindFoldStateAskBtnAcceptUI null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

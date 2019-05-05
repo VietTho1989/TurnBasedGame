@@ -75,12 +75,28 @@ namespace Record
                             if (viewRecordUI != null)
                             {
                                 viewRecordUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("viewRecordUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ViewRecordUI viewRecordUI = this.findCallBack<ViewRecordUI>();
+                            if (viewRecordUI != null)
+                            {
+                                isProcess = viewRecordUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("viewRecordUI null: " + this);
+                            }
                         }
                     }
                 }

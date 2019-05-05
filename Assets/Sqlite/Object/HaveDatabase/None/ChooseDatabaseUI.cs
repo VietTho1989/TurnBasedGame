@@ -54,6 +54,22 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ChooseDatabaseUI chooseDatabaseUI = this.findCallBack<ChooseDatabaseUI>();
+                        if (chooseDatabaseUI != null)
+                        {
+                            isProcess = chooseDatabaseUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("chooseDatabaseUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

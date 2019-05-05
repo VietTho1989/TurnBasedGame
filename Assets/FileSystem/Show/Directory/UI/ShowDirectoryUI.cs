@@ -94,6 +94,22 @@ namespace FileSystem
                             Debug.LogError("newFolder null: " + this);
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ShowDirectoryUI showDirectoryUI = this.findCallBack<ShowDirectoryUI>();
+                            if (showDirectoryUI != null)
+                            {
+                                isProcess = showDirectoryUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("showDirectoryUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

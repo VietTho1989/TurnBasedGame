@@ -49,6 +49,22 @@ public class ConfirmSaveDataUI : UIBehavior<ConfirmSaveDataUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ConfirmSaveDataUI confirmSaveDataUI = this.findCallBack<ConfirmSaveDataUI>();
+                        if (confirmSaveDataUI != null)
+                        {
+                            isProcess = confirmSaveDataUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmSaveDataUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

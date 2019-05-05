@@ -74,6 +74,22 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
                         }
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        RoomUserListUI roomUserListUI = this.findCallBack<RoomUserListUI>();
+                        if (roomUserListUI != null)
+                        {
+                            isProcess = roomUserListUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUserListUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

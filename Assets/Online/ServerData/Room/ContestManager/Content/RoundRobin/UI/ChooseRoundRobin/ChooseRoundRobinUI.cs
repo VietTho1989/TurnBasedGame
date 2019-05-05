@@ -54,6 +54,22 @@ namespace GameManager.Match.RoundRobin
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ChooseRoundRobinUI chooseRoundRobinUI = this.findCallBack<ChooseRoundRobinUI>();
+                            if (chooseRoundRobinUI != null)
+                            {
+                                isProcess = chooseRoundRobinUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("chooseRoundRobinUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

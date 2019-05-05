@@ -131,6 +131,22 @@ namespace Khet.UseRule
                             isProcess = true;
                         }
                     }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            ClickDestUI clickDestUI = this.findCallBack<ClickDestUI>();
+                            if (clickDestUI != null)
+                            {
+                                isProcess = clickDestUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("clickDestUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

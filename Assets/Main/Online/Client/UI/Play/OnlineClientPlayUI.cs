@@ -98,6 +98,22 @@ public class OnlineClientPlayUI : UIBehavior<OnlineClientPlayUI.UIData>
                         isProcess = true;
                     }
                 }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        OnlineClientPlayUI onlineClientPlayUI = this.findCallBack<OnlineClientPlayUI>();
+                        if (onlineClientPlayUI != null)
+                        {
+                            isProcess = onlineClientPlayUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("onlineClientPlayUI null: " + this);
+                        }
+                    }
+                }
             }
             return isProcess;
         }

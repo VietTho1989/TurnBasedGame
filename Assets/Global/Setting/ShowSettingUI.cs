@@ -84,12 +84,28 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         if (showSettingUI != null)
                         {
                             showSettingUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("showSettingUI null: " + this);
                         }
-                        isProcess = true;
+                    }
+                }
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        ShowSettingUI showSettingUI = this.findCallBack<ShowSettingUI>();
+                        if (showSettingUI != null)
+                        {
+                            isProcess = showSettingUI.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("showSettingUI null: " + this);
+                        }
                     }
                 }
             }

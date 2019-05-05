@@ -47,12 +47,28 @@ namespace FairyChess.NoneRule
                             if (setHandUI != null)
                             {
                                 setHandUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("setHandUI null: " + this);
                             }
-                            isProcess = true;
+                        }
+                    }
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            SetHandUI setHandUI = this.findCallBack<SetHandUI>();
+                            if (setHandUI != null)
+                            {
+                                isProcess = setHandUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("setHandUI null: " + this);
+                            }
                         }
                     }
                 }

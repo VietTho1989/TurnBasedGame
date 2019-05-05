@@ -56,6 +56,30 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
             this.user.v = new ReferenceData<User>(user);
         }
 
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // shortKey
+                if (!isProcess)
+                {
+                    if (Setting.get().useShortKey.v)
+                    {
+                        UserHolder userHolder = this.findCallBack<UserHolder>();
+                        if (userHolder != null)
+                        {
+                            isProcess = userHolder.useShortKey(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("userHolder null: " + this);
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

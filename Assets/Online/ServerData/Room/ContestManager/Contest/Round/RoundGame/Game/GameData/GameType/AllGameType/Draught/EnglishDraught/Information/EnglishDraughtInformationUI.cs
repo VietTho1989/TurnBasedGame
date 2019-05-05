@@ -46,7 +46,22 @@ namespace EnglishDraught
             {
                 bool isProcess = false;
                 {
-
+                    // shortKey
+                    if (!isProcess)
+                    {
+                        if (Setting.get().useShortKey.v)
+                        {
+                            EnglishDraughtInformationUI englishDraughtInformationUI = this.findCallBack<EnglishDraughtInformationUI>();
+                            if (englishDraughtInformationUI != null)
+                            {
+                                isProcess = englishDraughtInformationUI.useShortKey(e);
+                            }
+                            else
+                            {
+                                Debug.LogError("englishDraughtInformationUI null: " + this);
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }
