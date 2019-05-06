@@ -527,6 +527,35 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.U:
+                        {
+                            if (btnUnBan != null && btnUnBan.gameObject.activeInHierarchy && btnUnBan.interactable)
+                            {
+                                this.onClickBtnUnBan();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnUnBan()
     {

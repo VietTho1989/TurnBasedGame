@@ -94,21 +94,6 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 
     private int tempNotRefresh = 0;
 
-    [UnityEngine.Scripting.Preserve]
-    public void onClickBtnChange()
-    {
-        // Debug.LogError ("onClickBtnChange: " + this);
-        if (this.data != null)
-        {
-            this.data.updateData.v.current.v = !this.data.updateData.v.current.v;
-            tempNotRefresh = 8;
-        }
-        else
-        {
-            Debug.LogError("data null: " + this);
-        }
-    }
-
     public Button btnValue;
 
     public Sprite blackCheckMark;
@@ -350,5 +335,49 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.KeypadEnter:
+                        {
+                            if (btnValue != null && btnValue.gameObject.activeInHierarchy && btnValue.interactable)
+                            {
+                                this.onClickBtnChange();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click btnValue");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnChange()
+    {
+        // Debug.LogError ("onClickBtnChange: " + this);
+        if (this.data != null)
+        {
+            this.data.updateData.v.current.v = !this.data.updateData.v.current.v;
+            tempNotRefresh = 8;
+        }
+        else
+        {
+            Debug.LogError("data null: " + this);
+        }
+    }
 
 }

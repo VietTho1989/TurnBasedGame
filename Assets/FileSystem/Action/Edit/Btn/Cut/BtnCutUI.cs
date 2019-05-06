@@ -639,6 +639,35 @@ namespace FileSystem
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.C:
+                            {
+                                if (btnCut != null && btnCut.gameObject.activeInHierarchy && btnCut.interactable)
+                                {
+                                    this.onClickBtnCut();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnCut()
         {

@@ -971,7 +971,38 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
     #region Send Chat
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.KeypadEnter:
+                        {
+                            if (btnSendMessage != null && btnSendMessage.gameObject.activeInHierarchy && btnSendMessage.interactable)
+                            {
+                                this.onClickBtnSendMessage();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     public InputField edtMessage;
+
+    public Button btnSendMessage;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnSendMessage()

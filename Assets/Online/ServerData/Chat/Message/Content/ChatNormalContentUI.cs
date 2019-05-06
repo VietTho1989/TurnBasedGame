@@ -692,6 +692,35 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.M:
+                        {
+                            if (btnMenu != null && btnMenu.gameObject.activeInHierarchy && btnMenu.interactable)
+                            {
+                                this.onClickBtnMenu();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnMenu()
     {

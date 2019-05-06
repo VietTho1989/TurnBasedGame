@@ -319,6 +319,37 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.S:
+                        {
+                            if (btnShowDetail != null && btnShowDetail.gameObject.activeInHierarchy && btnShowDetail.interactable)
+                            {
+                                this.onClickButtonShowDetail();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnShowDetail;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickButtonShowDetail()
     {

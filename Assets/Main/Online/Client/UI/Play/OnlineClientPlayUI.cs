@@ -276,4 +276,20 @@ public class OnlineClientPlayUI : UIBehavior<OnlineClientPlayUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
 }

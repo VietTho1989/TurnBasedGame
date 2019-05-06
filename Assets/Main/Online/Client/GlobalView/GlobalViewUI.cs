@@ -1324,6 +1324,88 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #region btns
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (!isProcess)
+            {
+                if (e.type == EventType.KeyDown && e.control)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.R:
+                            {
+                                if (btnRooms != null && btnRooms.gameObject.activeInHierarchy && btnRooms.interactable)
+                                {
+                                    this.onClickBtnRooms();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.C:
+                            {
+                                if(btnChats!=null && btnChats.gameObject.activeInHierarchy && btnChats.interactable)
+                                {
+                                    this.onClickBtnChats();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.F:
+                            {
+                                if(btnFriends!=null && btnFriends.gameObject.activeInHierarchy && btnFriends.interactable)
+                                {
+                                    this.onClickBtnFriends();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.P:
+                            {
+                                if(btnProfile!=null && btnProfile.gameObject.activeInHierarchy && btnProfile.interactable)
+                                {
+                                    this.onClickBtnProfile();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            if (!isProcess)
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnRooms()
     {

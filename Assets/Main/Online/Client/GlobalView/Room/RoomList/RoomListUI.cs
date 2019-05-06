@@ -582,6 +582,37 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.C:
+                        {
+                            if (btnCreateMatch != null && btnCreateMatch.gameObject.activeInHierarchy && btnCreateMatch.interactable)
+                            {
+                                this.onClickBtnCreateMatch();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnCreateMatch;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreateMatch()
     {

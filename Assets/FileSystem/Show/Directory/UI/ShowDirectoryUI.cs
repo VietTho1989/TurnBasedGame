@@ -763,6 +763,63 @@ namespace FileSystem
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.E:
+                            {
+                                if (btnShowExplorer != null && btnShowExplorer.interactable)
+                                {
+                                    this.onClickBtnShowExplorer();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.R:
+                            {
+                                if (btnRefresh != null && btnRefresh.interactable)
+                                {
+                                    this.onClickBtnRefresh();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.N:
+                            {
+                                if (btnNewFolder != null && btnNewFolder.interactable)
+                                {
+                                    this.onClickBtnNewFolder();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnShowExplorer;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnShowExplorer()
         {
@@ -797,6 +854,8 @@ namespace FileSystem
             }
         }
 
+        public Button btnRefresh;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnRefresh()
         {
@@ -817,6 +876,8 @@ namespace FileSystem
                 Debug.LogError("data null: " + this);
             }
         }
+
+        public Button btnNewFolder;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnNewFolder()

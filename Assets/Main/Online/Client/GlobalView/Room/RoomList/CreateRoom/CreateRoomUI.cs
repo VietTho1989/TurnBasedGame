@@ -806,6 +806,50 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.O:
+                        {
+                            if (btnCreate != null && btnCreate.gameObject.activeInHierarchy && btnCreate.interactable)
+                            {
+                                this.onClickBtnCreate();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnBack != null && btnBack.gameObject.activeInHierarchy && btnBack.interactable)
+                            {
+                                this.onClickBtnCancel();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnCreate;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreate()
     {

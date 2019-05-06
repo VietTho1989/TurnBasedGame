@@ -248,6 +248,48 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.H:
+                        {
+                            if (btnHost != null && btnHost.interactable)
+                            {
+                                this.onClickBtnHost();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnClient != null && btnClient.interactable)
+                            {
+                                this.onClickBtnClient();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
@@ -277,6 +319,8 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
         }
     }
 
+    public Button btnHost;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnHost()
     {
@@ -305,6 +349,8 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
             Debug.LogError("uiData null");
         }
     }
+
+    public Button btnClient;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnClient()

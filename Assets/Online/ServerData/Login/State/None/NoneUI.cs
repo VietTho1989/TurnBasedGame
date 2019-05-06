@@ -510,6 +510,37 @@ namespace LoginState
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.L:
+                            {
+                                if (btnLogin != null && btnLogin.gameObject.activeInHierarchy && btnLogin.interactable)
+                                {
+                                    this.onClickBtnLogin();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnLogin;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnLogin()
         {

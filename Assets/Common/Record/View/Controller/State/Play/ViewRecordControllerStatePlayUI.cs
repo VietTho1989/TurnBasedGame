@@ -258,6 +258,37 @@ namespace Record
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.P:
+                            {
+                                if (btnPlay != null && btnPlay.interactable)
+                                {
+                                    this.onClickBtnPlay();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnPlay;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnPlay()
         {

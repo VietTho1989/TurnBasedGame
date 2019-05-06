@@ -195,6 +195,35 @@ namespace FileSystem
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.B:
+                            {
+                                if (btnBackWard != null && btnBackWard.gameObject.activeInHierarchy && btnBackWard.interactable)
+                                {
+                                    this.onClickBtnBackWard();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBackWard()
         {

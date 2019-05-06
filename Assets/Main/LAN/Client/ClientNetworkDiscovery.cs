@@ -97,11 +97,8 @@ public class ClientNetworkDiscovery : NetworkDiscovery
 
     void Start()
     {
-        // TODO Them vao de khong bi remove
-        CleanServerList();
-
         showGUI = false;
-        InvokeRepeating("CleanServerList", 3, 1);
+        InvokeRepeating(nameof(CleanServerList), 3, 1);
         if (!Initialize())
         {
             Debug.LogError("#CaptainsMess# Network port is unavailable!");

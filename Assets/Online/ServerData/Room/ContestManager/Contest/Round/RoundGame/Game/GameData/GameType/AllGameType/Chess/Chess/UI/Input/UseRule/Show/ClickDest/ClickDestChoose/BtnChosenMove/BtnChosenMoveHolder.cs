@@ -83,30 +83,6 @@ namespace Chess.UseRule
             void onClickMove(ChessMove chessMove);
         }
 
-        [UnityEngine.Scripting.Preserve]
-        public void onClickMove()
-        {
-            if (this.data != null)
-            {
-                ChessMove chessMove = this.data.chessMove.v.data;
-                if (chessMove != null)
-                {
-                    if (this.data.onClick.v != null)
-                    {
-                        this.data.onClick.v.onClickMove(chessMove);
-                    }
-                }
-                else
-                {
-                    Debug.LogError("chessMove null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
         #endregion
 
         #region Refresh
@@ -440,6 +416,61 @@ namespace Chess.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.KeypadEnter:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnMove;
+
+        [UnityEngine.Scripting.Preserve]
+        public void onClickMove()
+        {
+            if (this.data != null)
+            {
+                ChessMove chessMove = this.data.chessMove.v.data;
+                if (chessMove != null)
+                {
+                    if (this.data.onClick.v != null)
+                    {
+                        this.data.onClick.v.onClickMove(chessMove);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("chessMove null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }

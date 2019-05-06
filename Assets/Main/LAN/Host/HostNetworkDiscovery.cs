@@ -86,7 +86,7 @@ public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
                     {
                         int playerCount = 0;
                         {
-                            foreach(User user in server.users.vs)
+                            foreach (User user in server.users.vs)
                             {
                                 switch (user.human.v.state.v.state.v)
                                 {
@@ -253,7 +253,7 @@ public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
                 case Server.Property.guilds:
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -353,8 +353,8 @@ public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
         }
 
         // Delay briefly to let things settle down
-        CancelInvoke("RestartBroadcastInternal");
-        Invoke("RestartBroadcastInternal", 0.5f);
+        CancelInvoke(nameof(RestartBroadcastInternal));
+        Invoke(nameof(RestartBroadcastInternal), 0.5f);
         if (Setting.get().useShortKey.v)
         {
             Debug.LogError("TODO Can co ket noi den restartBroadcastInternal");

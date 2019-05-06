@@ -52,6 +52,23 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
                         Debug.LogError("chatRoomUIData null: " + this);
                     }
                 }
+                // back
+                if (!isProcess)
+                {
+                    if (InputEvent.isBackEvent(e))
+                    {
+                        UserChatUI userChatUI = this.findCallBack<UserChatUI>();
+                        if (userChatUI != null)
+                        {
+                            userChatUI.onClickBtnBack();
+                            isProcess = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("userChatUI null");
+                        }
+                    }
+                }
                 // shortKey
                 if (!isProcess)
                 {
@@ -351,6 +368,22 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()

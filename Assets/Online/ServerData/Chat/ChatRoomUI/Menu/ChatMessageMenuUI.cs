@@ -755,6 +755,61 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.E:
+                        {
+                            if (btnEdit != null && btnEdit.gameObject.activeInHierarchy && btnEdit.interactable)
+                            {
+                                this.onClickBtnEdit();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnCopyToClipboard != null && btnCopyToClipboard.gameObject.activeInHierarchy && btnCopyToClipboard.interactable)
+                            {
+                                this.onClickCopyToClipboard();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.V:
+                        {
+                            if (btnViewHistory != null && btnViewHistory.gameObject.activeInHierarchy && btnViewHistory.interactable)
+                            {
+                                this.onClickBtnViewHistory();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {

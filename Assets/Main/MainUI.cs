@@ -557,6 +557,36 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (!isProcess)
+            {
+                if (e.type == EventType.KeyDown && e.control && e.keyCode == KeyCode.S)
+                {
+                    // if (btnSetting != null && btnSetting.interactable)
+                    {
+                        this.onClickBtnSetting();
+                        isProcess = true;
+                    }
+                }
+            }
+            if (!isProcess)
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnSetting()
     {

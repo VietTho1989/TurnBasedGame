@@ -836,6 +836,48 @@ namespace UndoRedo
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.A:
+                            {
+                                if (btnAccept != null && btnAccept.gameObject.activeInHierarchy && btnAccept.interactable)
+                                {
+                                    this.onClickBtnAccept();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.C:
+                            {
+                                if (btnCancel != null && btnCancel.gameObject.activeInHierarchy && btnCancel.interactable)
+                                {
+                                    this.onClickBtnCancel();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnAccept()
         {

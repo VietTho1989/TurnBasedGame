@@ -164,7 +164,7 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 
     public override void onAddCallBack<T>(T data)
     {
-        if (data is MenuOnlineUI.UIData)
+        if (data is UIData)
         {
             // Setting
             Setting.get().addCallBack(this);
@@ -259,6 +259,50 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.S:
+                        {
+                            if (btnServer != null && btnServer.gameObject.activeInHierarchy && btnServer.interactable)
+                            {
+                                this.onClickBtnServer();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnClient != null && btnClient.gameObject.activeInHierarchy && btnClient.interactable)
+                            {
+                                this.onClickBtnClient();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnServer;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnServer()
     {
@@ -283,6 +327,8 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
             Debug.LogError("data null: " + this);
         }
     }
+
+    public Button btnClient;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnClient()

@@ -592,6 +592,100 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #region Click Button
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.O:
+                        {
+                            if (btnOnline != null && btnOnline.interactable)
+                            {
+                                this.onClickBtnPlayOnline();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.F:
+                        {
+                            if (btnOffline != null && btnOffline.interactable)
+                            {
+                                this.onClickBtnPlayOffline();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.A:
+                        {
+                            if (btnLan != null && btnLan.interactable)
+                            {
+                                this.onClickBtnPlayLAN();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.L:
+                        {
+                            if (btnLoad != null && btnLoad.interactable)
+                            {
+                                this.onClickBtnLoadGame();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.B:
+                        {
+                            if (btnAbout != null && btnAbout.interactable)
+                            {
+                                this.onClickBtnAbout();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.V:
+                        {
+                            if (btnViewAds != null && btnViewAds.interactable)
+                            {
+                                this.onClickBtnViewAds();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnPlayOnline()
     {

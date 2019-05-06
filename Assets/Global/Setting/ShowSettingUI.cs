@@ -900,6 +900,61 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.A:
+                        {
+                            if (btnApply != null && btnApply.interactable)
+                            {
+                                this.onClickBtnApply();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.R:
+                        {
+                            if (btnReset != null && btnReset.interactable)
+                            {
+                                this.onClickBtnReset();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.U:
+                        {
+                            if (btnRefresh != null && btnRefresh.interactable)
+                            {
+                                this.onClickBtnRefreshUI();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {
@@ -1020,6 +1075,8 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
             Debug.LogError("data null: " + this);
         }
     }
+
+    public Button btnRefresh;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnRefreshUI()

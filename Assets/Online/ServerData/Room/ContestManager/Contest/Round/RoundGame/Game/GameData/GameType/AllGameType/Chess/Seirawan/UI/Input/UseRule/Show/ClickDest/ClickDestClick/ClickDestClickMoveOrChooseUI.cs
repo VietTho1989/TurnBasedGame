@@ -262,6 +262,50 @@ namespace Seirawan.UseRule
             }
         }
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.M:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickBtnMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.C:
+                            {
+                                if (btnChoose != null && btnChoose.gameObject.activeInHierarchy && btnChoose.interactable)
+                                {
+                                    this.onClickBtnChoose();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnMove;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnMove()
         {
@@ -289,6 +333,8 @@ namespace Seirawan.UseRule
             }
             resetMoveOrChoose();
         }
+
+        public Button btnChoose;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnChoose()

@@ -478,6 +478,48 @@ namespace FileSystem
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.O:
+                            {
+                                if (btnOK != null && btnOK.interactable)
+                                {
+                                    this.onClickBtnOK();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.C:
+                            {
+                                if (btnCancel != null && btnCancel.interactable)
+                                {
+                                    this.onClickBtnCancel();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnCancel()
         {

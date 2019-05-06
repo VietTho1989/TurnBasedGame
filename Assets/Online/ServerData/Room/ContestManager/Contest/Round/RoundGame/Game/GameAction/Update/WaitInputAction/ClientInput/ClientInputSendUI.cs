@@ -231,6 +231,37 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.C:
+                        {
+                            if (btnCancel != null && btnCancel.gameObject.activeInHierarchy && btnCancel.interactable)
+                            {
+                                this.onClickBtnCancelSend();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnCancel;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancelSend()
     {

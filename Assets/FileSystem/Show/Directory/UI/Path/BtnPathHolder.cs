@@ -213,6 +213,37 @@ namespace FileSystem
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.KeypadEnter:
+                            {
+                                if (btnPath != null && btnPath.gameObject.activeInHierarchy && btnPath.interactable)
+                                {
+                                    this.onClickBtnPath();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnPath;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnPath()
         {

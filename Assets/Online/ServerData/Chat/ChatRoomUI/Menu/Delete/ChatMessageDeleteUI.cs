@@ -508,6 +508,35 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.D:
+                        {
+                            if (btnDelete != null && btnDelete.gameObject.activeInHierarchy && btnDelete.interactable)
+                            {
+                                this.onClickBtnDelete();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnDelete()
     {

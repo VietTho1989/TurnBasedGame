@@ -581,6 +581,37 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.V:
+                        {
+                            if (btnView != null && btnView.gameObject.activeInHierarchy && btnView.interactable)
+                            {
+                                this.onClickBtnView();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnView;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnView()
     {

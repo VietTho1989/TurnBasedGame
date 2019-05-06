@@ -412,6 +412,35 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.C:
+                        {
+                            if (btnCreate != null && btnCreate.gameObject.activeInHierarchy && btnCreate.interactable)
+                            {
+                                this.onClickBtnCreateRoom();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnCreateRoom()
     {

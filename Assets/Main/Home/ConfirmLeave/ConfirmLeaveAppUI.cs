@@ -238,6 +238,37 @@ public class ConfirmLeaveAppUI : UIBehavior<ConfirmLeaveAppUI.UIData>
 
     #endregion
 
+    public Button btnConfirm;
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.F:
+                        {
+                            if (btnConfirm != null && btnConfirm.interactable)
+                            {
+                                this.onClickBtnConfirm();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click btnValue");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnConfirm()
     {

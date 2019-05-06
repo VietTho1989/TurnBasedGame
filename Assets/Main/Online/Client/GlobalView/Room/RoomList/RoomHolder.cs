@@ -877,6 +877,50 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
     #region Click Button
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.J:
+                        {
+                            if (btnJoin != null && btnJoin.gameObject.activeInHierarchy && btnJoin.interactable)
+                            {
+                                this.OnClickCell();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.D:
+                        {
+                            if (btnDelete != null && btnDelete.gameObject.activeInHierarchy && btnDelete.interactable)
+                            {
+                                this.onClickBtnDelete();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnJoin;
+
     [UnityEngine.Scripting.Preserve]
     public void OnClickCell()
     {

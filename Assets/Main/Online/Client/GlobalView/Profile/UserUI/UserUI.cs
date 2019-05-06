@@ -1218,6 +1218,48 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.R:
+                        {
+                            if (btnReset != null && btnReset.gameObject.activeInHierarchy && btnReset.interactable)
+                            {
+                                this.onClickBtnReset();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnChat != null && btnChat.gameObject.activeInHierarchy && btnChat.interactable)
+                            {
+                                this.onClickBtnChat();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBack()
     {

@@ -593,6 +593,37 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.U:
+                        {
+                            if (btnUpdate != null && btnUpdate.gameObject.activeInHierarchy && btnUpdate.interactable)
+                            {
+                                this.onClickBtnUpdate();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnUpdate;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnUpdate()
     {

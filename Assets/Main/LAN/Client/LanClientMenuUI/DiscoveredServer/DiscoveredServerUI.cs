@@ -182,6 +182,37 @@ public class DiscoveredServerUI : UIBehavior<DiscoveredServer>
 
     #endregion
 
+    public Button btnJoin;
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.J:
+                        {
+                            if (btnJoin != null && btnJoin.interactable)
+                            {
+                                this.onClickBtnJoin();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnJoin()
     {
