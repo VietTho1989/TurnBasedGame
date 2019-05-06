@@ -387,6 +387,37 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.H:
+                        {
+                            if (btnHistory != null && btnHistory.gameObject.activeInHierarchy && btnHistory.interactable)
+                            {
+                                this.onClickBtnHistory();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnHistory;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnHistory()
     {

@@ -897,6 +897,48 @@ namespace GameManager.Match.Swap
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.Q:
+                            {
+                                if (btnRequest != null && btnRequest.gameObject.activeInHierarchy && btnRequest.interactable)
+                                {
+                                    this.onClickBtnRequest();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.R:
+                            {
+                                if (btnReset != null && btnReset.gameObject.activeInHierarchy && btnReset.interactable)
+                                {
+                                    this.onClickBtnReset();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnRequest()
         {
@@ -929,6 +971,8 @@ namespace GameManager.Match.Swap
                 Debug.LogError("data null: " + this);
             }
         }
+
+        public Button btnReset;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnReset()

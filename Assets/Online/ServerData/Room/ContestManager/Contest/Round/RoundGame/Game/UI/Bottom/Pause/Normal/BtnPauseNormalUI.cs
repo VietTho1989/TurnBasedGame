@@ -506,6 +506,35 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.P:
+                        {
+                            if (btnNormal != null && btnNormal.gameObject.activeInHierarchy && btnNormal.interactable)
+                            {
+                                this.onClickBtnPause();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnPause()
     {

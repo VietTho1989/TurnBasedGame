@@ -52,7 +52,7 @@ namespace FairyChess.UseRule
                 this.fairyChessMove.v = new ReferenceData<FairyChessMove>(fairyChessMove);
             }
 
-            public void processEvent(Event e)
+            public bool processEvent(Event e)
             {
                 bool isProcess = false;
                 {
@@ -81,30 +81,6 @@ namespace FairyChess.UseRule
         public interface OnClick
         {
             void onClickMove(FairyChessMove fairyChessMove);
-        }
-
-        [UnityEngine.Scripting.Preserve]
-        public void onClickMove()
-        {
-            if (this.data != null)
-            {
-                FairyChessMove fairyChessMove = this.data.fairyChessMove.v.data;
-                if (fairyChessMove != null)
-                {
-                    if (this.data.onClick.v != null)
-                    {
-                        this.data.onClick.v.onClickMove(fairyChessMove);
-                    }
-                }
-                else
-                {
-                    Debug.LogError("fairyChessMove null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
         }
 
         #endregion
@@ -455,6 +431,61 @@ namespace FairyChess.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.M:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnMove;
+
+        [UnityEngine.Scripting.Preserve]
+        public void onClickMove()
+        {
+            if (this.data != null)
+            {
+                FairyChessMove fairyChessMove = this.data.fairyChessMove.v.data;
+                if (fairyChessMove != null)
+                {
+                    if (this.data.onClick.v != null)
+                    {
+                        this.data.onClick.v.onClickMove(fairyChessMove);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("fairyChessMove null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }

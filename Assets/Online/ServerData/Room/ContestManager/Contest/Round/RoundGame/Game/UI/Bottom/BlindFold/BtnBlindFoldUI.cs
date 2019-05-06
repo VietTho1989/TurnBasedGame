@@ -248,6 +248,37 @@ public class BtnBlindFoldUI : UIBehavior<BtnBlindFoldUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.B:
+                        {
+                            if (btnBlindFold != null && btnBlindFold.gameObject.activeInHierarchy && btnBlindFold.interactable)
+                            {
+                                this.onClickBtnBlindFold();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnBlindFold;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnBlindFold()
     {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -911,6 +912,35 @@ namespace Solitaire
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.F:
+                            {
+                                if (btnFlip != null && btnFlip.gameObject.activeInHierarchy && btnFlip.interactable)
+                                {
+                                    this.onClickBtnFlip();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {
@@ -935,6 +965,8 @@ namespace Solitaire
                 Debug.LogError("data null");
             }
         }
+
+        public Button btnFlip;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnFlip()

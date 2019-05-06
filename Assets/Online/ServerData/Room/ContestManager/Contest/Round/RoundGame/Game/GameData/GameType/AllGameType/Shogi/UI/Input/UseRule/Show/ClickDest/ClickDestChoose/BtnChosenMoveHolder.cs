@@ -83,34 +83,6 @@ namespace Shogi.UseRule
             void onClickMove(ShogiMove shogiMove);
         }
 
-        [UnityEngine.Scripting.Preserve]
-        public void onClickMove()
-        {
-            if (this.data != null)
-            {
-                ShogiMove shogiMove = this.data.shogiMove.v.data;
-                if (shogiMove != null)
-                {
-                    if (this.data.onClick.v != null)
-                    {
-                        this.data.onClick.v.onClickMove(shogiMove);
-                    }
-                    else
-                    {
-                        Debug.LogError("onClick null: " + this);
-                    }
-                }
-                else
-                {
-                    Debug.LogError("shogiMove null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
         #endregion
 
         #region Refresh
@@ -604,6 +576,65 @@ namespace Shogi.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.M:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnMove;
+
+        [UnityEngine.Scripting.Preserve]
+        public void onClickMove()
+        {
+            if (this.data != null)
+            {
+                ShogiMove shogiMove = this.data.shogiMove.v.data;
+                if (shogiMove != null)
+                {
+                    if (this.data.onClick.v != null)
+                    {
+                        this.data.onClick.v.onClickMove(shogiMove);
+                    }
+                    else
+                    {
+                        Debug.LogError("onClick null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("shogiMove null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }

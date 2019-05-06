@@ -197,6 +197,37 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.H:
+                        {
+                            if (btnHint != null && btnHint.gameObject.activeInHierarchy && btnHint.interactable)
+                            {
+                                this.onClickBtnHint();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnHint;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnHint()
     {

@@ -256,6 +256,37 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.U:
+                        {
+                            if (btnUndoRedo != null && btnUndoRedo.gameObject.activeInHierarchy && btnUndoRedo.interactable)
+                            {
+                                this.onClickBtnUndoRedo();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnUndoRedo;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnUndoRedo()
     {

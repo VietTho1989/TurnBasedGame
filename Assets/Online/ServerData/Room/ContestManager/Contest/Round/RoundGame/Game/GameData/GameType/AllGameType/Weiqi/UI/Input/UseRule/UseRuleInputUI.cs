@@ -876,12 +876,58 @@ namespace Weiqi
 
         #region Click Button
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.P:
+                            {
+                                if (btnPass != null && btnPass.gameObject.activeInHierarchy && btnPass.interactable)
+                                {
+                                    this.onClickBtnPass();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.R:
+                            {
+                                if (btnResign != null && btnResign.gameObject.activeInHierarchy && btnResign.interactable)
+                                {
+                                    this.onClickBtnResign();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnPass;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnPass()
         {
             Debug.LogError("onClickBtnPass: " + this);
             this.onClickBtnPassOrResign(Common.pass);
         }
+
+        public Button btnResign;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnResign()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using GameManager.Match;
@@ -121,6 +122,37 @@ public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserU
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.R:
+                        {
+                            if (btnRoomUser != null && btnRoomUser.gameObject.activeInHierarchy && btnRoomUser.interactable)
+                            {
+                                this.onClickBtnRoomUser();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnRoomUser;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnRoomUser()

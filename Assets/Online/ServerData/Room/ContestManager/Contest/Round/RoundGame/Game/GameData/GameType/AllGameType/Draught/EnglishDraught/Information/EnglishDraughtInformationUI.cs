@@ -400,6 +400,35 @@ namespace EnglishDraught
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.C:
+                            {
+                                if (btnCopyFen != null && btnCopyFen.gameObject.activeInHierarchy && btnCopyFen.interactable)
+                                {
+                                    this.onClickBtnCopyFen();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnCopyFen()
         {

@@ -355,6 +355,48 @@ namespace Makruk.NoneRule
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.P:
+                            {
+                                if (btnPaste != null && btnPaste.gameObject.activeInHierarchy && btnPaste.interactable)
+                                {
+                                    this.onClickBtnPaste();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.C:
+                            {
+                                if (btnCreate != null && btnCreate.gameObject.activeInHierarchy && btnCreate.interactable)
+                                {
+                                    this.onClickBtnCreate();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {

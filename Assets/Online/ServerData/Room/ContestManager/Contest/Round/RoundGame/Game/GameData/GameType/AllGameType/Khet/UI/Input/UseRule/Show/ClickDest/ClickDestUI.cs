@@ -721,11 +721,57 @@ namespace Khet.UseRule
 
         #region rotate
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.KeypadPlus:
+                            {
+                                if (btnRotateAdd != null && btnRotateAdd.gameObject.activeInHierarchy && btnRotateAdd.interactable)
+                                {
+                                    this.onClickRotateAdd();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.KeypadMinus:
+                            {
+                                if (btnRotateSub != null && btnRotateSub.gameObject.activeInHierarchy && btnRotateSub.interactable)
+                                {
+                                    this.onClickRotateSub();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnRotateAdd;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickRotateAdd()
         {
             this.onClickRotate(true);
         }
+
+        public Button btnRotateSub;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickRotateSub()

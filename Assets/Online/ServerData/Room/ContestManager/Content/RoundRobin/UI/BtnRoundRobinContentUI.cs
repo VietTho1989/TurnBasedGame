@@ -416,6 +416,37 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.R:
+                            {
+                                if (btnRoundRobinContent != null && btnRoundRobinContent.gameObject.activeInHierarchy && btnRoundRobinContent.interactable)
+                                {
+                                    this.onClickBtnRoundRobinContent();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnRoundRobinContent;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnRoundRobinContent()
         {

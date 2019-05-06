@@ -51,12 +51,12 @@ namespace Shogi.UseRule
                             if (dropPieceUI != null)
                             {
                                 dropPieceUI.onClickCancel();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("dropPieceUI null: " + this);
                             }
-                            isProcess = true;
                         }
                     }
                     // shortKey
@@ -488,6 +488,22 @@ namespace Shogi.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
 
         [UnityEngine.Scripting.Preserve]
         public void onClickMove(ShogiMove shogiMove)

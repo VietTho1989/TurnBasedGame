@@ -392,6 +392,35 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.S:
+                        {
+                            if (btnSaveData != null && btnSaveData.gameObject.activeInHierarchy && btnSaveData.interactable)
+                            {
+                                this.onClickBtnSaveData();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnSaveData()
     {

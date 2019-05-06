@@ -584,6 +584,100 @@ namespace FairyChess.NoneRule
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.S:
+                            {
+                                if (btnSetPiece != null && btnSetPiece.gameObject.activeInHierarchy && btnSetPiece.interactable)
+                                {
+                                    this.onClickBtnSetPiece();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.H:
+                            {
+                                if(btnSetHand!=null && btnSetHand.gameObject.activeInHierarchy && btnSetHand.interactable)
+                                {
+                                    this.onClickBtnSetHand();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.M:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickBtnMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.E:
+                            {
+                                if (btnEndTurn != null && btnEndTurn.gameObject.activeInHierarchy && btnEndTurn.interactable)
+                                {
+                                    this.onClickBtnEnd();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.Clear:
+                            {
+                                if (btnClear != null && btnClear.gameObject.activeInHierarchy && btnClear.interactable)
+                                {
+                                    this.onClickBtnClear();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.F:
+                            {
+                                if (btnCreateByFen != null && btnCreateByFen.gameObject.activeInHierarchy && btnCreateByFen.interactable)
+                                {
+                                    this.onClickBtnCreateByFen();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {

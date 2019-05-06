@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using GameManager.Match;
@@ -225,6 +226,37 @@ public class ContestManagerBtnSettingUI : UIBehavior<ContestManagerBtnSettingUI.
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.S:
+                        {
+                            if (btnSetting != null && btnSetting.gameObject.activeInHierarchy && btnSetting.interactable)
+                            {
+                                this.onClickBtnSetting();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnSetting;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnSetting()

@@ -237,6 +237,37 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.F:
+                        {
+                            if (btnForce != null && btnForce.gameObject.activeInHierarchy && btnForce.interactable)
+                            {
+                                this.onClickBtnChangeToForce();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnForce;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnChangeToForce()
     {

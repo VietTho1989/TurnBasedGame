@@ -783,6 +783,50 @@ namespace Hint
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.H:
+                            {
+                                if (btnHint != null && btnHint.gameObject.activeInHierarchy && btnHint.interactable)
+                                {
+                                    this.onClickBtnHint();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.A:
+                            {
+                                if (btnAI != null && btnAI.gameObject.activeInHierarchy && btnAI.interactable)
+                                {
+                                    this.onClickBtnAI();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnHint;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnHint()
         {
@@ -821,6 +865,8 @@ namespace Hint
                 Debug.LogError("data null: " + this);
             }
         }
+
+        public Button btnAI;
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnAI()

@@ -325,6 +325,50 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.C:
+                        {
+                            if (btnChooseFile != null && btnChooseFile.gameObject.activeInHierarchy && btnChooseFile.interactable)
+                            {
+                                this.onClickBtnChooseFile();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.L:
+                        {
+                            if (btnLoad != null && btnLoad.gameObject.activeInHierarchy && btnLoad.interactable)
+                            {
+                                this.onClickBtnLoad();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnChooseFile;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnChooseFile()
     {
@@ -428,6 +472,8 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
             Debug.LogError("data null: " + this);
         }
     }
+
+    public Button btnLoad;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnLoad()

@@ -513,6 +513,35 @@ public class RoomUserBtnKickUI : UIBehavior<RoomUserBtnKickUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.K:
+                        {
+                            if (btnKick != null && btnKick.gameObject.activeInHierarchy && btnKick.interactable)
+                            {
+                                this.onClickBtnKick();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnKick()
     {

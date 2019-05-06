@@ -260,6 +260,37 @@ public class LimitRoomContainerHolder : SriaHolderBehavior<LimitRoomContainerHol
 
     #region Click Button
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.C:
+                        {
+                            if (btnCell != null && btnCell.gameObject.activeInHierarchy && btnCell.interactable)
+                            {
+                                this.OnClickCell();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnCell;
+
     [UnityEngine.Scripting.Preserve]
     public void OnClickCell()
     {

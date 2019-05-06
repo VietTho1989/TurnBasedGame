@@ -255,6 +255,37 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.Q:
+                        {
+                            if (btnRequest != null && btnRequest.gameObject.activeInHierarchy && btnRequest.interactable)
+                            {
+                                this.onClickBtnRequestDraw();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnRequest;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnRequestDraw()
     {

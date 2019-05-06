@@ -590,6 +590,35 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.S:
+                        {
+                            if (btnSurrender != null && btnSurrender.gameObject.activeInHierarchy && btnSurrender.interactable)
+                            {
+                                this.onClickBtnSurrender();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnSurrender()
     {

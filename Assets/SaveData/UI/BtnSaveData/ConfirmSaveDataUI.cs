@@ -256,6 +256,50 @@ public class ConfirmSaveDataUI : UIBehavior<ConfirmSaveDataUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.O:
+                        {
+                            if (btnOK != null && btnOK.gameObject.activeInHierarchy && btnOK.interactable)
+                            {
+                                this.onClickBtnOK();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnCancel != null && btnCancel.gameObject.activeInHierarchy && btnCancel.interactable)
+                            {
+                                this.onClickBtnCancel();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnCancel;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnCancel()
     {
@@ -276,6 +320,8 @@ public class ConfirmSaveDataUI : UIBehavior<ConfirmSaveDataUI.UIData>
             Debug.LogError("data null: " + this);
         }
     }
+
+    public Button btnOK;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnOK()

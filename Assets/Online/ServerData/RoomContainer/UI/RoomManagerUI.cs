@@ -473,6 +473,48 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.G:
+                        {
+                            if (btnGlobal != null && btnGlobal.gameObject.activeInHierarchy && btnGlobal.interactable)
+                            {
+                                this.onClickBtnGlobal();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.L:
+                        {
+                            if (btnLimit != null && btnLimit.gameObject.activeInHierarchy && btnLimit.interactable)
+                            {
+                                this.onClickBtnLimit();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnGlobal()
     {

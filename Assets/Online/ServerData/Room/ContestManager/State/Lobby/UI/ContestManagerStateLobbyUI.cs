@@ -145,8 +145,17 @@ namespace GameManager.Match
                         }
                     }
                     // btnStart
+                    if(!isProcess)
                     {
-                        // ko can
+                        LobbyBtnStart.UIData btnStart = this.btnStart.v;
+                        if (btnStart != null)
+                        {
+                            isProcess = btnStart.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnStart null");
+                        }
                     }
                     // teamAdapter
                     {
@@ -1183,6 +1192,35 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.S:
+                            {
+                                if (btnSetting != null && btnSetting.gameObject.activeInHierarchy && btnSetting.interactable)
+                                {
+                                    this.onClickBtnSetting();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
 
         public Button btnSetting;
 

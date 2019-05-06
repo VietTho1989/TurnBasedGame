@@ -743,6 +743,35 @@ namespace HEX
 
         #region Click Button
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.S:
+                            {
+                                if (btnSwitchSide != null && btnSwitchSide.gameObject.activeInHierarchy && btnSwitchSide.interactable)
+                                {
+                                    this.onClickBtnSwitchSide();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnSwitchSide()
         {

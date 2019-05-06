@@ -392,6 +392,37 @@ namespace GameManager.Match
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.C:
+                            {
+                                if (btnChoose != null && btnChoose.gameObject.activeInHierarchy && btnChoose.interactable)
+                                {
+                                    this.onClickBtnChoose();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnChoose;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnChoose()
         {

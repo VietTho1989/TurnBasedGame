@@ -50,12 +50,12 @@ namespace Hint
                             if (editHintAIUI != null)
                             {
                                 editHintAIUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("editHintAIUI null: " + this);
                             }
-                            isProcess = true;
                         }
                     }
                     // shortKey
@@ -587,6 +587,48 @@ namespace Hint
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.R:
+                            {
+                                if (btnReset != null && btnReset.gameObject.activeInHierarchy && btnReset.interactable)
+                                {
+                                    this.onClickBtnReset();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        case KeyCode.A:
+                            {
+                                if (btnApply != null && btnApply.gameObject.activeInHierarchy && btnApply.interactable)
+                                {
+                                    this.onClickBtnApply();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
 
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()

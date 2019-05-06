@@ -935,6 +935,35 @@ namespace GameState
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.U:
+                            {
+                                if (btnUnPause != null && btnUnPause.gameObject.activeInHierarchy && btnUnPause.interactable)
+                                {
+                                    this.onClickBtnUnPause();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnUnPause()
         {

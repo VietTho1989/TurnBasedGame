@@ -55,12 +55,12 @@ namespace Makruk.UseRule
                             if (clickDestChooseUI != null)
                             {
                                 clickDestChooseUI.onClickCancel();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("clickDestChooseUI null: " + this);
                             }
-                            isProcess = true;
                         }
                     }
                     // shortKey
@@ -545,6 +545,22 @@ namespace Makruk.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
 
         [UnityEngine.Scripting.Preserve]
         public void onClickMove(MakrukMove makrukMove)

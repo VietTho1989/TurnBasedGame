@@ -252,6 +252,50 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.A:
+                        {
+                            if (btnAuto != null && btnAuto.gameObject.activeInHierarchy && btnAuto.interactable)
+                            {
+                                this.onClickBtnAuto();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.C:
+                        {
+                            if (btnChange != null && btnChange.gameObject.activeInHierarchy && btnChange.interactable)
+                            {
+                                this.onClickBtnChange();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnAuto;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnAuto()
     {
@@ -284,6 +328,8 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
             Debug.LogError("data null: " + this);
         }
     }
+
+    public Button btnChange;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnChange()

@@ -756,38 +756,6 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
 
     #endregion
 
-    public GameObject btnChangePassword;
-
-    [UnityEngine.Scripting.Preserve]
-    public void onClickBtnChangePassword()
-    {
-        if (this.data != null)
-        {
-            EditData<AccountEmail> editAccountEmail = this.data.editAccountEmail.v;
-            if (editAccountEmail != null)
-            {
-                AccountEmail originAccountEmail = editAccountEmail.origin.v.data;
-                if (originAccountEmail != null)
-                {
-                    originAccountEmail.requestChangePassword(Server.getProfileUserId(originAccountEmail),
-                        this.data.password.v.updateData.v.current.v, this.data.retypePassword.v.updateData.v.current.v);
-                }
-                else
-                {
-                    Debug.LogError("originAccountEmail null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("editAccountEmail null: " + this);
-            }
-        }
-        else
-        {
-            Debug.LogError("data null: " + this);
-        }
-    }
-
     #region implement callBacks
 
     public RequestChangeEnumUI requestEnumPrefab;
@@ -1217,5 +1185,66 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
     }
 
     #endregion
+
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.P:
+                        {
+                            if (btnChangePassword != null && btnChangePassword.activeInHierarchy)// && btnOK.interactable)
+                            {
+                                this.onClickBtnChangePassword();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public GameObject btnChangePassword;
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnChangePassword()
+    {
+        if (this.data != null)
+        {
+            EditData<AccountEmail> editAccountEmail = this.data.editAccountEmail.v;
+            if (editAccountEmail != null)
+            {
+                AccountEmail originAccountEmail = editAccountEmail.origin.v.data;
+                if (originAccountEmail != null)
+                {
+                    originAccountEmail.requestChangePassword(Server.getProfileUserId(originAccountEmail),
+                        this.data.password.v.updateData.v.current.v, this.data.retypePassword.v.updateData.v.current.v);
+                }
+                else
+                {
+                    Debug.LogError("originAccountEmail null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("editAccountEmail null: " + this);
+            }
+        }
+        else
+        {
+            Debug.LogError("data null: " + this);
+        }
+    }
 
 }

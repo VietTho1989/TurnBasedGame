@@ -426,6 +426,37 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.C:
+                            {
+                                if (btnEliminationContent != null && btnEliminationContent.gameObject.activeInHierarchy && btnEliminationContent.interactable)
+                                {
+                                    this.onClickBtnEliminationContent();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnEliminationContent;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnEliminationContent()
         {

@@ -235,6 +235,37 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
 
     #endregion
 
+    public bool useShortKey(Event e)
+    {
+        bool isProcess = false;
+        {
+            if (e.isKey && e.type == EventType.KeyUp)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.P:
+                        {
+                            if (btnPerspective != null && btnPerspective.gameObject.activeInHierarchy && btnPerspective.interactable)
+                            {
+                                this.onClickBtnPerspective();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return isProcess;
+    }
+
+    public Button btnPerspective;
+
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnPerspective()
     {

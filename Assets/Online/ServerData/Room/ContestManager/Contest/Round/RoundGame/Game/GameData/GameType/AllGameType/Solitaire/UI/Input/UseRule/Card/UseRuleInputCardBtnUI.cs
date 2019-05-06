@@ -180,6 +180,38 @@ namespace Solitaire
 
         #endregion
 
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.Backspace:
+                        case KeyCode.Escape:
+                            {
+                                if (btnBack != null && btnBack.gameObject.activeInHierarchy && btnBack.interactable)
+                                {
+                                    this.onClickBtnBack();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnBack;
+
         [UnityEngine.Scripting.Preserve]
         public void onClickBtnBack()
         {

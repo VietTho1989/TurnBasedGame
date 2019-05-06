@@ -83,30 +83,6 @@ namespace Makruk.UseRule
             void onClickMove(MakrukMove makrukMove);
         }
 
-        [UnityEngine.Scripting.Preserve]
-        public void onClickMove()
-        {
-            if (this.data != null)
-            {
-                MakrukMove makrukMove = this.data.makrukMove.v.data;
-                if (makrukMove != null)
-                {
-                    if (this.data.onClick.v != null)
-                    {
-                        this.data.onClick.v.onClickMove(makrukMove);
-                    }
-                }
-                else
-                {
-                    Debug.LogError("makrukMove null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
         #endregion
 
         #region Refresh
@@ -462,6 +438,61 @@ namespace Makruk.UseRule
         }
 
         #endregion
+
+        public bool useShortKey(Event e)
+        {
+            bool isProcess = false;
+            {
+                if (e.isKey && e.type == EventType.KeyUp)
+                {
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.M:
+                            {
+                                if (btnMove != null && btnMove.gameObject.activeInHierarchy && btnMove.interactable)
+                                {
+                                    this.onClickMove();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot click");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public Button btnMove;
+
+        [UnityEngine.Scripting.Preserve]
+        public void onClickMove()
+        {
+            if (this.data != null)
+            {
+                MakrukMove makrukMove = this.data.makrukMove.v.data;
+                if (makrukMove != null)
+                {
+                    if (this.data.onClick.v != null)
+                    {
+                        this.data.onClick.v.onClickMove(makrukMove);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("makrukMove null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }
