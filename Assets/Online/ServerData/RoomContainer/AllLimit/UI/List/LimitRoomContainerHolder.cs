@@ -260,6 +260,15 @@ public class LimitRoomContainerHolder : SriaHolderBehavior<LimitRoomContainerHol
 
     #region Click Button
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnCell, OnClickCell);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -255,6 +255,15 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnRequest, onClickBtnRequestDraw);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

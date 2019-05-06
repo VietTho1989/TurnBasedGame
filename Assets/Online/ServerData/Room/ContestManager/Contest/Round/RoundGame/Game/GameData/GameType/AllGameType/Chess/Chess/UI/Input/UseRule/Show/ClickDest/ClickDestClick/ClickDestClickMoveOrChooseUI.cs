@@ -262,6 +262,16 @@ namespace Chess.UseRule
             }
         }
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnMove, onClickBtnMove);
+                UIUtils.SetButtonOnClick(btnChoose, onClickBtnChoose);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

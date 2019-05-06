@@ -403,6 +403,15 @@ public class BtnLeaveLimitRoomContainerUI : UIBehavior<BtnLeaveLimitRoomContaine
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnLeave, onClickBtnLeave);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -616,6 +616,19 @@ namespace CoTuongUp.NoneRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnSetPiece, onClickBtnSetPiece);
+                UIUtils.SetButtonOnClick(btnMove, onClickBtnMove);
+                UIUtils.SetButtonOnClick(btnEndTurn, onClickBtnEnd);
+                UIUtils.SetButtonOnClick(btnClear, onClickBtnClear);
+                UIUtils.SetButtonOnClick(btnFlip, onClickBtnFlip);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

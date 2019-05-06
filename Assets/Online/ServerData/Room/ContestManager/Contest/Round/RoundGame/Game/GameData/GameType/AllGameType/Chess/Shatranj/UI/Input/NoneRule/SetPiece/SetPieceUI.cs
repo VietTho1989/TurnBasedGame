@@ -349,6 +349,15 @@ namespace Shatranj.NoneRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

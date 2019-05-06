@@ -248,6 +248,15 @@ public class BtnBlindFoldUI : UIBehavior<BtnBlindFoldUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnBlindFold, onClickBtnBlindFold);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

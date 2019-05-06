@@ -408,6 +408,15 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnChat, onClickBtnChat);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

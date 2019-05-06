@@ -538,6 +538,15 @@ namespace InternationalDraught
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnCopyFen, onClickBtnCopyFen);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -119,6 +119,16 @@ namespace Weiqi
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnPass, onClickBtnPass);
+                UIUtils.SetButtonOnClick(btnResign, onClickBtnResign);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -631,6 +631,15 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnView, onClickBtnView);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -935,6 +935,15 @@ namespace GameState
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnUnPause, onClickBtnUnPause);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

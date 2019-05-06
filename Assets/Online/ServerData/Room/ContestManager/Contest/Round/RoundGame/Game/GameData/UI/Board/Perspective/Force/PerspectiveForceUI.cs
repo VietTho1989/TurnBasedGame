@@ -252,6 +252,16 @@ public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnAuto, onClickBtnAuto);
+            UIUtils.SetButtonOnClick(btnChange, onClickBtnChange);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

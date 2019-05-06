@@ -255,6 +255,15 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnShowDetail, onClickButtonShowDetail);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

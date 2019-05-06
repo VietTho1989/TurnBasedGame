@@ -664,6 +664,15 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnMakeFriend, onClickBtnMakeFriend);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

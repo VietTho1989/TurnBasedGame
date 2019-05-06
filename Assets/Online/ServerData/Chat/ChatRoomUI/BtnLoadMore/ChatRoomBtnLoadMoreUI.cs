@@ -609,6 +609,15 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnLoadMore, onClickBtnLoadMore);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

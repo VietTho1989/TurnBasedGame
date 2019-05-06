@@ -406,6 +406,15 @@ namespace FileSystem
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnPaste, onClickBtnPaste);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

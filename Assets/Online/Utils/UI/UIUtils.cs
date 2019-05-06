@@ -7,6 +7,23 @@ using UnityImageLoader;
 public class UIUtils
 {
 
+    #region Button
+
+    public static void SetButtonOnClick(Button btn, UnityEngine.Events.UnityAction action)
+    {
+        if (btn != null)
+        {
+            // btn.onClick.RemoveListener(action);
+            // btn.onClick.AddListener(action);
+        }
+        else
+        {
+            Debug.LogError("btn null");
+        }
+    }
+
+    #endregion
+
     #region UrlImageView
 
     public static void SetUrlImageView(Image img, string url, string loadingPath, string errorPath)

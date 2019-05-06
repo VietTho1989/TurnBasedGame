@@ -336,6 +336,15 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnValue, onClickBtnChange);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

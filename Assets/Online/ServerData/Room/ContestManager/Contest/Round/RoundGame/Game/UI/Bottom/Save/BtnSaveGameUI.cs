@@ -195,6 +195,15 @@ public class BtnSaveGameUI : UIBehavior<BtnSaveGameUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnSave, onClickBtnSave);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

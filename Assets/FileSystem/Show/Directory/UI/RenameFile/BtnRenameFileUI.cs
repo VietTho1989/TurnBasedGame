@@ -457,6 +457,15 @@ namespace FileSystem
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnRename, onClickBtnRenameFile);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

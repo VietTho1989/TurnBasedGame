@@ -996,6 +996,16 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnJoin, onClickBtnJoin);
+            UIUtils.SetButtonOnClick(btnCancel, onClickBtnCancel);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

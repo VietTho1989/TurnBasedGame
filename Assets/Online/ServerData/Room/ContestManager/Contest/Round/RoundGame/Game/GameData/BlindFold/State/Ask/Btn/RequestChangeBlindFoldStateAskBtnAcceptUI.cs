@@ -515,6 +515,15 @@ public class RequestChangeBlindFoldStateAskBtnAcceptUI : UIBehavior<RequestChang
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnAccept, onClickBtnAccept);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

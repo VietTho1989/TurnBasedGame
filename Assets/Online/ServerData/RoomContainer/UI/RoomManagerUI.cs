@@ -473,6 +473,16 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnGlobal, onClickBtnGlobal);
+            UIUtils.SetButtonOnClick(btnLimit, onClickBtnLimit);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -1324,6 +1324,18 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #region btns
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnRooms, onClickBtnRooms);
+            UIUtils.SetButtonOnClick(btnChats, onClickBtnChats);
+            UIUtils.SetButtonOnClick(btnFriends, onClickBtnFriends);
+            UIUtils.SetButtonOnClick(btnProfile, onClickBtnProfile);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

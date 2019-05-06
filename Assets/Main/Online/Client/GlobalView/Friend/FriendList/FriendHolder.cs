@@ -656,6 +656,15 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnViewDetail, onClickBtnViewDetail);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

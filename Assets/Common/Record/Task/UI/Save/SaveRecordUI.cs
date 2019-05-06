@@ -595,6 +595,15 @@ namespace Record
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnSave, onClickBtnSaveRecord);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -114,6 +114,11 @@ namespace Hint
             {
                 Debug.LogError("drValue null: " + this);
             }
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnReset, onClickBtnReset);
+                UIUtils.SetButtonOnClick(btnApply, onClickBtnApply);
+            }
         }
 
         #region txt

@@ -355,6 +355,16 @@ public class ListShowLimitUI : UIHaveTransformDataBehavior<ListShowLimitUI.UIDat
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnBack, onClickBtnBack);
+            UIUtils.SetButtonOnClick(btnNext, onClickBtnNext);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -877,6 +877,16 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
     #region Click Button
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnJoin, OnClickCell);
+            UIUtils.SetButtonOnClick(btnDelete, onClickBtnDelete);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

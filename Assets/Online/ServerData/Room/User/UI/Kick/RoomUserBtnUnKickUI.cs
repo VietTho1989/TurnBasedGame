@@ -513,6 +513,15 @@ public class RoomUserBtnUnKickUI : UIBehavior<RoomUserBtnUnKickUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUnKick, onClickBtnUnKick);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

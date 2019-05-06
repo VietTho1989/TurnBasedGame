@@ -101,6 +101,10 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
     public override void Awake()
     {
         base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnEdit, onClickBtnEdit);
+        }
         // check input
         if (inputField != null)
         {

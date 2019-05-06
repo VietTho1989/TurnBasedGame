@@ -426,6 +426,15 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnEliminationContent, onClickBtnEliminationContent);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

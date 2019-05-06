@@ -692,6 +692,15 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnMenu, onClickBtnMenu);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

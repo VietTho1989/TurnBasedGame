@@ -1218,6 +1218,16 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnReset, onClickBtnReset);
+            UIUtils.SetButtonOnClick(btnChat, onClickBtnChat);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

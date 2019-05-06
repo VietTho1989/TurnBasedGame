@@ -259,6 +259,16 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnServer, onClickBtnServer);
+            UIUtils.SetButtonOnClick(btnClient, onClickBtnClient);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

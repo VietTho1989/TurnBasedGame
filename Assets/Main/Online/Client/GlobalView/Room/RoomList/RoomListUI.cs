@@ -582,6 +582,15 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnCreateMatch, onClickBtnCreateMatch);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

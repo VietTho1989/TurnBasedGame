@@ -419,6 +419,15 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnBack, onClickBtnBack);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

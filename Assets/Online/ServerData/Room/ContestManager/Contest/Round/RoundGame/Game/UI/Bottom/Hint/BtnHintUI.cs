@@ -197,6 +197,15 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnHint, onClickBtnHint);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

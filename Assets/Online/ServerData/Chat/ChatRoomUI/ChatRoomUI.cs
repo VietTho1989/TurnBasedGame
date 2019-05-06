@@ -971,6 +971,15 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
     #region Send Chat
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnSendMessage, onClickBtnSendMessage);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

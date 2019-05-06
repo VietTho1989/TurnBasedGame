@@ -148,6 +148,10 @@ public class MainUI : UIBehavior<MainUI.UIData>
         // Display data
         UIData uiData = new UIData();
         this.setData(uiData);
+        // onClick
+        {
+            UIUtils.SetButtonOnClick(btnSetting, onClickBtnSetting);
+        }
     }
 
     void OnApplicationFocus(bool hasFocus)
@@ -298,7 +302,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
     public ShowSettingUI showSettingPrefab;
 
-    public GameObject btnSetting;
+    public Button btnSetting;
 
     public override void onAddCallBack<T>(T data)
     {

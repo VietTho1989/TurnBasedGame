@@ -900,6 +900,17 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnApply, onClickBtnApply);
+            UIUtils.SetButtonOnClick(btnReset, onClickBtnReset);
+            UIUtils.SetButtonOnClick(btnRefresh, onClickBtnRefreshUI);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

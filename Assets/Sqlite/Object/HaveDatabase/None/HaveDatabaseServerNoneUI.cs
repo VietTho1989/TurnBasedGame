@@ -325,6 +325,16 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnChooseFile, onClickBtnChooseFile);
+            UIUtils.SetButtonOnClick(btnLoad, onClickBtnLoad);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

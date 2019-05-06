@@ -123,6 +123,15 @@ public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserU
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnRoomUser, onClickBtnRoomUser);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

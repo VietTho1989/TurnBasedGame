@@ -532,6 +532,15 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUnban, onClickBtnUnBan);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

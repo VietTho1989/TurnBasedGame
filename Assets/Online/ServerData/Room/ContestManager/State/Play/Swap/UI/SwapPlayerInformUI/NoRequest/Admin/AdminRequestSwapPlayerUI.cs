@@ -448,6 +448,16 @@ namespace GameManager.Match.Swap
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnHuman, onClickBtnHuman);
+                UIUtils.SetButtonOnClick(btnComputer, onClickBtnComputer);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

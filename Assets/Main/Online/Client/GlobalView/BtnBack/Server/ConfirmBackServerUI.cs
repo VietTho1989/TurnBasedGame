@@ -234,6 +234,16 @@ public class ConfirmBackServerUI : UIBehavior<ConfirmBackServerUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnConfirm, onClickBtnConfirm);
+            UIUtils.SetButtonOnClick(btnCancel, onClickBtnCancel);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -256,6 +256,15 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUndoRedo, onClickBtnUndoRedo);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

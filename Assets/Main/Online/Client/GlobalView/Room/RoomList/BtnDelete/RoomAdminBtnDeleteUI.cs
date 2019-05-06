@@ -964,6 +964,15 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnDelete, onClickBtnDelete);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -508,6 +508,15 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnDelete, onClickBtnDelete);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

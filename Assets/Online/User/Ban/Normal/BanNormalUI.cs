@@ -562,6 +562,15 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnBan, onClickBtnBan);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -53,8 +53,21 @@ public class UrlImage : MonoBehaviour
             this.loadingSprite = loadingSprite;
             this.errorSprite = errorSprite;
             // Set
-            Image image = this.GetComponent<Image>();
-            UIUtils.SetUrlImageView(image, url, loadingSprite, errorSprite);
+            try
+            {
+                if (image != null)
+                {
+                    UIUtils.SetUrlImageView(image, url, loadingSprite, errorSprite);
+                }
+                else
+                {
+                    Debug.LogError("image null");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
         else
         {

@@ -416,6 +416,15 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnRoundRobinContent, onClickBtnRoundRobinContent);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

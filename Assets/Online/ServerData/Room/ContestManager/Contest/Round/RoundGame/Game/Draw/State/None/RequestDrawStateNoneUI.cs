@@ -616,6 +616,15 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnRequestDraw, onClickBtnRequestDraw);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

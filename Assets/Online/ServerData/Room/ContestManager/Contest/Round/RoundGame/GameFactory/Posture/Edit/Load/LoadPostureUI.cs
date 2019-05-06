@@ -799,6 +799,15 @@ namespace Posture
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnLoad, onClickBtnLoad);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -755,6 +755,17 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnEdit, onClickBtnEdit);
+            UIUtils.SetButtonOnClick(btnCopyToClipboard, onClickCopyToClipboard);
+            UIUtils.SetButtonOnClick(btnViewHistory, onClickBtnViewHistory);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

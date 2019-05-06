@@ -179,6 +179,15 @@ namespace Solitaire
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnReset, onClickBtnReset);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

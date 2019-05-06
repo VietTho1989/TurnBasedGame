@@ -415,6 +415,15 @@ namespace Seirawan.UseRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnMove, onClickMove);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

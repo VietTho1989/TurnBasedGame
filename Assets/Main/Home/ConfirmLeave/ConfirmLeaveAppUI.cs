@@ -238,6 +238,15 @@ public class ConfirmLeaveAppUI : UIBehavior<ConfirmLeaveAppUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnConfirm, onClickBtnConfirm);
+        }
+    }
+
     public Button btnConfirm;
 
     public bool useShortKey(Event e)

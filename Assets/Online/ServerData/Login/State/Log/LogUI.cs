@@ -417,6 +417,15 @@ namespace LoginState
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnCancel, onClickBtnCancel);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

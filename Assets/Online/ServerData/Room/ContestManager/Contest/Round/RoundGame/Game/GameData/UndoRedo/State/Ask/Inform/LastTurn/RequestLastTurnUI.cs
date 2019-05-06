@@ -737,6 +737,16 @@ namespace UndoRedo
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnUndo, onClickBtnUndo);
+                UIUtils.SetButtonOnClick(btnRedo, onClickBtnRedo);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

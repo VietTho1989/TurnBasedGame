@@ -449,6 +449,15 @@ namespace FairyChess.NoneRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnChoose, onClickBtnChose);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

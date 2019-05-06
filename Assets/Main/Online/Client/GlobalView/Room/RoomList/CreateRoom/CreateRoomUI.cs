@@ -806,6 +806,16 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnCreate, onClickBtnCreate);
+            UIUtils.SetButtonOnClick(btnBack, onClickBtnCancel);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

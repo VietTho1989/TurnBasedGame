@@ -227,6 +227,15 @@ public class ContestManagerBtnSettingUI : UIBehavior<ContestManagerBtnSettingUI.
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnSetting, onClickBtnSetting);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -113,6 +113,10 @@ namespace Banqi.NoneRule
         public override void Awake()
         {
             base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnChoose, onClickBtnChoose);
+            }
             // drColor
             {
                 if (drColor != null)

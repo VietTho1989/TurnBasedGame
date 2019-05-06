@@ -320,6 +320,16 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnNext, onClickBtnNext);
+            UIUtils.SetButtonOnClick(btnBack, onClickBtnBack);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

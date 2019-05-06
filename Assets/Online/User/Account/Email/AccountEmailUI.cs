@@ -648,9 +648,9 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     {
                         if (btnChangePassword != null)
                         {
-                            btnChangePassword.SetActive(this.data.password.v != null
+                            btnChangePassword.gameObject.SetActive(this.data.password.v != null
                                 && this.data.retypePassword.v != null && this.data.type.v == UIData.Type.Show);
-                            if (btnChangePassword.activeSelf)
+                            if (btnChangePassword.gameObject.activeSelf)
                             {
                                 deltaY += UIConstants.ItemHeight;
                             }
@@ -1186,6 +1186,15 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnChangePassword, onClickBtnChangePassword);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;
@@ -1196,7 +1205,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                 {
                     case KeyCode.P:
                         {
-                            if (btnChangePassword != null && btnChangePassword.activeInHierarchy)// && btnOK.interactable)
+                            if (btnChangePassword != null && btnChangePassword.gameObject.activeInHierarchy)// && btnOK.interactable)
                             {
                                 this.onClickBtnChangePassword();
                                 isProcess = true;
@@ -1215,7 +1224,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
         return isProcess;
     }
 
-    public GameObject btnChangePassword;
+    public Button btnChangePassword;
 
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnChangePassword()

@@ -783,6 +783,16 @@ namespace Hint
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnHint, onClickBtnHint);
+                UIUtils.SetButtonOnClick(btnAI, onClickBtnAI);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -259,6 +259,16 @@ namespace Khet.UseRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnRotateAdd, onClickBtnRotateAdd);
+                UIUtils.SetButtonOnClick(btnRotateSub, onClickBtnRotateSub);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

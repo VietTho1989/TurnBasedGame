@@ -514,6 +514,15 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnRequest, onClickBtnRequest);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

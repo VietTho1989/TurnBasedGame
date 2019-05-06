@@ -435,6 +435,7 @@ public class User : Data
 
     public void requestUpdate(uint userId, User user)
     {
+        Debug.LogError("request update user");
         if (this.human.v != null && this.human.v.playerId.v == userId)
         {
             if (this != user && user != null)

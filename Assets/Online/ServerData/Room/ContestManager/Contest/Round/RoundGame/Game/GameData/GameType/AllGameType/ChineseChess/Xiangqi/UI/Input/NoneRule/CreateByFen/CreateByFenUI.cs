@@ -353,6 +353,16 @@ namespace Xiangqi.NoneRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnPaste, onClickBtnPaste);
+                UIUtils.SetButtonOnClick(btnCreate, onClickBtnCreate);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

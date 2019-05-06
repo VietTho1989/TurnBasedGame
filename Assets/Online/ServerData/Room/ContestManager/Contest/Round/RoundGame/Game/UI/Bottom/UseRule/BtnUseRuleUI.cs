@@ -248,6 +248,15 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUseRule, onClickBtnUseRule);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

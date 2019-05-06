@@ -235,6 +235,15 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnPerspective, onClickBtnPerspective);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

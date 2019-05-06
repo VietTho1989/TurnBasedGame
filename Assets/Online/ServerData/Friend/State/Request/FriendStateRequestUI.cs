@@ -680,6 +680,17 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnAccept, onClickBtnAccept);
+            UIUtils.SetButtonOnClick(btnRefuse, onClickBtnRefuse);
+            UIUtils.SetButtonOnClick(btnCancel, onClickBtnCancel);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

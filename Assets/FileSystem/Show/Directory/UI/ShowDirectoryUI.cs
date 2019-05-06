@@ -763,6 +763,17 @@ namespace FileSystem
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnShowExplorer, onClickBtnShowExplorer);
+                UIUtils.SetButtonOnClick(btnRefresh, onClickBtnRefresh);
+                UIUtils.SetButtonOnClick(btnNewFolder, onClickBtnNewFolder);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -435,6 +435,15 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnNormal, onClickBtnNormal);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

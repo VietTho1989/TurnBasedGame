@@ -643,6 +643,15 @@ namespace GameManager.Match
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnShow, onClickBtnShow);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -523,6 +523,15 @@ namespace CoTuongUp.UseRule
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnFlip, onClickBtnFlip);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

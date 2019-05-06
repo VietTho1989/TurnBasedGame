@@ -513,6 +513,15 @@ namespace FileSystem
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnFile, onClickFile);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

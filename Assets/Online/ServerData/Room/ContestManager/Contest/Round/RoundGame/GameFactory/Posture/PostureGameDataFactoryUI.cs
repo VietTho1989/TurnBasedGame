@@ -772,6 +772,15 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
     #region EditGameData
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnEdit, onClickBtnEditGameData);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -387,6 +387,15 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnHistory, onClickBtnHistory);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

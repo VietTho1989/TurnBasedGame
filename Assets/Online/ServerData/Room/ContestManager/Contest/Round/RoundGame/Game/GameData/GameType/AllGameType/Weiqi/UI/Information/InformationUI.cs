@@ -500,6 +500,15 @@ namespace Weiqi
 
         #region Button
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnToggleScore, onClickBtnToggleScore);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

@@ -333,6 +333,15 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;
@@ -345,6 +354,7 @@ namespace GameManager.Match.RoundRobin
                             break;
                     }
                 }
+                btnBack.onClick.AddListener(onClickBtnBack);
             }
             return isProcess;
         }

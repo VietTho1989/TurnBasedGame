@@ -743,6 +743,15 @@ namespace HEX
 
         #region Click Button
 
+        public override void Awake()
+        {
+            base.Awake();
+            // OnClick
+            {
+                UIUtils.SetButtonOnClick(btnSwitchSide, onClickBtnSwitchSide);
+            }
+        }
+
         public bool useShortKey(Event e)
         {
             bool isProcess = false;

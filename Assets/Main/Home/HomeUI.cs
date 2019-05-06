@@ -592,6 +592,20 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #region Click Button
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnOnline, onClickBtnPlayOnline);
+            UIUtils.SetButtonOnClick(btnOffline, onClickBtnPlayOffline);
+            UIUtils.SetButtonOnClick(btnLan, onClickBtnPlayLAN);
+            UIUtils.SetButtonOnClick(btnLoad, onClickBtnLoadGame);
+            UIUtils.SetButtonOnClick(btnAbout, onClickBtnAbout);
+            UIUtils.SetButtonOnClick(btnViewAds, onClickBtnViewAds);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

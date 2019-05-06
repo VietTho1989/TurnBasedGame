@@ -527,6 +527,15 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUnBan, onClickBtnUnBan);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

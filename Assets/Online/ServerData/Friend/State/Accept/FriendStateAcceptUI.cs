@@ -388,6 +388,15 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnUnFriend, onClickBtnUnFriend);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -583,6 +583,16 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnMakeFriend, onClickBtnMakeFriend);
+            UIUtils.SetButtonOnClick(btnBan, onClickBtnBan);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

@@ -96,6 +96,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
             dirty = false;
             if (this.data != null)
             {
+                Debug.LogError("state: " + this.data.state.v);
                 UserUI.UIData userUIData = this.data.findDataInParent<UserUI.UIData>();
                 if (userUIData != null)
                 {
@@ -127,6 +128,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                                             break;
                                         case UIData.State.Request:
                                             {
+                                                Debug.LogError("state request");
                                                 destroyRoutine(wait);
                                                 if (Server.IsServerOnline(originUser))
                                                 {
@@ -562,6 +564,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                         dirty = true;
                         if (this.data != null)
                         {
+                            Debug.LogError("set state none");
                             this.data.state.v = UIData.State.None;
                         }
                         return;
@@ -581,6 +584,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                         dirty = true;
                         if (this.data != null)
                         {
+                            Debug.LogError("set state none 1");
                             this.data.state.v = UIData.State.None;
                         }
                         return;
@@ -593,6 +597,15 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnApply, onClickBtnUpdate);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;
@@ -603,7 +616,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                 {
                     case KeyCode.U:
                         {
-                            if (btnUpdate != null && btnUpdate.gameObject.activeInHierarchy && btnUpdate.interactable)
+                            if (btnApply != null && btnApply.gameObject.activeInHierarchy && btnApply.interactable)
                             {
                                 this.onClickBtnUpdate();
                                 isProcess = true;
@@ -622,8 +635,6 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
         return isProcess;
     }
 
-    public Button btnUpdate;
-
     [UnityEngine.Scripting.Preserve]
     public void onClickBtnUpdate()
     {
@@ -632,6 +643,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
             switch (this.data.state.v)
             {
                 case UIData.State.None:
+                    Debug.LogError("request update user");
                     this.data.state.v = UIData.State.Request;
                     break;
                 case UIData.State.Request:
@@ -644,6 +656,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                     Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
                     break;
             }
+            Debug.LogError("request update user: " + this.data.state.v);
         }
         else
         {

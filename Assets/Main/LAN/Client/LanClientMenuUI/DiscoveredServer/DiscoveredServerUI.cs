@@ -182,6 +182,15 @@ public class DiscoveredServerUI : UIBehavior<DiscoveredServer>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnJoin, onClickBtnJoin);
+        }
+    }
+
     public Button btnJoin;
 
     public bool useShortKey(Event e)

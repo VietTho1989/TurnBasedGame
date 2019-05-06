@@ -400,6 +400,15 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

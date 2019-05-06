@@ -231,6 +231,15 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnCancel, onClickBtnCancelSend);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;

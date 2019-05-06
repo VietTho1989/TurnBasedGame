@@ -506,6 +506,15 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
 
     #endregion
 
+    public override void Awake()
+    {
+        base.Awake();
+        // OnClick
+        {
+            UIUtils.SetButtonOnClick(btnNormal, onClickBtnPause);
+        }
+    }
+
     public bool useShortKey(Event e)
     {
         bool isProcess = false;
