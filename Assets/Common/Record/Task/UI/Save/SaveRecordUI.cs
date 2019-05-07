@@ -143,9 +143,9 @@ namespace Record
                     btnSaveRecordRect.anchorMin = new Vector2(1.0f, 1.0f);
                     btnSaveRecordRect.anchorMax = new Vector2(1.0f, 1.0f);
                     btnSaveRecordRect.pivot = new Vector2(1.0f, 1.0f);
-                    btnSaveRecordRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                    btnSaveRecordRect.offsetMin = new Vector2(-90.0f, -30.0f);
                     btnSaveRecordRect.offsetMax = new Vector2(0.0f, 0.0f);
-                    btnSaveRecordRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                    btnSaveRecordRect.sizeDelta = new Vector2(90.0f, 30.0f);
                 }
             }
         }
@@ -168,6 +168,59 @@ namespace Record
                 dirty = false;
                 if (this.data != null)
                 {
+                    // edtName when selected files change
+                    if (edtName != null)
+                    {
+                        // find
+                        FileSystemInfo newSelectedFile = null;
+                        {
+                            if (selectedFilesChange)
+                            {
+                                FileSystemBrowserUI.UIData fileSystemBrowserUIData = this.data.fileSystemBrowser.v;
+                                if (fileSystemBrowserUIData != null)
+                                {
+                                    List<FileSystemInfo> selectedFiles = fileSystemBrowserUIData.getSelectedFiles();
+                                    // find
+                                    if (selectedFiles.Count > 0)
+                                    {
+                                        FileSystemInfo selectedFile = selectedFiles[0];
+                                        if (selectedFile != lastSelectedFile)
+                                        {
+                                            newSelectedFile = selectedFile;
+                                        }
+                                    }
+                                    // set lastSelectedFiles
+                                    {
+                                        if (selectedFiles.Count == 0)
+                                        {
+                                            lastSelectedFile = null;
+                                        }
+                                        else
+                                        {
+                                            lastSelectedFile = selectedFiles[0];
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("fileSystemBrowserUIData null");
+                                }
+                            }
+                        }
+                        // process
+                        if (newSelectedFile != null)
+                        {
+                            edtName.text = Path.GetFileNameWithoutExtension(newSelectedFile.Name);
+                        }
+                        else
+                        {
+                            // Debug.LogError("newSelectedFile null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("edtName null");
+                    }
                     // btnSave, tvSave
                     if (btnSave != null && tvSave != null)
                     {
@@ -382,6 +435,10 @@ namespace Record
 
         public ConfirmSaveRecordUI confirmSaveRecordPrefab;
 
+        private FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData> fileSystemBrowserUISelectFilesCheckChange = new FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>();
+        private bool selectedFilesChange = false;
+        private FileSystemInfo lastSelectedFile = null;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -406,15 +463,29 @@ namespace Record
             }
             // Child
             {
-                if (data is FileSystemBrowserUI.UIData)
+                // fileSystemBrowserUIData
                 {
-                    FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-                    // UI
+                    if (data is FileSystemBrowserUI.UIData)
                     {
-                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
+                        FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                        // checkChange
+                        {
+                            fileSystemBrowserUISelectFilesCheckChange.addCallBack(this);
+                            fileSystemBrowserUISelectFilesCheckChange.setData(fileSystemBrowserUIData);
+                        }
+                        // UI
+                        {
+                            UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
+                        }
+                        dirty = true;
+                        return;
                     }
-                    dirty = true;
-                    return;
+                    // checkChange
+                    if (data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (data is SaveRecordTask.TaskData)
                 {
@@ -463,14 +534,27 @@ namespace Record
             }
             // Child
             {
-                if (data is FileSystemBrowserUI.UIData)
+                // fileSystemBrowserUIData
                 {
-                    FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-                    // UI
+                    if (data is FileSystemBrowserUI.UIData)
                     {
-                        fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                        FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                        // checkChange
+                        {
+                            fileSystemBrowserUISelectFilesCheckChange.removeCallBack(this);
+                            fileSystemBrowserUISelectFilesCheckChange.setData(null);
+                        }
+                        // UI
+                        {
+                            fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                        }
+                        return;
                     }
-                    return;
+                    // checkChange
+                    if (data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                    {
+                        return;
+                    }
                 }
                 if (data is SaveRecordTask.TaskData)
                 {
@@ -568,9 +652,19 @@ namespace Record
             }
             // Child
             {
-                if (wrapProperty.p is FileSystemBrowserUI.UIData)
+                // fileSystemBrowserUIData
                 {
-                    return;
+                    if (wrapProperty.p is FileSystemBrowserUI.UIData)
+                    {
+                        return;
+                    }
+                    // checkChange
+                    if (wrapProperty.p is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                    {
+                        selectedFilesChange = true;
+                        dirty = true;
+                        return;
+                    }
                 }
                 if (wrapProperty.p is SaveRecordTask.TaskData)
                 {

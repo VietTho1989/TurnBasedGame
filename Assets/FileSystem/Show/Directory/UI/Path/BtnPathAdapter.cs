@@ -208,7 +208,7 @@ namespace FileSystem
                                 {
                                     firstInit = false;
                                     // this.ScrollTo(dirs.Count - 1);
-                                    Debug.LogError("smotthScroll");
+                                    // Debug.LogError("smotthScroll");
                                     // this.SmoothScrollTo(dirs.Count - 1, 0.3f, 0, 0f, null, true);
                                     // Debug.LogError("firstScroll: " + dirs.Count);
                                     // this.SmoothScrollTo(dirs.Count - 1, 0.3f, 0, 0f, null, true);

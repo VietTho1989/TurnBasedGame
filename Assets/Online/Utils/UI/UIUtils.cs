@@ -18,7 +18,7 @@ public class UIUtils
         }
         else
         {
-            Debug.LogError("btn null");
+            // Debug.LogError("btn null");
         }
     }
 

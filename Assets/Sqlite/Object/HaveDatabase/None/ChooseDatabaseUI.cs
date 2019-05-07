@@ -111,6 +111,59 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             dirty = false;
             if (this.data != null)
             {
+                // edtName when selected files change
+                if(edtName!=null)
+                {
+                    // find
+                    FileSystemInfo newSelectedFile = null;
+                    {
+                        if (selectedFilesChange)
+                        {
+                            FileSystemBrowserUI.UIData fileSystemBrowserUIData = this.data.fileSystemBrowser.v;
+                            if (fileSystemBrowserUIData != null)
+                            {
+                                List<FileSystemInfo> selectedFiles = fileSystemBrowserUIData.getSelectedFiles();
+                                // find
+                                if (selectedFiles.Count > 0)
+                                {
+                                    FileSystemInfo selectedFile = selectedFiles[0];
+                                    if (selectedFile != lastSelectedFile)
+                                    {
+                                        newSelectedFile = selectedFile;
+                                    }
+                                }
+                                // set lastSelectedFiles
+                                {
+                                    if (selectedFiles.Count == 0)
+                                    {
+                                        lastSelectedFile = null;
+                                    }
+                                    else
+                                    {
+                                        lastSelectedFile = selectedFiles[0];
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("fileSystemBrowserUIData null");
+                            }
+                        }
+                    }
+                    // process
+                    if (newSelectedFile != null)
+                    {
+                        edtName.text = newSelectedFile.Name;
+                    }
+                    else
+                    {
+                        // Debug.LogError("newSelectedFile null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("edtName null");
+                }
                 // UI
                 {
                     float buttonSize = Setting.get().getButtonSize();
@@ -224,6 +277,10 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
         return rect;
     }
 
+    private FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData> fileSystemBrowserUISelectFilesCheckChange = new FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>();
+    private bool selectedFilesChange = false;
+    private FileSystemInfo lastSelectedFile = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -245,15 +302,28 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             return;
         }
         // Child
-        if (data is FileSystemBrowserUI.UIData)
         {
-            FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-            // UI
+            if (data is FileSystemBrowserUI.UIData)
             {
-                UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserContainer());
+                FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                // checkChange
+                {
+                    fileSystemBrowserUISelectFilesCheckChange.addCallBack(this);
+                    fileSystemBrowserUISelectFilesCheckChange.setData(fileSystemBrowserUIData);
+                }
+                // UI
+                {
+                    UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserContainer());
+                }
+                dirty = true;
+                return;
             }
-            dirty = true;
-            return;
+            // checkChange
+            if(data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+            {
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -278,14 +348,26 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             return;
         }
         // Child
-        if (data is FileSystemBrowserUI.UIData)
         {
-            FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-            // UI
+            if (data is FileSystemBrowserUI.UIData)
             {
-                fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                // checkChange
+                {
+                    fileSystemBrowserUISelectFilesCheckChange.removeCallBack(this);
+                    fileSystemBrowserUISelectFilesCheckChange.setData(null);
+                }
+                // UI
+                {
+                    fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                }
+                return;
             }
-            return;
+            // checkChange
+            if (data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+            {
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -364,9 +446,18 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             return;
         }
         // Child
-        if (wrapProperty.p is FileSystemBrowserUI.UIData)
         {
-            return;
+            if (wrapProperty.p is FileSystemBrowserUI.UIData)
+            {
+                return;
+            }
+            // checkChange
+            if (wrapProperty.p is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+            {
+                selectedFilesChange = true;
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }

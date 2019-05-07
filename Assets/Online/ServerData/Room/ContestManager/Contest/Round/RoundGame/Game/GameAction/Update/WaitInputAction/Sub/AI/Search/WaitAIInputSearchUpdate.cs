@@ -147,7 +147,7 @@ public class WaitAIInputSearchUpdate : UpdateBehavior<WaitAIInputSearch>
 
     #region thread
 
-    private Thread newThread = null;
+    // private Thread newThread = null;
 
     private void destroyNewThread()
     {

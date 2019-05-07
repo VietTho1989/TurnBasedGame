@@ -136,9 +136,9 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                 btnSaveDataRect.anchorMin = new Vector2(1.0f, 1.0f);
                 btnSaveDataRect.anchorMax = new Vector2(1.0f, 1.0f);
                 btnSaveDataRect.pivot = new Vector2(1.0f, 1.0f);
-                btnSaveDataRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                btnSaveDataRect.offsetMin = new Vector2(-90.0f, -30.0f);
                 btnSaveDataRect.offsetMax = new Vector2(0.0f, 0.0f);
-                btnSaveDataRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                btnSaveDataRect.sizeDelta = new Vector2(90.0f, 30.0f);
             }
         }
     }
@@ -161,6 +161,59 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                 Data needSaveData = this.data.needSaveData.v.data;
                 if (needSaveData != null)
                 {
+                    // edtName when selected files change
+                    if (edtName != null)
+                    {
+                        // find
+                        FileSystemInfo newSelectedFile = null;
+                        {
+                            if (selectedFilesChange)
+                            {
+                                FileSystemBrowserUI.UIData fileSystemBrowserUIData = this.data.fileSystemBrowser.v;
+                                if (fileSystemBrowserUIData != null)
+                                {
+                                    List<FileSystemInfo> selectedFiles = fileSystemBrowserUIData.getSelectedFiles();
+                                    // find
+                                    if (selectedFiles.Count > 0)
+                                    {
+                                        FileSystemInfo selectedFile = selectedFiles[0];
+                                        if (selectedFile != lastSelectedFile)
+                                        {
+                                            newSelectedFile = selectedFile;
+                                        }
+                                    }
+                                    // set lastSelectedFiles
+                                    {
+                                        if (selectedFiles.Count == 0)
+                                        {
+                                            lastSelectedFile = null;
+                                        }
+                                        else
+                                        {
+                                            lastSelectedFile = selectedFiles[0];
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("fileSystemBrowserUIData null");
+                                }
+                            }
+                        }
+                        // process
+                        if (newSelectedFile != null)
+                        {
+                            edtName.text = Path.GetFileNameWithoutExtension(newSelectedFile.Name);
+                        }
+                        else
+                        {
+                            // Debug.LogError("newSelectedFile null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("edtName null");
+                    }
                     // siblingIndex
                     {
                         int startIndex = 3;
@@ -274,6 +327,10 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 
     public Transform confirmSaveContainer;
 
+    private FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData> fileSystemBrowserUISelectFilesCheckChange = new FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>();
+    private bool selectedFilesChange = false;
+    private FileSystemInfo lastSelectedFile = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -297,15 +354,29 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
         }
         // Child
         {
-            if (data is FileSystemBrowserUI.UIData)
+            // fileSystemBrowserUIData
             {
-                FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-                // UI
+                if (data is FileSystemBrowserUI.UIData)
                 {
-                    UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
+                    FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                    // checkChange
+                    {
+                        fileSystemBrowserUISelectFilesCheckChange.addCallBack(this);
+                        fileSystemBrowserUISelectFilesCheckChange.setData(fileSystemBrowserUIData);
+                    }
+                    // UI
+                    {
+                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                // checkChange
+                if (data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                {
+                    dirty = true;
+                    return;
+                }
             }
             if (data is BtnSaveDataUI.UIData)
             {
@@ -343,14 +414,27 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
         }
         // Child
         {
-            if (data is FileSystemBrowserUI.UIData)
+            // fileSystemBrowserUIData
             {
-                FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
-                // UI
+                if (data is FileSystemBrowserUI.UIData)
                 {
-                    fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                    FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
+                    // checkChange
+                    {
+                        fileSystemBrowserUISelectFilesCheckChange.removeCallBack(this);
+                        fileSystemBrowserUISelectFilesCheckChange.setData(null);
+                    }
+                    // UI
+                    {
+                        fileSystemBrowserUIData.removeCallBackAndDestroy(typeof(FileSystemBrowserUI));
+                    }
+                    return;
                 }
-                return;
+                // checkChange
+                if (data is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                {
+                    return;
+                }
             }
             if (data is BtnSaveDataUI.UIData)
             {
@@ -434,9 +518,19 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
         }
         // Child
         {
-            if (wrapProperty.p is FileSystemBrowserUI.UIData)
+            // fileSystemBrowserUIData
             {
-                return;
+                if (wrapProperty.p is FileSystemBrowserUI.UIData)
+                {
+                    return;
+                }
+                // checkChange
+                if (wrapProperty.p is FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>)
+                {
+                    selectedFilesChange = true;
+                    dirty = true;
+                    return;
+                }
             }
             if (wrapProperty.p is BtnSaveDataUI.UIData)
             {

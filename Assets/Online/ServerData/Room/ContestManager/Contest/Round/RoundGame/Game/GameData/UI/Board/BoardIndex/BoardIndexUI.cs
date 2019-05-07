@@ -1563,6 +1563,7 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
             }
             if(wrapProperty.p is Weiqi.BoardUI.UIData)
             {

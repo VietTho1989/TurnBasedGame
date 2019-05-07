@@ -116,7 +116,7 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
                         }
                         else
                         {
-                            Debug.LogError("holderSize = 0: " + this);
+                            // Debug.LogError("holderSize = 0: " + this);
                         }
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -51,6 +52,37 @@ namespace FileSystem
             }
 
             #endregion
+
+            public List<FileSystemInfo> getSelectedFiles()
+            {
+                List<FileSystemInfo> ret = new List<FileSystemInfo>();
+                {
+                    FileSystemBrowser fileSystemBrowser = this.fileSystemBrowser.v.data;
+                    if (fileSystemBrowser != null)
+                    {
+                        Action action = fileSystemBrowser.action.v;
+                        switch (action.getType())
+                        {
+                            case Action.Type.None:
+                                {
+                                    ActionNone actionNone = action as ActionNone;
+                                    ret.AddRange(actionNone.selectFiles.vs);
+                                }
+                                break;
+                            case Action.Type.Edit:
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + action.getType());
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("fileSystemBrowser null");
+                    }
+                }
+                return ret;
+            }
 
             public bool processEvent(Event e)
             {

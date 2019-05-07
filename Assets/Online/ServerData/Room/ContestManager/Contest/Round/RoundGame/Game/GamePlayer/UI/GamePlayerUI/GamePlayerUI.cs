@@ -292,7 +292,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                 top -= boardTop;
                                 bottom += boardBottom;
                             }
-                            Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
+                            // Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
                             // process
                             RectTransform gamePlayerTransform = (RectTransform)this.transform;
                             if (gamePlayerTransform != null)

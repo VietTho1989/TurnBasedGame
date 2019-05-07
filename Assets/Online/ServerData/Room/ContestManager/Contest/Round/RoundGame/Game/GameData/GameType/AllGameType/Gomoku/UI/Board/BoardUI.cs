@@ -106,7 +106,7 @@ namespace Gomoku
                                 }
                                 else
                                 {
-                                    Debug.LogError("moveAnimation null: " + this);
+                                    // Debug.LogError("moveAnimation null: " + this);
                                 }
                             }
                             // Board
