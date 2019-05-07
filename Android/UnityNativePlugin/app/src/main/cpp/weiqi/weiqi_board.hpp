@@ -711,14 +711,7 @@ namespace weiqi
 // #define group_at(b_, c) ((b_)->g[c])
     group_t group_at(struct board *b, coord_t c);
     
-    static void group_set(struct board *b, coord_t c, group_t group)
-    {
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            b->g[c] = group;
-        }else{
-            // printf("group_set error: %d\n", c);
-        }
-    }
+    void group_set(struct board *b, coord_t c, group_t group);
     
 // #define group_atxy(b_, x, y) ((b_)->g[(x) + board_size(b_) * (y)])
     group_t group_atxy(struct board *b, int x, int y);

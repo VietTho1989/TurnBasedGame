@@ -1823,8 +1823,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "599"
             endingLineNumber = "599"
-            landmarkName = "board_group_find_extra_libs(struct board *board, group_t group, struct group *gi, coord_t avoid)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4058,7 +4058,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1723"
             endingLineNumber = "1723"
-            landmarkName = "board_undo_suicide(struct board *b, struct board_undo *u, struct move *m)"
+            landmarkName = "restore_suicide(struct board *b, struct board_undo *u, struct move *m)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4074,7 +4074,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "220"
             endingLineNumber = "220"
-            landmarkName = "board_setup(struct board *b)"
+            landmarkName = "board_rmf(struct board *b, int32_t f)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

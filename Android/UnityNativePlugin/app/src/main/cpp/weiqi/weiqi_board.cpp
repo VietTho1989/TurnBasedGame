@@ -61,6 +61,15 @@ namespace weiqi
         }
     }
     
+    void group_set(struct board *b, coord_t c, group_t group)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            b->g[c] = group;
+        }else{
+            // printf("group_set error: %d\n", c);
+        }
+    }
+    
     group_t group_atxy(struct board *b, int x, int y)
     {
         coord_t c = (x) + board_size(b) * (y);
