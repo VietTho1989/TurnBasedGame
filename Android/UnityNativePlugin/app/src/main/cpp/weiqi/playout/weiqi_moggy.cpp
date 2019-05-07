@@ -191,13 +191,13 @@ namespace weiqi
         int32_t force = false;
         
         /* Did the opponent play a self-atari? */
-        if (board_group_info(b, group_at(b, m->coord)).libs == 1) {
+        if (board_group_info(b, group_at(b, m->coord))->libs == 1) {
             group_atari_check(pp->alwaysccaprate, b, group_at(b, m->coord), stone_other(m->color), q, NULL, pp->middle_ladder, 1<<MQ_LATARI);
         }
         
         foreach_neighbor(b, m->coord, {
             group_t g = group_at(b, c);
-            if (!g || board_group_info(b, g).libs != 1)
+            if (!g || board_group_info(b, g)->libs != 1)
                 continue;
             
             // Always defend big groups
@@ -223,12 +223,12 @@ namespace weiqi
     {
         group_t group = group_at(b, m->coord);
         
-        if (board_group_info(b, group).libs != 2)
+        if (board_group_info(b, group)->libs != 2)
             return;
         
         for (int32_t i = 0; i < 2; i++) {
-            coord_t chase = board_group_info(b, group).lib[i];
-            coord_t escape = board_group_info(b, group).lib[1 - i];
+            coord_t chase = board_group_info(b, group)->lib[i];
+            coord_t escape = board_group_info(b, group)->lib[1 - i];
             if (wouldbe_ladder(b, group, escape, chase, board_at(b, group)))
                 mq_add(q, chase, 1<<MQ_LADDER);
         }
@@ -246,7 +246,7 @@ namespace weiqi
         group_t group = group_at(b, m->coord), group2 = 0;
         
         /* Does the opponent have just two liberties? */
-        if (board_group_info(b, group).libs == 2) {
+        if (board_group_info(b, group)->libs == 2) {
             group_2lib_check(b, group, stone_other(m->color), q, 1<<MQ_L2LIB, pp->atari_miaisafe, pp->atari_def_no_hopeless);
 #if 0
             /* We always prefer to take off an enemy chain liberty
@@ -261,7 +261,7 @@ namespace weiqi
         /* Then he took a third liberty from neighboring chain? */
         foreach_neighbor(b, m->coord, {
             group_t g = group_at(b, c);
-            if (!g || g == group || g == group2 || board_group_info(b, g).libs != 2)
+            if (!g || g == group || g == group2 || board_group_info(b, g)->libs != 2)
                 continue;
             group_2lib_check(b, g, stone_other(m->color), q, 1<<MQ_L2LIB, pp->atari_miaisafe, pp->atari_def_no_hopeless);
             group2 = g; // prevent trivial repeated checks
@@ -280,7 +280,7 @@ namespace weiqi
         group_t group = group_at(b, m->coord), group2 = 0;
         
         /* Nothing there normally since opponent avoided bad selfatari ... */
-        if (board_group_info(b, group).libs == 2) {
+        if (board_group_info(b, group)->libs == 2) {
             group_2lib_capture_check(b, group, stone_other(m->color), q, 1<<MQ_L2LIB, pp->atari_miaisafe, pp->atari_def_no_hopeless);
 #if 0
             /* We always prefer to take off an enemy chain liberty
@@ -297,7 +297,7 @@ namespace weiqi
             if (board_at(b, c) != m->color)  /* Not opponent group, skip */
                 continue;
             group_t g = group_at(b, c);
-            if (!g || g == group || g == group2 || board_group_info(b, g).libs != 2)
+            if (!g || g == group || g == group2 || board_group_info(b, g)->libs != 2)
                 continue;
             group_2lib_capture_check(b, g, stone_other(m->color), q, 1<<MQ_L2LIB, pp->atari_miaisafe, pp->atari_def_no_hopeless);
             group2 = g; // prevent trivial repeated checks
@@ -349,7 +349,7 @@ namespace weiqi
             group_t g = group_at(b, c);
             if (!g || group2 == g || board_at(b, c) != color)
                 continue;
-            if (board_group_info(b, g).libs < 3 || board_group_info(b, g).libs > pp->nlib_count)
+            if (board_group_info(b, g)->libs < 3 || board_group_info(b, g)->libs > pp->nlib_count)
                 continue;
             group_nlib_defense_check(b, g, color, q, 1<<MQ_LNLIB);
             group2 = g; // prevent trivial repeated checks
@@ -421,9 +421,9 @@ namespace weiqi
                         coord_t falsified = c;
                         int32_t color_diag_libs[S_MAX] = {0};
                         foreach_diag_neighbor(board_statics, b, falsified) {
-                            if (board_at(b, c) == m->color && board_group_info(b, group_at(b, c)).libs == 1) {
+                            if (board_at(b, c) == m->color && board_group_info(b, group_at(b, c))->libs == 1) {
                                 /* Suggest capturing a falsifying stone in atari. */
-                                mq_add(q, board_group_info(b, group_at(b, c)).lib[0], 0);
+                                mq_add(q, board_group_info(b, group_at(b, c))->lib[0], 0);
                             } else {
                                 color_diag_libs[board_at(b, c)]++;
                             }
@@ -785,7 +785,7 @@ namespace weiqi
         struct board* b = map->b;
         struct move_queue q; q.moves = 0;
         
-        if (board_group_info(b, g).libs > pp->nlib_count)
+        if (board_group_info(b, g)->libs > pp->nlib_count)
             return;
         
         if (PLDEBUGL(5)) {
@@ -799,7 +799,7 @@ namespace weiqi
             board_print(b, stderr);
         }
         
-        if (board_group_info(b, g).libs > 2) {
+        if (board_group_info(b, g)->libs > 2) {
             if (!pp->nlibrate)
                 return;
             if (board_at(b, g) != map->to_play)
@@ -820,14 +820,14 @@ namespace weiqi
             return;
         }
         
-        if (board_group_info(b, g).libs == 2) {
+        if (board_group_info(b, g)->libs == 2) {
             if (pp->ladderrate) {
                 /* Make sure to play the correct liberty in case
                  * this is a group that can be caught in a ladder. */
                 bool ladderable = false;
                 for (int32_t i = 0; i < 2; i++) {
-                    coord_t chase = board_group_info(b, g).lib[i];
-                    coord_t escape = board_group_info(b, g).lib[1 - i];
+                    coord_t chase = board_group_info(b, g)->lib[i];
+                    coord_t escape = board_group_info(b, g)->lib[1 - i];
                     if (wouldbe_ladder(b, g, escape, chase, board_at(b, g))) {
                         add_prior_value(map, chase, 1, games);
                         ladderable = true;
@@ -1054,9 +1054,9 @@ namespace weiqi
             foreach_diag_neighbor(board_statics, b, m->coord) {
                 if (board_at(b, c) != stone_other(m->color))
                     continue;
-                switch (board_group_info(b, group_at(b, c)).libs) {
+                switch (board_group_info(b, group_at(b, c))->libs) {
                     case 1: /* Capture! */
-                        c = board_group_info(b, group_at(b, c)).lib[0];
+                        c = board_group_info(b, group_at(b, c))->lib[0];
                         if (permit_move(c)) {
                             if (PLDEBUGL(5)){
                                 char strCoord[256];
@@ -1070,7 +1070,7 @@ namespace weiqi
                         }
                     case 2: /* Try to switch to some 2-lib neighbor. */
                         for (int32_t i = 0; i < 2; i++) {
-                            coord_t l = board_group_info(b, group_at(b, c)).lib[i];
+                            coord_t l = board_group_info(b, group_at(b, c))->lib[i];
                             if (!permit_move(l))
                                 continue;
                             m->coord = l;

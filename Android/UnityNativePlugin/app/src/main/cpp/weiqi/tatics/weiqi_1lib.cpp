@@ -24,7 +24,7 @@ namespace weiqi
     // bo static
     inline bool capturing_group_is_snapback(struct board *b, group_t group)
     {
-        coord_t lib = board_group_info(b, group).lib[0];
+        coord_t lib = board_group_info(b, group)->lib[0];
         
         if (immediate_liberty_count(b, lib) > 0 ||
             group_stone_count(b, group, 2) > 1)
@@ -41,10 +41,10 @@ namespace weiqi
                 continue;
             
             if (board_at(b, c) == other &&
-                board_group_info(b, g).libs == 1)  // capture more than one group
+                board_group_info(b, g)->libs == 1)  // capture more than one group
                 return false;
             if (board_at(b, c) == to_play &&
-                board_group_info(b, g).libs > 1)
+                board_group_info(b, g)->libs > 1)
                 return false;
         });
         return true;
@@ -58,7 +58,7 @@ namespace weiqi
     // bo static
     inline bool can_capture(struct board *b, group_t g, enum stone to_play)
     {
-        coord_t capture = board_group_info(b, g).lib[0];
+        coord_t capture = board_group_info(b, g)->lib[0];
         if (DEBUGL(6)){
             char strCoord[256];
             {
@@ -77,7 +77,7 @@ namespace weiqi
     // bo static
     inline bool can_play_on_lib(struct board *b, group_t g, enum stone to_play)
     {
-        coord_t capture = board_group_info(b, g).lib[0];
+        coord_t capture = board_group_info(b, g)->lib[0];
         if (DEBUGL(6)){
             char strCoord[256];
             {
@@ -111,13 +111,13 @@ namespace weiqi
             foreach_neighbor(b, c, {
                 group_t g = group_at(b, c);
                 if (likely(board_at(b, c) != other
-                           || board_group_info(b, g).libs > 1) ||
+                           || board_group_info(b, g)->libs > 1) ||
                     !can_capture(b, g, color))
                     continue;
                 
                 if (!q)
                     return true;
-                mq_add(q, board_group_info(b, group_at(b, c)).lib[0], tag);
+                mq_add(q, board_group_info(b, group_at(b, c))->lib[0], tag);
                 mq_nodup(q);
             });
         } foreach_in_group_end;
@@ -144,15 +144,15 @@ namespace weiqi
             foreach_neighbor(b, c, {
                 group_t g = group_at(b, c);
                 if (likely(board_at(b, c) != other
-                           || board_group_info(b, g).libs > 1))
+                           || board_group_info(b, g)->libs > 1))
                     continue;
-                coord_t lib = board_group_info(b, g).lib[0];
+                coord_t lib = board_group_info(b, g)->lib[0];
                 if (!board_is_valid_play(b, color, lib))
                     continue;
                 
                 if (!q)
                     return true;
-                mq_add(q, board_group_info(b, group_at(b, c)).lib[0], tag);
+                mq_add(q, board_group_info(b, group_at(b, c))->lib[0], tag);
                 mq_nodup(q);
             });
         } foreach_in_group_end;
@@ -178,7 +178,7 @@ namespace weiqi
     void group_atari_check(uint32_t alwaysccaprate, struct board *b, group_t group, enum stone to_play, struct move_queue *q, coord_t *ladder, bool middle_ladder, int32_t tag)
     {
         enum stone color = board_at(b, group_base(group));
-        coord_t lib = board_group_info(b, group).lib[0];
+        coord_t lib = board_group_info(b, group)->lib[0];
         
         {
             // assert(color != S_OFFBOARD && color != S_NONE);

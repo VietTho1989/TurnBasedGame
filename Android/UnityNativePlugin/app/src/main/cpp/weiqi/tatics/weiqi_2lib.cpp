@@ -32,21 +32,21 @@ namespace weiqi
          * X X X O
          * X . . O
          * O O X O - left dot would be pull-out, right dot connect */
-        foreach_neighbor(b, board_group_info(b, group).lib[0], {
+        foreach_neighbor(b, board_group_info(b, group)->lib[0], {
             enum stone cc = board_at(b, c);
-            if (cc == S_NONE && cc != board_at(b, board_group_info(b, group).lib[1])) {
+            if (cc == S_NONE && cc != board_at(b, board_group_info(b, group)->lib[1])) {
                 can_pull_out = true;
             } else if (cc != color) {
                 continue;
             }
             
             group_t cg = group_at(b, c);
-            if (cg && cg != group && board_group_info(b, cg).libs > 1)
+            if (cg && cg != group && board_group_info(b, cg)->libs > 1)
                 can_connect = true;
         });
-        foreach_neighbor(b, board_group_info(b, group).lib[1], {
+        foreach_neighbor(b, board_group_info(b, group)->lib[1], {
             enum stone cc = board_at(b, c);
-            if (c == board_group_info(b, group).lib[0])
+            if (c == board_group_info(b, group)->lib[0])
                 continue;
             if (cc == S_NONE && can_connect) {
                 return true;
@@ -55,7 +55,7 @@ namespace weiqi
             }
             
             group_t cg = group_at(b, c);
-            if (cg && cg != group && board_group_info(b, cg).libs > 1)
+            if (cg && cg != group && board_group_info(b, cg)->libs > 1)
                 return (can_connect || can_pull_out);
         });
         return false;
@@ -90,7 +90,7 @@ namespace weiqi
         bool have[2] = { false, false };
         bool preference[2] = { true, true };
         for (int32_t i = 0; i < 2; i++) {
-            coord_t lib = board_group_info(b, group).lib[i];
+            coord_t lib = board_group_info(b, group)->lib[i];
             {
                 // assert(board_at(b, lib) == S_NONE);
                 if(!(board_at(b, lib) == S_NONE)){
@@ -135,7 +135,7 @@ namespace weiqi
             
             /* Prevent hopeless escape attempts. */
             if (defense_is_hopeless(b, group, owner, to_play, lib,
-                                    board_group_info(b, group).lib[1 - i],
+                                    board_group_info(b, group)->lib[1 - i],
                                     use_def_no_hopeless))
                 continue;
             
@@ -220,7 +220,7 @@ namespace weiqi
             /* If we prefer only one of the moves, pick that one. */
             if (i == 1 && have[0] && preference[0] != preference[1]) {
                 if (!preference[0]) {
-                    if (q->move[q->moves - 1] == board_group_info(b, group).lib[0])
+                    if (q->move[q->moves - 1] == board_group_info(b, group)->lib[0])
                         q->moves--;
                     /* ...else{ may happen, since we call
                      * mq_nodup() and the move might have
@@ -288,14 +288,14 @@ namespace weiqi
                 if (board_at(b, c) != stone_other(color))
                     continue;
                 group_t g2 = group_at(b, c);
-                if (board_group_info(b, g2).libs == 1 &&
-                    board_is_valid_play(b, to_play, board_group_info(b, g2).lib[0])) {
+                if (board_group_info(b, g2)->libs == 1 &&
+                    board_is_valid_play(b, to_play, board_group_info(b, g2)->lib[0])) {
                     /* We can capture a neighbor. */
-                    mq_add(q, board_group_info(b, g2).lib[0], tag);
+                    mq_add(q, board_group_info(b, g2)->lib[0], tag);
                     mq_nodup(q);
                     continue;
                 }
-                if (board_group_info(b, g2).libs != 2)
+                if (board_group_info(b, g2)->libs != 2)
                     continue;
                 can_atari_group(b, g2, stone_other(color), to_play, q, tag, use_def_no_hopeless);
             });
@@ -306,12 +306,12 @@ namespace weiqi
     bool can_capture_2lib_group(struct board *b, group_t g, enum stone color, struct move_queue *q, int32_t tag)
     {
         // assert(board_group_info(b, g).libs == 2);
-        if(!(board_group_info(b, g).libs == 2)){
+        if(!(board_group_info(b, g)->libs == 2)){
             printf("error, assert(board_group_info(b, g).libs == 2)\n");
         }
         for (int32_t i = 0; i < 2; i++) {
-            coord_t lib = board_group_info(b, g).lib[i];
-            coord_t other = board_group_info(b, g).lib[1 - i];
+            coord_t lib = board_group_info(b, g)->lib[i];
+            coord_t other = board_group_info(b, g)->lib[1 - i];
             if (wouldbe_ladder_any(b, g, other, lib, color)) {
                 if (q)
                     mq_add(q, lib, tag);
@@ -348,14 +348,14 @@ namespace weiqi
                 if (board_at(b, c) != stone_other(color))
                     continue;
                 group_t g2 = group_at(b, c);
-                if (board_group_info(b, g2).libs == 1 &&
-                    board_is_valid_play(b, to_play, board_group_info(b, g2).lib[0])) {
+                if (board_group_info(b, g2)->libs == 1 &&
+                    board_is_valid_play(b, to_play, board_group_info(b, g2)->lib[0])) {
                     /* We can capture a neighbor. */
-                    mq_add(q, board_group_info(b, g2).lib[0], tag);
+                    mq_add(q, board_group_info(b, g2)->lib[0], tag);
                     mq_nodup(q);
                     continue;
                 }
-                if (board_group_info(b, g2).libs != 2)
+                if (board_group_info(b, g2)->libs != 2)
                     continue;
                 can_capture_2lib_group(b, g2, stone_other(color), q, tag);
             });

@@ -246,7 +246,7 @@ namespace weiqi
             if (board_at(b, c) != stone_other(m->color)) {
                 if (board_at(b, c) == S_NONE)
                     extra_libs++; // free point
-                else if (board_at(b, c) == m->color && board_group_info(b, group_at(b, c)).libs == 1)
+                else if (board_at(b, c) == m->color && board_group_info(b, group_at(b, c))->libs == 1)
                     extra_libs += 2; // capturable enemy group
                 continue;
             }
@@ -259,9 +259,9 @@ namespace weiqi
                     g = 1;
                 }
             }
-            if (board_group_info(b, g).libs > 1) {
+            if (board_group_info(b, g)->libs > 1) {
                 connectable_groups++;
-                if (board_group_info(b, g).libs > 2) {
+                if (board_group_info(b, g)->libs > 2) {
                     extra_libs += 2; // connected out
                 } else {
                     /* This is a bit tricky; we connect our 2-lib
@@ -303,7 +303,7 @@ namespace weiqi
                         if (board_at(b, c) != m->color)
                             continue;
                         group_t g = group_at(b, c);
-                        if (!g || board_group_info(b, g).libs != 1)
+                        if (!g || board_group_info(b, g)->libs != 1)
                             continue;
                         /* A neighboring group of ours is in atari. */
                         f->payload |= 1 << PF_CAPTURE_ATARIDEF;
@@ -374,7 +374,7 @@ namespace weiqi
             if (board_at(b, c) != m->color) {
                 if (board_at(b, c) == S_NONE)
                     extra_libs++; // free point
-                else if (board_at(b, c) == stone_other(m->color) && board_group_info(b, group_at(b, c)).libs == 1) {
+                else if (board_at(b, c) == stone_other(m->color) && board_group_info(b, group_at(b, c))->libs == 1) {
                     extra_libs += 2; // capturable enemy group
                     /* XXX: We just consider this move safe
                      * unconditionally. */
@@ -389,9 +389,9 @@ namespace weiqi
                     g = 1;
                 }
             }
-            if (board_group_info(b, g).libs > 1) {
+            if (board_group_info(b, g)->libs > 1) {
                 connectable_groups++;
-                if (board_group_info(b, g).libs > 2) {
+                if (board_group_info(b, g)->libs > 2) {
                     extra_libs += 2; // connected out
                 } else {
                     /* This is a bit tricky; we connect our 2-lib
@@ -444,7 +444,7 @@ namespace weiqi
             if (board_at(b, c) != stone_other(m->color))
                 continue;
             group_t g = group_at(b, c);
-            if (!g || board_group_info(b, g).libs != 2)
+            if (!g || board_group_info(b, g)->libs != 2)
                 continue;
             
             /* Can atari! */

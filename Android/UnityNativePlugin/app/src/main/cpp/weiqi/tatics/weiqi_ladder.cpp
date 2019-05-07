@@ -60,9 +60,9 @@ namespace weiqi
         /* ...or can't block where we need because of shortage
          * of liberties. */
         group_t g1 = group_atxy(b, x + xd - yd * dd, y + yd - xd * dd);
-        int32_t libs1 = board_group_info(b, g1).libs;
+        int32_t libs1 = board_group_info(b, g1)->libs;
         group_t g2 = group_atxy(b, x - xd - yd * dd, y - yd - xd * dd);
-        int32_t libs2 = board_group_info(b, g2).libs;
+        int32_t libs2 = board_group_info(b, g2)->libs;
         if (DEBUGL(6))
             printf("libs1 %d libs2 %d\n", libs1, libs2);
         /* Already in atari? */
@@ -70,10 +70,10 @@ namespace weiqi
             return false;
         /* Would be self-atari? */
         if (libs1 < 3 && (board_atxy(b, x + xd * 2, y + yd * 2) != S_NONE
-                          || coord_is_adjecent(board_group_info(b, g1).lib[0], board_group_info(b, g1).lib[1], b)))
+                          || coord_is_adjecent(board_group_info(b, g1)->lib[0], board_group_info(b, g1)->lib[1], b)))
             return false;
         if (libs2 < 3 && (board_atxy(b, x - xd * 2, y - yd * 2) != S_NONE
-                          || coord_is_adjecent(board_group_info(b, g2).lib[0], board_group_info(b, g2).lib[1], b)))
+                          || coord_is_adjecent(board_group_info(b, g2)->lib[0], board_group_info(b, g2)->lib[1], b)))
             return false;
         return true;
     }
@@ -95,12 +95,12 @@ namespace weiqi
          printf("%s c %d\n", strCoord, board_group_info(b, laddered).libs);
          }*/
         
-        if (!laddered || board_group_info(b, laddered).libs == 1) {
+        if (!laddered || board_group_info(b, laddered)->libs == 1) {
             /*if (DEBUGL(6))
              printf("* we can capture now\n");*/
             return len;
         }
-        if (board_group_info(b, laddered).libs > 2) {
+        if (board_group_info(b, laddered)->libs > 2) {
             /*if (DEBUGL(6))
              printf("* we are free now\n");*/
             return 0;
@@ -109,8 +109,8 @@ namespace weiqi
         /* Now, consider alternatives. */
         int32_t liblist[2], libs = 0;
         for (int32_t i = 0; i < 2; i++) {
-            coord_t ataristone = board_group_info(b, laddered).lib[i];
-            coord_t escape = board_group_info(b, laddered).lib[1 - i];
+            coord_t ataristone = board_group_info(b, laddered)->lib[i];
+            coord_t escape = board_group_info(b, laddered)->lib[1 - i];
             {
                 /*if (immediate_liberty_count(b, escape) > 2 + coord_is_adjecent(ataristone, escape, b)) {
                  // Too much free space, ignore.
@@ -126,18 +126,18 @@ namespace weiqi
         }
         
         /* Try more promising one first */
-        if (libs == 2 && immediate_liberty_count(b, board_group_info(b, laddered).lib[0]) <
-            immediate_liberty_count(b, board_group_info(b, laddered).lib[1])) {
+        if (libs == 2 && immediate_liberty_count(b, board_group_info(b, laddered)->lib[0]) <
+            immediate_liberty_count(b, board_group_info(b, laddered)->lib[1])) {
             liblist[0] = 1; liblist[1] = 0;
         }
         
         /* Try out the alternatives. */
         for (int32_t i = 0; i < libs; i++) {
-            coord_t ataristone = board_group_info(b, laddered).lib[liblist[i]];
+            coord_t ataristone = board_group_info(b, laddered)->lib[liblist[i]];
             
             with_move(b, ataristone, stone_other(lcolor), {
                 /* If we just played self-atari, abandon ship. */
-                if (board_group_info(b, group_at(b, ataristone)).libs <= 1)
+                if (board_group_info(b, group_at(b, ataristone))->libs <= 1)
                     break;
                 
                 /*if (DEBUGL(6)){
@@ -170,9 +170,9 @@ namespace weiqi
                              coord_t nextmove)
     {
         foreach_neighbor(b, nextmove, {
-            if (board_at(b, c) == stone_other(lcolor) && board_group_info(b, group_at(b, c)).libs == 1) {
+            if (board_at(b, c) == stone_other(lcolor) && board_group_info(b, group_at(b, c))->libs == 1) {
                 /* Ladder stone we can capture later, add it to the list */
-                coord_t lib = board_group_info(b, group_at(b, c)).lib[0];
+                coord_t lib = board_group_info(b, group_at(b, c))->lib[0];
                 /*if (DEBUGL(6)){
                  char strCoord[256];
                  {
@@ -245,7 +245,7 @@ namespace weiqi
     {
         {
             // assert(board_group_info(b, laddered).libs == 1);
-            if(!(board_group_info(b, laddered).libs == 1)){
+            if(!(board_group_info(b, laddered)->libs == 1)){
                 printf("error, assert(board_group_info(b, laddered).libs == 1)\n");
             }
         }
@@ -272,7 +272,7 @@ namespace weiqi
             return 0;
         
         /* Escape then */
-        coord_t nextmove = board_group_info(b, laddered).lib[0];
+        coord_t nextmove = board_group_info(b, laddered)->lib[0];
         /*if (DEBUGL(6)){
          char strCoord[256];
          {
@@ -295,13 +295,13 @@ namespace weiqi
         /* TODO: Remove the redundant parameters. */
         {
             // assert(board_group_info(b, laddered).libs == 1);
-            if(!(board_group_info(b, laddered).libs == 1)){
+            if(!(board_group_info(b, laddered)->libs == 1)){
                 printf("error, assert(board_group_info(b, laddered).libs == 1)\n");
             }
         }
         {
             // assert(board_group_info(b, laddered).lib[0] == coord);
-            if(!(board_group_info(b, laddered).lib[0] == coord)){
+            if(!(board_group_info(b, laddered)->lib[0] == coord)){
                 printf("error, assert(board_group_info(b, laddered).lib[0] == coord)\n");
             }
         }
@@ -345,13 +345,13 @@ namespace weiqi
         /* TODO: Remove the redundant parameters. */
         {
             // assert(board_group_info(b, laddered).libs == 1);
-            if(!(board_group_info(b, laddered).libs == 1)){
+            if(!(board_group_info(b, laddered)->libs == 1)){
                 printf("error, assert(board_group_info(b, laddered).libs == 1)\n");
             }
         }
         {
             // assert(board_group_info(b, laddered).lib[0] == coord);
-            if(!(board_group_info(b, laddered).lib[0] == coord)){
+            if(!(board_group_info(b, laddered)->lib[0] == coord)){
                 printf("error, assert(board_group_info(b, laddered).lib[0] == coord)\n");
             }
         }
@@ -377,7 +377,7 @@ namespace weiqi
     {
         {
             // assert(board_group_info(b, group).libs == 2);
-            if(!(board_group_info(b, group).libs == 2)){
+            if(!(board_group_info(b, group)->libs == 2)){
                 printf("error, assert(board_group_info(b, group).libs == 2)\n");
             }
         }
@@ -418,7 +418,7 @@ namespace weiqi
         
         bool is_ladder = false;
         with_move(b, chaselib, stone_other(lcolor), {
-            is_ladder = is_middle_ladder_any(b, board_group_info(b, group).lib[0], group, lcolor);
+            is_ladder = is_middle_ladder_any(b, board_group_info(b, group)->lib[0], group, lcolor);
         });
         
         return is_ladder;
@@ -429,7 +429,7 @@ namespace weiqi
     {
         {
             // assert(board_group_info(b, group).libs == 2);
-            if(!(board_group_info(b, group).libs == 2)){
+            if(!(board_group_info(b, group)->libs == 2)){
                 printf("error, assert(board_group_info(b, group).libs == 2)\n");
             }
         }
@@ -476,7 +476,7 @@ namespace weiqi
             neighbor_is_safe(b, laddered))
             return false;
         
-        coord_t lib = board_group_info(b, laddered).lib[0];
+        coord_t lib = board_group_info(b, laddered)->lib[0];
         enum stone lcolor = board_at(b, laddered);
         
         /* Check capturing group is surrounded */
@@ -507,12 +507,12 @@ namespace weiqi
             
             group_t g = group_at(b, lib);
             // Try diff move order, could be suicide !
-            for (int32_t i = 0; !cap_ok && i < board_group_info(b, g).libs; i++) {
-                coord_t cap = board_group_info(b, g).lib[i];
+            for (int32_t i = 0; !cap_ok && i < board_group_info(b, g)->libs; i++) {
+                coord_t cap = board_group_info(b, g)->lib[i];
                 with_move(b, cap, stone_other(lcolor), {
                     if (!group_at(b, lib) || !group_at(b, cap))
                         break;
-                    coord_t cap = board_group_info(b, group_at(b, lib)).lib[0];
+                    coord_t cap = board_group_info(b, group_at(b, lib))->lib[0];
                     with_move(b, cap, stone_other(lcolor), {
                         {
                             // assert(!group_at(b, lib));
@@ -534,7 +534,7 @@ namespace weiqi
             if (board_at(b, c) != S_NONE)
                 continue;
             with_move(b, c, stone_other(lcolor), {
-                if (board_group_info(b, group_at(b, c)).libs - 1 <= 1)
+                if (board_group_info(b, group_at(b, c))->libs - 1 <= 1)
                     break;
                 if (!is_bad_selfatari(b, lcolor, lib)){
 /*#ifndef Android
@@ -561,7 +561,7 @@ namespace weiqi
         int32_t ataris = 0;
         foreach_neighbor(b, c, {
             if (board_at(b, c) == stone_other(color) &&
-                board_group_info(b, group_at(b, c)).libs == 2)
+                board_group_info(b, group_at(b, c))->libs == 2)
                 ataris++;
         });
         
@@ -607,7 +607,7 @@ namespace weiqi
             if (board_at(b, c) != stone_other(color))
                 continue;
             group_t g = group_at(b, c);
-            if (board_group_info(b, g).libs != 2)
+            if (board_group_info(b, g)->libs != 2)
                 continue;
             
             coord_t escape = board_group_other_lib(b, g, atari);

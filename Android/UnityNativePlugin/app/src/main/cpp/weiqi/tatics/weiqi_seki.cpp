@@ -26,7 +26,7 @@ namespace weiqi
             if (board_at(b, c) != other_color)
                 continue;
             group_t g = group_at(b, c);
-            if (board_group_info(b, g).libs != 2 ||
+            if (board_group_info(b, g)->libs != 2 ||
                 group_stone_count(b, g, 4) != 3)
                 return false;
             if (g3)  /* Multiple groups or bad bent-3 */
@@ -39,7 +39,7 @@ namespace weiqi
         /* Check neighbours of the 2 liberties first (also checks shape :) */
         // FIXME is this enough to check all the bad shapes ?
         for (int32_t i = 0; i < 2; i++) {
-            coord_t lib = board_group_info(b, g3).lib[i];
+            coord_t lib = board_group_info(b, g3)->lib[i];
             if (immediate_liberty_count(b, lib) >= 1)
                 return false;  /* Bad shape or can escape */
             if (neighbor_count_at(b, lib, other_color) >= 2)
@@ -54,7 +54,7 @@ namespace weiqi
          *   . O O O . 	  . O O O .
          */
         for (int32_t i = 0; i < 2; i++) {
-            coord_t lib = board_group_info(b, g3).lib[i];
+            coord_t lib = board_group_info(b, g3)->lib[i];
             foreach_neighbor(b, lib, {   /* Find adjacent stone */
                 if (board_at(b, c) == other_color &&
                     neighbor_count_at(b, c, other_color) == 2)
@@ -89,8 +89,8 @@ namespace weiqi
         
         /* Safe after capturing these stones ? */
         bool safe = false;
-        coord_t lib1 = board_group_info(b, g3).lib[0];
-        coord_t lib2 = board_group_info(b, g3).lib[1];
+        coord_t lib1 = board_group_info(b, g3)->lib[0];
+        coord_t lib2 = board_group_info(b, g3)->lib[1];
         with_move(b, lib1, color, {
             with_move(b, lib2, color, {
                 group_t g = group_at(b, own);

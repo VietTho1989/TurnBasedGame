@@ -195,8 +195,8 @@ namespace weiqi
         } foreach_in_group_end;
         
         // Look for virtually connected groups
-        for (int32_t i = 0; i < board_group_info(b, g).libs; i++) {
-            coord_t lib = board_group_info(b, g).lib[i];
+        for (int32_t i = 0; i < board_group_info(b, g)->libs; i++) {
+            coord_t lib = board_group_info(b, g)->lib[i];
             // TODO could mark liberties visited, more efficient ?
             foreach_neighbor(b, lib, {
                 if (board_at(b, c) != color)
@@ -241,8 +241,8 @@ namespace weiqi
             return -1;
         
         // Look for virtually connected groups
-        for (int32_t i = 0; i < board_group_info(b, g).libs; i++) {
-            coord_t lib = board_group_info(b, g).lib[i];
+        for (int32_t i = 0; i < board_group_info(b, g)->libs; i++) {
+            coord_t lib = board_group_info(b, g)->lib[i];
             // TODO could mark liberties visited, more efficient ?
             foreach_neighbor(b, lib, {
                 if (board_at(b, c) != color)
@@ -282,8 +282,8 @@ namespace weiqi
     int32_t foreach_lib_handler(struct board *b, enum stone color, group_t g, void *data)
     {
         struct foreach_lib_data* d = (struct foreach_lib_data*)data;
-        for (int32_t i = 0; i < board_group_info(b, g).libs; i++) {
-            coord_t lib = board_group_info(b, g).lib[i];
+        for (int32_t i = 0; i < board_group_info(b, g)->libs; i++) {
+            coord_t lib = board_group_info(b, g)->lib[i];
             if (d->visited[lib])
                 continue;
             d->visited[lib] = 1;
@@ -428,7 +428,7 @@ namespace weiqi
             foreach_neighbor(b, to, {
                 if (enemy_stone_at(c))
                     return false;
-                if ((own_stone_at(c) && board_group_info(b, group_at(b, c)).libs > 1) ||
+                if ((own_stone_at(c) && board_group_info(b, group_at(b, c))->libs > 1) ||
                     board_at(b, c) == S_OFFBOARD)
                     good++;
             });

@@ -101,7 +101,7 @@ namespace weiqi
                 if (board_at(b, c) != stone_other(color))
                     continue;
                 group_t g2 = group_at(b, c);
-                if (board_group_info(b, g2).libs != 2)
+                if (board_group_info(b, g2)->libs != 2)
                     continue;
                 can_atari_group(b, g2, stone_other(color), to_play, q, tag, true /* XXX */);
             });

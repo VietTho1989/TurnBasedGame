@@ -71,7 +71,7 @@ namespace weiqi
         bool r = true;
         with_move(b, to, color, {
             group_t g = group_at(b, to);
-            if (g && board_group_info(b, g).libs > 1)
+            if (g && board_group_info(b, g)->libs > 1)
                 r = false;
         });
         

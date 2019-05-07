@@ -77,7 +77,7 @@ namespace weiqi
         | (board_atxy(b, x, y + 1) << 2)
         | (board_atxy(b, x + 1, y + 1));
         /* Atari info. */
-#define atari_atxy(b, x, y) (group_atxy(b, x, y) && board_group_info(b, group_atxy(b, x, y)).libs == 1)
+#define atari_atxy(b, x, y) (group_atxy(b, x, y) && board_group_info(b, group_atxy(b, x, y))->libs == 1)
         pat |= (atari_atxy(b, x, y - 1) << 19);
         pat |= (atari_atxy(b, x - 1, y) << 18)
         | (atari_atxy(b, x + 1, y) << 17);

@@ -52,7 +52,7 @@ namespace weiqi
         coord_t other_libs[2];
         bool other_libs_adj[2];
         for (int32_t i = 0, j = 0; i < 3; i++) {
-            coord_t lib = board_group_info(b, g).lib[i];
+            coord_t lib = board_group_info(b, g)->lib[i];
             if (lib != to) {
                 other_libs_adj[j] = coord_is_adjecent(lib, to, b);
                 other_libs[j++] = lib;
@@ -78,7 +78,7 @@ namespace weiqi
         /* Playing on the third liberty might be useful if it enables
          * capturing some group (are we doing nakade or semeai?). */
         for (int32_t i = 0; i < s->groupcts[stone_other(color)]; i++)
-            if (board_group_info(b, s->groupids[stone_other(color)][i]).libs <= 3)
+            if (board_group_info(b, s->groupids[stone_other(color)][i])->libs <= 3)
                 return false;
         
         
@@ -113,7 +113,7 @@ namespace weiqi
             foreach_neighbor(b, other_libs[i], {
                 if (board_at(b, c) == color
                     && group_at(b, c) != g
-                    && board_group_info(b, group_at(b, c)).libs > 1) {
+                    && board_group_info(b, group_at(b, c))->libs > 1) {
                     /* Can connect to a friend. */
                     /* TODO: > 2? But maybe the group can capture
                      * a neighbor! But then better let it do that
@@ -190,7 +190,7 @@ namespace weiqi
     {
         for (int32_t i = 0; i < s->groupcts[color]; i++) {
             group_t g = s->groupids[color][i];
-            if (board_group_info(b, g).libs != 2)
+            if (board_group_info(b, g)->libs != 2)
                 continue;
             coord_t other = board_group_other_lib(b, g, to);
             
@@ -226,7 +226,7 @@ namespace weiqi
         with_move_strict(b, to, color, {
             /* Play capture */
             group_t g = group_at(b, to);
-            with_move_strict(b, board_group_info(b, g).lib[0], stone_other(color), {
+            with_move_strict(b, board_group_info(b, g)->lib[0], stone_other(color), {
                 {
                     // assert(!group_at(b, to));
                     if(group_at(b, to)){
@@ -329,14 +329,14 @@ namespace weiqi
             
             {
                 // assert(board_group_info(b, g).libs <= 2);
-                if(!(board_group_info(b, g).libs <= 2)){
+                if(!(board_group_info(b, g)->libs <= 2)){
                     printf("error, assert(board_group_info(b, g).libs <= 2)\n");
-                    board_group_info(b, g).libs = 2;
+                    board_group_info(b, g)->libs = 2;
                 }
             }
             /* Suicide is definitely NOT ok, no matter what else
              * we could test. */
-            if (board_group_info(b, g).libs == 1)
+            if (board_group_info(b, g)->libs == 1)
                 return true;
             
             /* In that case, we must be connected to at most one stone,
@@ -376,17 +376,17 @@ namespace weiqi
              * not in atari. */
             group_t g = s->groupids[color][i];
             
-            if (board_group_info(b, g).libs == 1) {
+            if (board_group_info(b, g)->libs == 1) {
                 if (!s->needs_more_lib)
                     s->friend_has_no_libs = true;
                 // or we already have a friend with 1 lib
                 continue;
             }
             
-            if (board_group_info(b, g).libs > 2) {
+            if (board_group_info(b, g)->libs > 2) {
                 /* Could we self-atari the group here? */
                 if (flags & SELFATARI_3LIB_SUICIDE &&
-                    board_group_info(b, g).libs == 3
+                    board_group_info(b, g)->libs == 3
                     && three_liberty_suicide(b, g, color, to, s))
                     return true;
                 return false;
@@ -431,7 +431,7 @@ namespace weiqi
         for (int32_t i = 0; i < s->groupcts[stone_other(color)]; i++) {
             /* We can escape by capturing this group if it's in atari. */
             group_t g = s->groupids[stone_other(color)][i];
-            if (board_group_info(b, g).libs > 1)
+            if (board_group_info(b, g)->libs > 1)
                 continue;
             
             /* But we need to get to at least two liberties by this;
@@ -476,8 +476,8 @@ namespace weiqi
     {
         for (int32_t i = 0; i < s->groupcts[color]; i++) {
             group_t g = s->groupids[color][i];
-            for (int32_t j = 0; j < board_group_info(b, g).libs; j++)
-                if (board_group_info(b, g).lib[j] == lib)
+            for (int32_t j = 0; j < board_group_info(b, g)->libs; j++)
+                if (board_group_info(b, g)->lib[j] == lib)
                     return false;
         }
         return true;
@@ -505,7 +505,7 @@ namespace weiqi
         {
             // assert(stones != 1);
             if(!(stones != 1)){
-                printf("error, assert(stones != 1)\n");
+                // printf("error, assert(stones != 1)\n");
             }
         }
         {
@@ -546,9 +546,9 @@ namespace weiqi
                         if (board_at(b, c) == color) {
                             {
                                 // assert(board_group_info(b, g).libs == 1);  /* Should be in atari */
-                                if(!(board_group_info(b, g).libs == 1)){
+                                if(!(board_group_info(b, g)->libs == 1)){
                                     printf("error, assert(board_group_info(b, g).libs == 1)\n");
-                                    board_group_info(b, g).libs = 1;
+                                    board_group_info(b, g)->libs = 1;
                                 }
                             }
                             standing = g;
@@ -562,7 +562,7 @@ namespace weiqi
                         }
                     }
                     
-                    with_move_strict(b, board_group_info(b, standing).lib[0], stone_other(color), {
+                    with_move_strict(b, board_group_info(b, standing)->lib[0], stone_other(color), {
                         /* Empty now since it's been captured */
                         coord_t empty = group_base(s->groupids[color][0]);
                         would_live = !nakade_dead_shape(b, empty, stone_other(color));
@@ -592,14 +592,14 @@ namespace weiqi
      * - d is desirable if putting group in atari (otherwise we
      *   would never capture a single-eyed group). */
 // TODO cai doan nay phai check ky
-#define check_throw_in_or_inside_capture(b, color, to, s, capturing)			\
-if (s->groupcts[color] == 1 && group_is_onestone(b, s->groupids[color][0])) {	\
-group_t g2 = s->groupids[color][0];					\
-/**assert(board_group_info(b, g2).libs <= 2);*/				\
-if (board_group_info(b, g2).libs == 1)					\
-return false;  /*  b */						\
-return !capturing;							\
-}
+// #define check_throw_in_or_inside_capture(b, color, to, s, capturing)			\
+// if (s->groupcts[color] == 1 && group_is_onestone(b, s->groupids[color][0])) {	\
+// group_t g2 = s->groupids[color][0];					\
+// /**assert(board_group_info(b, g2).libs <= 2);*/				\
+// if (board_group_info(b, g2).libs == 1)					\
+// return false;  /*  b */						\
+// return !capturing;							\
+// }
     
     /* There is another possibility - we can self-atari if it is
      * a nakade: we put an enemy group in atari from the inside.
@@ -621,7 +621,7 @@ return !capturing;							\
         coord_t lib2 = pass;
         for (int32_t i = 0; i < s->groupcts[stone_other(color)]; i++) {
             group_t g = s->groupids[stone_other(color)][i];
-            if (board_group_info(b, g).libs != 2)
+            if (board_group_info(b, g)->libs != 2)
                 continue;
             
             coord_t this_lib2 = board_group_other_lib(b, g, to);
@@ -643,7 +643,7 @@ return !capturing;							\
             if (can_escape_instead(b, color, to, s))
                 return -1;
             
-            check_throw_in_or_inside_capture(b, color, to, s, false);
+            // check_throw_in_or_inside_capture(b, color, to, s, false);
 
             int32_t stones = 0;
             for (int32_t j = 0; j < s->groupcts[color]; j++) {
@@ -668,7 +668,7 @@ return !capturing;							\
         if (s->groupcts[color] < 1)
             return false;  /* Simple throw-in, an easy case */
         
-        check_throw_in_or_inside_capture(b, color, to, s, true);
+        // check_throw_in_or_inside_capture(b, color, to, s, true);
         
         /* We would create more than 2-stone group; in that
          * case, the liberty of our result must be lib2,
@@ -678,20 +678,20 @@ return !capturing;							\
             group_t g2 = s->groupids[color][j];
             {
                 // assert(board_group_info(b, g2).libs <= 2);
-                if(!(board_group_info(b, g2).libs <= 2)){
+                if(!(board_group_info(b, g2)->libs <= 2)){
                     printf("error, assert(board_group_info(b, g2).libs <= 2)\n");
-                    board_group_info(b, g2).libs = 2;
+                    board_group_info(b, g2)->libs = 2;
                 }
             }
-            if (board_group_info(b, g2).libs == 2) {
-                if (board_group_info(b, g2).lib[0] != lib2
-                    && board_group_info(b, g2).lib[1] != lib2)
+            if (board_group_info(b, g2)->libs == 2) {
+                if (board_group_info(b, g2)->lib[0] != lib2
+                    && board_group_info(b, g2)->lib[1] != lib2)
                     return -1;
             } else {
                 // assert(board_group_info(b, g2).lib[0] == to);
-                if(!(board_group_info(b, g2).lib[0] == to)){
+                if(!(board_group_info(b, g2)->lib[0] == to)){
                     printf("error, assert(board_group_info(b, g2).lib[0] == to)\n");
-                    board_group_info(b, g2).lib[0] = to;
+                    board_group_info(b, g2)->lib[0] = to;
                 }
             }
             /* See below: */
@@ -768,7 +768,7 @@ return !capturing;							\
         foreach_neighbor(b, coord, {
             enum stone s = board_at(b, c);
             group_t g = group_at(b, c);
-            if (board_group_info(b, g).libs == 2) {
+            if (board_group_info(b, g)->libs == 2) {
                 groups[groups_n++] = g;
                 groupsbycolor[s]++;
                 if (DEBUGL(6)){

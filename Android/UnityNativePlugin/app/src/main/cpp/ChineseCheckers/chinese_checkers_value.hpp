@@ -1,11 +1,14 @@
 #pragma once
 
-namespace ChineseCheckers::Value
+namespace ChineseCheckers
 {
-
-    constexpr int DRAW = 0;
-    constexpr int MATE = 100000;
-    constexpr int INFINITE = 2 * MATE;
-    constexpr int NO_VALUE = 3 * MATE;
-
+    namespace Value
+    {
+        
+        constexpr int DRAW = 0;
+        constexpr int MATE = 100000;
+        constexpr int INFINITE = 2 * MATE;
+        constexpr int NO_VALUE = 3 * MATE;
+        
+    }
 }

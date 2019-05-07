@@ -424,7 +424,7 @@ namespace weiqi
                 printf("error parse fail: %d; %d; %d\n", pointerIndex, length, start);
                 return -1;
             } else {
-                // printf("parse success: %d; %d; %d %d\n", pointerIndex, length, start, (pointerIndex - start));
+                // printf(*"parse success: %d; %d; %d %d\n", pointerIndex, length, start, (pointerIndex - start));
                 return (pointerIndex - start);
             }
         }
@@ -701,47 +701,15 @@ namespace weiqi
 #endif
     
 // #define board_at(b_, c) ((b_)->b[c])
-    static enum stone board_at(struct board *b, coord_t c)
-    {
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            return b->b[c];
-        }else{
-            // printf("board_at error: %d\n", c);
-            return S_NONE;
-        }
-    }
+    enum stone board_at(struct board *b, coord_t c);
     
-    static void board_set(struct board *b, coord_t c, enum stone stone)
-    {
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            b->b[c] = stone;
-        }else{
-            // printf("board_set error: %d\n", c);
-        }
-    }
+    void board_set(struct board *b, coord_t c, enum stone stone);
     
 // #define board_atxy(b_, x, y) ((b_)->b[(x) + board_size(b_) * (y)])
-    static enum stone board_atxy(struct board *b, int x, int y)
-    {
-        int c = (x) + board_size(b) * (y);
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            return b->b[c];
-        }else{
-            // printf("board_atxy error: %d\n", c);
-            return S_NONE;
-        }
-    }
+    enum stone board_atxy(struct board *b, int x, int y);
     
 // #define group_at(b_, c) ((b_)->g[c])
-    static group_t group_at(struct board *b, coord_t c)
-    {
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            return b->g[c];
-        }else{
-            // printf("group_at error: %d\n", c);
-            return 0;
-        }
-    }
+    group_t group_at(struct board *b, coord_t c);
     
     static void group_set(struct board *b, coord_t c, group_t group)
     {
@@ -753,37 +721,45 @@ namespace weiqi
     }
     
 // #define group_atxy(b_, x, y) ((b_)->g[(x) + board_size(b_) * (y)])
-    static group_t group_atxy(struct board *b, int x, int y)
-    {
-        coord_t c = (x) + board_size(b) * (y);
-        if(c>=0 && c<BOARD_MAX_COORDS){
-            return b->g[c];
-        }else{
-            // printf("group_atxy error: %d\n", c);
-            return 0;
-        }
-    }
+    group_t group_atxy(struct board *b, int x, int y);
     
     /* Warning! Neighbor count is not kept up-to-date for S_NONE! */
-#define neighbor_count_at(b_, coord, color) ((b_)->n[coord].colors[(enum stone) color])
-#define set_neighbor_count_at(b_, coord, color, count) (neighbor_count_at(b_, coord, color) = (count))
-#define inc_neighbor_count_at(b_, coord, color) (neighbor_count_at(b_, coord, color)++)
-#define dec_neighbor_count_at(b_, coord, color) (neighbor_count_at(b_, coord, color)--)
+// #define neighbor_count_at(b_, coord, color) ((b_)->n[coord].colors[(enum stone) color])
+    char neighbor_count_at(struct board *b_, coord_t coord, enum stone color);
+    
+// #define set_neighbor_count_at(b_, coord, color, count) (neighbor_count_at(b_, coord, color) = (count))
+    void set_neighbor_count_at(struct board *b_, coord_t coord, enum stone color, char count);
+    
+// #define inc_neighbor_count_at(b_, coord, color) (neighbor_count_at(b_, coord, color)++)
+    void inc_neighbor_count_at(struct board *b_, coord_t coord, enum stone color);
+    
+// #define dec_neighbor_count_at(b_, coord, color) (neighbor_count_at(b_, coord, color)--)
+    void dec_neighbor_count_at(struct board *b_, coord_t coord, enum stone color);
+    
 #define immediate_liberty_count(b_, coord) (4 - neighbor_count_at(b_, coord, S_BLACK) - neighbor_count_at(b_, coord, S_WHITE) - neighbor_count_at(b_, coord, S_OFFBOARD))
     
-#define trait_at(b_, coord, color) (b_)->t[coord][(color) - 1]
+// #define trait_at(b_, coord, color) (b_)->t[coord][(color) - 1]
     
-#define groupnext_at(b_, c) ((b_)->p[c])
-#define groupnext_atxy(b_, x, y) ((b_)->p[(x) + board_size(b_) * (y)])
+// #define groupnext_at(b_, c) ((b_)->p[c])
+    coord_t groupnext_at(struct board *b_, coord_t c);
+    void groupnext_set(struct board *b_, coord_t c, coord_t nextCoord);
+    
+// #define groupnext_atxy(b_, x, y) ((b_)->p[(x) + board_size(b_) * (y)])
+    coord_t groupnext_atxy(struct board *b_, int32_t x, int32_t y);
     
 #define group_base(g_) (g_)
 #define group_is_onestone(b_, g_) (groupnext_at(b_, group_base(g_)) == 0)
-#define board_group_info(b_, g_) ((b_)->gi[(g_)])
-#define board_group_captured(b_, g_) (board_group_info(b_, g_).libs == 0)
-    /* board_group_other_lib() makes sense only for groups with two liberties. */
-#define board_group_other_lib(b_, g_, l_) (board_group_info(b_, g_).lib[board_group_info(b_, g_).lib[0] != (l_) ? 0 : 1])
+
     
-#define hash_at(board_statics, b_, coord, color) (board_statics->h[coord][((color) == S_BLACK ? 1 : 0)])
+// #define board_group_info(b_, g_) ((b_)->gi[(g_)])
+    struct group* board_group_info(struct board *b_, group_t g_);
+    
+#define board_group_captured(b_, g_) (board_group_info(b_, g_)->libs == 0)
+    /* board_group_other_lib() makes sense only for groups with two liberties. */
+#define board_group_other_lib(b_, g_, l_) (board_group_info(b_, g_)->lib[board_group_info(b_, g_)->lib[0] != (l_) ? 0 : 1])
+    
+// #define hash_at(board_statics, b_, coord, color) (board_statics->h[coord][((color) == S_BLACK ? 1 : 0)])
+    hash_t hash_at(board_statics* board_statics, struct board *board, coord_t coord, enum stone color);
     
     void board_init(struct board* b, char *fbookfile);
     struct board *board_copy(struct board *board2, struct board *board1);
@@ -1023,7 +999,7 @@ c += board_statics->dnei[fn__i];
         int32_t groups_in_atari = 0;
         foreach_neighbor(board, coord, {
             group_t g = group_at(board, c);
-            groups_in_atari += (board_group_info(board, g).libs == 1);
+            groups_in_atari += (board_group_info(board, g)->libs == 1);
         });
         return !!groups_in_atari;
     }
@@ -1042,14 +1018,14 @@ c += board_statics->dnei[fn__i];
         // Capturing something ?
         foreach_neighbor(board, coord, {
             if (board_at(board, c) == stone_other(color) &&
-                board_group_info(board, group_at(board, c)).libs == 1)
+                board_group_info(board, group_at(board, c))->libs == 1)
                 return true;
         });
         
         // Neighbour with 2 libs ?
         foreach_neighbor(board, coord, {
             if (board_at(board, c) == color &&
-                board_group_info(board, group_at(board, c)).libs > 1)
+                board_group_info(board, group_at(board, c))->libs > 1)
                 return true;
         });
         
@@ -1071,7 +1047,7 @@ c += board_statics->dnei[fn__i];
     {
         foreach_neighbor(b, coord, {
             group_t g = group_at(b, c);
-            if (g && board_at(b, c) == group_color && board_group_info(b, g).libs == 1)
+            if (g && board_at(b, c) == group_color && board_group_info(b, g)->libs == 1)
                 return g;
             /* We return first match. */
         });
@@ -1088,13 +1064,13 @@ c += board_statics->dnei[fn__i];
         /* ok, but we need to check if they don't have just two libs. */
         coord_t onelib = -1;
         foreach_neighbor(b, coord, {
-            if (board_at(b, c) == stone_other(color) && board_group_info(b, group_at(b, c)).libs == 1)
+            if (board_at(b, c) == stone_other(color) && board_group_info(b, group_at(b, c))->libs == 1)
                 return true; // can capture; no snapback check
             
             if (board_at(b, c) != color) continue;
             group_t g = group_at(b, c);
-            if (board_group_info(b, g).libs == 1) continue; // in atari
-            if (board_group_info(b, g).libs == 2) { // two liberties
+            if (board_group_info(b, g)->libs == 1) continue; // in atari
+            if (board_group_info(b, g)->libs == 2) { // two liberties
                 if (libs > 0) return true; // we already have one real liberty
                 /* we might be connecting two 2-lib groups, which is ok;
                  * so remember the other liberty and just make sure it's

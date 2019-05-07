@@ -26,6 +26,172 @@ namespace weiqi
 #define gi_granularity 4
 #define gi_allocsize(gids) ((1 << gi_granularity) + ((gids) >> gi_granularity) * (1 << gi_granularity))
     
+    /////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Not Use Define ////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    enum stone board_at(struct board *b, coord_t c)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->b[c];
+        }else{
+            // printf("board_at error: %d\n", c);
+            return S_NONE;
+        }
+    }
+    
+    enum stone board_atxy(struct board *b, int x, int y)
+    {
+        int c = (x) + board_size(b) * (y);
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->b[c];
+        }else{
+            // printf("board_atxy error: %d\n", c);
+            return S_NONE;
+        }
+    }
+    
+    group_t group_at(struct board *b, coord_t c)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->g[c];
+        }else{
+            // printf("group_at error: %d\n", c);
+            return 0;
+        }
+    }
+    
+    group_t group_atxy(struct board *b, int x, int y)
+    {
+        coord_t c = (x) + board_size(b) * (y);
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return b->g[c];
+        }else{
+            // printf("group_atxy error: %d\n", c);
+            return 0;
+        }
+    }
+    
+    char neighbor_count_at(struct board *b_, coord_t coord, enum stone color)
+    {
+        char ret = 0;
+        {
+            if(coord>=0 && coord<BOARD_MAX_COORDS){
+                if(color>=0 && color<S_MAX){
+                    ret = (b_)->n[coord].colors[(enum stone) color];
+                }else{
+                    printf("color error: %d\n", color);
+                }
+            }else{
+                printf("board error: %d\n", coord);
+            }
+        }
+        return ret;
+    }
+    
+    void board_set(struct board *b, coord_t c, enum stone stone)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            b->b[c] = stone;
+        }else{
+            // printf("board_set error: %d\n", c);
+        }
+    }
+    
+    void set_neighbor_count_at(struct board *b_, coord_t coord, enum stone color, char count)
+    {
+        if(coord>=0 && coord<BOARD_MAX_COORDS){
+            if(color>=0 && color<S_MAX){
+                (b_)->n[coord].colors[(enum stone) color] = count;
+            }else{
+                printf("color error: %d\n", color);
+            }
+        }else{
+            printf("board error: %d\n", coord);
+        }
+    }
+    
+    void inc_neighbor_count_at(struct board *b_, coord_t coord, enum stone color)
+    {
+        if(coord>=0 && coord<BOARD_MAX_COORDS){
+            if(color>=0 && color<S_MAX){
+                (b_)->n[coord].colors[(enum stone) color]++;
+            }else{
+                printf("color error: %d\n", color);
+            }
+        }else{
+            printf("board error: %d\n", coord);
+        }
+    }
+    
+    void dec_neighbor_count_at(struct board *b_, coord_t coord, enum stone color)
+    {
+        if(coord>=0 && coord<BOARD_MAX_COORDS){
+            if(color>=0 && color<S_MAX){
+                (b_)->n[coord].colors[(enum stone) color]--;
+            }else{
+                printf("color error: %d\n", color);
+            }
+        }else{
+            printf("board error: %d\n", coord);
+        }
+    }
+    
+    coord_t groupnext_at(struct board *b_, coord_t c)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return (b_)->p[c];
+        }else{
+            printf("error, groupnext_at: %d, ", c);
+            return 0;
+        }
+    }
+    
+    void groupnext_set(struct board *b_, coord_t c, coord_t nextCoord)
+    {
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            (b_)->p[c] = nextCoord;
+        }else{
+            printf("error, groupnext_set: %d, ", c);
+        }
+    }
+    
+    coord_t groupnext_atxy(struct board *b_, int32_t x, int32_t y)
+    {
+        int32_t c = (x) + board_size(b_) * (y);
+        if(c>=0 && c<BOARD_MAX_COORDS){
+            return (b_)->p[c];
+        }else{
+            printf("error, groupnext_atxy: %d, ", c);
+            return 0;
+        }
+    }
+    
+    struct group* board_group_info(struct board *b_, group_t g_)
+    {
+        // printf("find board group info\n");
+        if(g_>=0 && g_<BOARD_MAX_COORDS){
+            return &(b_)->gi[(g_)];
+        }else{
+            printf("error, board_group_info error: %d\n", g_);
+            return &(b_)->gi[0];
+        }
+    }
+    
+    hash_t hash_at(board_statics* board_statics, struct board *board, coord_t coord, enum stone color)
+    {
+        if(coord>=0 && coord<BOARD_MAX_COORDS){
+            return board_statics->h[coord][((color) == S_BLACK ? 1 : 0)];
+        }else{
+            printf("hash_at: coord error: %d\n", coord);
+            return 0;
+        }
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////
+    /////////////////////// End Not Use Define ////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
     // bo static
     inline void board_addf(struct board *b, coord_t c)
     {
@@ -327,7 +493,7 @@ namespace weiqi
     group_t profiling_noinline new_group(struct board *board, coord_t coord, struct board_undo *u)
     {
         group_t group = coord;
-        struct group *gi = &board_group_info(board, group);
+        struct group *gi = board_group_info(board, group);
         foreach_neighbor(board, coord, {
             if (board_at(board, c) == S_NONE)
             /* board_group_addlib is ridiculously expensive for us */
@@ -339,7 +505,7 @@ namespace weiqi
         });
         
         group_set(board, coord, group);
-        groupnext_at(board, coord) = 0;
+        groupnext_set(board, coord, 0);
         
         if (!u)
             if (gi->libs == 1)
@@ -365,7 +531,7 @@ namespace weiqi
             u->inserted = c;
         u->merged[i].group = g;
         u->merged[i].last = 0;   // can remove
-        u->merged[i].info = board_group_info(b, g);
+        u->merged[i].info = *board_group_info(b, g);
     }
     
     // bo static
@@ -377,11 +543,11 @@ namespace weiqi
 
         int32_t i = u->nenemies++;
         u->enemies[i].group = g;
-        u->enemies[i].info = board_group_info(b, g);
+        u->enemies[i].info = *board_group_info(b, g);
 
         int32_t j = 0;
         coord_t *stones = u->enemies[i].stones;
-        if (board_group_info(b, g).libs <= 1) { // Will be captured
+        if (board_group_info(b, g)->libs <= 1) { // Will be captured
             foreach_in_group(b, g) {
                 stones[j++] = c;
             } foreach_in_group_end;
@@ -475,7 +641,7 @@ namespace weiqi
          printf("Group %d[%s] %d: Removing liberty %s\n", group_base(group), strCoord1, board_group_info(board, group).libs, strCoord2);
          }*/
         
-        struct group *gi = &board_group_info(board, group);
+        struct group *gi = board_group_info(board, group);
         bool onestone = group_is_onestone(board, group);
         for (int32_t i = 0; i < GROUP_KEEP_LIBS; i++) {
 #if 0
@@ -766,7 +932,7 @@ namespace weiqi
         if (new_color == S_NONE)
             board->pat3[coord] = pattern3_hash(board, coord);
         else
-            in_atari = (board_group_info(board, group_at(board, coord)).libs == 1);
+            in_atari = (board_group_info(board, group_at(board, coord))->libs == 1);
         foreach_8neighbor(board_statics, board, coord) {
             /* Internally, the loop uses fn__i=[0..7]. We can use
              * it directly to address bits within the bitmap of the
@@ -905,8 +1071,8 @@ namespace weiqi
         if (DEBUGL(7)){
             printf("board_play_raw: merging groups %d -> %d\n", group_base(group_from), group_base(group_to));
         }
-        struct group *gi_from = &board_group_info(board, group_from);
-        struct group *gi_to = &board_group_info(board, group_to);
+        struct group *gi_from = board_group_info(board, group_from);
+        struct group *gi_to = board_group_info(board, group_to);
         bool onestone_from = group_is_onestone(board, group_from);
         bool onestone_to = group_is_onestone(board, group_to);
         
@@ -938,7 +1104,7 @@ namespace weiqi
         }
         
         if (!u && gi_to->libs == 1) {
-            coord_t lib = board_group_info(board, group_to).lib[0];
+            coord_t lib = board_group_info(board, group_to)->lib[0];
 #ifdef BOARD_PAT3
             if (gi_from->libs == 1) {
                 /* We removed group_from from capturable groups,
@@ -961,8 +1127,8 @@ namespace weiqi
         } foreach_in_group_end;
         
         if (u) u->merged[++u->nmerged_tmp].last = last_in_group;
-        groupnext_at(board, last_in_group) = groupnext_at(board, group_base(group_to));
-        groupnext_at(board, group_base(group_to)) = group_base(group_from);
+        groupnext_set(board, last_in_group, groupnext_at(board, group_base(group_to)));
+        groupnext_set(board, group_base(group_to), group_base(group_from));
         memset(gi_from, 0, sizeof(struct group));
         
         if (DEBUGL(7)){
@@ -985,7 +1151,7 @@ namespace weiqi
          printf("Group %d[%s] %d: Adding liberty %s\n", group_base(group), strCoord1, board_group_info(board, group).libs, strCoord2);
          }*/
         
-        struct group *gi = &board_group_info(board, group);
+        struct group *gi = board_group_info(board, group);
         bool onestone = group_is_onestone(board, group);
         if (gi->libs < GROUP_KEEP_LIBS) {
             for (int32_t i = 0; i < GROUP_KEEP_LIBS; i++) {
@@ -1054,7 +1220,7 @@ namespace weiqi
             stones++;
         } foreach_in_group_end;
         
-        struct group *gi = &board_group_info(board, group);
+        struct group *gi = board_group_info(board, group);
         {
             // assert(gi->libs == 0);
             if(!(gi->libs == 0)){
@@ -1070,8 +1236,8 @@ namespace weiqi
     void profiling_noinline add_to_group(struct board *board, group_t group, coord_t prevstone, coord_t coord, struct board_undo *u)
     {
         group_set(board, coord, group);
-        groupnext_at(board, coord) = groupnext_at(board, prevstone);
-        groupnext_at(board, prevstone) = coord;
+        groupnext_set(board, coord, groupnext_at(board, prevstone));
+        groupnext_set(board, prevstone, coord);
         
         foreach_neighbor(board, coord, {
             if (board_at(board, c) == S_NONE)
@@ -1108,7 +1274,7 @@ namespace weiqi
                 merge_groups(board, group, ngroup, u);
         } else if (ncolor == other_color) {
             if (DEBUGL(8)) {
-                struct group *gi = &board_group_info(board, ngroup);
+                struct group *gi = board_group_info(board, ngroup);
                 {
                     char strCoord[256];
                     {
@@ -1200,9 +1366,9 @@ namespace weiqi
         foreach_neighbor(board, coord, {
             group_t g = group_at(board, c);
             if (DEBUGL(7)){
-                printf("board_check: group %d has %d libs\n", g, board_group_info(board, g).libs);
+                printf("board_check: group %d has %d libs\n", g, board_group_info(board, g)->libs);
             }
-            captured_groups += (board_group_info(board, g).libs == 1);
+            captured_groups += (board_group_info(board, g)->libs == 1);
         });
         
         if (likely(captured_groups == 0)) {
@@ -1416,10 +1582,10 @@ namespace weiqi
         for (int32_t i = u->nmerged - 1; i > 0; i--) {
             group_t old_group = merged[i].group;
             
-            board_group_info(b, old_group) = merged[i].info;
+            *board_group_info(b, old_group) = merged[i].info;
             
-            groupnext_at(b, group_base(group)) = groupnext_at(b, merged[i].last);
-            groupnext_at(b, merged[i].last) = 0;
+            groupnext_set(b, group_base(group), groupnext_at(b, merged[i].last));
+            groupnext_set(b, merged[i].last, 0);
             
 #if 0
             printf("merged_group[%i]:   (last: %s)", i, coord2sstr(merged[i].last, b));
@@ -1435,8 +1601,8 @@ namespace weiqi
         }
         
         // Restore first group
-        groupnext_at(b, u->inserted) = groupnext_at(b, coord);
-        board_group_info(b, merged[0].group) = merged[0].info;
+        groupnext_set(b, u->inserted, groupnext_at(b, coord));
+        *board_group_info(b, merged[0].group) = merged[0].info;
         
 #if 0
         printf("merged_group[0]: ");
@@ -1457,13 +1623,13 @@ namespace weiqi
         for (int32_t i = 0; i < u->nenemies; i++) {
             group_t old_group = enemy[i].group;
             
-            board_group_info(b, old_group) = enemy[i].info;
+            *board_group_info(b, old_group) = enemy[i].info;
             
             coord_t *stones = enemy[i].stones;
             for (int32_t j = 0; stones[j]; j++) {
                 board_set(b, stones[j], other_color);
                 group_set(b, stones[j], old_group);
-                groupnext_at(b, stones[j]) = stones[j + 1];
+                groupnext_set(b, stones[j], stones[j + 1]);
                 
                 foreach_neighbor(b, stones[j], {
                     inc_neighbor_count_at(b, c, other_color);
@@ -1497,11 +1663,11 @@ namespace weiqi
         if (u->nmerged)
             undo_merge(b, u, m);
         else			// Single stone group undo
-            memset(&board_group_info(b, group_at(b, coord)), 0, sizeof(struct group));
+            memset(board_group_info(b, group_at(b, coord)), 0, sizeof(struct group));
         
         board_set(b, coord, S_NONE);
         group_set(b, coord, 0);
-        groupnext_at(b, coord) = u->next_at;
+        groupnext_set(b, coord, u->next_at);
         
         foreach_neighbor(b, coord, {
             dec_neighbor_count_at(b, c, color);
@@ -1524,14 +1690,14 @@ namespace weiqi
         for (int32_t i = 0; i < u->nenemies; i++) {
             group_t old_group = enemy[i].group;
             
-            board_group_info(b, old_group) = enemy[i].info;
+            *board_group_info(b, old_group) = enemy[i].info;
             
             coord_t *stones = enemy[i].stones;
             for (int32_t j = 0; stones[j]; j++) {
                 // printf("stones j: %d, %d\n", j, stones[j]);
                 board_set(b, stones[j], other_color);
                 group_set(b, stones[j], old_group);
-                groupnext_at(b, stones[j]) = stones[j + 1];
+                groupnext_set(b, stones[j], stones[j + 1]);
                 
                 foreach_neighbor(b, stones[j], {
                     inc_neighbor_count_at(b, c, other_color);
@@ -1571,7 +1737,7 @@ namespace weiqi
         
         board_set(b, coord, S_NONE);
         group_set(b, coord, 0);
-        groupnext_at(b, coord) = u->next_at;
+        groupnext_set(b, coord, u->next_at);
         
         foreach_neighbor(b, coord, {
             dec_neighbor_count_at(b, c, m->color);
