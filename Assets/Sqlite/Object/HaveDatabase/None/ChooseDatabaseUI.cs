@@ -78,9 +78,31 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
 
     #endregion
 
+    #region txt, rect
+
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Database");
+
+    public Text tvChoose;
+    private static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
+
+    public Text tvNamePlaceHolder;
+    private static readonly TxtLanguage txtNamePlaceHolder = new TxtLanguage("Enter database name...");
+
+    static ChooseDatabaseUI()
+    {
+        txtTitle.add(Language.Type.vi, "Chọn Cơ Sở Dữ Liệu");
+        txtChoose.add(Language.Type.vi, "Chọn");
+        txtNamePlaceHolder.add(Language.Type.vi, "Điền tên cơ sở dữ liệu...");
+    }
+
+    #endregion
+
     #region Refresh
 
     public InputField edtName;
+
+    public Button btnBack;
 
     public override void refresh()
     {
@@ -89,7 +111,95 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             dirty = false;
             if (this.data != null)
             {
-
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    }
+                    // edtName
+                    if (edtName != null)
+                    {
+                        UIRectTransform.SetPosY((RectTransform)edtName.transform, buttonSize + 20);
+                    }
+                    else
+                    {
+                        Debug.LogError("edtName null");
+                    }
+                    // btnChoose
+                    if (btnChoose != null)
+                    {
+                        UIRectTransform rect = new UIRectTransform();
+                        {
+                            // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                            // offsetMin: (-90.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (90.0, 30.0);
+                            rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            rect.anchorMin = new Vector2(1.0f, 1.0f);
+                            rect.anchorMax = new Vector2(1.0f, 1.0f);
+                            rect.pivot = new Vector2(1.0f, 1.0f);
+                            rect.offsetMin = new Vector2(-90.0f, -30.0f);
+                            rect.offsetMax = new Vector2(0.0f, 0.0f);
+                            rect.sizeDelta = new Vector2(90.0f, 30.0f);
+                        }
+                        rect.set((RectTransform)btnChoose.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnChoose null");
+                    }
+                    // fileSystemBrowser
+                    {
+                        UIRectTransform rect = CreateFileSystemBrowserContainer();
+                        UIRectTransform.Set(this.data.fileSystemBrowser.v, rect);
+                    }
+                }
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTile null");
+                    }
+                    if (tvChoose != null)
+                    {
+                        tvChoose.text = txtChoose.get();
+                        Setting.get().setContentTextSize(tvChoose);
+                    }
+                    else
+                    {
+                        Debug.LogError("tvChoose null");
+                    }
+                    if (tvNamePlaceHolder != null)
+                    {
+                        tvNamePlaceHolder.text = txtNamePlaceHolder.get();
+                        Setting.get().setContentTextSize(tvNamePlaceHolder);
+                    }
+                    else
+                    {
+                        Debug.LogError("tvNamePlaceHolder null");
+                    }
+                    if (edtName != null)
+                    {
+                        if (edtName.textComponent != null)
+                        {
+                            Setting.get().setContentTextSize(edtName.textComponent);
+                        }
+                        else
+                        {
+                            Debug.LogError("textComponent null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("edtFen null");
+                    }
+                }
             }
             else
             {
@@ -108,17 +218,29 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
     #region implement callBacks
 
     public FileSystemBrowserUI fileSystemBrowserPrefab;
-    public Transform fileSystemBrowserContainer;
+    public static UIRectTransform CreateFileSystemBrowserContainer()
+    {
+        UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 70, 0);
+        return rect;
+    }
 
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.fileSystemBrowser.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -128,7 +250,7 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
             FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
             // UI
             {
-                UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, fileSystemBrowserContainer);
+                UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserContainer());
             }
             dirty = true;
             return;
@@ -141,11 +263,18 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.fileSystemBrowser.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -176,6 +305,57 @@ public class ChooseDatabaseUI : UIBehavior<ChooseDatabaseUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.useShortKey:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.boardIndex:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

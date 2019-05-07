@@ -291,7 +291,7 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
                         }
                     }
                     drSubType.gameObject.SetActive(show);
-                    drSubType.transform.SetAsLastSibling();
+                    // drSubType.transform.SetAsLastSibling();
                 }
                 else
                 {

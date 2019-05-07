@@ -377,7 +377,7 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                 }
                 // set siblingIndex
                 {
-                    UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
+                    // UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
                 }
                 // txt
                 {

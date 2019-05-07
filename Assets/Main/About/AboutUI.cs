@@ -121,6 +121,7 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
