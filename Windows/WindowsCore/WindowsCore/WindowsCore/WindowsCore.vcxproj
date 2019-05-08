@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_depth.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_direction.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_hole.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_interface.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_move.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movegenerator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movelist.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_pebble.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_protocol.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_ricefish.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_value.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_ai.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_database.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\english_draught_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_material.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_misc.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movepick.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_pawns.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread_win32.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_timeman.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_uci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_variant.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\syzygy\fairy_chess_tbprobe.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_ai_controller.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_eval.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_negamax.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_utils.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\api\gomoku_renju_api.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_color.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_eval.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_hexutils.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_iengine.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_mcts.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_record.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\hex_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_base.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_comp.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_index.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bit.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_book.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_common.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_eval.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_fen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_hash.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_libmy.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_list.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move_gen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_MyBase.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_pos.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_score.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_sort.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_util.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_var.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Calculator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_CommsHandler.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_EvalLaser.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_EvalParams.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Evaluator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Globals.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_History.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_ILaserable.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Laser.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveGenerator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveHelpers.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_PathLaser.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_RandomGenerator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_SearchParams.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_SquareHelpers.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_TranspositionTable.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Utils.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Zobrist.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_material.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_misc.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movepick.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_pawns.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread_win32.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_timeman.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_uci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\syzygy\makruk_tbprobe.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\makruk_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_Solver.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmmagent.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_evaluator.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_spot.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_state.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Platform.h" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_common.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endhash.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_eval.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_hash.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_openings.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_patternbuilder.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_player.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_PRNG.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAccess.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAccessImp.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_KALLISTO.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_material.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_misc.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movepick.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_pawns.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread_win32.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_timeman.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_uci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\syzygy\seirawan_tbprobe.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_material.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_misc.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movepick.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_pawns.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tbprobe.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread_win32.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_timeman.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_uci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_benchmark.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_book.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_color.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_common.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evalList.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_generateMoves.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_hand.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_ifdef.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_init.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_learner.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_move.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_movePicker.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_mt64bit.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_overloadEnumOperators.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_piece.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_pieceScore.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_score.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_square.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_timeManager.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_usi.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\shogi_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Card.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_HashMap.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Move.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Pile.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Solitaire.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\chess_stock_fish_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitboard.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_endgame.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_material.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_misc.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movegen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movepick.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_pawns.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tbprobe.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread_win32.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_timeman.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tt.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_types.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_uci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_josekibase.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_montecarlo.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternplay.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternscan.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\weiqi_distributed.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_light.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_moggy.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_1lib.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_2lib.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_dragon.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_ladder.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nakade.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nlib.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_seki.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_selfatari.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_generic.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_internal.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_plugins.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_prior.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_slave.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_tree.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_uct.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_walk.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_board.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_dcnn.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_debug.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_engine.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fbook.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fixp.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_gogui.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_jni.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_move.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_mq.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_ownermap.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern3.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternprob.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternsp.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_playout.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_probdist.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random_engine.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stats.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stone.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_timeinfo.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_util.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_base.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_base2.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_parse.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_rc4prng.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_x86asm.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_cchess.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_ecco.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_pgnfile.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_book.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_evaluate.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_hash.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_movesort.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_position.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_preeval.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_pregen.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_search.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_ucci.hpp" />
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\xiangqi_jni.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_interface.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movegenerator.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_ricefish.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_ai.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_database.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\english_draught_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_benchmark.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitbase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_material.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_misc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movepick.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_pawns.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_psqt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_timeman.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_uci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_ucioption.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_variant.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\syzygy\fairy_chess_tbprobe.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_ai_controller.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_eval.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_negamax.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_utils.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\api\gomoku_renju_api.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_color.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_eval.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_hexutils.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_iengine.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_mcts.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_record.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\hex_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_base.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_comp.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_index.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bit.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_book.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_common.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_eval.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_fen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_hash.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_libmy.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_list.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move_gen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_MyBase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_pos.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_score.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_sort.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_util.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_var.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Calculator.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_CommsHandler.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Evaluator.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Laser.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveGenerator.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Utils.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_benchmark.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitbase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_material.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_misc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movepick.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_pawns.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_psqt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_timeman.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_uci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_ucioption.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\syzygy\makruk_tbprobe.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\makruk_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_Solver.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmmagent.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_evaluator.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Platform.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_blur.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_common.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_crtbk.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endhash.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_eval.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_evalbuilder.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_hash.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_openings.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_patternbuilder.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_player.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_PRNG.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_protocol.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_testgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_testsuites.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_tuneheuristic.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_wrapper.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAcessImp.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_KestoG_1_5.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_benchmark.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitbase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_material.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_misc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movepick.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_pawns.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_psqt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_timeman.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_uci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_ucioption.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\syzygy\seirawan_tbprobe.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitbase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_material.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_misc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movepick.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_pawns.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_psqt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tbprobe.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_timeman.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_uci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_ucioption.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_benchmark.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_book.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_common.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evalList.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_generateMoves.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_hand.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_init.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_move.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_movePicker.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_mt64bit.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_pieceScore.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_square.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_timeManager.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_usi.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\shogi_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Card.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Move.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Pile.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Solitaire.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\chess_stock_fish_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_benchmark.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitbase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitboard.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_endgame.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_material.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_misc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movegen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movepick.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_pawns.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_psqt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tbprobe.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_timeman.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tt.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_uci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_ucioption.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_josekibase.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_montecarlo.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternplay.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternscan.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\weiqi_distributed.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_light.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_moggy.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_1lib.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_2lib.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_dragon.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_ladder.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nakade.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nlib.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_seki.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_selfatari.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_generic.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_plugins.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_prior.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_tree.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_board.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_dcnn.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_engine.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fbook.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_gogui.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_jni.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_move.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_mq.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern3.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternprob.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_playout.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_probdist.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random_engine.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stats.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stone.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_timeinfo.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_util.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_x86asm.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_cchess.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_pgnfile.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_book.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_evaluate.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_genmoves.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_hash.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_movesort.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_position.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_preeval.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_pregen.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_search.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_ucci.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\xiangqi_jni.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.inl" />
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.inl" />
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.inl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{7B7671C4-DA2E-4C9F-8489-AD5587657748}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>WindowsCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;WINDOWSCORE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;WINDOWSCORE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;WINDOWSCORE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;WINDOWSCORE_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

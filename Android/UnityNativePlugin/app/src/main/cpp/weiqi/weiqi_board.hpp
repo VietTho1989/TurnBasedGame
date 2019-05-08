@@ -729,7 +729,8 @@ namespace weiqi
 // #define dec_neighbor_count_at(b_, coord, color) (neighbor_count_at(b_, coord, color)--)
     void dec_neighbor_count_at(struct board *b_, coord_t coord, enum stone color);
     
-#define immediate_liberty_count(b_, coord) (4 - neighbor_count_at(b_, coord, S_BLACK) - neighbor_count_at(b_, coord, S_WHITE) - neighbor_count_at(b_, coord, S_OFFBOARD))
+// #define immediate_liberty_count(b_, coord) (4 - neighbor_count_at(b_, coord, S_BLACK) - neighbor_count_at(b_, coord, S_WHITE) - neighbor_count_at(b_, coord, S_OFFBOARD))
+    char immediate_liberty_count(struct board *b_, coord_t coord);
     
 // #define trait_at(b_, coord, color) (b_)->t[coord][(color) - 1]
     
@@ -747,9 +748,12 @@ namespace weiqi
 // #define board_group_info(b_, g_) ((b_)->gi[(g_)])
     struct group* board_group_info(struct board *b_, group_t g_);
     
-#define board_group_captured(b_, g_) (board_group_info(b_, g_)->libs == 0)
+// #define board_group_captured(b_, g_) (board_group_info(b_, g_)->libs == 0)
+    bool board_group_captured(struct board *b_, group_t g_);
+    
     /* board_group_other_lib() makes sense only for groups with two liberties. */
-#define board_group_other_lib(b_, g_, l_) (board_group_info(b_, g_)->lib[board_group_info(b_, g_)->lib[0] != (l_) ? 0 : 1])
+// #define board_group_other_lib(b_, g_, l_) (board_group_info(b_, g_)->lib[board_group_info(b_, g_)->lib[0] != (l_) ? 0 : 1])
+    coord_t board_group_other_lib(struct board *b_, group_t g_, coord_t l_);
     
 // #define hash_at(board_statics, b_, coord, color) (board_statics->h[coord][((color) == S_BLACK ? 1 : 0)])
     hash_t hash_at(board_statics* board_statics, struct board *board, coord_t coord, enum stone color);
@@ -900,7 +904,7 @@ do { \
 struct board *board__ = (board_);  /* For with_move_return() */		\
 struct move m_; m_.coord = (coord_); m_.color = (color_); \
 struct board_undo u_; \
-assert (board_quick_play(board__, &m_, &u_) >= 0);  \
+board_quick_play(board__, &m_, &u_);\
 do { body_ } while(0);                     \
 board_quick_undo(board__, &m_, &u_); \
 } while (0)

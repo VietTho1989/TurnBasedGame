@@ -169,8 +169,11 @@ namespace weiqi
         weiqi_initCore();
         // set file
         {
-            weiqi_setBookPath((ResourcePath + "/AlwaysIn/weiqi/book.dat").c_str());
-            weiqi_setFileName((ResourcePath + "/NotAlwaysIn/weiqi/patterns.spat").c_str(), (ResourcePath + "/NotAlwaysIn/weiqi/patterns.prob").c_str());
+            // weiqi_setBookPath((ResourcePath + "/AlwaysIn/weiqi/book.dat").c_str());
+            // weiqi_setFileName((ResourcePath + "/NotAlwaysIn/weiqi/patterns.spat").c_str(), (ResourcePath + "/NotAlwaysIn/weiqi/patterns.prob").c_str());
+            std::string resourcePath = "";
+            weiqi_setBookPath((resourcePath + "/AlwaysIn/weiqi/book.dat").c_str());
+            weiqi_setFileName((resourcePath + "/NotAlwaysIn/weiqi/patterns.spat").c_str(), (ResourcePath + "/NotAlwaysIn/weiqi/patterns.prob").c_str());
         }
         
         // random seed

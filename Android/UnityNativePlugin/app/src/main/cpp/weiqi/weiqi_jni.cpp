@@ -634,6 +634,7 @@ namespace weiqi
             {
                 board_statics_init(&position.b);
             }
+            printf("board quicked: %d\n", position.b.quicked);
             position.updateScoreAndOwnerMap();
         }
         // convert

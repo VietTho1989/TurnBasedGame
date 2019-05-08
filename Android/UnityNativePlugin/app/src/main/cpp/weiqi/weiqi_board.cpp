@@ -146,6 +146,11 @@ namespace weiqi
         }
     }
     
+    char immediate_liberty_count(struct board *b_, coord_t coord)
+    {
+        return 4 - neighbor_count_at(b_, coord, S_BLACK) - neighbor_count_at(b_, coord, S_WHITE) - neighbor_count_at(b_, coord, S_OFFBOARD);
+    }
+    
     coord_t groupnext_at(struct board *b_, coord_t c)
     {
         if(c>=0 && c<BOARD_MAX_COORDS){
@@ -185,6 +190,16 @@ namespace weiqi
             printf("error, board_group_info error: %d\n", g_);
             return &(b_)->gi[0];
         }
+    }
+    
+    bool board_group_captured(struct board *b_, group_t g_)
+    {
+        return board_group_info(b_, g_)->libs == 0;
+    }
+    
+    coord_t board_group_other_lib(struct board *b_, group_t g_, coord_t l_)
+    {
+        return board_group_info(b_, g_)->lib[board_group_info(b_, g_)->lib[0] != (l_) ? 0 : 1];
     }
     
     hash_t hash_at(board_statics* board_statics, struct board *board, coord_t coord, enum stone color)
@@ -1485,15 +1500,19 @@ namespace weiqi
     // bo static
     int32_t board_play_(struct board *board, struct move *m, struct board_undo *u)
     {
-        // printf("board_play\n");
-#ifdef BOARD_UNDO_CHECKS
+        /*if(u!=NULL){
+            printf("board_play_: u not null %d\n", board->quicked);
+        }else{
+            printf("board_play_: u null %d\n", board->quicked);
+        }*/
+// #ifdef BOARD_UNDO_CHECKS
         {
             // assert(u || !board->quicked);
             if(!(u || !board->quicked)){
                 printf("error, assert(u || !board->quicked)\n");
             }
         }
-#endif
+// #endif
         
         if (u) undo_init(board, m, u);
         
@@ -1570,8 +1589,10 @@ namespace weiqi
     {
         int32_t r = board_play_(board, m, u);
 #ifdef BOARD_UNDO_CHECKS
-        if (r >= 0)
+        if (r >= 0) {
             board->quicked++;
+            // printf("board_quick_play: %d\n", board->quicked);
+        }
 #endif
         return r;
     }
@@ -1758,6 +1779,7 @@ namespace weiqi
     {
 #ifdef BOARD_UNDO_CHECKS
         b->quicked--;
+        // printf("board_quick_undo: %d\n", b->quicked);
 #endif
         
         b->last_move = b->last_move2;

@@ -1,0 +1,1781 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAccess.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAccessImp.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_KALLISTO.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_material.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_misc.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movepick.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_pawns.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread_win32.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_timeman.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_uci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\syzygy\seirawan_tbprobe.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_material.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_misc.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movepick.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_pawns.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tbprobe.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread_win32.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_timeman.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_uci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_benchmark.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_book.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_color.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_common.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evalList.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_generateMoves.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_hand.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_ifdef.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_init.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_learner.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_move.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_movePicker.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_mt64bit.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_overloadEnumOperators.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_piece.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_pieceScore.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_score.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_square.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_timeManager.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_usi.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\shogi_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Card.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_HashMap.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Move.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Pile.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Solitaire.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\chess_stock_fish_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_material.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_misc.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movepick.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_pawns.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tbprobe.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread_win32.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_timeman.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_uci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_josekibase.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_montecarlo.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternplay.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternscan.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\weiqi_distributed.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_light.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_moggy.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_1lib.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_2lib.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_dragon.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_ladder.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nakade.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nlib.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_seki.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_selfatari.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_generic.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_internal.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_plugins.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_prior.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_slave.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_tree.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_uct.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_walk.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_dcnn.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_debug.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_engine.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fbook.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fixp.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_gogui.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_move.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_mq.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_ownermap.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern3.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternprob.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternsp.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_playout.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_probdist.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random_engine.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stats.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stone.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_timeinfo.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_util.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_base.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_base2.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_parse.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_rc4prng.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_x86asm.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_cchess.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_ecco.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_pgnfile.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_book.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_hash.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_movesort.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_preeval.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_pregen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_ucci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\xiangqi_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Platform.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_depth.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_direction.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_hole.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_interface.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_move.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movegenerator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movelist.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_pebble.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_protocol.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_ricefish.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_value.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_ai.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_database.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\english_draught_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_material.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_misc.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movepick.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_pawns.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread_win32.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_timeman.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_uci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_variant.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\syzygy\fairy_chess_tbprobe.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_ai_controller.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_eval.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_negamax.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_utils.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\api\gomoku_renju_api.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_color.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_eval.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_hexutils.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_iengine.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_mcts.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_record.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\hex_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_base.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_comp.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_index.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bit.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_book.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_common.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_eval.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_fen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_hash.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_libmy.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_list.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move_gen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_MyBase.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_pos.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_score.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_sort.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_util.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_var.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Calculator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_CommsHandler.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_EvalLaser.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_EvalParams.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Evaluator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Globals.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_History.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_ILaserable.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Laser.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveGenerator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveHelpers.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_PathLaser.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_RandomGenerator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_SearchParams.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_SquareHelpers.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_TranspositionTable.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Utils.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Zobrist.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitboard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_evaluate.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_material.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_misc.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movegen.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movepick.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_pawns.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_search.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread_win32.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_timeman.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_tt.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_types.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_uci.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\syzygy\makruk_tbprobe.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\makruk_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_Solver.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmmagent.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_evaluator.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_spot.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_state.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_board.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_common.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endgame.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endhash.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_eval.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_hash.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_jni.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_openings.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_patternbuilder.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_player.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_position.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_PRNG.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_EdAcessImp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\RussianDraught\russian_draught_KestoG_1_5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_movepick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_pawns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_psqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_timeman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_uci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\seirawan_ucioption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Seirawan\syzygy\seirawan_tbprobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_movepick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_pawns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_psqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tbprobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_timeman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_uci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Shatranj\shatranj_ucioption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_book.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evalList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_generateMoves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_hand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_init.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_movePicker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_mt64bit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_pieceScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_square.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_timeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\core\shogi_usi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\shogi\shogi_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Pile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Solitaire\solitaire_Solitaire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\chess_stock_fish_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_movepick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_pawns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_psqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tbprobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_timeman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_uci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\StockFishChess\Core\chess_stock_fish_ucioption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_josekibase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_montecarlo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_patternscan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\distributed\weiqi_distributed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\playout\weiqi_moggy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_1lib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_2lib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_dragon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_ladder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nakade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_nlib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_seki.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_selfatari.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_generic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_plugins.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_prior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_dcnn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_fbook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_gogui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_mq.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_pattern3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternprob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_playout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_probdist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_random_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_stone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_timeinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\weiqi\weiqi_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\base\xiangqi_x86asm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_cchess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\cchess\xiangqi_pgnfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_book.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_genmoves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_movesort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_preeval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_pregen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\eleeye\xiangqi_ucci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Xiangqi\xiangqi_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_movegenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_ricefish.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\ChineseCheckers\chinese_checkers_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_ai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\engine\english_draught_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\EnglishDraught\english_draught_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_movepick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_pawns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_psqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_timeman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_uci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_ucioption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\fairy_chess_variant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\FairyChess\syzygy\fairy_chess_tbprobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_ai_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_eval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_negamax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\ai\gomoku_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\api\gomoku_renju_api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\gomoku\gomoku_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_eval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_hexutils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_iengine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_mcts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_record.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\hex_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_comp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bb_index.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_bit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_book.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_eval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_fen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_libmy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_move_gen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_MyBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_pos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_score.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_sort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\InternationalDraught\international_draught_var.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Calculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_CommsHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Evaluator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Laser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_MoveGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Khet\khet_Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_bitboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_evaluate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_movepick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_pawns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_psqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_timeman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_uci.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\makruk_ucioption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\engine\syzygy\makruk_tbprobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Makruk\makruk_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\MineSweeper\mine_sweeper_Solver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmmagent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_evaluator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\nmm\nmm_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_blur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_crtbk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_endhash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_eval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_evalbuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_openings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_patternbuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_PRNG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_protocol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_testgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_testsuites.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_tuneheuristic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Reversi\reversi_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_board.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_disjointset.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Desktop\VietTho\TurnBasedGame\Android\UnityNativePlugin\app\src\main\cpp\Hex\fhcore\hex_position.inl">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
