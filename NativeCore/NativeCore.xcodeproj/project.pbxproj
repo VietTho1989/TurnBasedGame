@@ -2987,6 +2987,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = UnityNativeCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = test.UnityNativeCore;
@@ -3102,6 +3103,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
