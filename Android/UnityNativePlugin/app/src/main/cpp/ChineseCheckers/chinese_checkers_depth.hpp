@@ -1,9 +1,12 @@
 #pragma once
 
-namespace ChineseCheckers::Depth
+namespace ChineseCheckers
 {
-
-    constexpr int MAX_PLY = 256;
-    constexpr int MAX_DEPTH = 64;
-
+    namespace Depth
+    {
+        
+        constexpr int MAX_PLY = 256;
+        constexpr int MAX_DEPTH = 64;
+        
+    }
 }
