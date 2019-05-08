@@ -109,8 +109,8 @@ namespace Gomoku
                                                 break;
                                             case Setting.BoardIndex.OutBoard:
                                                 {
-                                                    boardSizeX = 20f;
-                                                    boardSizeY = 20f;
+                                                    boardSizeX = 20.5f;
+                                                    boardSizeY = 20.5f;
                                                 }
                                                 break;
                                             default:

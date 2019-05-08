@@ -1,0 +1,783 @@
+﻿  chinese_checkers_board.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_board.cpp(150): warning C4244: 'initializing': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_board.cpp(155): warning C4244: 'return': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_board.cpp(158): warning C4244: 'return': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_board.cpp(160): warning C4244: 'return': conversion from 'int32_t' to 'float', possible loss of data
+  chinese_checkers_interface.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_interface.cpp(41): warning C4101: 'err': unreferenced local variable
+  chinese_checkers_jni.cpp
+  chinese_checkers_movegenerator.cpp
+  chinese_checkers_ricefish.cpp
+  chinese_checkers_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(418): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(418): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(470): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(474): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(483): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(502): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(518): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(522): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(527): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(539): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(543): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(552): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\chinesecheckers\chinese_checkers_search.cpp(563): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  english_draught_ai.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(478): warning C4244: '=': conversion from 'uint64_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 3 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 5 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(509): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_ai.cpp(635): warning C4018: '>=': signed/unsigned mismatch
+  english_draught_board.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(243): warning C4244: 'argument': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(244): warning C4244: 'argument': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(245): warning C4244: 'initializing': conversion from 'uint64_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(246): warning C4244: 'initializing': conversion from 'uint64_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(428): warning C4319: '~': zero extending 'uint32_t' to 'uint64_t' of greater size
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(429): warning C4319: '~': zero extending 'uint32_t' to 'uint64_t' of greater size
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(432): warning C4319: '~': zero extending 'uint32_t' to 'uint64_t' of greater size
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(433): warning C4319: '~': zero extending 'uint32_t' to 'uint64_t' of greater size
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(473): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(587): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(587): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(587): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(587): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(600): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(600): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(600): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(600): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 3 has type 'uint64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 4 has type 'uint64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 5 has type 'uint64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_board.cpp(718): note: consider using '%I64u' in the format string
+  english_draught_database.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_database.cpp(217): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_database.cpp(230): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+  english_draught_movegen.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(99): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(99): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(101): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(101): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(115): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(115): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(117): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(117): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(130): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(130): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(133): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(133): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(143): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(143): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(146): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(146): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(156): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(156): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(157): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(157): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(177): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(177): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(178): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(178): warning C4244: 'initializing': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 2 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 4 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\englishdraught\engine\english_draught_movegen.cpp(497): note: consider using '%I64d' in the format string
+  english_draught_jni.cpp
+  fairy_chess_benchmark.cpp
+  fairy_chess_bitbase.cpp
+  fairy_chess_bitboard.cpp
+  fairy_chess_endgame.cpp
+  fairy_chess_evaluate.cpp
+  fairy_chess_jni.cpp
+  fairy_chess_material.cpp
+  fairy_chess_misc.cpp
+  fairy_chess_movegen.cpp
+  Compiling...
+  fairy_chess_movepick.cpp
+  fairy_chess_pawns.cpp
+  fairy_chess_position.cpp
+  fairy_chess_psqt.cpp
+  fairy_chess_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_search.cpp(191): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+  fairy_chess_thread.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_thread.cpp(49): warning C4244: 'argument': conversion from 'double' to 'size_t', possible loss of data
+  fairy_chess_timeman.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_timeman.cpp(89): warning C4244: 'initializing': conversion from 'double' to 'FairyChess::TimePoint', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_timeman.cpp(90): warning C4244: 'initializing': conversion from 'double' to 'FairyChess::TimePoint', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_timeman.cpp(91): warning C4244: 'initializing': conversion from 'double' to 'FairyChess::TimePoint', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_timeman.cpp(92): warning C4244: 'initializing': conversion from 'double' to 'FairyChess::TimePoint', possible loss of data
+  fairy_chess_tt.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_tt.cpp(88): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\fairy_chess_tt.cpp(88): warning C4244: 'initializing': conversion from 'double' to 'const size_t', possible loss of data
+  fairy_chess_uci.cpp
+  fairy_chess_ucioption.cpp
+  fairy_chess_variant.cpp
+  fairy_chess_tbprobe.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\syzygy\fairy_chess_tbprobe.cpp(499): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\syzygy\fairy_chess_tbprobe.cpp(510): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\syzygy\fairy_chess_tbprobe.cpp(545): warning C4244: '=': conversion from 'uint64_t' to 'FairyChess::`anonymous-namespace'::Sym', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\fairychess\syzygy\fairy_chess_tbprobe.cpp(973): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  gomoku_ai_controller.cpp
+  gomoku_eval.cpp
+  gomoku_negamax.cpp
+  gomoku_utils.cpp
+  gomoku_renju_api.cpp
+  gomoku_jni.cpp
+  gomoku_position.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(87): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(87): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(87): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(87): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(155): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 2 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(155): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(155): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\gomoku\gomoku_position.cpp(155): note: consider using '%I64d' in the format string
+  hex_board.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\fhcore\hex_board.cpp(124): warning C4267: 'initializing': conversion from 'size_t' to 'Hex::position::coord_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\fhcore\hex_board.cpp(195): warning C4267: '+=': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\fhcore\hex_board.cpp(210): warning C4267: 'initializing': conversion from 'size_t' to 'Hex::position::coord_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\fhcore\hex_board.cpp(219): warning C4267: 'initializing': conversion from 'size_t' to 'Hex::position::coord_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\fhcore\hex_board.cpp(281): warning C4267: 'initializing': conversion from 'size_t' to 'Hex::position::coord_t', possible loss of data
+  Compiling...
+  hex_color.cpp
+  hex_disjointset.cpp
+  hex_eval.cpp
+  hex_hexutils.cpp
+  hex_iengine.cpp
+  hex_mcts.cpp
+  hex_position.cpp
+  hex_record.cpp
+  hex_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\hex_jni.cpp(106): warning C4267: 'initializing': conversion from 'size_t' to 'uint16_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\hex_jni.cpp(122): warning C4267: 'initializing': conversion from 'size_t' to 'uint16_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\hex\hex_jni.cpp(150): warning C4267: 'initializing': conversion from 'size_t' to 'uint16_t', possible loss of data
+  international_draught_bb_base.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_bb_base.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_bb_comp.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_bb_comp.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_bb_index.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_bb_index.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_bit.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_bit.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_book.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_book.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_common.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_common.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_eval.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_eval.cpp: note: see previous definition of 'NDEBUG'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_eval.cpp(280): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_eval.cpp(280): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_eval.cpp(371): warning C4244: 'initializing': conversion from 'double' to 'InternationalDraught::Score', possible loss of data
+  international_draught_fen.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_fen.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_hash.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_hash.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_jni.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_libmy.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.cpp: note: see previous definition of 'NDEBUG'
+  Compiling...
+  international_draught_list.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_list.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_move.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_move.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_move_gen.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_move_gen.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_MyBase.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_mybase.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_pos.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_pos.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_position.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_position.cpp: note: see previous definition of 'NDEBUG'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_position.cpp(368): warning C4267: '+=': conversion from 'size_t' to 'int32_t', possible loss of data
+  international_draught_score.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_score.cpp: note: see previous definition of 'NDEBUG'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_score.cpp(25): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_score.cpp(64): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+  international_draught_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp: note: see previous definition of 'NDEBUG'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 2 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 3 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 4 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(115): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(833): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(942): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(1121): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_search.cpp(1304): warning C4244: 'argument': conversion from 'InternationalDraught::Score' to 'int32_t', possible loss of data
+  international_draught_sort.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_sort.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_thread.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_thread.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_tt.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_tt.cpp: note: see previous definition of 'NDEBUG'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_tt.cpp(162): warning C4244: '=': conversion from 'InternationalDraught::Score' to 'InternationalDraught::int16', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_tt.cpp(210): warning C4244: '=': conversion from 'InternationalDraught::Score' to 'InternationalDraught::int16', possible loss of data
+  international_draught_util.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_util.cpp: note: see previous definition of 'NDEBUG'
+  international_draught_var.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_libmy.hpp(45): warning C4005: 'NDEBUG': macro redefinition
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\internationaldraught\international_draught_var.cpp: note: see previous definition of 'NDEBUG'
+  khet_Board.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'size_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_zobrist.hpp(19): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'size_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_zobrist.hpp(19): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_board.cpp(265): warning C4267: 'argument': conversion from 'size_t' to 'int32_t', possible loss of data
+  khet_Calculator.cpp
+  khet_CommsHandler.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'size_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): note: consider using '%zu' in the format string
+  khet_Evaluator.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_evaluator.cpp(86): warning C4267: 'argument': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_evaluator.cpp(93): warning C4267: 'argument': conversion from 'size_t' to 'int32_t', possible loss of data
+  khet_jni.cpp
+  khet_Laser.cpp
+  khet_MoveGenerator.cpp
+  Compiling...
+  khet_Search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_search.cpp(94): warning C4244: 'initializing': conversion from 'double' to 'clock_t', possible loss of data
+  khet_Utils.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'size_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\khet\khet_utils.hpp(17): note: consider using '%zu' in the format string
+  makruk_benchmark.cpp
+  makruk_bitbase.cpp
+  makruk_bitboard.cpp
+  makruk_endgame.cpp
+  makruk_evaluate.cpp
+  makruk_material.cpp
+  makruk_misc.cpp
+  makruk_movegen.cpp
+  makruk_movepick.cpp
+  makruk_pawns.cpp
+  makruk_position.cpp
+  makruk_psqt.cpp
+  makruk_search.cpp
+  makruk_thread.cpp
+  makruk_timeman.cpp
+  makruk_tt.cpp
+  makruk_uci.cpp
+  makruk_ucioption.cpp
+  Compiling...
+  makruk_tbprobe.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\makruk\engine\syzygy\makruk_tbprobe.cpp(549): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\makruk\engine\syzygy\makruk_tbprobe.cpp(560): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\makruk\engine\syzygy\makruk_tbprobe.cpp(595): warning C4244: '=': conversion from 'uint64_t' to 'Makruk::`anonymous-namespace'::Sym', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\makruk\engine\syzygy\makruk_tbprobe.cpp(1032): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  makruk_jni.cpp
+  mine_sweeper_board.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\minesweeper\mine_sweeper_board.cpp(76): warning C4477: 'sprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 5 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\minesweeper\mine_sweeper_board.cpp(76): note: consider using '%zu' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\minesweeper\mine_sweeper_board.cpp(393): warning C4267: '+=': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\minesweeper\mine_sweeper_board.cpp(395): warning C4267: '+=': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\minesweeper\mine_sweeper_board.cpp(397): warning C4267: '+=': conversion from 'size_t' to 'int32_t', possible loss of data
+  mine_sweeper_jni.cpp
+  mine_sweeper_Solver.cpp
+  nmmagent.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(179): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(224): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(272): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(311): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(345): warning C4305: 'argument': truncation from 'int' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(359): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(404): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(437): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmmagent.cpp(460): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  nmm_board.cpp
+  nmm_evaluator.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmm_evaluator.cpp(84): warning C4244: 'initializing': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmm_evaluator.cpp(118): warning C4244: 'initializing': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\nmm\nmm_evaluator.cpp(145): warning C4244: 'initializing': conversion from 'int32_t' to 'float', possible loss of data
+  nmm_jni.cpp
+  Platform.cpp
+  reversi_blur.cpp
+  reversi_board.cpp
+  reversi_common.cpp
+  reversi_crtbk.cpp
+  reversi_endgame.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\reversi\reversi_endgame.cpp(236): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\reversi\reversi_endgame.cpp(236): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\reversi\reversi_endgame.cpp(236): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\reversi\reversi_endgame.cpp(236): note: consider using '%I64u' in the format string
+  reversi_endhash.cpp
+  reversi_eval.cpp
+  reversi_evalbuilder.cpp
+  reversi_hash.cpp
+  reversi_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\reversi\reversi_jni.cpp(197): warning C4018: '<': signed/unsigned mismatch
+  Compiling...
+  reversi_openings.cpp
+  reversi_patternbuilder.cpp
+  reversi_player.cpp
+  reversi_position.cpp
+  reversi_PRNG.cpp
+  reversi_protocol.cpp
+  reversi_testgame.cpp
+  reversi_testsuites.cpp
+  reversi_tuneheuristic.cpp
+  reversi_wrapper.cpp
+  russian_draught_EdAcessImp.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_edacessimp.cpp(124): warning C4018: '>': signed/unsigned mismatch
+  russian_draught_jni.cpp
+  russian_draught_KestoG_1_5.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(168): warning C4101: 'elapsed': unreferenced local variable
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(168): warning C4101: 't': unreferenced local variable
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(1265): warning C4474: 'printf' : too many arguments passed for format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(1265): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(3264): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(3265): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(3652): warning C4244: '=': conversion from 'int64_t' to 'double', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(3795): warning C4244: '=': conversion from 'int64_t' to 'double', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\russiandraught\russian_draught_kestog_1_5.cpp(5062): warning C4804: '>': unsafe use of type 'bool' in operation
+  seirawan_benchmark.cpp
+  seirawan_bitbase.cpp
+  seirawan_bitboard.cpp
+  seirawan_endgame.cpp
+  seirawan_evaluate.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(486): warning C4244: 'initializing': conversion from 'Seirawan::Bitboard' to 'int32_t', possible loss of data
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(946): note: see reference to function template instantiation 'Seirawan::Score Seirawan::`anonymous-namespace'::Evaluation<Seirawan::`anonymous-namespace'::Trace::NO_TRACE>::evaluate_king<Seirawan::WHITE>(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(946): note: see reference to function template instantiation 'Seirawan::Score Seirawan::`anonymous-namespace'::Evaluation<Seirawan::`anonymous-namespace'::Trace::NO_TRACE>::evaluate_king<Seirawan::WHITE>(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(908): note: while compiling class template member function 'Seirawan::Value Seirawan::`anonymous-namespace'::Evaluation<Seirawan::`anonymous-namespace'::Trace::NO_TRACE>::value(void)'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(996): note: see reference to function template instantiation 'Seirawan::Value Seirawan::`anonymous-namespace'::Evaluation<Seirawan::`anonymous-namespace'::Trace::NO_TRACE>::value(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_evaluate.cpp(996): note: see reference to class template instantiation 'Seirawan::`anonymous-namespace'::Evaluation<Seirawan::`anonymous-namespace'::Trace::NO_TRACE>' being compiled
+  seirawan_jni.cpp
+  seirawan_material.cpp
+  Compiling...
+  seirawan_misc.cpp
+  seirawan_movegen.cpp
+  seirawan_movepick.cpp
+  seirawan_pawns.cpp
+  seirawan_position.cpp
+  seirawan_psqt.cpp
+  seirawan_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_timeman.hpp(49): warning C4244: 'return': conversion from 'Seirawan::TimePoint' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_search.cpp(1368): warning C4267: 'argument': conversion from 'size_t' to 'int32_t', possible loss of data
+  seirawan_thread.cpp
+  seirawan_timeman.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_timeman.hpp(49): warning C4244: 'return': conversion from 'Seirawan::TimePoint' to 'int32_t', possible loss of data
+  seirawan_tt.cpp
+  seirawan_uci.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\seirawan_timeman.hpp(49): warning C4244: 'return': conversion from 'Seirawan::TimePoint' to 'int32_t', possible loss of data
+  seirawan_ucioption.cpp
+  seirawan_tbprobe.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\syzygy\seirawan_tbprobe.cpp(550): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\syzygy\seirawan_tbprobe.cpp(561): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\syzygy\seirawan_tbprobe.cpp(596): warning C4244: '=': conversion from 'uint64_t' to 'Seirawan::`anonymous-namespace'::Sym', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\seirawan\syzygy\seirawan_tbprobe.cpp(1033): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  shatranj_bitbase.cpp
+  shatranj_bitboard.cpp
+  shatranj_endgame.cpp
+  shatranj_evaluate.cpp
+  shatranj_jni.cpp
+  shatranj_material.cpp
+  shatranj_misc.cpp
+  Compiling...
+  shatranj_movegen.cpp
+  shatranj_movepick.cpp
+  shatranj_pawns.cpp
+  shatranj_position.cpp
+  shatranj_psqt.cpp
+  shatranj_search.cpp
+  shatranj_tbprobe.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shatranj\shatranj_tbprobe.cpp(537): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shatranj\shatranj_tbprobe.cpp(548): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shatranj\shatranj_tbprobe.cpp(583): warning C4244: '=': conversion from 'uint64_t' to 'Shatranj::`anonymous-namespace'::Sym', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shatranj\shatranj_tbprobe.cpp(1019): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  shatranj_thread.cpp
+  shatranj_timeman.cpp
+  shatranj_tt.cpp
+  shatranj_uci.cpp
+  shatranj_ucioption.cpp
+  shogi_benchmark.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_bitboard.cpp
+  shogi_book.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_book.hpp(65): warning C4244: 'argument': conversion from '_Rep' to 'const uint32_t', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_common.cpp
+  shogi_evalList.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_evaluate.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+  shogi_generateMoves.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+  shogi_hand.cpp
+  Compiling...
+  shogi_init.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_book.hpp(65): warning C4244: 'argument': conversion from '_Rep' to 'const uint32_t', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+  shogi_move.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+  shogi_movePicker.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_mt64bit.cpp
+  shogi_pieceScore.cpp
+  shogi_position.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_book.hpp(65): warning C4244: 'argument': conversion from '_Rep' to 'const uint32_t', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+  shogi_square.cpp
+  shogi_thread.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+  shogi_timeManager.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_timemanager.cpp(49): warning C4305: 'initializing': truncation from 'double' to 'float'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_timemanager.cpp(95): note: see reference to function template instantiation 'int32_t Shogi::`anonymous-namespace'::remaining<Shogi::`anonymous-namespace'::MaxTime>(const int32_t,const int32_t,const Shogi::Ply,const int32_t)' being compiled
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_timemanager.cpp(50): warning C4305: 'initializing': truncation from 'double' to 'float'
+  shogi_tt.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+  shogi_usi.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_book.hpp(65): warning C4244: 'argument': conversion from '_Rep' to 'const uint32_t', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+  shogi_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'unsigned __int64'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_evaluate.hpp(385): note: consider using '%I64u' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4521: 'Shogi::Move': multiple copy constructors specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_move.hpp(131): warning C4522: 'Shogi::Move': multiple assignment operators specified
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\shogi\core\shogi_book.hpp(65): warning C4244: 'argument': conversion from '_Rep' to 'const uint32_t', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+  solitaire_Card.cpp
+  solitaire_jni.cpp
+  solitaire_Move.cpp
+  solitaire_Pile.cpp
+  solitaire_Solitaire.cpp
+  chess_stock_fish_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\chess_stock_fish_jni.cpp(41): warning C4244: 'argument': conversion from 'int64_t' to 'unsigned int', possible loss of data
+  chess_stock_fish_benchmark.cpp
+  Compiling...
+  chess_stock_fish_bitbase.cpp
+  chess_stock_fish_bitboard.cpp
+  chess_stock_fish_endgame.cpp
+  chess_stock_fish_evaluate.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(431): warning C4244: 'initializing': conversion from 'StockFishChess::Bitboard' to 'int32_t', possible loss of data
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(843): note: see reference to function template instantiation 'StockFishChess::Score StockFishChess::`anonymous-namespace'::Evaluation<StockFishChess::`anonymous-namespace'::Trace::NO_TRACE>::evaluate_king<StockFishChess::WHITE>(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(843): note: see reference to function template instantiation 'StockFishChess::Score StockFishChess::`anonymous-namespace'::Evaluation<StockFishChess::`anonymous-namespace'::Trace::NO_TRACE>::evaluate_king<StockFishChess::WHITE>(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(801): note: while compiling class template member function 'StockFishChess::Value StockFishChess::`anonymous-namespace'::Evaluation<StockFishChess::`anonymous-namespace'::Trace::NO_TRACE>::value(void)'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(889): note: see reference to function template instantiation 'StockFishChess::Value StockFishChess::`anonymous-namespace'::Evaluation<StockFishChess::`anonymous-namespace'::Trace::NO_TRACE>::value(void)' being compiled
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_evaluate.cpp(889): note: see reference to class template instantiation 'StockFishChess::`anonymous-namespace'::Evaluation<StockFishChess::`anonymous-namespace'::Trace::NO_TRACE>' being compiled
+  chess_stock_fish_material.cpp
+  chess_stock_fish_misc.cpp
+  chess_stock_fish_movegen.cpp
+  chess_stock_fish_movepick.cpp
+  chess_stock_fish_pawns.cpp
+  chess_stock_fish_position.cpp
+  chess_stock_fish_psqt.cpp
+  chess_stock_fish_search.cpp
+  chess_stock_fish_tbprobe.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_tbprobe.cpp(549): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_tbprobe.cpp(560): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_tbprobe.cpp(595): warning C4244: '=': conversion from 'uint64_t' to 'StockFishChess::`anonymous-namespace'::Sym', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\stockfishchess\core\chess_stock_fish_tbprobe.cpp(1032): warning C4267: 'initializing': conversion from 'size_t' to 'int32_t', possible loss of data
+  chess_stock_fish_thread.cpp
+  chess_stock_fish_timeman.cpp
+  chess_stock_fish_tt.cpp
+  chess_stock_fish_uci.cpp
+  chess_stock_fish_ucioption.cpp
+  weiqi_josekibase.cpp
+  weiqi_montecarlo.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\distributed\engines\weiqi_montecarlo.cpp(251): warning C4305: '=': truncation from 'double' to 'float'
+  Compiling...
+  weiqi_patternplay.cpp
+  weiqi_patternscan.cpp
+  weiqi_distributed.cpp
+  weiqi_light.cpp
+  weiqi_moggy.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\playout\weiqi_moggy.cpp(1084): warning C4102: 'eyefill_skip': unreferenced label
+  weiqi_1lib.cpp
+  weiqi_2lib.cpp
+  weiqi_dragon.cpp
+  weiqi_ladder.cpp
+  weiqi_nakade.cpp
+  weiqi_nlib.cpp
+  weiqi_seki.cpp
+  weiqi_selfatari.cpp
+  weiqi_tactics_util.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.cpp(106): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\tatics\weiqi_tactics_util.cpp(107): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  weiqi_generic.cpp
+  weiqi_ucb1.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(46): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(103): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(104): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(118): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1.cpp(120): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  weiqi_ucb1amaf.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(105): warning C4305: 'initializing': truncation from 'double' to 'const float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(109): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(132): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(151): warning C4244: '=': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(204): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(246): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(329): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(330): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(368): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(376): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(377): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(388): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 5 has type 'size_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(388): note: consider using '%zd' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(456): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(458): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(460): warning C4244: '=': conversion from 'double' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(468): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(470): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\policy\weiqi_ucb1amaf.cpp(474): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  weiqi_dynkomi.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(119): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(180): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(181): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(220): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(223): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(299): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(314): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(346): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(402): warning C4244: '=': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(404): warning C4244: '=': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(516): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(520): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(543): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(545): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(564): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(566): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(570): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(591): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(594): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(597): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_dynkomi.cpp(605): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  weiqi_plugins.cpp
+  weiqi_prior.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_prior.cpp(225): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_prior.cpp(275): warning C4390: ';': empty controlled statement found; is this the intent?
+  Compiling...
+  weiqi_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_search.cpp(319): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  weiqi_slave.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(40): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(48): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 4 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%I64d' in the format string
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 5 has type 'int64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%lld' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%Id' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_slave.cpp(50): note: consider using '%I64d' in the format string
+  weiqi_tree.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_tree.cpp(269): warning C4244: 'initializing': conversion from 'double' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_tree.cpp(878): warning C4244: '/=': conversion from 'float' to 'int32_t', possible loss of data
+  weiqi_uct.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(109): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(182): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(460): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(547): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(585): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(689): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(695): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(911): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(975): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(982): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(1005): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(1021): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(1028): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(1148): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_uct.cpp(1150): warning C4305: '=': truncation from 'double' to 'float'
+  weiqi_walk.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(373): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(378): warning C4244: '-=': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(398): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(400): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(439): warning C4244: '=': conversion from 'float' to 'int32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(510): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(524): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\uct\weiqi_walk.cpp(805): warning C4102: 'end': unreferenced label
+  weiqi_board.cpp
+  weiqi_dcnn.cpp
+  weiqi_engine.cpp
+  weiqi_fbook.cpp
+  weiqi_gogui.cpp
+  weiqi_jni.cpp
+  weiqi_move.cpp
+  weiqi_mq.cpp
+  weiqi_ownermap.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(47): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(49): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(86): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(187): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(241): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_ownermap.cpp(243): warning C4305: 'argument': truncation from 'double' to 'float'
+  weiqi_pattern.cpp
+  weiqi_pattern3.cpp
+  weiqi_patternprob.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_patternprob.cpp(267): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  weiqi_patternsp.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp(444): warning C4477: 'printf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 4 has type 'uint64_t'
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp(444): note: consider using '%llu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp(444): note: consider using '%Iu' in the format string
+  c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_patternsp.cpp(444): note: consider using '%I64u' in the format string
+  weiqi_playout.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_playout.cpp(228): warning C4244: 'initializing': conversion from 'float' to 'int32_t', possible loss of data
+  weiqi_position.cpp
+  Compiling...
+  weiqi_probdist.cpp
+  weiqi_random.cpp
+  weiqi_random_engine.cpp
+  weiqi_stats.cpp
+  weiqi_stone.cpp
+  weiqi_timeinfo.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_timeinfo.cpp(237): warning C4244: 'return': conversion from 'int64_t' to 'double', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_timeinfo.cpp(254): warning C4244: 'initializing': conversion from 'double' to 'uint32_t', possible loss of data
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\weiqi\weiqi_timeinfo.cpp(338): warning C4244: 'initializing': conversion from 'double' to 'int32_t', possible loss of data
+  weiqi_util.cpp
+  xiangqi_x86asm.cpp
+  xiangqi_cchess.cpp
+  xiangqi_pgnfile.cpp
+  xiangqi_book.cpp
+  xiangqi_evaluate.cpp
+  xiangqi_genmoves.cpp
+  xiangqi_hash.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\xiangqi\eleeye\xiangqi_hash.hpp(49): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+  xiangqi_movesort.cpp
+  xiangqi_position.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\xiangqi\eleeye\xiangqi_position.cpp(1766): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+  xiangqi_preeval.cpp
+  xiangqi_pregen.cpp
+  xiangqi_search.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\xiangqi\eleeye\xiangqi_hash.hpp(49): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+  xiangqi_ucci.cpp
+  Compiling...
+  xiangqi_jni.cpp
+c:\users\asus\desktop\viettho\turnbasedgame\android\unitynativeplugin\app\src\main\cpp\xiangqi\eleeye\xiangqi_hash.hpp(49): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+     Creating library C:\Users\ASUS\Desktop\VietTho\TurnBasedGame\WindowsCore\WindowsCore\x64\Release\WindowsCore.lib and object C:\Users\ASUS\Desktop\VietTho\TurnBasedGame\WindowsCore\WindowsCore\x64\Release\WindowsCore.exp
+  Generating code
+  25612 of 25612 functions (100.0%) were compiled.
+    1771 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  WindowsCore.vcxproj -> C:\Users\ASUS\Desktop\VietTho\TurnBasedGame\WindowsCore\WindowsCore\x64\Release\WindowsCore.dll
