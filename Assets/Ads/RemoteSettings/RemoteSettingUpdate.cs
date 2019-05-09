@@ -273,6 +273,7 @@ public class RemoteSettingUpdate : MonoBehaviour
                 }
                 AdsManager.get().admobVideoType.v = adMobVideoType;
             }
+
             // serverMessage
             {
                 string serverMessage = RemoteSettings.GetString("ServerMessage", "");
@@ -280,8 +281,18 @@ public class RemoteSettingUpdate : MonoBehaviour
             }
             // website
             {
-                string website = RemoteSettings.GetString("Website", "");
+                string website = RemoteSettings.GetString("Website", Global.DefaultWebsite);
                 Global.get().website.v = website;
+            }
+            // oldVersions
+            {
+                string oldVersions = RemoteSettings.GetString("OldVersions", Global.DefaultOldVersions);
+                Global.get().oldVersions.v = oldVersions;
+            }
+            // openSource
+            {
+                string openSource = RemoteSettings.GetString("OpenSource", Global.DefaultOpenSource);
+                Global.get().openSource.v = openSource;
             }
         }
     }

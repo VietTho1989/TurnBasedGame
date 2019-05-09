@@ -107,6 +107,17 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     public Text tvMessage;
     private static readonly TxtLanguage txtMessage = new TxtLanguage("Message");
 
+    public Text lbOldVersions;
+    public Text tvOldVersions;
+    public Button btnOldVersions;
+    private static readonly TxtLanguage txtOldVersions = new TxtLanguage("Old versions");
+
+    public Text lbOpenSource;
+    public Text tvOpenSource;
+    public Button btnOpenSource;
+    private static readonly TxtLanguage txtLbOpenSource = new TxtLanguage("Open source");
+    private static readonly TxtLanguage txtOpenSource = new TxtLanguage("The app uses many open sources, so it must be made availabe in open source");
+
     static AboutUI()
     {
         txtTitle.add(Language.Type.vi, "Thông Tin");
@@ -115,6 +126,10 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         txtWebsite.add(Language.Type.vi, "Trang web");
         txtContact.add(Language.Type.vi, "Liên hệ");
         txtMessage.add(Language.Type.vi, "Thông báo");
+        txtOldVersions.add(Language.Type.vi, "Các phiên bản cũ");
+
+        txtLbOpenSource.add(Language.Type.vi, "Mã nguồn mở");
+        txtOpenSource.add(Language.Type.vi, "Chương trình có sử dụng nhiều mã nguồn mở, cho nên mã nguồn của chương trình cũng cần phải mở");
     }
 
     #endregion
@@ -237,6 +252,66 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                         }
                         deltaY += itemSize;
                     }
+                    // oldVersions
+                    {
+                        if (lbOldVersions != null)
+                        {
+                            UIRectTransform.SetPosY(lbOldVersions.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(lbOldVersions.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbOldVersions null");
+                        }
+                        if (tvOldVersions != null)
+                        {
+                            UIRectTransform.SetPosY(tvOldVersions.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(tvOldVersions.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvOldVersions null");
+                        }
+                        if (btnOldVersions != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnOldVersions.transform, deltaY + (itemSize - 30.0f) / 2.0f);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnOldVersions null");
+                        }
+                        deltaY += itemSize;
+                    }
+                    // openSource
+                    {
+                        if (lbOpenSource != null)
+                        {
+                            UIRectTransform.SetPosY(lbOpenSource.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(lbOpenSource.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbOpenSource null");
+                        }
+                        if (tvOpenSource != null)
+                        {
+                            UIRectTransform.SetPosY(tvOpenSource.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(tvOpenSource.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvOpenSource null");
+                        }
+                        if (btnOpenSource != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnOpenSource.transform, deltaY + (itemSize - 30.0f) / 2.0f);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnOpenSource null");
+                        }
+                        deltaY += itemSize;
+                    }
                 }
                 // txt
                 {
@@ -249,76 +324,130 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                     {
                         Debug.LogError("lbTitle null");
                     }
-                    if (lbAuthor != null)
+                    // author
                     {
-                        lbAuthor.text = txtLbAuthor.get();
-                        Setting.get().setLabelTextSize(lbAuthor);
+                        if (lbAuthor != null)
+                        {
+                            lbAuthor.text = txtLbAuthor.get();
+                            Setting.get().setLabelTextSize(lbAuthor);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbAuthor null");
+                        }
+                        if (tvAuthor != null)
+                        {
+                            tvAuthor.text = txtAuthor.get();
+                            Setting.get().setContentTextSize(tvAuthor);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvAuthor null");
+                        }
                     }
-                    else
+                    // website
                     {
-                        Debug.LogError("lbAuthor null");
+                        if (lbWebsite != null)
+                        {
+                            lbWebsite.text = txtWebsite.get();
+                            Setting.get().setLabelTextSize(lbWebsite);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbWebsite null");
+                        }
+                        if (tvWebsite != null)
+                        {
+                            tvWebsite.text = Global.get().website.v;
+                            Setting.get().setContentTextSize(tvWebsite);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvWebsite null");
+                        }
                     }
-                    if (tvAuthor != null)
+                    // contact
                     {
-                        tvAuthor.text = txtAuthor.get();
-                        Setting.get().setContentTextSize(tvAuthor);
+                        if (lbContact != null)
+                        {
+                            lbContact.text = txtContact.get();
+                            Setting.get().setLabelTextSize(lbContact);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbContact null");
+                        }
+                        if (tvContact != null)
+                        {
+                            Setting.get().setContentTextSize(tvContact);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvContact null");
+                        }
                     }
-                    else
+                    // message
                     {
-                        Debug.LogError("tvAuthor null");
+                        if (lbMessage != null)
+                        {
+                            lbMessage.text = txtMessage.get();
+                            Setting.get().setLabelTextSize(lbMessage);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbMessage null");
+                        }
+                        if (tvMessage != null)
+                        {
+                            tvMessage.text = Global.get().serverMessage.v;
+                            Setting.get().setContentTextSize(tvMessage);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvMessage null");
+                        }
                     }
-                    if (lbWebsite != null)
+                    // oldVersions
                     {
-                        lbWebsite.text = txtWebsite.get();
-                        Setting.get().setLabelTextSize(lbWebsite);
+                        if (lbOldVersions != null)
+                        {
+                            lbOldVersions.text = txtOldVersions.get();
+                            Setting.get().setLabelTextSize(lbOldVersions);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbOldVersions null");
+                        }
+                        if (tvOldVersions != null)
+                        {
+                            tvOldVersions.text = Global.get().oldVersions.v;
+                            Setting.get().setContentTextSize(tvOldVersions);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvOldVersions null");
+                        }
                     }
-                    else
+                    // openSource
                     {
-                        Debug.LogError("lbWebsite null");
-                    }
-                    if (tvWebsite != null)
-                    {
-                        tvWebsite.text = Global.get().website.v;
-                        Setting.get().setContentTextSize(tvWebsite);
-                    }
-                    else
-                    {
-                        Debug.LogError("tvWebsite null");
-                    }
-                    if (lbContact != null)
-                    {
-                        lbContact.text = txtContact.get();
-                        Setting.get().setLabelTextSize(lbContact);
-                    }
-                    else
-                    {
-                        Debug.LogError("lbContact null");
-                    }
-                    if (tvContact != null)
-                    {
-                        Setting.get().setContentTextSize(tvContact);
-                    }
-                    else
-                    {
-                        Debug.LogError("tvContact null");
-                    }
-                    if (lbMessage != null)
-                    {
-                        lbMessage.text = txtMessage.get();
-                        Setting.get().setLabelTextSize(lbMessage);
-                    }
-                    else
-                    {
-                        Debug.LogError("lbMessage null");
-                    }
-                    if (tvMessage != null)
-                    {
-                        tvMessage.text = Global.get().serverMessage.v;
-                        Setting.get().setContentTextSize(tvMessage);
-                    }
-                    else
-                    {
-                        Debug.LogError("tvMessage null");
+                        if (lbOpenSource != null)
+                        {
+                            lbOpenSource.text = txtLbOpenSource.get();
+                            Setting.get().setLabelTextSize(lbOpenSource);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbOpenSource null");
+                        }
+                        if (tvOpenSource != null)
+                        {
+                            tvOpenSource.text = txtOpenSource.get();
+                            Setting.get().setContentTextSize(tvOpenSource);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvOpenSource null");
+                        }
                     }
                 }
             }
@@ -431,6 +560,12 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                 case Global.Property.website:
                     dirty = true;
                     break;
+                case Global.Property.oldVersions:
+                    dirty = true;
+                    break;
+                case Global.Property.openSource:
+                    dirty = true;
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -497,6 +632,8 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         // onClick
         {
             UIUtils.SetButtonOnClick(btnWebsite, onClickBtnWebsite);
+            UIUtils.SetButtonOnClick(btnOldVersions, onClickBtnOldVersions);
+            UIUtils.SetButtonOnClick(btnOpenSource, onClickBtnOpenSource);
         }
     }
 
@@ -513,6 +650,30 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                             if (btnWebsite != null && btnWebsite.gameObject.activeInHierarchy && btnWebsite.interactable)
                             {
                                 onClickBtnWebsite();
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.O:
+                        {
+                            if (btnOldVersions != null && btnOldVersions.gameObject.activeInHierarchy && btnOldVersions.interactable)
+                            {
+                                onClickBtnOldVersions();
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.S:
+                        {
+                            if (btnOpenSource != null && btnOpenSource.gameObject.activeInHierarchy && btnOpenSource.interactable)
+                            {
+                                onClickBtnOpenSource();
                             }
                             else
                             {
@@ -557,6 +718,18 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     public void onClickBtnWebsite()
     {
         Application.OpenURL(Global.get().website.v);
+    }
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnOldVersions()
+    {
+        Application.OpenURL(Global.get().oldVersions.v);
+    }
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnOpenSource()
+    {
+        Application.OpenURL(Global.get().openSource.v);
     }
 
 }

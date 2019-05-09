@@ -76,7 +76,14 @@ public class Global : Data
 
     public VP<string> serverMessage;
 
+    public const string DefaultWebsite = "https://www.facebook.com/Hundred-Games-Master-2370851482977132";
     public VP<string> website;
+
+    public const string DefaultOldVersions = "https://github.com/VietTho1989/TurnBasedGame/releases";
+    public VP<string> oldVersions;
+
+    public const string DefaultOpenSource = "https://github.com/VietTho1989/TurnBasedGame";
+    public VP<string> openSource;
 
     #endregion
 
@@ -93,7 +100,9 @@ public class Global : Data
         screenHeight,
 
         serverMessage,
-        website
+        website,
+        oldVersions,
+        openSource
     }
 
     public Global() : base()
@@ -107,7 +116,9 @@ public class Global : Data
         this.screenHeight = new VP<int>(this, (byte)Property.screenHeight, 640);
 
         this.serverMessage = new VP<string>(this, (byte)Property.serverMessage, "");
-        this.website = new VP<string>(this, (byte)Property.website, "https://www.facebook.com/Hundred-Games-Master-2370851482977132");
+        this.website = new VP<string>(this, (byte)Property.website, DefaultWebsite);
+        this.oldVersions = new VP<string>(this, (byte)Property.oldVersions, DefaultOldVersions);
+        this.openSource = new VP<string>(this, (byte)Property.openSource, DefaultOpenSource);
     }
 
     #endregion
