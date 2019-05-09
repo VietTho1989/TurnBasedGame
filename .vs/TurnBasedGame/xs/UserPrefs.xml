@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Main/About/AboutUI.cs">
     <Files>
-      <File FileName="Assets/Main/About/AboutUI.cs" Line="731" Column="6" />
+      <File FileName="Assets/Main/About/AboutUI.cs" Line="175" Column="7" />
+      <File FileName="Assets/Main/About/RemoveAds/RemoveAdsUI.cs" Line="177" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

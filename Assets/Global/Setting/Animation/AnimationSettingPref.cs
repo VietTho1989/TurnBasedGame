@@ -176,6 +176,16 @@ public class AnimationSettingPref : MonoBehaviour, ValueChangeCallBack
                     break;
                 case Setting.Property.style:
                     break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:
@@ -188,6 +198,12 @@ public class AnimationSettingPref : MonoBehaviour, ValueChangeCallBack
                     }
                     break;
                 case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -11,16 +11,22 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     public class UIData : MainUI.UIData.Sub
     {
 
+        public VP<EulaUI.UIData> eula;
+
+        public VP<RemoveAdsUI.UIData> removeAds;
+
         #region Constructor
 
         public enum Property
         {
-
+            eula,
+            removeAds
         }
 
         public UIData() : base()
         {
-
+            this.eula = new VP<EulaUI.UIData>(this, (byte)Property.eula, null);
+            this.removeAds = new VP<RemoveAdsUI.UIData>(this, (byte)Property.removeAds, new RemoveAdsUI.UIData());
         }
 
         #endregion
@@ -36,6 +42,19 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         {
             bool isProcess = false;
             {
+                // eula
+                if (!isProcess)
+                {
+                    EulaUI.UIData eula = this.eula.v;
+                    if (eula != null)
+                    {
+                        isProcess = eula.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("eula null");
+                    }
+                }
                 // back
                 if (!isProcess)
                 {
@@ -118,18 +137,42 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     private static readonly TxtLanguage txtLbOpenSource = new TxtLanguage("Open source");
     private static readonly TxtLanguage txtOpenSource = new TxtLanguage("The app uses many open sources, so it must be made availabe in open source");
 
+    public Text lbEula;
+    private static readonly TxtLanguage txtEula = new TxtLanguage("End-user license agreement");
+    public Button btnEula;
+    public Text tvBtnEula;
+    private static readonly TxtLanguage txtBtnEula = new TxtLanguage("Show");
+
+    public Text lbRemoveAds;
+    private static readonly TxtLanguage txtRemoveAds = new TxtLanguage("Remove ads");
+
     static AboutUI()
     {
-        txtTitle.add(Language.Type.vi, "Thông Tin");
-        txtLbAuthor.add(Language.Type.vi, "Tác giả");
-        txtAuthor.add(Language.Type.vi, "Đoàn Việt Thọ");
-        txtWebsite.add(Language.Type.vi, "Trang web");
-        txtContact.add(Language.Type.vi, "Liên hệ");
-        txtMessage.add(Language.Type.vi, "Thông báo");
-        txtOldVersions.add(Language.Type.vi, "Các phiên bản cũ");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thông Tin");
+            txtLbAuthor.add(Language.Type.vi, "Tác giả");
+            txtAuthor.add(Language.Type.vi, "Đoàn Việt Thọ");
+            txtWebsite.add(Language.Type.vi, "Trang web");
+            txtContact.add(Language.Type.vi, "Liên hệ");
+            txtMessage.add(Language.Type.vi, "Thông báo");
+            txtOldVersions.add(Language.Type.vi, "Các phiên bản cũ");
 
-        txtLbOpenSource.add(Language.Type.vi, "Mã nguồn mở");
-        txtOpenSource.add(Language.Type.vi, "Chương trình có sử dụng nhiều mã nguồn mở, cho nên mã nguồn của chương trình cũng cần phải mở");
+            txtLbOpenSource.add(Language.Type.vi, "Mã nguồn mở");
+            txtOpenSource.add(Language.Type.vi, "Chương trình có sử dụng nhiều mã nguồn mở, cho nên mã nguồn của chương trình cũng cần phải mở");
+
+            txtEula.add(Language.Type.vi, "Điều khoản dịch vụ");
+            txtBtnEula.add(Language.Type.vi, "Hiện");
+
+            txtRemoveAds.add(Language.Type.vi, "Bỏ quảng cáo");
+        }
+        // rect
+        {
+            // removeAdsRect
+            {
+                // 
+            }
+        }
     }
 
     #endregion
@@ -312,6 +355,45 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                         }
                         deltaY += itemSize;
                     }
+                    // Eula
+                    {
+                        if (lbEula != null)
+                        {
+                            UIRectTransform.SetPosY(lbEula.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(lbEula.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbEula null");
+                        }
+                        if (btnEula != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnEula.transform, deltaY + (itemSize - 30.0f) / 2.0f);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnEula null");
+                        }
+                        deltaY += itemSize;
+                    }
+                    // removeAds
+                    {
+                        if (lbRemoveAds != null)
+                        {
+                            UIRectTransform.SetPosY(lbRemoveAds.rectTransform, deltaY);
+                            UIRectTransform.SetHeight(lbRemoveAds.rectTransform, itemSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbRemoveAds null");
+                        }
+                        UIRectTransform.SetPosY(this.data.removeAds.v, deltaY + (itemSize - 30.0f) / 2.0f);
+                        deltaY += itemSize;
+                    }
+                }
+                // SiblingIndex
+                {
+                    UIRectTransform.SetSiblingIndexLast(this.data.eula.v);
                 }
                 // txt
                 {
@@ -449,11 +531,43 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                             Debug.LogError("tvOpenSource null");
                         }
                     }
+                    // eula
+                    {
+                        if (lbEula != null)
+                        {
+                            lbEula.text = txtEula.get();
+                            Setting.get().setLabelTextSize(lbEula);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbEula null");
+                        }
+                        if (tvBtnEula != null)
+                        {
+                            tvBtnEula.text = txtBtnEula.get();
+                            Setting.get().setContentTextSize(tvBtnEula);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvBtnEula null");
+                        }
+                    }
+                    // removeAds
+                    {
+                        if (lbRemoveAds != null)
+                        {
+                            lbRemoveAds.text = txtRemoveAds.get();
+                        }
+                        else
+                        {
+                            Debug.LogError("lbRemoveAds null");
+                        }
+                    }
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }
@@ -467,15 +581,25 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
 
     #region implement callBacks
 
+    public EulaUI eulaPrefab;
+
+    public RemoveAdsUI removeAdsPrefab;
+    private static readonly UIRectTransform removeAdsRect = new UIRectTransform();
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
         {
-            // UIData uiData = data as UIData;
+            UIData uiData = data as UIData;
             // Global
             Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.eula.allAddCallBack(this);
+                uiData.removeAds.allAddCallBack(this);
+            }
             dirty = true;
             return;
         }
@@ -491,6 +615,29 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
             dirty = true;
             return;
         }
+        // Child
+        {
+            if (data is EulaUI.UIData)
+            {
+                EulaUI.UIData eulaUIData = data as EulaUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(eulaUIData, eulaPrefab, this.transform, UIRectTransform.CreateCenterRect(440, 440));
+                }
+                dirty = true;
+                return;
+            }
+            if(data is RemoveAdsUI.UIData)
+            {
+                RemoveAdsUI.UIData removeAdsUIData = data as RemoveAdsUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(removeAdsUIData, removeAdsPrefab, this.transform, removeAdsRect);
+                }
+                dirty = true;
+                return;
+            }
+        }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
 
@@ -503,6 +650,11 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
             Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
+            // Child
+            {
+                uiData.eula.allRemoveCallBack(this);
+                uiData.removeAds.allRemoveCallBack(this);
+            }
             this.setDataNull(uiData);
             return;
         }
@@ -515,6 +667,27 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         if (data is Setting)
         {
             return;
+        }
+        // Child
+        {
+            if (data is EulaUI.UIData)
+            {
+                EulaUI.UIData eulaUIData = data as EulaUI.UIData;
+                // UI
+                {
+                    eulaUIData.removeCallBackAndDestroy(typeof(EulaUI));
+                }
+                return;
+            }
+            if (data is RemoveAdsUI.UIData)
+            {
+                RemoveAdsUI.UIData removeAdsUIData = data as RemoveAdsUI.UIData;
+                // UI
+                {
+                    removeAdsUIData.removeCallBackAndDestroy(typeof(RemoveAdsUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -529,6 +702,18 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         {
             switch ((UIData.Property)wrapProperty.n)
             {
+                case UIData.Property.eula:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.removeAds:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -621,6 +806,17 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
             }
             return;
         }
+        // Child
+        {
+            if (wrapProperty.p is EulaUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is RemoveAdsUI.UIData)
+            {
+                return;
+            }
+        }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }
 
@@ -634,6 +830,7 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
             UIUtils.SetButtonOnClick(btnWebsite, onClickBtnWebsite);
             UIUtils.SetButtonOnClick(btnOldVersions, onClickBtnOldVersions);
             UIUtils.SetButtonOnClick(btnOpenSource, onClickBtnOpenSource);
+            UIUtils.SetButtonOnClick(btnEula, onClickBtnEula);
         }
     }
 
@@ -674,6 +871,18 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                             if (btnOpenSource != null && btnOpenSource.gameObject.activeInHierarchy && btnOpenSource.interactable)
                             {
                                 onClickBtnOpenSource();
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.E:
+                        {
+                            if (btnEula != null && btnEula.gameObject.activeInHierarchy && btnEula.interactable)
+                            {
+                                onClickBtnEula();
                             }
                             else
                             {
@@ -730,6 +939,16 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
     public void onClickBtnOpenSource()
     {
         Application.OpenURL(Global.get().openSource.v);
+    }
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnEula()
+    {
+        EulaUI.UIData eulaUIData = this.data.eula.newOrOld<EulaUI.UIData>();
+        {
+
+        }
+        this.data.eula.v = eulaUIData;
     }
 
 }

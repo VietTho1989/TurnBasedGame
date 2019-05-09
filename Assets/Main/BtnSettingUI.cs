@@ -42,7 +42,7 @@ public class BtnSettingUI : UIBehavior<BtnSettingUI.UIData>
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

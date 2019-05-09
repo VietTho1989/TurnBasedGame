@@ -142,6 +142,14 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
                 case Global.Property.screenHeight:
                     dirty = true;
                     break;
+                case Global.Property.serverMessage:
+                    break;
+                case Global.Property.website:
+                    break;
+                case Global.Property.oldVersions:
+                    break;
+                case Global.Property.openSource:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
