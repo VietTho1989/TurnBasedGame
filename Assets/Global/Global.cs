@@ -54,6 +54,8 @@ public class Global : Data
 
     #endregion
 
+    #region app
+
     public VP<NetworkReachability> networkReachability;
 
     public VP<DeviceOrientation> deviceOrientation;
@@ -68,9 +70,17 @@ public class Global : Data
 
     public VP<int> screenHeight;
 
-	#region Constructor
+    #endregion
 
-	public enum Property
+    #region server
+
+    public VP<string> serverMessage;
+
+    #endregion
+
+    #region Constructor
+
+    public enum Property
 	{
 		networkReachability,
         deviceOrientation,
@@ -78,7 +88,9 @@ public class Global : Data
         width,
         height,
         screenWidth,
-        screenHeight
+        screenHeight,
+
+        serverMessage
     }
 
     public Global() : base()
@@ -90,6 +102,8 @@ public class Global : Data
         this.height = new VP<float>(this, (byte)Property.height, 640);
         this.screenWidth = new VP<int>(this, (byte)Property.screenWidth, 480);
         this.screenHeight = new VP<int>(this, (byte)Property.screenHeight, 640);
+
+        this.serverMessage = new VP<string>(this, (byte)Property.serverMessage, "");
     }
 
     #endregion

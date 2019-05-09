@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Gomoku/UI/UITransformOrganizer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Gomoku/UI/UITransformOrganizer.cs" Line="509" Column="2" />
+      <File FileName="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs" Line="278" Column="83" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

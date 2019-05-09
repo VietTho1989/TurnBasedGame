@@ -273,7 +273,11 @@ public class RemoteSettingUpdate : MonoBehaviour
                 }
                 AdsManager.get().admobVideoType.v = adMobVideoType;
             }
-
+            // serverMessage
+            {
+                string serverMessage = RemoteSettings.GetString("ServerMessage");
+                Global.get().serverMessage.v = serverMessage;
+            }
         }
     }
 
