@@ -76,6 +76,8 @@ public class Global : Data
 
     public VP<string> serverMessage;
 
+    public VP<string> website;
+
     #endregion
 
     #region Constructor
@@ -90,7 +92,8 @@ public class Global : Data
         screenWidth,
         screenHeight,
 
-        serverMessage
+        serverMessage,
+        website
     }
 
     public Global() : base()
@@ -104,6 +107,7 @@ public class Global : Data
         this.screenHeight = new VP<int>(this, (byte)Property.screenHeight, 640);
 
         this.serverMessage = new VP<string>(this, (byte)Property.serverMessage, "");
+        this.website = new VP<string>(this, (byte)Property.website, "https://www.facebook.com/Hundred-Games-Master-2370851482977132");
     }
 
     #endregion

@@ -275,8 +275,13 @@ public class RemoteSettingUpdate : MonoBehaviour
             }
             // serverMessage
             {
-                string serverMessage = RemoteSettings.GetString("ServerMessage");
+                string serverMessage = RemoteSettings.GetString("ServerMessage", "");
                 Global.get().serverMessage.v = serverMessage;
+            }
+            // website
+            {
+                string website = RemoteSettings.GetString("Website", "");
+                Global.get().website.v = website;
             }
         }
     }
