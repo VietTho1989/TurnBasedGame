@@ -732,6 +732,7 @@
     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
     <None Include="Assets\Plugins\UnityPurchasing\Editor\IAPGeneratedCredentials.cs.template" />
     <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
+    <None Include="Assets\Resources\Eula.txt" />
     <None Include="Assets\Resources\XiangqiPostures.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />

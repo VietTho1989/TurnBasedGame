@@ -1628,6 +1628,7 @@
     <Compile Include="Assets\FileSystem\Action\None\ActionNoneUpdate.cs" />
     <Compile Include="Assets\FileSystem\FileSystemBrowser.cs" />
     <Compile Include="Assets\FileSystem\FileSystemBrowserUI.cs" />
+    <Compile Include="Assets\FileSystem\FileSystemBrowserUISelectFilesCheckChange.cs" />
     <Compile Include="Assets\FileSystem\FileSystemBrowserUpdate.cs" />
     <Compile Include="Assets\FileSystem\Show\Directory\History\Btn\BtnBackWardUI.cs" />
     <Compile Include="Assets\FileSystem\Show\Directory\History\Btn\BtnForWardUI.cs" />
@@ -1656,6 +1657,7 @@
     <Compile Include="Assets\Global\Global.cs" />
     <Compile Include="Assets\Global\GlobalBehavior.cs" />
     <Compile Include="Assets\Global\GlobalInit.cs" />
+    <Compile Include="Assets\Global\GlobalPref.cs" />
     <Compile Include="Assets\Global\GlobalUICheckChange.cs" />
     <Compile Include="Assets\Global\GlobalUpdate.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSetting.cs" />
@@ -1744,6 +1746,9 @@
     <Compile Include="Assets\ImageLoader\Utils\AsyncTask.cs" />
     <Compile Include="Assets\ImageLoader\Utils\Device.cs" />
     <Compile Include="Assets\Main\About\AboutUI.cs" />
+    <Compile Include="Assets\Main\About\Eula\EulaUI.cs" />
+    <Compile Include="Assets\Main\About\RemoveAds\RemoveAdsUI.cs" />
+    <Compile Include="Assets\Main\About\RemoveAds\RestoreRemoveAdsUI.cs" />
     <Compile Include="Assets\Main\BtnSettingUI.cs" />
     <Compile Include="Assets\Main\DeviceOrientationCheckUI.cs" />
     <Compile Include="Assets\Main\Home\ConfirmLeave\ConfirmLeaveAppUI.cs" />
@@ -4516,6 +4521,7 @@
     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
     <None Include="Assets\Plugins\UnityPurchasing\Editor\IAPGeneratedCredentials.cs.template" />
     <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
+    <None Include="Assets\Resources\Eula.txt" />
     <None Include="Assets\Resources\XiangqiPostures.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />
