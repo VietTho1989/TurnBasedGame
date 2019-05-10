@@ -170,7 +170,15 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
         {
             // removeAdsRect
             {
-                // 
+                // anchoredPosition: (90.0, -405.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (90.0, -435.0); offsetMax: (210.0, -405.0); sizeDelta: (120.0, 30.0);
+                removeAdsRect.anchoredPosition = new Vector3(90.0f, -465.0f, 0.0f);
+                removeAdsRect.anchorMin = new Vector2(0.0f, 1.0f);
+                removeAdsRect.anchorMax = new Vector2(0.0f, 1.0f);
+                removeAdsRect.pivot = new Vector2(0.0f, 1.0f);
+                removeAdsRect.offsetMin = new Vector2(90.0f, -495.0f);
+                removeAdsRect.offsetMax = new Vector2(210.0f, -465.0f);
+                removeAdsRect.sizeDelta = new Vector2(120.0f, 30.0f);
             }
         }
     }
