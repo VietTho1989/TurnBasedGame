@@ -121,6 +121,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     public Text tvSetting;
     private static readonly TxtLanguage txtSetting = new TxtLanguage("Setting");
 
+    public Text lbClearPreferences;
+    private static readonly TxtLanguage txtClearPreferences = new TxtLanguage("Clear preferences");
+
+    public Text lbRefreshUI;
+    private static readonly TxtLanguage txtRefreshUI = new TxtLanguage("Refresh UI");
+
     private static readonly TxtLanguage txtApply = new TxtLanguage("Apply");
     private static readonly TxtLanguage txtCannotApply = new TxtLanguage("Can't apply");
     private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
@@ -131,6 +137,10 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         // txt
         {
             txtSetting.add(Language.Type.vi, "Thiết Lập");
+
+            txtClearPreferences.add(Language.Type.vi, "Xoá sở thích");
+            txtRefreshUI.add(Language.Type.vi, "Làm mới giao diện");
+
             txtApply.add(Language.Type.vi, "Áp Dụng");
             txtCannotApply.add(Language.Type.vi, "Không thể áp dụng");
             txtReset.add(Language.Type.vi, "Đặt lại");
@@ -454,7 +464,25 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("tvSetting null: " + this);
+                        Debug.LogError("tvSetting null");
+                    }
+                    if (lbClearPreferences != null)
+                    {
+                        lbClearPreferences.text = txtClearPreferences.get();
+                        Setting.get().setLabelTextSize(lbClearPreferences);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbClearPreferences null");
+                    }
+                    if (lbRefreshUI != null)
+                    {
+                        lbRefreshUI.text = txtRefreshUI.get();
+                        Setting.get().setLabelTextSize(lbRefreshUI);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbRefreshUI null");
                     }
                 }
             }
@@ -907,6 +935,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         {
             UIUtils.SetButtonOnClick(btnApply, onClickBtnApply);
             UIUtils.SetButtonOnClick(btnReset, onClickBtnReset);
+            UIUtils.SetButtonOnClick(btnClearPreferences, onClickBtnClearPreferences);
             UIUtils.SetButtonOnClick(btnRefresh, onClickBtnRefreshUI);
         }
     }
@@ -937,6 +966,19 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                             if (btnReset != null && btnReset.interactable)
                             {
                                 this.onClickBtnReset();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("cannot click");
+                            }
+                        }
+                        break;
+                    case KeyCode.P:
+                        {
+                            if (btnClearPreferences != null && btnClearPreferences.gameObject.activeInHierarchy && btnClearPreferences.interactable)
+                            {
+                                this.onClickBtnClearPreferences();
                                 isProcess = true;
                             }
                             else
@@ -1087,6 +1129,20 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         }
     }
 
+    #region preferences
+
+    public Button btnClearPreferences;
+
+    [UnityEngine.Scripting.Preserve]
+    public void onClickBtnClearPreferences()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
+    #endregion
+
+    #region refresh
+
     public Button btnRefresh;
 
     [UnityEngine.Scripting.Preserve]
@@ -1101,5 +1157,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
             }
         }
     }
+
+    #endregion
 
 }

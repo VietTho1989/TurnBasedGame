@@ -386,17 +386,34 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                     }
                     // removeAds
                     {
-                        if (lbRemoveAds != null)
+                        if (!Global.get().removeAds.v)
                         {
-                            UIRectTransform.SetPosY(lbRemoveAds.rectTransform, deltaY);
-                            UIRectTransform.SetHeight(lbRemoveAds.rectTransform, itemSize);
+                            if (lbRemoveAds != null)
+                            {
+                                lbRemoveAds.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbRemoveAds.rectTransform, deltaY);
+                                UIRectTransform.SetHeight(lbRemoveAds.rectTransform, itemSize);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRemoveAds null");
+                            }
+                            UIRectTransform.SetActive(this.data.removeAds.v, true);
+                            UIRectTransform.SetPosY(this.data.removeAds.v, deltaY + (itemSize - 30.0f) / 2.0f);
+                            deltaY += itemSize;
                         }
                         else
                         {
-                            Debug.LogError("lbRemoveAds null");
+                            if (lbRemoveAds != null)
+                            {
+                                lbRemoveAds.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRemoveAds null");
+                            }
+                            UIRectTransform.SetActive(this.data.removeAds.v, false);
                         }
-                        UIRectTransform.SetPosY(this.data.removeAds.v, deltaY + (itemSize - 30.0f) / 2.0f);
-                        deltaY += itemSize;
                     }
                 }
                 // SiblingIndex
@@ -757,6 +774,9 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                     dirty = true;
                     break;
                 case Global.Property.openSource:
+                    dirty = true;
+                    break;
+                case Global.Property.removeAds:
                     dirty = true;
                     break;
                 default:

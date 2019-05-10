@@ -150,6 +150,8 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
                     break;
                 case Global.Property.openSource:
                     break;
+                case Global.Property.removeAds:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

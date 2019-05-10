@@ -227,7 +227,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

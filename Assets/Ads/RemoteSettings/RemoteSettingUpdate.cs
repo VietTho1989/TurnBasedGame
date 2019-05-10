@@ -52,50 +52,58 @@ public class RemoteSettingUpdate : MonoBehaviour
             {
                 AdsManager.AdsType videoType = AdsManager.DefaultVideoType;
                 {
-                    // get dictionary
-                    Dictionary<AdsManager.AdsType, int> adsValueDict = new Dictionary<AdsManager.AdsType, int>();
-                    int sum = 0;
+                    if (!Global.get().removeAds.v)
                     {
-                        // unity
+                        // get dictionary
+                        Dictionary<AdsManager.AdsType, int> adsValueDict = new Dictionary<AdsManager.AdsType, int>();
+                        int sum = 0;
                         {
-                            int adsValue = RemoteSettings.GetInt("AdsVideoTypeUnity", 1);
-                            if (adsValue > 0)
+                            // unity
                             {
-                                adsValueDict.Add(AdsManager.AdsType.Unity, adsValue);
-                                sum += adsValue;
+                                int adsValue = RemoteSettings.GetInt("AdsVideoTypeUnity", 1);
+                                if (adsValue > 0)
+                                {
+                                    adsValueDict.Add(AdsManager.AdsType.Unity, adsValue);
+                                    sum += adsValue;
+                                }
+                            }
+                            // admob
+                            {
+                                int adsValue = RemoteSettings.GetInt("AdsVideoTypeAdmob", 0);
+                                if (adsValue > 0)
+                                {
+                                    adsValueDict.Add(AdsManager.AdsType.Admob, adsValue);
+                                    sum += adsValue;
+                                }
                             }
                         }
-                        // admob
+                        // process
+                        if (adsValueDict.Keys.Count > 0)
                         {
-                            int adsValue = RemoteSettings.GetInt("AdsVideoTypeAdmob", 0);
-                            if (adsValue > 0)
+                            int index = random.Next(sum);
+                            foreach (AdsManager.AdsType adsType in adsValueDict.Keys)
                             {
-                                adsValueDict.Add(AdsManager.AdsType.Admob, adsValue);
-                                sum += adsValue;
+                                int adsValue = adsValueDict[adsType];
+                                if (index < adsValue)
+                                {
+                                    videoType = adsType;
+                                    break;
+                                }
+                                else
+                                {
+                                    index -= adsValue;
+                                }
                             }
                         }
-                    }
-                    // process
-                    if (adsValueDict.Keys.Count > 0)
-                    {
-                        int index = random.Next(sum);
-                        foreach(AdsManager.AdsType adsType in adsValueDict.Keys)
+                        else
                         {
-                            int adsValue = adsValueDict[adsType];
-                            if (index < adsValue)
-                            {
-                                videoType = adsType;
-                                break;
-                            }
-                            else
-                            {
-                                index -= adsValue;
-                            }
+                            Debug.LogError("Don't show any videoType");
+                            videoType = AdsManager.AdsType.None;
                         }
                     }
                     else
                     {
-                        Debug.LogError("Don't show any videoType");
+                        Debug.LogError("removeAds, so not show");
                         videoType = AdsManager.AdsType.None;
                     }
                 }
@@ -111,50 +119,58 @@ public class RemoteSettingUpdate : MonoBehaviour
             {
                 AdsManager.AdsType bannerType = AdsManager.DefaultBannerType;
                 {
-                    // get dictionary
-                    Dictionary<AdsManager.AdsType, int> adsValueDict = new Dictionary<AdsManager.AdsType, int>();
-                    int sum = 0;
+                    if (!Global.get().removeAds.v)
                     {
-                        // unity
+                        // get dictionary
+                        Dictionary<AdsManager.AdsType, int> adsValueDict = new Dictionary<AdsManager.AdsType, int>();
+                        int sum = 0;
                         {
-                            int adsValue = RemoteSettings.GetInt("AdsBannerTypeUnity", 0);
-                            if (adsValue > 0)
+                            // unity
                             {
-                                adsValueDict.Add(AdsManager.AdsType.Unity, adsValue);
-                                sum += adsValue;
+                                int adsValue = RemoteSettings.GetInt("AdsBannerTypeUnity", 0);
+                                if (adsValue > 0)
+                                {
+                                    adsValueDict.Add(AdsManager.AdsType.Unity, adsValue);
+                                    sum += adsValue;
+                                }
+                            }
+                            // admob
+                            {
+                                int adsValue = RemoteSettings.GetInt("AdsBannerTypeAdmob", 1);
+                                if (adsValue > 0)
+                                {
+                                    adsValueDict.Add(AdsManager.AdsType.Admob, adsValue);
+                                    sum += adsValue;
+                                }
                             }
                         }
-                        // admob
+                        // process
+                        if (adsValueDict.Keys.Count > 0)
                         {
-                            int adsValue = RemoteSettings.GetInt("AdsBannerTypeAdmob", 1);
-                            if (adsValue > 0)
+                            int index = random.Next(sum);
+                            foreach (AdsManager.AdsType adsType in adsValueDict.Keys)
                             {
-                                adsValueDict.Add(AdsManager.AdsType.Admob, adsValue);
-                                sum += adsValue;
+                                int adsValue = adsValueDict[adsType];
+                                if (index < adsValue)
+                                {
+                                    bannerType = adsType;
+                                    break;
+                                }
+                                else
+                                {
+                                    index -= adsValue;
+                                }
                             }
                         }
-                    }
-                    // process
-                    if (adsValueDict.Keys.Count > 0)
-                    {
-                        int index = random.Next(sum);
-                        foreach (AdsManager.AdsType adsType in adsValueDict.Keys)
+                        else
                         {
-                            int adsValue = adsValueDict[adsType];
-                            if (index < adsValue)
-                            {
-                                bannerType = adsType;
-                                break;
-                            }
-                            else
-                            {
-                                index -= adsValue;
-                            }
+                            Debug.LogError("Don't show any bannerType");
+                            bannerType = AdsManager.AdsType.None;
                         }
                     }
                     else
                     {
-                        Debug.LogError("Don't show any bannerType");
+                        Debug.LogError("removeAds, so not show banner");
                         bannerType = AdsManager.AdsType.None;
                     }
                 }

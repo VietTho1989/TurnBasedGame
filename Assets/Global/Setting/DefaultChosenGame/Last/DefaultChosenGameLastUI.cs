@@ -182,7 +182,7 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

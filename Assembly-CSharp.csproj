@@ -1002,6 +1002,7 @@
     <Compile Include="Assets\Global\Global.cs" />
     <Compile Include="Assets\Global\GlobalBehavior.cs" />
     <Compile Include="Assets\Global\GlobalInit.cs" />
+    <Compile Include="Assets\Global\GlobalPref.cs" />
     <Compile Include="Assets\Global\GlobalUICheckChange.cs" />
     <Compile Include="Assets\Global\GlobalUpdate.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSetting.cs" />
@@ -1092,6 +1093,7 @@
     <Compile Include="Assets\Main\About\AboutUI.cs" />
     <Compile Include="Assets\Main\About\Eula\EulaUI.cs" />
     <Compile Include="Assets\Main\About\RemoveAds\RemoveAdsUI.cs" />
+    <Compile Include="Assets\Main\About\RemoveAds\RestoreRemoveAdsUI.cs" />
     <Compile Include="Assets\Main\BtnSettingUI.cs" />
     <Compile Include="Assets\Main\DeviceOrientationCheckUI.cs" />
     <Compile Include="Assets\Main\Home\ConfirmLeave\ConfirmLeaveAppUI.cs" />

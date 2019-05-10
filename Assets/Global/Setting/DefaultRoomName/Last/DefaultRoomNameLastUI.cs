@@ -164,7 +164,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

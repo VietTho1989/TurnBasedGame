@@ -14,6 +14,15 @@ namespace Ads
             AdsManager adsManager = AdsManager.get();
             if (adsManager != null)
             {
+                // buys
+                {
+                    if (Global.get().removeAds.v)
+                    {
+                        AdsManager.get().alreadyBuyAds.v = true;
+                        // TODO Co nen dat khong nhi
+                        // AdsManager.get().removeAds();
+                    }
+                }
                 // prepareBannerVisibility
                 {
                     switch (adsManager.prepareBannerVisibility.v)

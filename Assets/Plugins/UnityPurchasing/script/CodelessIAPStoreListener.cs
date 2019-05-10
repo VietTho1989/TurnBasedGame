@@ -208,6 +208,17 @@ namespace UnityEngine.Purchasing
 
             }
 
+            // TODO Tu them vao
+            {
+                if (resultProcessed)
+                {
+                    if (e.purchasedProduct.definition.id == "1")
+                    {
+                        // Global.get().removeAds.v = true;
+                    }
+                }
+                Debug.LogError("test processPurchase: " + e.purchasedProduct);
+            }
             return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
         }
 

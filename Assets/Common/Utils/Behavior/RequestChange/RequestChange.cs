@@ -82,12 +82,12 @@ public class RequestChange
                     }
                     else
                     {
-                        Debug.LogError("show null");
+                        // Debug.LogError("show null");
                     }
                 }
                 else
                 {
-                    Debug.LogError("editData null");
+                    // Debug.LogError("editData null");
                 }
             }
             lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;

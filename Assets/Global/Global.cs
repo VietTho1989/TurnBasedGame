@@ -85,6 +85,8 @@ public class Global : Data
     public const string DefaultOpenSource = "https://github.com/VietTho1989/TurnBasedGame";
     public VP<string> openSource;
 
+    public VP<bool> removeAds;
+
     #endregion
 
     #region Constructor
@@ -102,7 +104,8 @@ public class Global : Data
         serverMessage,
         website,
         oldVersions,
-        openSource
+        openSource,
+        removeAds
     }
 
     public Global() : base()
@@ -119,6 +122,7 @@ public class Global : Data
         this.website = new VP<string>(this, (byte)Property.website, DefaultWebsite);
         this.oldVersions = new VP<string>(this, (byte)Property.oldVersions, DefaultOldVersions);
         this.openSource = new VP<string>(this, (byte)Property.openSource, DefaultOpenSource);
+        this.removeAds = new VP<bool>(this, (byte)Property.removeAds, false);
     }
 
     #endregion

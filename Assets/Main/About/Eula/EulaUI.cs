@@ -89,6 +89,8 @@ public class EulaUI : UIBehavior<EulaUI.UIData>
     public Text tvEula;
     private bool isAlreadyLoad = false;
 
+    public RectTransform contentScrollView;
+
     public override void refresh()
     {
         if (dirty)
@@ -117,6 +119,16 @@ public class EulaUI : UIBehavior<EulaUI.UIData>
                 else
                 {
                     Debug.LogError("tvEula null");
+                }
+                // contentScrollView
+                if (contentScrollView != null)
+                {
+                    UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+                    rect.set(contentScrollView);
+                }
+                else
+                {
+                    Debug.LogError("contentScrollView null");
                 }
                 // UI
                 {

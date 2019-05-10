@@ -42,6 +42,12 @@ namespace Ads
             return adsManager;
         }
 
+        public void removeAds()
+        {
+            this.bannerType.v = AdsType.None;
+            this.videoType.v = AdsType.None;
+        }
+
         #endregion
 
         public VP<float> time;

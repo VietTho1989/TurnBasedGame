@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Purchasing;
+using Ads;
 
 public class RemoveAdsUI : UIBehavior<RemoveAdsUI.UIData>
 {
