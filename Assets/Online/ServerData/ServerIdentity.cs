@@ -28,6 +28,24 @@ public class ServerIdentity : DataIdentity
 
     #endregion
 
+    #region gameTypes
+
+    public SyncListInt gameTypes = new SyncListInt();
+
+    private void OnGameTypesChanged(SyncListInt.Operation op, int index)
+    {
+        if (this.netData.clientData != null)
+        {
+            IdentityUtils.onSyncListChange(this.netData.clientData.gameTypes, this.gameTypes, op, index);
+        }
+        else
+        {
+            // Debug.LogError ("clientData null: " + this);
+        }
+    }
+
+    #endregion
+
     #region disconnectTime
 
     [SyncVar(hook = "onChangeDisconnectTime")]
@@ -91,11 +109,18 @@ public class ServerIdentity : DataIdentity
         }
     }
 
+    public override void addSyncListCallBack()
+    {
+        base.addSyncListCallBack();
+        this.gameTypes.Callback += OnGameTypesChanged;
+    }
+
     public override void refreshClientData()
     {
         if (this.netData.clientData != null)
         {
             this.onChangeDisconnectTime(this.disconnectTime);
+            IdentityUtils.refresh(this.netData.clientData.gameTypes, this.gameTypes);
             this.onChangeDisconnectTime(this.instanceId);
         }
         else
@@ -108,8 +133,9 @@ public class ServerIdentity : DataIdentity
     {
         int ret = GetDataSize(this.netId);
         {
-            ret += GetDataSize(this.disconnectTime);
             ret += GetDataSize(this.instanceId);
+            ret += GetDataSize(this.gameTypes);
+            ret += GetDataSize(this.disconnectTime);
         }
         return ret;
     }
@@ -138,8 +164,9 @@ public class ServerIdentity : DataIdentity
             // Property
             {
                 this.serialize(this.searchInfor, server.makeSearchInforms());
-                this.disconnectTime = server.disconnectTime.v;
                 this.instanceId = server.instanceId.v;
+                IdentityUtils.InitSync(this.gameTypes, server.gameTypes.vs);
+                this.disconnectTime = server.disconnectTime.v;
             }
             this.getDataSize();
             // Observer
@@ -196,6 +223,9 @@ public class ServerIdentity : DataIdentity
                     break;
                 case Server.Property.instanceId:
                     this.instanceId = (long)wrapProperty.getValue();
+                    break;
+                case Server.Property.gameTypes:
+                    IdentityUtils.UpdateSyncList(this.gameTypes, syncs, GlobalCast<T>.CastingInt32);
                     break;
                 case Server.Property.startState:
                     break;

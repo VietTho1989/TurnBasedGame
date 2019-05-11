@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Server : Data
 {
@@ -10,6 +11,38 @@ public class Server : Data
     public VP<ServerConfig> serverConfig;
 
     public VP<long> instanceId;
+
+    #region gameTypes
+
+    public LP<int> gameTypes;
+
+    public static List<int> GetGameTypes(Data data)
+    {
+        // find Server
+        Server server = null;
+        {
+
+        }
+        // process
+        if (server != null)
+        {
+            return server.gameTypes.vs;
+        }
+        else
+        {
+            Debug.LogError("server null");
+            List<int> ret = new List<int>();
+            {
+                foreach(GameType.Type gameType in GameType.EnableTypes)
+                {
+                    ret.Add((int)gameType);
+                }
+            }
+            return ret;
+        }
+    }
+
+    #endregion
 
     #region StartState
 
@@ -44,15 +77,6 @@ public class Server : Data
 
     public User getProfileUser()
     {
-        /*for (int i = 0; i < this.users.vs.Count; i++)
-        {
-            User user = this.users.vs[i];
-            if (user.human.v.playerId.v == this.profileId.v)
-            {
-                return user;
-            }
-        }
-        return null;*/
         return this.users.getInList(this.profileId.v);
     }
 
@@ -294,6 +318,7 @@ public class Server : Data
     {
         serverConfig,
         instanceId,
+        gameTypes,
         startState,
         type,
         profile,
@@ -311,6 +336,7 @@ public class Server : Data
         this.isRoot = true;
         this.serverConfig = new VP<ServerConfig>(this, (byte)Property.serverConfig, new ServerConfig());
         this.instanceId = new VP<long>(this, (byte)Property.instanceId, Global.getRealTimeInMiliSeconds());
+        this.gameTypes = new LP<int>(this, (byte)Property.gameTypes);
         this.startState = new VP<StartState>(this, (byte)Property.startState, StartState.Start);
         this.type = new VP<Type>(this, (byte)Property.type, Type.Client);
         this.profileId = new VP<uint>(this, (byte)Property.profile, Data.UNKNOWN_ID);

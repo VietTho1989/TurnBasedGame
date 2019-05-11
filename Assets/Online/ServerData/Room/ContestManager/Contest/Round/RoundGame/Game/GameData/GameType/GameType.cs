@@ -290,40 +290,40 @@ public abstract class GameType : Data
     public abstract Type getType();
 
     public static readonly GameType.Type[] EnableTypes = {
-        GameType.Type.CHESS,
-        GameType.Type.Shatranj,
-        GameType.Type.Makruk,
-        GameType.Type.Seirawan,
-        GameType.Type.FairyChess,
+        Type.CHESS,
+        Type.Shatranj,
+        Type.Makruk,
+        Type.Seirawan,
+        Type.FairyChess,
 
-        GameType.Type.Weiqi,
-        GameType.Type.SHOGI,
-        GameType.Type.Reversi,
+        Type.Weiqi,
+        Type.SHOGI,
+        Type.Reversi,
 
-        GameType.Type.Xiangqi,
-        GameType.Type.CO_TUONG_UP,
-        GameType.Type.Janggi,
-        GameType.Type.Banqi,
+        Type.Xiangqi,
+        Type.CO_TUONG_UP,
+        Type.Janggi,
+        Type.Banqi,
 
-        GameType.Type.Gomoku,
+        Type.Gomoku,
 
-        GameType.Type.InternationalDraught,
-        GameType.Type.EnglishDraught,
-        GameType.Type.RussianDraught,
-        // GameType.Type.ChineseCheckers,
+        Type.InternationalDraught,
+        Type.EnglishDraught,
+        Type.RussianDraught,
+        // Type.ChineseCheckers,
 
-        GameType.Type.MineSweeper,
-        GameType.Type.Hex,
-        GameType.Type.Solitaire,
+        Type.MineSweeper,
+        Type.Hex,
+        Type.Solitaire,
 
-        GameType.Type.Sudoku,
-        GameType.Type.Khet,
-        GameType.Type.NineMenMorris
+        Type.Sudoku,
+        Type.Khet,
+        Type.NineMenMorris
     };
 
-    public static readonly List<GameType.Type> AllEnableGameTypes = new List<Type>();
+    public static readonly List<Type> AllEnableGameTypes = new List<Type>();
 
-    public static int getEnableIndex(GameType.Type gameTypeType)
+    public static int getEnableIndex(Type gameTypeType)
     {
         int index = 0;
         {

@@ -15,11 +15,26 @@ public class ServerUpdate : UpdateBehavior<Server>
             dirty = false;
             if (this.data != null)
             {
-
+                // gameTypes
+                {
+                    if (this.data.gameTypes.vs.Count == 0)
+                    {
+                        // find
+                        List<int> gameTypes = new List<int>();
+                        {
+                            foreach(GameType.Type gameType in GameType.EnableTypes)
+                            {
+                                gameTypes.Add((int)gameType);
+                            }
+                        }
+                        // add
+                        this.data.gameTypes.add(gameTypes);
+                    }
+                }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                Debug.LogError("data null");
             }
         }
     }
@@ -156,14 +171,27 @@ public class ServerUpdate : UpdateBehavior<Server>
         {
             switch ((Server.Property)wrapProperty.n)
             {
-                case Server.Property.state:
+                case Server.Property.serverConfig:
+                    break;
+                case Server.Property.instanceId:
+                    break;
+                case Server.Property.gameTypes:
+                    dirty = true;
+                    break;
+                case Server.Property.startState:
+                    break;
+                case Server.Property.type:
                     break;
                 case Server.Property.profile:
+                    break;
+                case Server.Property.state:
                     break;
                 case Server.Property.users:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                     }
+                    break;
+                case Server.Property.disconnectTime:
                     break;
                 case Server.Property.roomManager:
                     {
