@@ -33,7 +33,7 @@ public class CreateDataIdentityUpdate : UpdateBehavior<Server>
                             }
                             else
                             {
-                                Debug.LogError("why already contain type: " + dataType + "; " + this);
+                                Debug.LogError("why already contain type: " + dataType + "; " + prefab + "; " + this);
                             }
                         }
                         else

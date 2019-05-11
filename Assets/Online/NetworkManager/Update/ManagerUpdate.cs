@@ -325,6 +325,8 @@ public class ManagerUpdate : UpdateBehavior<Server>
                     break;
                 case Server.Property.instanceId:
                     break;
+                case Server.Property.gameTypes:
+                    break;
                 case Server.Property.startState:
                     dirty = true;
                     break;

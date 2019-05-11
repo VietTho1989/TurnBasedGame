@@ -148,6 +148,12 @@ public class NormalUpdate : UpdateBehavior<Server>
         {
             switch ((Server.Property)wrapProperty.n)
             {
+                case Server.Property.serverConfig:
+                    break;
+                case Server.Property.instanceId:
+                    break;
+                case Server.Property.gameTypes:
+                    break;
                 case Server.Property.startState:
                     break;
                 case Server.Property.type:
