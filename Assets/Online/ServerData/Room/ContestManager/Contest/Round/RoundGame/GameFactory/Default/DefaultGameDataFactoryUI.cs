@@ -35,14 +35,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
             // Process
             if (defaultGameDataFactory != null)
             {
-                // Find gameTypeType
-                GameType.Type gameTypeType = GameType.Type.Xiangqi;
-                {
-                    if (newGameType >= 0 && newGameType < GameType.EnableTypes.Length)
-                    {
-                        gameTypeType = GameType.EnableTypes[newGameType];
-                    }
-                }
+                GameType.Type gameTypeType = GameType.GetEnableGameTypeByIndex(this.editDefaultGameDataFactory.v.origin.v.data, newGameType);
                 defaultGameDataFactory.requestChangeGameType(Server.getProfileUserId(defaultGameDataFactory), gameTypeType);
             }
             else
@@ -72,12 +65,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 this.gameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.gameType, new RequestChangeEnumUI.UIData());
                 // event
                 this.gameType.v.updateData.v.request.v = makeRequestChangeGameType;
-                {
-                    for (int i = 0; i < GameType.EnableTypes.Length; i++)
-                    {
-                        this.gameType.v.options.add(GameType.EnableTypes[i].ToString());
-                    }
-                }
             }
             this.defaultGameTypeUI = new VP<DefaultGameTypeUI>(this, (byte)Property.defaultGameTypeUI, null);
         }
@@ -150,8 +137,8 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
-                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType()));
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString(editDefaultGameDataFactory.origin.v.data));
+                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType(), editDefaultGameDataFactory.origin.v.data));
                                 }
                                 // defaultGameTypeUI
                                 {

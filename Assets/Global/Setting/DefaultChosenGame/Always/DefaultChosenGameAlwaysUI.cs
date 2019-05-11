@@ -37,14 +37,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
             // Process
             if (defaultChosenGameAlways != null)
             {
-                // Find gameTypeType
-                GameType.Type gameTypeType = GameType.Type.CHESS;
-                {
-                    if (newGameType >= 0 && newGameType < GameType.EnableTypes.Length)
-                    {
-                        gameTypeType = GameType.EnableTypes[newGameType];
-                    }
-                }
+                GameType.Type gameTypeType = GameType.GetEnableGameTypeByIndex(this.editDefaultChosenGameAlways.v.origin.v.data, newGameType);
                 defaultChosenGameAlways.gameType.v = gameTypeType;
             }
             else
@@ -73,12 +66,6 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                 this.gameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.gameType, new RequestChangeEnumUI.UIData());
                 // event
                 this.gameType.v.updateData.v.request.v = makeRequestChangeGameType;
-                {
-                    for (int i = 0; i < GameType.EnableTypes.Length; i++)
-                    {
-                        this.gameType.v.options.add(GameType.EnableTypes[i].ToString());
-                    }
-                }
             }
         }
 
@@ -136,8 +123,8 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
-                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultChosenGameAlways, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v));
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString(editDefaultChosenGameAlways.origin.v.data));
+                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultChosenGameAlways, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v, editDefaultChosenGameAlways.origin.v.data));
                                 }
                             }
                             needReset = false;

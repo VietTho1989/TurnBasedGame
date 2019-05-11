@@ -38,10 +38,20 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 // Find gameTypeType
                 GameType.Type gameTypeType = GameType.Type.CHESS;
                 {
-                    if (newGameType >= 0 && newGameType < GameType.EnableTypes.Length)
+                    // find server
+                    Server server = null;
                     {
-                        gameTypeType = GameType.EnableTypes[newGameType];
+                        ManagerUI.UIData managerUIData = this.findDataInParent<ManagerUI.UIData>();
+                        if (managerUIData != null)
+                        {
+                            server = managerUIData.server.v.data;
+                        }
+                        else
+                        {
+                            Debug.LogError("managerUIData null");
+                        }
                     }
+                    gameTypeType = GameType.GetEnableGameTypeByIndex(server, newGameType);
                 }
                 createRoom.gameType.v = gameTypeType;
             }
@@ -138,12 +148,6 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 this.gameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.gameType, new RequestChangeEnumUI.UIData());
                 // event
                 this.gameType.v.updateData.v.request.v = makeRequestChangeGameType;
-                {
-                    for (int i = 0; i < GameType.EnableTypes.Length; i++)
-                    {
-                        this.gameType.v.options.add(GameType.EnableTypes[i].ToString());
-                    }
-                }
             }
             // roomName
             {
@@ -284,8 +288,24 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
-                                    RequestChange.RefreshUI(this.data.gameType.v, editCreateRoom, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v));
+                                    // find server
+                                    Server server = null;
+                                    {
+                                        ManagerUI.UIData managerUIData = this.data.findDataInParent<ManagerUI.UIData>();
+                                        if (managerUIData != null)
+                                        {
+                                            server = managerUIData.server.v.data;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("managerUIData null");
+                                        }
+                                    }
+                                    // set
+                                    {
+                                        RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString(server));
+                                        RequestChange.RefreshUI(this.data.gameType.v, editCreateRoom, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v, server));
+                                    }
                                 }
                                 RequestChange.RefreshUI(this.data.roomName.v, editCreateRoom, serverState, needReset, editData => editData.roomName.v);
                                 RequestChange.RefreshUI(this.data.password.v, editCreateRoom, serverState, needReset, editData => editData.password.v);

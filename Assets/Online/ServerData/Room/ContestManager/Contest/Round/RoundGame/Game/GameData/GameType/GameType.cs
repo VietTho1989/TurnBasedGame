@@ -252,12 +252,14 @@ public abstract class GameType : Data
         }
     }
 
-    public static List<string> GetEnableTypeString()
+    public static List<string> GetEnableTypeString(Data data)
     {
         List<string> ret = new List<string>();
         {
-            foreach (GameType.Type gameType in EnableTypes)
+            List<int> enableTypes = Server.GetGameTypes(data);
+            foreach (int gameTypeValue in enableTypes)
             {
+                GameType.Type gameType = (GameType.Type)gameTypeValue;
                 string strGameType = gameType.ToString();
                 {
                     TxtLanguage txtGameType = null;
@@ -323,11 +325,12 @@ public abstract class GameType : Data
 
     public static readonly List<Type> AllEnableGameTypes = new List<Type>();
 
-    public static int getEnableIndex(Type gameTypeType)
+    public static int getEnableIndex(Type gameTypeType, Data data)
     {
         int index = 0;
         {
-            for (int i = 0; i < EnableTypes.Length; i++)
+            List<int> enableGameTypes = Server.GetGameTypes(data);
+            for (int i = 0; i < enableGameTypes.Count; i++)
             {
                 if (EnableTypes[i] == gameTypeType)
                 {
@@ -336,6 +339,23 @@ public abstract class GameType : Data
             }
         }
         return index;
+    }
+
+    public static Type GetEnableGameTypeByIndex(Data data, int index)
+    {
+        Type ret = Type.CHESS;
+        {
+            List<int> gameTypes = Server.GetGameTypes(data);
+            if (index >= 0 && index < gameTypes.Count)
+            {
+                ret = (Type)gameTypes[index];
+            }
+            else
+            {
+                Debug.LogError("index error: " + index);
+            }
+        }
+        return ret;
     }
 
     #region Logic

@@ -21,7 +21,14 @@ public class Server : Data
         // find Server
         Server server = null;
         {
-
+            if (data != null)
+            {
+                server = data.findDataInParent<Server>();
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
         }
         // process
         if (server != null)

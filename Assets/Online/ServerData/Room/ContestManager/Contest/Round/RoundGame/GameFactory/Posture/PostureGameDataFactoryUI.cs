@@ -37,14 +37,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             // Process
             if (postureGameDataFactory != null)
             {
-                // Find gameTypeType
-                GameType.Type gameTypeType = GameType.Type.Xiangqi;
-                {
-                    if (newGameType >= 0 && newGameType < GameType.EnableTypes.Length)
-                    {
-                        gameTypeType = GameType.EnableTypes[newGameType];
-                    }
-                }
+                GameType.Type gameTypeType = GameType.GetEnableGameTypeByIndex(this.editPostureGameDataFactory.v.origin.v.data, newGameType);
                 postureGameDataFactory.requestChangeGameType(Server.getProfileUserId(postureGameDataFactory), gameTypeType);
             }
             else
@@ -77,12 +70,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 this.gameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.gameType, new RequestChangeEnumUI.UIData());
                 // event
                 this.gameType.v.updateData.v.request.v = makeRequestChangeGameType;
-                {
-                    for (int i = 0; i < GameType.EnableTypes.Length; i++)
-                    {
-                        this.gameType.v.options.add(GameType.EnableTypes[i].ToString());
-                    }
-                }
             }
             this.editPostureGameData = new VP<EditPostureGameDataUI.UIData>(this, (byte)Property.editPostureGameData, null);
             this.miniGameDataUI = new VP<MiniGameDataUI.UIData>(this, (byte)Property.miniGameDataUI, new MiniGameDataUI.UIData());
@@ -189,8 +176,8 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
-                                    RequestChange.RefreshUI(this.data.gameType.v, editPostureGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType()));
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString(editPostureGameDataFactory.origin.v.data));
+                                    RequestChange.RefreshUI(this.data.gameType.v, editPostureGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType(), editPostureGameDataFactory.origin.v.data));
                                 }
                             }
                             needReset = false;
