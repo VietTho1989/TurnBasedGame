@@ -175,7 +175,7 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                     }
                     if (edtPort != null)
                     {
-                        edtPort.text = "" + Config.serverPort;
+                        edtPort.text = "" + Config.DefaultLANPort;
                     }
                     else
                     {

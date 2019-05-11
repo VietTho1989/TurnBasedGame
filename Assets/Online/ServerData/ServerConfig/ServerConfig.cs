@@ -18,8 +18,8 @@ public class ServerConfig : Data
 
 	public ServerConfig() : base()
 	{
-		this.address = new VP<string> (this, (byte)Property.address, Config.serverAddress);
-		this.port = new VP<int> (this, (byte)Property.port, Config.serverPort);
+        this.address = new VP<string>(this, (byte)Property.address, Global.get().serverAddress.v);
+		this.port = new VP<int> (this, (byte)Property.port, Config.DefaultLANPort);
 	}
 
 	#endregion

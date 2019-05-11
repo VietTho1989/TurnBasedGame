@@ -154,7 +154,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         // address
                         if (edtIpAddress != null)
                         {
-                            edtIpAddress.text = Config.serverAddress;
+                            edtIpAddress.text = Global.get().serverAddress.v;
                         }
                         else
                         {
@@ -163,7 +163,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         // port
                         if (edtPort != null)
                         {
-                            edtPort.text = "" + Config.serverPort;
+                            edtPort.text = "" + Global.get().serverPort.v;
                         }
                         else
                         {
@@ -431,7 +431,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     onlineClientPlayUIData.uid = onlineClientUIData.sub.makeId();
                     // address
                     {
-                        string address = Config.serverAddress;
+                        string address = Global.get().serverAddress.v;
                         {
                             if (edtIpAddress != null)
                             {
@@ -446,7 +446,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     }
                     // port
                     {
-                        int port = Config.serverPort;
+                        int port = Global.get().serverPort.v;
                         {
                             if (edtPort != null)
                             {
@@ -454,7 +454,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                                 if (!int.TryParse(strPort, out port))
                                 {
                                     Debug.LogError("strPort error: " + strPort);
-                                    port = Config.serverPort;
+                                    port = Config.DefaultLANPort;
                                 }
                             }
                             else

@@ -155,6 +155,17 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                 {
                     UIRectTransform.SetButtonTopLeftTransform(btnBack);
                 }
+                // playOnline
+                {
+                    if (btnOnline != null)
+                    {
+                        btnOnline.gameObject.SetActive(Global.get().canPlayOnline.v);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnOnline null");
+                    }
+                }
                 // btnViewAds
                 {
                     if (btnViewAds != null)
@@ -383,18 +394,22 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Ads
-            {
-                AdsManager.get().addCallBack(this);
-            }
+            AdsManager.get().addCallBack(this);
             // setting
-            {
-                Setting.get().addCallBack(this);
-            }
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.confirmLeave.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if(data is Global)
+        {
             dirty = true;
             return;
         }
@@ -429,19 +444,22 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Ads
-            {
-                AdsManager.get().removeCallBack(this);
-            }
+            AdsManager.get().removeCallBack(this);
             // setting
-            {
-                Setting.get().removeCallBack(this);
-            }
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.confirmLeave.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if(data is Global)
+        {
             return;
         }
         // Ads
@@ -482,6 +500,44 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Global
+        if(wrapProperty.p is Global)
+        {
+            switch ((Global.Property)wrapProperty.n)
+            {
+                case Global.Property.networkReachability:
+                    break;
+                case Global.Property.deviceOrientation:
+                    break;
+                case Global.Property.screenOrientation:
+                    break;
+                case Global.Property.width:
+                    break;
+                case Global.Property.height:
+                    break;
+                case Global.Property.screenWidth:
+                    break;
+                case Global.Property.screenHeight:
+                    break;
+                case Global.Property.serverMessage:
+                    break;
+                case Global.Property.website:
+                    break;
+                case Global.Property.oldVersions:
+                    break;
+                case Global.Property.openSource:
+                    break;
+                case Global.Property.removeAds:
+                    break;
+                case Global.Property.canPlayOnline:
+                    dirty = true;
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

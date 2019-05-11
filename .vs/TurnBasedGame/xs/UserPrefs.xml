@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sqlite/Object/HaveDatabase/Load/File/HaveDatabaseServerLoadFileUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs">
     <Files>
-      <File FileName="Assets/Sqlite/Object/HaveDatabase/Load/File/HaveDatabaseServerLoadFileUI.cs" Line="95" Column="29" />
+      <File FileName="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs" Line="320" Column="14" />
+      <File FileName="Assets/Global/Global.cs" Line="97" Column="63" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

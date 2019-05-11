@@ -383,7 +383,7 @@ public class Server : Data
             case Server.Type.Server:
                 {
                     this.serverConfig.v.address.v = "localhost";
-                    this.serverConfig.v.port.v = Config.serverPort;
+                    this.serverConfig.v.port.v = Config.DefaultLANPort;
                     this.startState.v = Server.StartState.Start;
                     this.state.v = new Server.State.Connect();
                 }

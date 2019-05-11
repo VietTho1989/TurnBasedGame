@@ -89,6 +89,19 @@ public class Global : Data
 
     #endregion
 
+    #region canPlayOnline
+
+    public const bool DefaultCanPlayOnline = false;
+    public VP<bool> canPlayOnline;
+
+    public const string DefaultServerAddress = "192.168.31.226";
+    public VP<string> serverAddress;
+
+    public const int DefaultServerPort = 7777;
+    public VP<int> serverPort;
+
+    #endregion
+
     #region Constructor
 
     public enum Property
@@ -105,7 +118,11 @@ public class Global : Data
         website,
         oldVersions,
         openSource,
-        removeAds
+        removeAds,
+
+        canPlayOnline,
+        serverAddress,
+        serverPort
     }
 
     public Global() : base()
@@ -123,6 +140,10 @@ public class Global : Data
         this.oldVersions = new VP<string>(this, (byte)Property.oldVersions, DefaultOldVersions);
         this.openSource = new VP<string>(this, (byte)Property.openSource, DefaultOpenSource);
         this.removeAds = new VP<bool>(this, (byte)Property.removeAds, false);
+
+        this.canPlayOnline = new VP<bool>(this, (byte)Property.canPlayOnline, DefaultCanPlayOnline);
+        this.serverAddress = new VP<string>(this, (byte)Property.serverAddress, DefaultServerAddress);
+        this.serverPort = new VP<int>(this, (byte)Property.serverPort, DefaultServerPort);
     }
 
     #endregion

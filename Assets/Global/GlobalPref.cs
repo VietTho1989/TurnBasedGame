@@ -193,6 +193,8 @@ public class GlobalPref : MonoBehaviour, ValueChangeCallBack
                         dirty = true;
                     }
                     break;
+                case Global.Property.canPlayOnline:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

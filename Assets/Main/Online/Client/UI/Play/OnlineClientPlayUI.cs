@@ -33,8 +33,8 @@ public class OnlineClientPlayUI : UIBehavior<OnlineClientPlayUI.UIData>
                         server.startState.v = Server.StartState.Begin;
                         // config
                         {
-                            server.serverConfig.v.address.v = Config.serverAddress;
-                            server.serverConfig.v.port.v = Config.serverPort;
+                            server.serverConfig.v.address.v = Global.get().serverAddress.v;
+                            server.serverConfig.v.port.v = Global.get().serverPort.v;
                         }
                     }
                     uiData.server.v = new ReferenceData<Server>(server);

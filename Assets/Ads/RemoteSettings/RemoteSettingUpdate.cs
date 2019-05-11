@@ -310,6 +310,22 @@ public class RemoteSettingUpdate : MonoBehaviour
                 string openSource = RemoteSettings.GetString("OpenSource", Global.DefaultOpenSource);
                 Global.get().openSource.v = openSource;
             }
+
+            // canPlayOnline
+            {
+                bool canPlayOnline = RemoteSettings.GetBool("CanPlayOnline", Global.DefaultCanPlayOnline);
+                Global.get().canPlayOnline.v = canPlayOnline;
+            }
+            // serverAddress
+            {
+                string serverAddress = RemoteSettings.GetString("ServerAddress", Global.DefaultServerAddress);
+                Global.get().serverAddress.v = serverAddress;
+            }
+            // serverPort
+            {
+                int serverPort = RemoteSettings.GetInt("ServerPort", Global.DefaultServerPort);
+                Global.get().serverPort.v = serverPort;
+            }
         }
     }
 

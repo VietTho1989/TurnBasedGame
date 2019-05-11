@@ -105,7 +105,7 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
         // port
         if (tvPort != null)
         {
-            int port = Config.serverPort;
+            int port = Config.DefaultLANPort;
             {
                 ServerManager serverManager = (ServerManager)NetworkManager.singleton;
                 if (serverManager != null)

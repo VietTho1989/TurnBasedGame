@@ -152,6 +152,8 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
                     break;
                 case Global.Property.removeAds:
                     break;
+                case Global.Property.canPlayOnline:
+                    break; 
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
