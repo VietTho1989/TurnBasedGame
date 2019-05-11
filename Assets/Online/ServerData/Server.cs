@@ -33,7 +33,22 @@ public class Server : Data
         // process
         if (server != null)
         {
-            return server.gameTypes.vs;
+            if (server.gameTypes.vs.Count != 0)
+            {
+                return server.gameTypes.vs;
+            }
+            else
+            {
+                Debug.LogError("why don't have any gameTypes");
+                List<int> ret = new List<int>();
+                {
+                    foreach (GameType.Type gameType in GameType.EnableTypes)
+                    {
+                        ret.Add((int)gameType);
+                    }
+                }
+                return ret;
+            }
         }
         else
         {
