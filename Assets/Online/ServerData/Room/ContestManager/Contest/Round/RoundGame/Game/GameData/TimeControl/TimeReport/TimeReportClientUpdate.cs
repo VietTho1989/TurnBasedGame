@@ -198,7 +198,7 @@ public class TimeReportClientUpdate : UpdateBehavior<TimeReportClient>
             }
             else
             {
-                Debug.LogError("server null");
+                // Debug.LogError("server null");
             }
         }
         if (isServer)
