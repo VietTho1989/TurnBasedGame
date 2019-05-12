@@ -208,7 +208,7 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("game null");
+                                    // Debug.LogError("game null");
                                 }
                             }
                             lbTitle.text = txtTitle.get() + " " + turnIndex;

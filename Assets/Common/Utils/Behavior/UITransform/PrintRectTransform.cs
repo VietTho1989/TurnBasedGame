@@ -30,7 +30,7 @@ public class PrintRectTransform : MonoBehaviour
              + "; offsetMax: " + rectTransform.offsetMax
             + "; sizeDelta: " + rectTransform.sizeDelta
             + "; localRotation: " + rectTransform.localRotation
-            + "; localScale: " + rectTransform.localScale);
+            + "; localScale: " + rectTransform.localScale + "; " + this.gameObject);
         }
         else
         {

@@ -167,6 +167,18 @@ public class SaveTask : UpdateBehavior<SaveTask.TaskData>
 
     }
 
+    static void DoWork(object work)
+    {
+        if (work is Work)
+        {
+            ((Work)work).DoWork();
+        }
+        else
+        {
+            Debug.LogError("why not work: " + work);
+        }
+    }
+
     public IEnumerator TaskSave()
     {
         if (this.data != null)
@@ -178,8 +190,11 @@ public class SaveTask : UpdateBehavior<SaveTask.TaskData>
                 w.isDone = false;
                 w.success = false;
                 // startThread
-                ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-                new Thread(threadDelegate).Start();
+                {
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    new Thread(threadDelegate).Start();*/
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                }
                 // Wait
                 while (!w.isDone)
                 {

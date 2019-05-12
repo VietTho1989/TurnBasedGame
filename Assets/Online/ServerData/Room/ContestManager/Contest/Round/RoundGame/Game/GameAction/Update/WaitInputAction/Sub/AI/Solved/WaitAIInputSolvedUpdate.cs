@@ -105,6 +105,18 @@ public class WaitAIInputSolvedUpdate : UpdateBehavior<WaitAIInputSolved>
         }
     }
 
+    static void DoWork(object work)
+    {
+        if (work is Work)
+        {
+            ((Work)work).DoWork();
+        }
+        else
+        {
+            Debug.LogError("why not work: " + work);
+        }
+    }
+
     private Routine getSolvedRoutine;
 
     public IEnumerator TaskGetSolvedMove()
@@ -114,9 +126,12 @@ public class WaitAIInputSolvedUpdate : UpdateBehavior<WaitAIInputSolved>
             w.data = this.data;
             w.isDone = false;
             // startThread
-            ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-            Thread newThread = new Thread(threadDelegate);
-            newThread.Start();
+            {
+                /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                Thread newThread = new Thread(threadDelegate);
+                newThread.Start();*/
+                ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+            }
         }
         // Wait
         {

@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using frame8.Logic.Misc.Visual.UI.ScrollRectItemsAdapter;
 
 public class TrashMan : MonoBehaviour
 {
-    private static bool log = false;
 
     /// <summary>
     /// access to the singleton
@@ -227,15 +227,38 @@ public class TrashMan : MonoBehaviour
         if (go != null)
         {
             int instanceId = despawnInterface.getInstanceId();
-            // despawn
-            TrashManRecycleBin recycleBin = null;
-            if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
+            if (instanceId != 0)
             {
-                // Debug.LogError ("despawn: " + go);
-                recycleBin.despawn(go);
-                go.transform.SetParent(instance.transform, false);
-                // event
-                despawnInterface.onDespawn();
+                // despawn
+                TrashManRecycleBin recycleBin = null;
+                if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
+                {
+                    // Debug.LogError ("despawn: " + go);
+                    // find
+                    bool canMake = true;
+                    {
+                        if (despawnInterface is ISRIA)
+                        {
+                            canMake = false;
+                            Debug.LogError("Why ISRIA: " + go);
+                        }
+                    }
+                    if (canMake)
+                    {
+                        recycleBin.despawn(go);
+                        go.transform.SetParent(instance.transform, false);
+                        // event
+                        despawnInterface.onDespawn();
+                    }
+                    else
+                    {
+                        Destroy(go);
+                    }
+                }
+                else
+                {
+                    Destroy(go);
+                }
             }
             else
             {
@@ -255,83 +278,57 @@ public class TrashMan : MonoBehaviour
         {
             // find instanceId
             int instanceId = GetInstanceId(go.gameObject);
-            // find recycleBin
-            TrashManRecycleBin recycleBin = null;
-            if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
+            if (instanceId != 0)
             {
-                GameObject newGo = recycleBin.spawn();
-                // Set transform
-                if (newGo != null)
+                // find recycleBin
+                TrashManRecycleBin recycleBin = null;
+                if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
                 {
-                    ret = newGo.GetComponent<T>();
-                    if (ret != null)
+                    // find
+                    bool canMake = true;
                     {
-                        newGo.SetActive(true);
-                        // Set Position
-                        newGo.transform.SetParent(parent, false);
+                        if (go is ISRIA)
+                        {
+                            canMake = false;
+                            Debug.LogError("Why ISRIA: " + go);
+                        }
                     }
-                    else
+                    // process
+                    if (canMake)
                     {
-                        Debug.LogError("Cannot find behavior: " + newGo + "; " + go + "; " + parent);
+                        GameObject newGo = recycleBin.spawn();
+                        // Set transform
+                        if (newGo != null)
+                        {
+                            ret = newGo.GetComponent<T>();
+                            if (ret != null)
+                            {
+                                newGo.SetActive(true);
+                                // Set Position
+                                newGo.transform.SetParent(parent, false);
+                            }
+                            else
+                            {
+                                Debug.LogError("Cannot find behavior: " + newGo + "; " + go + "; " + parent);
+                            }
+                        }
+                        else
+                        {
+                            // Debug.LogError("newGo null");
+                        }
                     }
                 }
-                else
-                {
-                    if (log)
-                        Debug.LogError("newGo null");
-                }
+            }
+            else
+            {
+                Debug.LogError("instanceId 0: " + go);
             }
         }
         // Normal
         if (ret == null)
         {
             // Debug.LogWarning ("attempted to spawn go (" + go.name + ") but there is no recycle bin setup for it. Falling back to Instantiate");
-            ret = GameObject.Instantiate<T>(go, parent, false) as T;
-        }
-        return ret;
-    }
-
-    public static UIBehavior<T> normalSpawnUI<T>(UIBehavior<T> go, Transform parent, T data) where T : Data
-    {
-        UIBehavior<T> ret = null;
-        // recycle
-        {
-            // find instanceId
-            int instanceId = GetInstanceId(go.gameObject);
-            // find recycleBin
-            TrashManRecycleBin recycleBin = null;
-            if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
-            {
-                GameObject newGo = recycleBin.spawn();
-                // Set transform
-                if (newGo != null)
-                {
-                    ret = newGo.GetComponent<UIBehavior<T>>();
-                    if (ret != null)
-                    {
-                        ret.setData(data);
-                        newGo.SetActive(true);
-                        // Set Position
-                        newGo.transform.SetParent(parent, false);
-                    }
-                    else
-                    {
-                        Debug.LogError("Cannot find behavior: " + newGo + "; " + go + "; " + parent);
-                    }
-                }
-                else
-                {
-                    if (log)
-                        Debug.LogError("newGo null");
-                }
-            }
-        }
-        // Normal
-        if (ret == null)
-        {
-            // Debug.LogWarning ("attempted to spawn go (" + go.name + ") but there is no recycle bin setup for it. Falling back to Instantiate");
-            ret = GameObject.Instantiate<UIBehavior<T>>(go, parent, false) as UIBehavior<T>;
-            ret.setData(data);
+            ret = Instantiate<T>(go, parent, false) as T;
         }
         return ret;
     }

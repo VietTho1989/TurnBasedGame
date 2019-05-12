@@ -152,8 +152,9 @@ public class ManagerUpdate : UpdateBehavior<Server>
                             for (int i = 0; i < this.data.users.vs.Count; i++)
                             {
                                 User checkAdmin = this.data.users.vs[i];
-                                if (checkAdmin.role.v == User.Role.Admin)
+                                if (checkAdmin.role.v == User.Role.Admin || checkAdmin.uid == 0)
                                 {
+                                    checkAdmin.role.v = User.Role.Admin;
                                     admin = checkAdmin;
                                     break;
                                 }
@@ -163,15 +164,7 @@ public class ManagerUpdate : UpdateBehavior<Server>
                             {
                                 admin = new User();
                                 {
-                                    // uid
-                                    if (this.data.users.vs.Count == 0 && this.data.users.i == 0)
-                                    {
-                                        admin.uid = 0;
-                                    }
-                                    else
-                                    {
-                                        admin.uid = this.data.users.makeId();
-                                    }
+                                    admin.uid = 0;
                                     admin.human.v.playerId.v = admin.uid;
                                 }
                                 this.data.users.add(admin);

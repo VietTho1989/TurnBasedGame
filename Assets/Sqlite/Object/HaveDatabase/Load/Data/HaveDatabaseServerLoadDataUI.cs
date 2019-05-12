@@ -150,7 +150,7 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 
         public Server server = null;
 
-        public void DoWork()
+        public void doWork()
         {
             try
             {
@@ -344,6 +344,12 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                                             user.human.v.connection.v = null;
                                         }
                                     }
+                                    else if (user.role.v == User.Role.Admin)
+                                    {
+                                        // TODO Tai sao phai them vao nhi
+                                        // user.uid = 0;
+                                        // user.human.v.playerId.v = 0;
+                                    }
                                 }
                             }
                             // max user client count
@@ -420,6 +426,18 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 
     }
 
+    static void DoWork(object work)
+    {
+        if (work is Work)
+        {
+            ((Work)work).doWork();
+        }
+        else
+        {
+            Debug.LogError("why not work: " + work);
+        }
+    }
+
     public IEnumerator TaskLoad()
     {
         if (this.data != null)
@@ -431,8 +449,11 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                 w.isDone = false;
                 w.success = false;
                 // startThread
-                ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-                new Thread(threadDelegate).Start();
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    new Thread(threadDelegate).Start();*/
+                }
                 // Wait
                 while (!w.isDone)
                 {

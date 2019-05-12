@@ -208,6 +208,8 @@ public class RoomCheckChangeAdminChange<K> : Data, ValueChangeCallBack where K :
                         break;
                     case Human.Property.connection:
                         break;
+                    case Human.Property.ban:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

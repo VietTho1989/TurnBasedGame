@@ -229,6 +229,18 @@ namespace FileSystem
             return ret;
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public IEnumerator TaskProcess()
         {
             if (this.data != null)
@@ -262,9 +274,10 @@ namespace FileSystem
                                         }
                                         // start thread
                                         {
-                                            ThreadStart threadDelegate = new ThreadStart(work.DoWork);
+                                            ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), work);
+                                            /*ThreadStart threadDelegate = new ThreadStart(work.DoWork);
                                             Thread newThread = new Thread(threadDelegate);
-                                            newThread.Start();
+                                            newThread.Start();*/
                                         }
                                         // Wait
                                         {

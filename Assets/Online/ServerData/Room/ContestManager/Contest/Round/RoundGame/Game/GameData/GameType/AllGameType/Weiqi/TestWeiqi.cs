@@ -116,6 +116,30 @@ namespace Weiqi
             }
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
+        static void DoWork1(object work)
+        {
+            if (work is Work1)
+            {
+                ((Work1)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public static void startTestMatch(int matchCount)
         {
             // work1
@@ -123,9 +147,10 @@ namespace Weiqi
                 Work1 w = new Work1();
                 {
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                     Thread newThread = new Thread(threadDelegate);
-                    newThread.Start();
+                    newThread.Start();*/
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork1), w);
                 }
             }
             // work
@@ -134,9 +159,10 @@ namespace Weiqi
                 Work w = new Work();
                 {
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                     Thread newThread = new Thread(threadDelegate, Global.ThreadSize);
-                    newThread.Start();
+                    newThread.Start();*/
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
                 }
             }
         }

@@ -90,6 +90,8 @@ namespace GameManager.Match.Swap
         public Text tvPlayerName;
         public Button btnShow;
 
+        public GameObject haveSwapIndicator;
+
         public override void refresh()
         {
             if (dirty)
@@ -171,6 +173,54 @@ namespace GameManager.Match.Swap
                                 Debug.LogError("btnShow null");
                             }
                         }
+                        // haveSwapIndicator
+                        {
+                            if (haveSwapIndicator != null)
+                            {
+                                bool haveSwap = false;
+                                {
+                                    SwapUI.UIData swapUIData = this.data.findDataInParent<SwapUI.UIData>();
+                                    if (swapUIData != null)
+                                    {
+                                        Swap swap = swapUIData.swap.v.data;
+                                        if (swap != null)
+                                        {
+                                            // find teamIndex
+                                            int teamIndex = 0;
+                                            {
+                                                MatchTeam team = teamPlayer.findDataInParent<MatchTeam>();
+                                                if (team != null)
+                                                {
+                                                    teamIndex = team.teamIndex.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("team null");
+                                                }
+                                            }
+                                            // check
+                                            if(swap.findRequest(teamPlayer.playerIndex.v, teamIndex) != null)
+                                            {
+                                                haveSwap = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("swap null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("swapUIData null");
+                                    }
+                                }
+                                haveSwapIndicator.gameObject.SetActive(haveSwap);
+                            }
+                            else
+                            {
+                                Debug.LogError("haveSwapIndicator null");
+                            }
+                        }
                     }
                     else
                     {
@@ -223,15 +273,37 @@ namespace GameManager.Match.Swap
                     // Child
                     {
                         swapUIData.swapPlayerInformUIData.allAddCallBack(this);
+                        swapUIData.swap.allAddCallBack(this);
                     }
                     dirty = true;
                     return;
                 }
                 // Child
-                if (data is SwapPlayerInformUI.UIData)
                 {
-                    dirty = true;
-                    return;
+                    if (data is SwapPlayerInformUI.UIData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                    // swap
+                    {
+                        if(data is Swap)
+                        {
+                            Swap swap = data as Swap;
+                            // Child
+                            {
+                                swap.swapRequests.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if(data is SwapRequest)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
                 }
             }
             // Child
@@ -322,13 +394,33 @@ namespace GameManager.Match.Swap
                     // Child
                     {
                         swapUIData.swapPlayerInformUIData.allRemoveCallBack(this);
+                        swapUIData.swap.allRemoveCallBack(this);
                     }
                     return;
                 }
                 // Child
-                if (data is SwapPlayerInformUI.UIData)
                 {
-                    return;
+                    if (data is SwapPlayerInformUI.UIData)
+                    {
+                        return;
+                    }
+                    // swap
+                    {
+                        if (data is Swap)
+                        {
+                            Swap swap = data as Swap;
+                            // Child
+                            {
+                                swap.swapRequests.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if (data is SwapRequest)
+                        {
+                            return;
+                        }
+                    }
                 }
             }
             // Child
@@ -425,6 +517,10 @@ namespace GameManager.Match.Swap
                     switch ((SwapUI.UIData.Property)wrapProperty.n)
                     {
                         case SwapUI.UIData.Property.swap:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
                             break;
                         case SwapUI.UIData.Property.swapTeamAdapter:
                             break;
@@ -441,22 +537,64 @@ namespace GameManager.Match.Swap
                     return;
                 }
                 // Child
-                if (wrapProperty.p is SwapPlayerInformUI.UIData)
                 {
-                    switch ((SwapPlayerInformUI.UIData.Property)wrapProperty.n)
+                    if (wrapProperty.p is SwapPlayerInformUI.UIData)
                     {
-                        case SwapPlayerInformUI.UIData.Property.teamPlayer:
-                            dirty = true;
-                            break;
-                        case SwapPlayerInformUI.UIData.Property.informUI:
-                            break;
-                        case SwapPlayerInformUI.UIData.Property.sub:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                        switch ((SwapPlayerInformUI.UIData.Property)wrapProperty.n)
+                        {
+                            case SwapPlayerInformUI.UIData.Property.teamPlayer:
+                                dirty = true;
+                                break;
+                            case SwapPlayerInformUI.UIData.Property.informUI:
+                                break;
+                            case SwapPlayerInformUI.UIData.Property.sub:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // swap
+                    {
+                        if (wrapProperty.p is Swap)
+                        {
+                            switch ((Swap.Property)wrapProperty.n)
+                            {
+                                case Swap.Property.swapRequests:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // Child
+                        if (wrapProperty.p is SwapRequest)
+                        {
+                            switch ((SwapRequest.Property)wrapProperty.n)
+                            {
+                                case SwapRequest.Property.state:
+                                    break;
+                                case SwapRequest.Property.teamIndex:
+                                    dirty = true;
+                                    break;
+                                case SwapRequest.Property.playerIndex:
+                                    dirty = true;
+                                    break;
+                                case SwapRequest.Property.inform:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                    }
                 }
             }
             // Child

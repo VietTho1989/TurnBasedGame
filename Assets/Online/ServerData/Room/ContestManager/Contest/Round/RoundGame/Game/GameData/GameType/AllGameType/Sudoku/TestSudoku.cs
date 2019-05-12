@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using UnityEngine;
+using System.Threading;
 
 namespace Sudoku
 {
@@ -55,6 +56,17 @@ namespace Sudoku
             }
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
 
         public static void startTestMatch(int matchCount)
         {
@@ -63,9 +75,10 @@ namespace Sudoku
                 Work w = new Work();
                 {
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                     Thread newThread = new Thread(threadDelegate, 1048576);
-                    newThread.Start();
+                    newThread.Start();*/
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
                 }
             }
         }

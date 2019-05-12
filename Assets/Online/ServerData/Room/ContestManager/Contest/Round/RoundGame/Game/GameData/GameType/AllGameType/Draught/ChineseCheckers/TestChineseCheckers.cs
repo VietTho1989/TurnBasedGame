@@ -85,6 +85,18 @@ namespace ChineseCheckers
             }
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public static void startTestMatch(int matchCount)
         {
             for (int i = 0; i < matchCount; i++)
@@ -92,9 +104,10 @@ namespace ChineseCheckers
                 Work w = new Work();
                 {
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                    /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
                     Thread newThread = new Thread(threadDelegate, Global.ThreadSize);
-                    newThread.Start();
+                    newThread.Start();*/
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
                 }
             }
         }

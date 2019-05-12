@@ -179,6 +179,18 @@ namespace Record
 
         }
 
+        static void DoWork(object work)
+        {
+            if (work is Work)
+            {
+                ((Work)work).DoWork();
+            }
+            else
+            {
+                Debug.LogError("why not work: " + work);
+            }
+        }
+
         public IEnumerator TaskLoad()
         {
             if (this.data != null)
@@ -190,8 +202,11 @@ namespace Record
                     w.isDone = false;
                     w.success = false;
                     // startThread
-                    ThreadStart threadDelegate = new ThreadStart(w.DoWork);
-                    new Thread(threadDelegate).Start();
+                    {
+                        /*ThreadStart threadDelegate = new ThreadStart(w.DoWork);
+                        new Thread(threadDelegate).Start();*/
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                    }
                     // Wait
                     while (!w.isDone)
                     {
