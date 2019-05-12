@@ -256,6 +256,10 @@ public class Server : Data
                     break;
                 case Property.startState:
                     break;
+                case Property.instanceId:
+                    break;
+                case Property.gameTypes:
+                    break;
                 case Property.type:
                     break;
                 case Property.profile:

@@ -768,6 +768,10 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                     {
                         case Server.Property.serverConfig:
                             break;
+                        case Server.Property.instanceId:
+                            break;
+                        case Server.Property.gameTypes:
+                            break;
                         case Server.Property.startState:
                             break;
                         case Server.Property.type:
@@ -781,6 +785,10 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                             }
                             break;
                         case Server.Property.users:
+                            break;
+                        case Server.Property.disconnectTime:
+                            break;
+                        case Server.Property.roomManager:
                             break;
                         case Server.Property.globalChat:
                             break;

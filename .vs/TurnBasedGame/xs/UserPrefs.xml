@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs">
     <Files>
-      <File FileName="Assets/Ads/RemoteSettings/RemoteSettingUpdate.cs" Line="320" Column="14" />
-      <File FileName="Assets/Global/Global.cs" Line="97" Column="63" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs" Line="729" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

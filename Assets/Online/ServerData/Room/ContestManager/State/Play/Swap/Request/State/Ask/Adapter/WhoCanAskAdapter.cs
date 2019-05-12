@@ -189,12 +189,12 @@ namespace GameManager.Match.Swap
                     }
                     else
                     {
-                        Debug.LogError("data null: " + this);
+                        // Debug.LogError("data null: " + this);
                     }
                 }
                 else
                 {
-                    Debug.LogError("not initalized: " + this);
+                    // Debug.LogError("not initalized: " + this);
                 }
             }
         }

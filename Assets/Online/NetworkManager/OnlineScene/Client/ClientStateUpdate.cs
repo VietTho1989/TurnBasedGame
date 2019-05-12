@@ -155,6 +155,8 @@ public class ClientStateUpdate : UpdateBehavior<Server>
                         }*/
                     }
                     break;
+                case Server.Property.gameTypes:
+                    break;
                 case Server.Property.startState:
                     break;
                 case Server.Property.type:

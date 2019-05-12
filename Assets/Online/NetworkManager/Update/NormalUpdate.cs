@@ -165,6 +165,8 @@ public class NormalUpdate : UpdateBehavior<Server>
                     break;
                 case Server.Property.users:
                     break;
+                case Server.Property.disconnectTime:
+                    break;
                 case Server.Property.globalChat:
                     break;
                 case Server.Property.friendWorld:

@@ -210,6 +210,8 @@ public class RefreshDataIdentity : UpdateBehavior<Server>
                     break;
                 case Server.Property.instanceId:
                     break;
+                case Server.Property.gameTypes:
+                    break;
                 case Server.Property.startState:
                     break;
                 case Server.Property.type:
