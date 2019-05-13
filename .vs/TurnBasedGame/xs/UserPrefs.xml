@@ -1,11 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Common/Utils/Behavior/UIBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs" Line="638" Column="51" />
-      <File FileName="Assets/Common/Data.cs" Line="257" Column="37" />
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerChooseHumanAdapter.cs" Line="11" Column="62" />
-      <File FileName="Assets/RecyclerKit/TrashMan.cs" Line="188" Column="23" />
-      <File FileName="Assets/Common/Utils/Behavior/UIBehavior.cs" Line="126" Column="23" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs" Line="637" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
