@@ -98,12 +98,12 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     #region Destroy
 
-    public bool alreadyDestroy = false;
+    // public bool alreadyDestroy = false;
 
     public override void OnDestroy()
     {
         base.OnDestroy();
-        alreadyDestroy = true;
+        // alreadyDestroy = true;
     }
 
     #endregion
@@ -125,14 +125,23 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     public GameObject getGameObject()
     {
-        if (!alreadyDestroy)
+        if (this.gameObject != null)
+        {
+            return this.gameObject;
+        }
+        else
+        {
+            Debug.LogError("already destroy");
+            return null;
+        }
+        /*if (!alreadyDestroy)
         {
             return this.gameObject;
         }
         else
         {
             return null;
-        }
+        }*/
     }
 
     public virtual void onDespawn()
