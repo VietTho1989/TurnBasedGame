@@ -6052,6 +6052,7 @@ namespace RussianDraught
             fen[32] = 'w';
         else
             fen[32] = 'b';
+        fen[33] = 0;
     }
     
     void Position::EI_NewGame(const char* fen)

@@ -221,6 +221,22 @@ namespace GameManager.Match.Swap
                             if (humanAdapter != null)
                             {
                                 humanAdapter.teamPlayer.v = new ReferenceData<TeamPlayer>(teamPlayer);
+                                // TODO phai them vao de fix error
+                                {
+                                    for (int i = 0; i < this.transform.childCount; i++)
+                                    {
+                                        Transform child = this.transform.GetChild(i);
+                                        if (child.GetComponent<AdminRequestSwapPlayerChooseHumanAdapter>() != null)
+                                        {
+                                            AdminRequestSwapPlayerChooseHumanAdapter checkhumanAdapter = child.GetComponent<AdminRequestSwapPlayerChooseHumanAdapter>();
+                                            if (checkhumanAdapter.data != humanAdapter)
+                                            {
+                                                Debug.LogError("why still have old humanAdapter: " + checkhumanAdapter);
+                                                Destroy(checkhumanAdapter.gameObject);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             else
                             {

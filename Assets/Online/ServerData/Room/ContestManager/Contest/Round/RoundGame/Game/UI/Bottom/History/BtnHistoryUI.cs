@@ -158,10 +158,18 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
         if(data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.history.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -218,11 +226,18 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.history.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -284,6 +299,52 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.useShortKey:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.boardIndex:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/UI/SwapPlayerInformUI/NoRequest/Admin/Human/AdminRequestSwapPlayerHumanUI.cs" Line="637" Column="22" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" Line="1027" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

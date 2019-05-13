@@ -1016,6 +1016,24 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                     break;
                             }
                         }
+                        if(wrapProperty.p is Computer)
+                        {
+                            switch ((Computer.Property)wrapProperty.n)
+                            {
+                                case Computer.Property.computerName:
+                                    dirty = true;
+                                    break;
+                                case Computer.Property.avatarUrl:
+                                    dirty = true;
+                                    break;
+                                case Computer.Property.ai:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
                         return;
                     }
                     // Child
