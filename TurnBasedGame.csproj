@@ -1959,6 +1959,7 @@
     <Compile Include="Assets\Online\ServerData\Guild\Guild.cs" />
     <Compile Include="Assets\Online\ServerData\Guild\GuildUser.cs" />
     <Compile Include="Assets\Online\ServerData\Guild\GuildWorld.cs" />
+    <Compile Include="Assets\Online\ServerData\Login\ConnectIndicator\LoginConnectIndicatorUI.cs" />
     <Compile Include="Assets\Online\ServerData\Login\Facebook\FacebookLogin.cs" />
     <Compile Include="Assets\Online\ServerData\Login\Login.cs" />
     <Compile Include="Assets\Online\ServerData\Login\LoginUI.cs" />

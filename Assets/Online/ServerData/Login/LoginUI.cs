@@ -16,6 +16,8 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
 
         public VP<ReferenceData<Server>> server;
 
+        public VP<LoginConnectIndicatorUI.UIData> connectIndicator;
+
         #region AccountType
 
         public VP<RequestChangeEnumUI.UIData> accountType;
@@ -47,6 +49,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
         public enum Property
         {
             server,
+            connectIndicator,
             accountType,
             accountUIData,
             loginStateUI
@@ -55,6 +58,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
         public UIData() : base()
         {
             this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
+            this.connectIndicator = new VP<LoginConnectIndicatorUI.UIData>(this, (byte)Property.connectIndicator, new LoginConnectIndicatorUI.UIData());
             // accountType
             {
                 this.accountType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.accountType, new RequestChangeEnumUI.UIData());
@@ -370,6 +374,23 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                     {
                         UIRectTransform.SetTitleTransform(lbTitle);
                         UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        // connectIndicator
+                        {
+                            UIRectTransform rect = new UIRectTransform();
+                            {
+                                float buttonSize = Setting.get().getButtonSize();
+                                // anchoredPosition: (30.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                                // offsetMin: (30.0, -30.0); offsetMax: (60.0, 0.0); sizeDelta: (30.0, 30.0);
+                                rect.anchoredPosition = new Vector3(buttonSize, 0.0f);
+                                rect.anchorMin = new Vector2(0.0f, 1.0f);
+                                rect.anchorMax = new Vector2(0.0f, 1.0f);
+                                rect.pivot = new Vector2(0.0f, 1.0f);
+                                rect.offsetMin = new Vector2(buttonSize, -buttonSize);
+                                rect.offsetMax = new Vector2(2 * buttonSize, 0.0f);
+                                rect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                            }
+                            UIRectTransform.Set(this.data.connectIndicator.v, rect);
+                        }
                     }
                     // txt
                     {
@@ -413,6 +434,8 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
 
     #region implement callBacks
 
+    public LoginConnectIndicatorUI connectIndicatorPrefab;
+
     public Transform contentContainer;
 
     public RequestChangeEnumUI requestEnumPrefab;
@@ -431,6 +454,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
             // Child
             {
                 uiData.server.allAddCallBack(this);
+                uiData.connectIndicator.allAddCallBack(this);
                 uiData.accountType.allAddCallBack(this);
                 uiData.accountUIData.allAddCallBack(this);
                 uiData.loginStateUI.allAddCallBack(this);
@@ -483,6 +507,16 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         }
                     }
                 }
+            }
+            if(data is LoginConnectIndicatorUI.UIData)
+            {
+                LoginConnectIndicatorUI.UIData connectIndicatorUIData = data as LoginConnectIndicatorUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(connectIndicatorUIData, connectIndicatorPrefab, this.transform);
+                }
+                dirty = true;
+                return;
             }
             // accountType
             {
@@ -573,6 +607,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
             // Child
             {
                 uiData.server.allRemoveCallBack(this);
+                uiData.connectIndicator.allRemoveCallBack(this);
                 uiData.accountType.allRemoveCallBack(this);
                 uiData.accountUIData.allRemoveCallBack(this);
                 uiData.loginStateUI.allRemoveCallBack(this);
@@ -621,6 +656,15 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         }
                     }
                 }
+            }
+            if (data is LoginConnectIndicatorUI.UIData)
+            {
+                LoginConnectIndicatorUI.UIData connectIndicatorUIData = data as LoginConnectIndicatorUI.UIData;
+                // UI
+                {
+                    connectIndicatorUIData.removeCallBackAndDestroy(typeof(LoginConnectIndicatorUI));
+                }
+                return;
             }
             // accountType
             {
@@ -691,6 +735,12 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
             switch ((UIData.Property)wrapProperty.n)
             {
                 case UIData.Property.server:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.connectIndicator:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -844,6 +894,10 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         }
                     }
                 }
+            }
+            if (wrapProperty.p is LoginConnectIndicatorUI.UIData)
+            {
+                return;
             }
             // accountType
             {
