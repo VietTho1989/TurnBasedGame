@@ -1,0 +1,2 @@
+Product ID,Published State,Purchase Type,Auto Translate,Locale; Title; Description,Auto Fill Prices,Price,Pricing Template ID
+permanent_remove_ads,published,managed_by_android,false,en_US;Remove Ads;Not show ads anymore,true,100000000,

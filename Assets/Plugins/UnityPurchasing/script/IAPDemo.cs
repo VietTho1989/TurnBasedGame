@@ -102,12 +102,12 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         //Dictionary<string, string> product_details = m_AppleExtensions.GetProductDetails();
 
 
-        Debug.Log("Available items:");
+        Debug.LogError("Available items:");
         foreach (var item in controller.products.all)
         {
             if (item.availableToPurchase)
             {
-                Debug.Log(string.Join(" - ",
+                Debug.LogError(string.Join(" - ",
                     new[]
                     {
                         item.metadata.localizedTitle,
@@ -132,19 +132,19 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                             string intro_json = (introductory_info_dict == null || !introductory_info_dict.ContainsKey(item.definition.storeSpecificId)) ? null : introductory_info_dict[item.definition.storeSpecificId];
                             SubscriptionManager p = new SubscriptionManager(item, intro_json);
                             SubscriptionInfo info = p.getSubscriptionInfo();
-                            Debug.Log("product id is: " + info.getProductId());
-                            Debug.Log("purchase date is: " + info.getPurchaseDate());
-                            Debug.Log("subscription next billing date is: " + info.getExpireDate());
-                            Debug.Log("is subscribed? " + info.isSubscribed().ToString());
-                            Debug.Log("is expired? " + info.isExpired().ToString());
-                            Debug.Log("is cancelled? " + info.isCancelled());
-                            Debug.Log("product is in free trial peroid? " + info.isFreeTrial());
-                            Debug.Log("product is auto renewing? " + info.isAutoRenewing());
-                            Debug.Log("subscription remaining valid time until next billing date is: " + info.getRemainingTime());
-                            Debug.Log("is this product in introductory price period? " + info.isIntroductoryPricePeriod());
-                            Debug.Log("the product introductory localized price is: " + info.getIntroductoryPrice());
-                            Debug.Log("the product introductory price period is: " + info.getIntroductoryPricePeriod());
-                            Debug.Log("the number of product introductory price period cycles is: " + info.getIntroductoryPricePeriodCycles());
+                            Debug.LogError("product id is: " + info.getProductId());
+                            Debug.LogError("purchase date is: " + info.getPurchaseDate());
+                            Debug.LogError("subscription next billing date is: " + info.getExpireDate());
+                            Debug.LogError("is subscribed? " + info.isSubscribed().ToString());
+                            Debug.LogError("is expired? " + info.isExpired().ToString());
+                            Debug.LogError("is cancelled? " + info.isCancelled());
+                            Debug.LogError("product is in free trial peroid? " + info.isFreeTrial());
+                            Debug.LogError("product is auto renewing? " + info.isAutoRenewing());
+                            Debug.LogError("subscription remaining valid time until next billing date is: " + info.getRemainingTime());
+                            Debug.LogError("is this product in introductory price period? " + info.isIntroductoryPricePeriod());
+                            Debug.LogError("the product introductory localized price is: " + info.getIntroductoryPrice());
+                            Debug.LogError("the product introductory price period is: " + info.getIntroductoryPricePeriod());
+                            Debug.LogError("the number of product introductory price period cycles is: " + info.getIntroductoryPricePeriodCycles());
                         } else {
                             Debug.Log("This product is not available for SubscriptionManager class, only products that are purchase by 1.19+ SDK can use this class.");
                         }
@@ -168,7 +168,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     private bool checkIfProductIsAvailableForSubscriptionManager(string receipt) {
         var receipt_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(receipt);
         if (!receipt_wrapper.ContainsKey("Store") || !receipt_wrapper.ContainsKey("Payload")) {
-            Debug.Log("The product receipt does not contain enough information");
+            Debug.LogError("The product receipt does not contain enough information");
             return false;
         }
         var store = (string)receipt_wrapper ["Store"];
@@ -180,18 +180,18 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 {
                     var payload_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(payload);
                     if (!payload_wrapper.ContainsKey("json")) {
-                        Debug.Log("The product receipt does not contain enough information, the 'json' field is missing");
+                        Debug.LogError("The product receipt does not contain enough information, the 'json' field is missing");
                         return false;
                     }
                     var original_json_payload_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode((string)payload_wrapper["json"]);
                     if (original_json_payload_wrapper == null || !original_json_payload_wrapper.ContainsKey("developerPayload")) {
-                        Debug.Log("The product receipt does not contain enough information, the 'developerPayload' field is missing");
+                        Debug.LogError("The product receipt does not contain enough information, the 'developerPayload' field is missing");
                         return false;
                     }
                     var developerPayloadJSON = (string)original_json_payload_wrapper["developerPayload"];
                     var developerPayload_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(developerPayloadJSON);
                     if (developerPayload_wrapper == null || !developerPayload_wrapper.ContainsKey("is_free_trial") || !developerPayload_wrapper.ContainsKey("has_introductory_price_trial")) {
-                        Debug.Log("The product receipt does not contain enough information, the product is not purchased using 1.19 or later");
+                        Debug.LogError("The product receipt does not contain enough information, the product is not purchased using 1.19 or later");
                         return false;
                     }
                     return true;
@@ -217,8 +217,8 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     /// </summary>
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
-        Debug.Log("Purchase OK: " + e.purchasedProduct.definition.id);
-        Debug.Log("Receipt: " + e.purchasedProduct.receipt);
+        Debug.LogError("Purchase OK: " + e.purchasedProduct.definition.id);
+        Debug.LogError("Receipt: " + e.purchasedProduct.receipt);
 
         m_LastTransactionID = e.purchasedProduct.transactionID;
         m_PurchaseInProgress = false;
@@ -244,31 +244,31 @@ public class IAPDemo : MonoBehaviour, IStoreListener
             Application.platform == RuntimePlatform.tvOS) {
             try {
                 var result = validator.Validate(e.purchasedProduct.receipt);
-                Debug.Log("Receipt is valid. Contents:");
+                Debug.LogError("Receipt is valid. Contents:");
                 foreach (IPurchaseReceipt productReceipt in result) {
-                    Debug.Log(productReceipt.productID);
-                    Debug.Log(productReceipt.purchaseDate);
-                    Debug.Log(productReceipt.transactionID);
+                    Debug.LogError(productReceipt.productID);
+                    Debug.LogError(productReceipt.purchaseDate);
+                    Debug.LogError(productReceipt.transactionID);
 
                     GooglePlayReceipt google = productReceipt as GooglePlayReceipt;
                     if (null != google) {
-                        Debug.Log(google.purchaseState);
-                        Debug.Log(google.purchaseToken);
+                        Debug.LogError(google.purchaseState);
+                        Debug.LogError(google.purchaseToken);
                     }
 
                     UnityChannelReceipt unityChannel = productReceipt as UnityChannelReceipt;
                     if (null != unityChannel) {
-                        Debug.Log(unityChannel.productID);
-                        Debug.Log(unityChannel.purchaseDate);
-                        Debug.Log(unityChannel.transactionID);
+                        Debug.LogError(unityChannel.productID);
+                        Debug.LogError(unityChannel.purchaseDate);
+                        Debug.LogError(unityChannel.transactionID);
                     }
 
                     AppleInAppPurchaseReceipt apple = productReceipt as AppleInAppPurchaseReceipt;
                     if (null != apple) {
-                        Debug.Log(apple.originalTransactionIdentifier);
-                        Debug.Log(apple.subscriptionExpirationDate);
-                        Debug.Log(apple.cancellationDate);
-                        Debug.Log(apple.quantity);
+                        Debug.LogError(apple.originalTransactionIdentifier);
+                        Debug.LogError(apple.subscriptionExpirationDate);
+                        Debug.LogError(apple.cancellationDate);
+                        Debug.LogError(apple.quantity);
                     }
 
                     // For improved security, consider comparing the signed
@@ -277,18 +277,18 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                     // to make this purchase.
                 }
             } catch (IAPSecurityException ex) {
-                Debug.Log("Invalid receipt, not unlocking content. " + ex);
+                Debug.LogError("Invalid receipt, not unlocking content. " + ex);
                 return PurchaseProcessingResult.Complete;
             }
         }
-        #endif
+#endif
 
         // Unlock content from purchases here.
 #if USE_PAYOUTS
         if (e.purchasedProduct.definition.payouts != null) {
-            Debug.Log("Purchase complete, paying out based on defined payouts");
+            Debug.LogError("Purchase complete, paying out based on defined payouts");
             foreach (var payout in e.purchasedProduct.definition.payouts) {
-                Debug.Log(string.Format("Granting {0} {1} {2} {3}", payout.quantity, payout.typeString, payout.subtype, payout.data));
+                Debug.LogError(string.Format("Granting {0} {1} {2} {3}", payout.quantity, payout.typeString, payout.subtype, payout.data));
             }
         }
 #endif
@@ -315,7 +315,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     private IEnumerator ConfirmPendingPurchaseAfterDelay(Product p)
     {
         m_PendingProducts.Add(p.definition.id);
-        Debug.Log("Delaying confirmation of " + p.definition.id + " for 5 seconds.");
+        Debug.LogError("Delaying confirmation of " + p.definition.id + " for 5 seconds.");
 
 		var end = Time.time + 5f;
 
@@ -325,7 +325,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 			UpdateProductPendingUI (p, remaining);
 		}
 
-        Debug.Log("Confirming purchase of " + p.definition.id);
+        Debug.LogError("Confirming purchase of " + p.definition.id);
         m_Controller.ConfirmPendingPurchase(p);
         m_PendingProducts.Remove(p.definition.id);
 		UpdateProductUI (p);
@@ -337,14 +337,14 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     /// </summary>
     public void OnPurchaseFailed(Product item, PurchaseFailureReason r)
     {
-        Debug.Log("Purchase failed: " + item.definition.id);
-        Debug.Log(r);
+        Debug.LogError("Purchase failed: " + item.definition.id);
+        Debug.LogError(r);
 
         // Detailed debugging information
-        Debug.Log("Store specific error code: " + m_TransactionHistoryExtensions.GetLastStoreSpecificPurchaseErrorCode());
+        Debug.LogError("Store specific error code: " + m_TransactionHistoryExtensions.GetLastStoreSpecificPurchaseErrorCode());
         if (m_TransactionHistoryExtensions.GetLastPurchaseFailureDescription() != null)
         {
-            Debug.Log("Purchase failure description message: " +
+            Debug.LogError("Purchase failure description message: " +
                       m_TransactionHistoryExtensions.GetLastPurchaseFailureDescription().message);
         }
 
@@ -391,7 +391,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
-        Debug.Log("Billing failed to initialize!");
+        Debug.LogError("Billing failed to initialize!");
         switch (error)
         {
             case InitializationFailureReason.AppNotKnown:
@@ -399,11 +399,11 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 break;
             case InitializationFailureReason.PurchasingUnavailable:
                 // Ask the user if billing is disabled in device settings.
-                Debug.Log("Billing disabled!");
+                Debug.LogError("Billing disabled!");
                 break;
             case InitializationFailureReason.NoProductsAvailable:
                 // Developer configuration error; check product metadata.
-                Debug.Log("No products available for purchase!");
+                Debug.LogError("No products available for purchase!");
                 break;
         }
     }
@@ -425,6 +425,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     public void Awake()
     {
+        Debug.LogError("IAPDemo Awake");
         var module = StandardPurchasingModule.Instance();
 
         // The FakeStore supports: no-ui (always succeeding), basic ui (purchase pass/fail), and
@@ -718,7 +719,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     {
         if (m_PurchaseInProgress == true)
         {
-            Debug.Log("Please wait, purchase in progress");
+            Debug.LogError("Please wait, purchase in progress");
             return;
         }
 

@@ -290,6 +290,12 @@ public class RemoteSettingUpdate : MonoBehaviour
                 AdsManager.get().admobVideoType.v = adMobVideoType;
             }
 
+            // showRemoveAds
+            {
+                bool showRemoveAds = RemoteSettings.GetBool("ShowRemoveAds", false);
+                Global.get().showRemoveAds.v = showRemoveAds;
+            }
+
             // serverMessage
             {
                 string serverMessage = RemoteSettings.GetString("ServerMessage", "");

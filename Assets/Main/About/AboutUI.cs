@@ -386,7 +386,7 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                     }
                     // removeAds
                     {
-                        if (!Global.get().removeAds.v)
+                        if (!Global.get().removeAds.v && Global.get().showRemoveAds.v)
                         {
                             if (lbRemoveAds != null)
                             {
@@ -776,8 +776,17 @@ public class AboutUI : UIBehavior<AboutUI.UIData>
                 case Global.Property.openSource:
                     dirty = true;
                     break;
+                case Global.Property.showRemoveAds:
+                    dirty = true;
+                    break;
                 case Global.Property.removeAds:
                     dirty = true;
+                    break;
+                case Global.Property.canPlayOnline:
+                    break;
+                case Global.Property.serverAddress:
+                    break;
+                case Global.Property.serverPort:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

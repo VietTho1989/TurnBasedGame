@@ -71,7 +71,7 @@ namespace UnityEngine.Purchasing
             instance = new CodelessIAPStoreListener();
             if (!unityPurchasingInitialized)
             {
-                Debug.Log("Initializing UnityPurchasing via Codeless IAP");
+                Debug.LogError("Initializing UnityPurchasing via Codeless IAP");
                 InitializePurchasing();
             }
         }
