@@ -435,12 +435,12 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("chatRoom null");
+                    // Debug.LogError("chatRoom null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿public static class OpenInFileBrowser
+﻿using UnityEngine;
+
+public static class OpenInFileBrowser
 {
 	public static bool IsInMacOS
 	{
@@ -96,8 +98,9 @@
 		}
 		else // couldn't determine OS
 		{
-			OpenInWin(path);
-			OpenInMac(path);
+            // OpenInWin(path);
+            // OpenInMac(path);
+            Application.OpenURL(path);
 		}
 	}
 

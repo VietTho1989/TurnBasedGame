@@ -441,7 +441,7 @@ namespace Record
                     }
                     else
                     {
-                        Debug.LogError("dataRecord null: " + this);
+                        // Debug.LogError("dataRecord null: " + this);
                     }
                     // txt
                     {

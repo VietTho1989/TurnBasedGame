@@ -821,6 +821,8 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
                                     dirty = true;
                                 }
                                 break;
+                            case ViewRecordControllerUI.UIData.Property.stateUI:
+                                break;
                             case ViewRecordControllerUI.UIData.Property.time:
                                 break;
                             default:

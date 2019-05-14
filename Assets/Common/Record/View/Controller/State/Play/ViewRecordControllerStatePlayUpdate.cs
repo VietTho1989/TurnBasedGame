@@ -37,10 +37,10 @@ namespace Record
 											Debug.LogError ("why speed 0: " + this);
 										}
 									} else {
-										Debug.LogError ("dataRecord null: " + this);
+										// Debug.LogError ("dataRecord null: " + this);
 									}
 								} else {
-									Debug.LogError ("viewRecordControllerUIData null: " + this);
+									// Debug.LogError ("viewRecordControllerUIData null: " + this);
 								}
 							}
 						}

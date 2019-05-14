@@ -230,7 +230,7 @@ namespace Record
                     }
                     else
                     {
-                        Debug.LogError("dataRecord null: " + this);
+                        // Debug.LogError("dataRecord null: " + this);
                         // contentContainer
                         {
                             if (contentContainer != null)

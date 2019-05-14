@@ -437,12 +437,12 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("game null: " + this);
+                    // Debug.LogError("game null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

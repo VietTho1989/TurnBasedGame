@@ -123,12 +123,12 @@ public class UIRectTransform
             }
             else
             {
-                Debug.LogError("rectTransform null");
+                // Debug.LogError("rectTransform null");
             }
         }
         else
         {
-            Debug.LogError("data null");
+            // Debug.LogError("data null");
         }
         return ret;
     }

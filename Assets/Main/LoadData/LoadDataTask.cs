@@ -133,8 +133,33 @@ public class LoadDataTask : UpdateBehavior<LoadDataTask.TaskData>
                         byte[] bytes = File.ReadAllBytes(this.data.file.FullName);
                         // Decompress
                         {
-                            byte[] outBytes = null;
+                            /*byte[] outBytes = null;
                             if (lbz2.bz2DecompressBuffer(bytes, ref outBytes, true) == 0)
+                            {
+                                Debug.LogError("decompress sucess: " + bytes.Length + ", " + outBytes.Length);
+                                // make save
+                                {
+                                    using (BinaryReader reader = new BinaryReader(new MemoryStream(outBytes)))
+                                    {
+                                        this.data.save = Save.parse(reader);
+                                    }
+                                }
+                                // finish
+                                if (this.data.save != null)
+                                {
+                                    success = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("save null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("decompress fail");
+                            }*/
+                            byte[] outBytes = GameUtils.Utils.Decompress(bytes);
+                            if (outBytes != null && outBytes.Length > 0)
                             {
                                 Debug.LogError("decompress sucess: " + bytes.Length + ", " + outBytes.Length);
                                 // make save

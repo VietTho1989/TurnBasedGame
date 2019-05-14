@@ -618,7 +618,7 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                 // Debug.LogError("data null: " + this);
             }
         }
-        Debug.LogError("board update transformData: " + this.transformData);
+        // Debug.LogError("board update transformData: " + this.transformData);
     }
 
     public override bool isShouldDisableUpdate()

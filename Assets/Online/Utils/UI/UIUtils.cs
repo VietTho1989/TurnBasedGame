@@ -282,7 +282,7 @@ public class UIUtils
                 if (transformData != null && transform != null)
                 {
                     transformData.update(transform);
-                    Debug.LogError("haveUI set dirty: " + ui + ", " + transformData + ", " + transform);
+                    // Debug.LogError("haveUI set dirty: " + ui + ", " + transformData + ", " + transform);
                 }
                 else
                 {

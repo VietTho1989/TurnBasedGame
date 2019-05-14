@@ -143,11 +143,22 @@ namespace Record
                         }
                         // Compress
                         {
-                            byte[] outByte = null;
+                            /*byte[] outByte = null;
                             if (lbz2.bz2CompressBuffer(byteArray, ref outByte, 9, true))
                             {
                                 Debug.LogError("compress success: " + byteArray.Length + ", " + outByte.Length);
                                 File.WriteAllBytes(this.data.file.FullName, outByte);
+                                success = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("compress fail");
+                            }*/
+                            byte[] outBytes = GameUtils.Utils.Compress(byteArray);
+                            if (outBytes!=null && outBytes.Length>0)
+                            {
+                                Debug.LogError("compress success: " + byteArray.Length + ", " + outBytes.Length);
+                                File.WriteAllBytes(this.data.file.FullName, outBytes);
                                 success = true;
                             }
                             else

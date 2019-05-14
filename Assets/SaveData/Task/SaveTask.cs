@@ -140,8 +140,19 @@ public class SaveTask : UpdateBehavior<SaveTask.TaskData>
                     }
                     // Compress
                     {
-                        byte[] outByte = null;
+                        /*byte[] outByte = null;
                         if (lbz2.bz2CompressBuffer(byteArray, ref outByte, 9, true))
+                        {
+                            Debug.LogError("compress success: " + byteArray.Length + ", " + outByte.Length);
+                            File.WriteAllBytes(this.data.file.FullName, outByte);
+                            success = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("compress fail");
+                        }*/
+                        byte[] outByte = GameUtils.Utils.Compress(byteArray);
+                        if (outByte != null && outByte.Length > 0)
                         {
                             Debug.LogError("compress success: " + byteArray.Length + ", " + outByte.Length);
                             File.WriteAllBytes(this.data.file.FullName, outByte);

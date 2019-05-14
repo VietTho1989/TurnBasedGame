@@ -133,31 +133,58 @@ namespace Record
                         {
                             // Get bytes
                             byte[] bytes = File.ReadAllBytes(this.data.file.FullName);
-                            byte[] outBytes = null;
                             // Decompress
-                            if (lbz2.bz2DecompressBuffer(bytes, ref outBytes, true) == 0)
                             {
-                                Debug.LogError("decompress sucess: " + bytes.Length + ", " + outBytes.Length);
-                                // make save
+                                /*byte[] outBytes = null;
+                                if (lbz2.bz2DecompressBuffer(bytes, ref outBytes, true) == 0)
                                 {
-                                    using (BinaryReader reader = new BinaryReader(new MemoryStream(outBytes)))
+                                    Debug.LogError("decompress sucess: " + bytes.Length + ", " + outBytes.Length);
+                                    // make save
                                     {
-                                        this.data.dataRecord = DataRecord.parse(reader);
+                                        using (BinaryReader reader = new BinaryReader(new MemoryStream(outBytes)))
+                                        {
+                                            this.data.dataRecord = DataRecord.parse(reader);
+                                        }
                                     }
-                                }
-                                // finish
-                                if (this.data.dataRecord != null)
-                                {
-                                    success = true;
+                                    // finish
+                                    if (this.data.dataRecord != null)
+                                    {
+                                        success = true;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("save null");
+                                    }
                                 }
                                 else
                                 {
-                                    Debug.LogError("save null");
+                                    Debug.LogError("decompress fail");
+                                }*/
+                                byte[] outBytes = GameUtils.Utils.Decompress(bytes);
+                                if (outBytes != null && outBytes.Length>0)
+                                {
+                                    Debug.LogError("decompress sucess: " + bytes.Length + ", " + outBytes.Length);
+                                    // make save
+                                    {
+                                        using (BinaryReader reader = new BinaryReader(new MemoryStream(outBytes)))
+                                        {
+                                            this.data.dataRecord = DataRecord.parse(reader);
+                                        }
+                                    }
+                                    // finish
+                                    if (this.data.dataRecord != null)
+                                    {
+                                        success = true;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("save null");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                Debug.LogError("decompress fail");
+                                else
+                                {
+                                    Debug.LogError("decompress fail");
+                                }
                             }
                         }
                         else

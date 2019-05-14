@@ -404,12 +404,12 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("gameData null: " + this);
+                    // Debug.LogError("gameData null");
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null");
             }
         }
     }

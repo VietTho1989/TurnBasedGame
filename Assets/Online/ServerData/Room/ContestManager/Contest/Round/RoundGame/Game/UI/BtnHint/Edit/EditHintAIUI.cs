@@ -85,6 +85,7 @@ namespace Hint
         #region Refresh
 
         public Dropdown drEditType;
+        public Text tvEditType;
 
         public override void Awake()
         {
@@ -147,6 +148,7 @@ namespace Hint
 
         #endregion
 
+        public Button btnBack;
         public Button btnApply;
         public Button btnReset;
 
@@ -324,6 +326,83 @@ namespace Hint
                             Debug.LogError("editComputerAI null: " + this);
                         }
                     }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        float buttonSize = Setting.get().getButtonSize();
+                        {
+                            // btnBack
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            // title
+                            if (lbTitle != null)
+                            {
+                                UIRectTransform.SetHeight(lbTitle.rectTransform, buttonSize);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvSetting null");
+                            }
+                            // drEditType
+                            if (drEditType != null)
+                            {
+                                UIRectTransform rect = new UIRectTransform();
+                                {
+                                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                                    // offsetMin: (-80.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (80.0, 30.0);
+                                    rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                                    rect.anchorMin = new Vector2(1.0f, 1.0f);
+                                    rect.anchorMax = new Vector2(1.0f, 1.0f);
+                                    rect.pivot = new Vector2(1.0f, 1.0f);
+                                    rect.offsetMin = new Vector2(-80.0f, -buttonSize);
+                                    rect.offsetMax = new Vector2(0.0f, 0.0f);
+                                    rect.sizeDelta = new Vector2(80.0f, buttonSize);
+                                }
+                                rect.set((RectTransform)drEditType.transform);
+                            }
+                            else
+                            {
+                                Debug.LogError("drEditType null");
+                            }
+                            deltaY += buttonSize;
+                        }
+                        // aiScrollView
+                        {
+                            if (aiScrollView != null)
+                            {
+                                UIRectTransform.SetPosY(aiScrollView, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("aiScrollView null");
+                            }
+                            deltaY += 250;
+                        }
+                        // bottom
+                        {
+                            if (btnApply != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnApply.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnApply null");
+                            }
+                            if (btnReset != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnReset.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnReset null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(300, deltaY, 0, 30);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -334,6 +413,14 @@ namespace Hint
                         else
                         {
                             Debug.LogError("lbTitle null: " + this);
+                        }
+                        if (tvEditType != null)
+                        {
+                            Setting.get().setContentTextSize(tvEditType);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvEdiType null");
                         }
                     }
                 }
@@ -406,7 +493,7 @@ namespace Hint
                     }
                     // Child
                     {
-                        Debug.LogError("addCallBackAllChildren: " + data + "; " + this);
+                        // Debug.LogError("addCallBackAllChildren: " + data + "; " + this);
                         data.addCallBackAllChildren(this);
                         dirty = true;
                         return;
@@ -512,6 +599,9 @@ namespace Hint
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -778,6 +778,8 @@ namespace Hint
                         break;
                     case HintUI.UIData.Property.editHintAIUIData:
                         break;
+                    case HintUI.UIData.Property.showAnimation:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
