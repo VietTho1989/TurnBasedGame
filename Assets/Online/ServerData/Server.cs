@@ -52,7 +52,7 @@ public class Server : Data
         }
         else
         {
-            Debug.LogError("server null");
+            // Debug.LogError("server null");
             List<int> ret = new List<int>();
             {
                 foreach(GameType.Type gameType in GameType.EnableTypes)

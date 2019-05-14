@@ -488,7 +488,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

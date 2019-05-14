@@ -1282,12 +1282,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("show null: " + this);
+                                    // Debug.LogError("show null: " + this);
                                 }
                             }
                             else
                             {
-                                Debug.LogError("show null");
+                                // Debug.LogError("show null");
                             }
                         }
 

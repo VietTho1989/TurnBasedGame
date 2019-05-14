@@ -7,7 +7,7 @@ using Ads;
 public class RestoreRemoveAdsUI : MonoBehaviour, IStoreListener
 {
 
-    public const string ProductRemoveAds = "RemoveAds";
+    public const string ProductRemoveAds = "removeAds";
 
     /*void Start()
     {
