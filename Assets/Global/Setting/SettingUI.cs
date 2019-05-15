@@ -510,6 +510,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        public VP<ScreenCaptureSettingUI.UIData> screenCaptureSetting;
+
         #region Constructor
 
         public enum Property
@@ -538,7 +540,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             titleTextSize,
             labelTextSize,
             buttonSize,
-            itemSize
+            itemSize,
+
+            screenCaptureSetting
         }
 
         public UIData() : base()
@@ -751,6 +755,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     this.itemSize.v.updateData.v.request.v = makeRequestChangeItemSize;
                 }
             }
+            this.screenCaptureSetting = new VP<ScreenCaptureSettingUI.UIData>(this, (byte)Property.screenCaptureSetting, new ScreenCaptureSettingUI.UIData());
         }
 
         #endregion
@@ -879,6 +884,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Image bgDefaultRoomName;
     public Image bgDefaultChatRoomStyle;
     public Image bgTextSize;
+    public Image bgScreenCaptureSetting;
 
     public override void refresh()
     {
@@ -1160,7 +1166,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("show null");
+                                // Debug.LogError("show null");
                             }
                         }
 
@@ -1299,6 +1305,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             RequestChange.RefreshUI(this.data.buttonSize.v, editSetting, serverState, needReset, editData => editData.buttonSize.v);
                             RequestChange.RefreshUI(this.data.itemSize.v, editSetting, serverState, needReset, editData => editData.itemSize.v);
                         }
+
+                        EditDataUI.RefreshChildUI(this.data, this.data.screenCaptureSetting.v, editData => editData.screenCaptureSetting.v);
                     }
                     needReset = false;
                 }
@@ -1453,6 +1461,27 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         else
                         {
                             Debug.LogError("bgTextSize null");
+                        }
+                    }
+                    // screenCaptureSetting
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.screenCaptureSetting.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgScreenCaptureSetting != null)
+                        {
+                            UIRectTransform.SetPosY(bgScreenCaptureSetting.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgScreenCaptureSetting.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgScreenCaptureSetting null");
                         }
                     }
                     // set
@@ -1639,6 +1668,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public AnimationSettingUI animationSettingPrefab;
     public RequestChangeIntUI requestIntPrefab;
     public RequestChangeFloatUI requestFloatPrefab;
+    public ScreenCaptureSettingUI screenCaptureSettingPrefab;
 
     public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
     public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
@@ -1689,6 +1719,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.labelTextSize.allAddCallBack(this);
                 uiData.buttonSize.allAddCallBack(this);
                 uiData.itemSize.allAddCallBack(this);
+                uiData.screenCaptureSetting.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -1974,6 +2005,21 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
+            // screenCaptureSettingUIData
+            if (data is ScreenCaptureSettingUI.UIData)
+            {
+                ScreenCaptureSettingUI.UIData screenCaptureSettingUIData = data as ScreenCaptureSettingUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(screenCaptureSettingUIData, screenCaptureSettingPrefab, this.transform);
+                }
+                // Child
+                {
+                    TransformData.AddCallBack(screenCaptureSettingUIData, this);
+                }
+                dirty = true;
+                return;
+            }
             // Child
             if (data is TransformData)
             {
@@ -2024,6 +2070,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.labelTextSize.allRemoveCallBack(this);
                 uiData.buttonSize.allRemoveCallBack(this);
                 uiData.itemSize.allRemoveCallBack(this);
+                uiData.screenCaptureSetting.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -2200,6 +2247,20 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
+            // screenCaptureSettingUIData
+            if (data is ScreenCaptureSettingUI.UIData)
+            {
+                ScreenCaptureSettingUI.UIData screenCaptureSettingUIData = data as ScreenCaptureSettingUI.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(screenCaptureSettingUIData, this);
+                }
+                // UI
+                {
+                    screenCaptureSettingUIData.removeCallBackAndDestroy(typeof(ScreenCaptureSettingUI));
+                }
+                return;
+            }
             // Child
             if (data is TransformData)
             {
@@ -2342,6 +2403,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.screenCaptureSetting:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -2439,6 +2506,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         case Setting.Property.defaultChatRoomStyle:
                             dirty = true;
                             break;
+                        case Setting.Property.screenCaptureSetting:
+                            dirty = true;
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
@@ -2483,6 +2553,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             }
             // defaultChatRoomStyleUIData
             if (wrapProperty.p is DefaultChatRoomStyle.UIData)
+            {
+                return;
+            }
+            // screenCaptureSettingUIData
+            if (wrapProperty.p is ScreenCaptureSettingUI.UIData)
             {
                 return;
             }

@@ -539,6 +539,10 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                 case Global.Property.canPlayOnline:
                     dirty = true;
                     break;
+                case Global.Property.serverAddress:
+                    break;
+                case Global.Property.serverPort:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

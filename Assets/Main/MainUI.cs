@@ -13,6 +13,8 @@ public class MainUI : UIBehavior<MainUI.UIData>
     public class UIData : Data
     {
 
+        #region sub
+
         public abstract class Sub : Data
         {
 
@@ -36,20 +38,26 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
         public VP<MainUI.UIData.Sub> sub;
 
+        #endregion
+
         public VP<ShowSettingUI.UIData> showSettingUIData;
+
+        public VP<ScreenCaptureUI.UIData> screenCaptureUIData;
 
         #region Constructor
 
         public enum Property
         {
             sub,
-            showSettingUIData
+            showSettingUIData,
+            screenCaptureUIData
         }
 
         public UIData() : base()
         {
             sub = new VP<Sub>(this, (byte)Property.sub, new HomeUI.UIData());
             this.showSettingUIData = new VP<ShowSettingUI.UIData>(this, (byte)Property.showSettingUIData, null);
+            this.screenCaptureUIData = new VP<ScreenCaptureUI.UIData>(this, (byte)Property.screenCaptureUIData, null);
         }
 
         #endregion
@@ -61,6 +69,19 @@ public class MainUI : UIBehavior<MainUI.UIData>
             {
                 // Child
                 {
+                    // screenCapture
+                    if (!isProcess)
+                    {
+                        ScreenCaptureUI.UIData screenCaptureUIData = this.screenCaptureUIData.v;
+                        if (screenCaptureUIData != null)
+                        {
+                            isProcess = screenCaptureUIData.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("screenCaptureUIData null");
+                        }
+                    }
                     // setting
                     if (!isProcess)
                     {
@@ -68,7 +89,6 @@ public class MainUI : UIBehavior<MainUI.UIData>
                         if (showSettingUIData != null)
                         {
                             isProcess = showSettingUIData.processEvent(e);
-                            isProcess = true;
                         }
                     }
                     // sub
@@ -185,26 +205,21 @@ public class MainUI : UIBehavior<MainUI.UIData>
             {
                 // UI Sibling
                 {
-                    int siblingIndex = 0;
                     // sub
-                    if (UIRectTransform.SetSiblingIndex(this.data.sub.v, siblingIndex))
-                    {
-                        siblingIndex++;
-                    }
+                    UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
                     // showSettingUIData
-                    if (UIRectTransform.SetSiblingIndex(this.data.showSettingUIData.v, siblingIndex))
-                    {
-                        siblingIndex++;
-                    }
+                    UIRectTransform.SetSiblingIndex(this.data.showSettingUIData.v, 1);
                     // btnSetting
                     if (btnSetting != null)
                     {
-                        btnSetting.transform.SetAsLastSibling();
+                        btnSetting.transform.SetSiblingIndex(2);
                     }
                     else
                     {
                         Debug.LogError("btnSetting null");
                     }
+                    // screenCaptureUIData
+                    UIRectTransform.SetSiblingIndex(this.data.screenCaptureUIData.v, 3);
                 }
             }
             else
@@ -301,8 +316,9 @@ public class MainUI : UIBehavior<MainUI.UIData>
     public AboutUI aboutPrefab;
 
     public ShowSettingUI showSettingPrefab;
-
     public Button btnSetting;
+
+    public ScreenCaptureUI screenCapturePrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -317,6 +333,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
             {
                 uiData.sub.allAddCallBack(this);
                 uiData.showSettingUIData.allAddCallBack(this);
+                uiData.screenCaptureUIData.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -390,6 +407,16 @@ public class MainUI : UIBehavior<MainUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is ScreenCaptureUI.UIData)
+            {
+                ScreenCaptureUI.UIData screenCaptureUIData = data as ScreenCaptureUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(screenCaptureUIData, screenCapturePrefab, this.transform);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -407,6 +434,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
             {
                 uiData.sub.allRemoveCallBack(this);
                 uiData.showSettingUIData.allRemoveCallBack(this);
+                uiData.screenCaptureUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -477,6 +505,15 @@ public class MainUI : UIBehavior<MainUI.UIData>
                 }
                 return;
             }
+            if (data is ScreenCaptureUI.UIData)
+            {
+                ScreenCaptureUI.UIData screenCaptureUIData = data as ScreenCaptureUI.UIData;
+                // UI
+                {
+                    screenCaptureUIData.removeCallBackAndDestroy(typeof(ScreenCaptureUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -498,6 +535,12 @@ public class MainUI : UIBehavior<MainUI.UIData>
                     }
                     break;
                 case UIData.Property.showSettingUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.screenCaptureUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -552,6 +595,10 @@ public class MainUI : UIBehavior<MainUI.UIData>
                 return;
             }
             if (wrapProperty.p is ShowSettingUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is ScreenCaptureUI.UIData)
             {
                 return;
             }

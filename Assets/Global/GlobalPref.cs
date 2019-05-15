@@ -195,6 +195,10 @@ public class GlobalPref : MonoBehaviour, ValueChangeCallBack
                     break;
                 case Global.Property.canPlayOnline:
                     break;
+                case Global.Property.serverAddress:
+                    break;
+                case Global.Property.serverPort:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

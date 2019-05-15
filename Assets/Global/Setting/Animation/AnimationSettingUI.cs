@@ -182,16 +182,16 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage("Animation Setting");
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Animation Setting");
 
     public Text lbScale;
-    public static readonly TxtLanguage txtScale = new TxtLanguage("Scale");
+    private static readonly TxtLanguage txtScale = new TxtLanguage("Scale");
 
     public Text lbFastForward;
-    public static readonly TxtLanguage txtFastForward = new TxtLanguage("Fast forward");
+    private static readonly TxtLanguage txtFastForward = new TxtLanguage("Fast forward");
 
     public Text lbMaxWaitAnimationCount;
-    public static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage("Max wait animation count");
+    private static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage("Max wait animation count");
 
     static AnimationSettingUI()
     {
@@ -371,12 +371,10 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         return;
                     }
                     // Parent
-                    {
-                        /*if (data is Server) {
-							dirty = true;
-							return;
-						}*/
-                    }
+                    /*if (data is Server) {
+                            dirty = true;
+                            return;
+                        }*/
                 }
             }
             // scale
@@ -512,11 +510,9 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         return;
                     }
                     // Parent
-                    {
-                        /*if (data is Server) {
-							return;
-						}*/
-                    }
+                    /*if (data is Server) {
+                            return;
+                        }*/
                 }
             }
             // scale
@@ -694,12 +690,10 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         return;
                     }
                     // Parent
-                    {
-                        /*if (wrapProperty.p is Server) {
-							Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-							return;
-						}*/
-                    }
+                    /*if (wrapProperty.p is Server) {
+                            Server.State.OnUpdateSyncStateChange (wrapProperty, this);
+                            return;
+                        }*/
                 }
             }
             // scale

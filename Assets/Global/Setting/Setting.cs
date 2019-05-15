@@ -355,6 +355,8 @@ public class Setting : Data
 
     #endregion
 
+    public VP<ScreenCaptureSetting> screenCaptureSetting;
+
     #region Constructor
 
     public enum Property
@@ -377,7 +379,9 @@ public class Setting : Data
 		maxThinkCount,
         defaultChosenGame,
         defaultRoomName,
-        defaultChatRoomStyle
+        defaultChatRoomStyle,
+
+        screenCaptureSetting
     }
 
 	public Setting() : base()
@@ -402,6 +406,8 @@ public class Setting : Data
         this.defaultChosenGame = new VP<DefaultChosenGame>(this, (byte)Property.defaultChosenGame, new DefaultChosenGameLast());
         this.defaultRoomName = new VP<DefaultRoomName>(this, (byte)Property.defaultRoomName, new DefaultRoomNameLast());
         this.defaultChatRoomStyle = new VP<DefaultChatRoomStyle>(this, (byte)Property.defaultChatRoomStyle, new DefaultChatRoomStyleLast());
+
+        this.screenCaptureSetting = new VP<ScreenCaptureSetting>(this, (byte)Property.screenCaptureSetting, new ScreenCaptureSetting());
     }
 
 	#endregion

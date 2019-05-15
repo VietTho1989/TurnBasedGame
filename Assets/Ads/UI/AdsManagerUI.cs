@@ -702,7 +702,7 @@ namespace Ads
                 }
                 else
                 {
-                    Debug.LogError("data null");
+                    // Debug.LogError("data null");
                 }
             }
         }
