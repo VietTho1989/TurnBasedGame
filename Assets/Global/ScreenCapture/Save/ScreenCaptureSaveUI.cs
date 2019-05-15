@@ -149,6 +149,9 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
 
     public Button btnBack;
 
+    private bool needSprite = false;
+    public Image img;
+
     public override void refresh()
     {
         if (dirty)
@@ -158,6 +161,23 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
             {
                 if (this.data.texture.v != null)
                 {
+                    // img
+                    {
+                        if (img != null)
+                        {
+                            if (needSprite)
+                            {
+                                needSprite = false;
+                                Sprite mySprite = Sprite.Create(this.data.texture.v, new Rect(0.0f, 0.0f, this.data.texture.v.width, this.data.texture.v.height), new Vector2(0.5f, 0.5f), 100.0f);
+                                img.sprite = mySprite;
+                                img.preserveAspect = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("img null");
+                        }
+                    }
                     // edtName when selected files change
                     if (edtName != null)
                     {
@@ -329,7 +349,15 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                             Debug.LogError("btnSave null");
                         }
                         UIRectTransform.SetSiblingIndex(this.data.fileSystemBrowser.v, 4);
-                        UIRectTransform.SetSiblingIndex(this.data.confirmSave.v, 5);
+                        if (img != null)
+                        {
+                            img.transform.SetSiblingIndex(5);
+                        }
+                        else
+                        {
+                            Debug.LogError("img null");
+                        }
+                        UIRectTransform.SetSiblingIndex(this.data.confirmSave.v, 6);
                     }
                     // UI
                     {
@@ -360,10 +388,19 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                                 }
                             }
                         }
+                        // img
+                        if (img != null)
+                        {
+                            UIRectTransform.SetPosY(img.rectTransform, buttonSize + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("img null");
+                        }
                         // edtName
                         if (edtName != null)
                         {
-                            UIRectTransform.SetPosY((RectTransform)edtName.transform, buttonSize + 10);
+                            UIRectTransform.SetPosY((RectTransform)edtName.transform, buttonSize + 10 + 170);
                         }
                         else
                         {
@@ -462,16 +499,18 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
         public bool isDone = false;
         public bool success = false;
 
-        public void DoWork()
+        public void doWork()
         {
-            // Save and compress
+            Debug.LogError("doWork");
             if (this.data != null)
             {
                 if (this.data.texture != null)
                 {
                     if (file != null)
                     {
+                        Debug.LogError("before encode png");
                         byte[] byteArray = this.data.texture.v.EncodeToPNG();
+                        Debug.LogError("after encode png");
                         if (byteArray != null)
                         {
                             Debug.LogError("save png success: " + byteArray.Length);
@@ -506,7 +545,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
     {
         if (work is Work)
         {
-            ((Work)work).DoWork();
+            ((Work)work).doWork();
         }
         else
         {
@@ -516,6 +555,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
 
     public IEnumerator TaskSave()
     {
+        Debug.LogError("taskSave");
         if (this.data != null)
         {
             Work w = new Work();
@@ -581,7 +621,8 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                     w.file = file;
                 }
                 // startThread
-                ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                // ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork), w);
+                w.doWork();
                 // Wait
                 while (!w.isDone)
                 {
@@ -655,7 +696,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
 
     private static UIRectTransform CreateFileSystemBrowserRect()
     {
-        return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 50, 0);
+        return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 50 + 170, 0);
     }
 
     private FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData> fileSystemBrowserUISelectFilesCheckChange = new FileSystemBrowserUISelectFilesCheckChange<FileSystemBrowserUI.UIData>();
@@ -687,6 +728,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                     Debug.LogError("data null");
                 }
             }
+            needSprite = true;
             dirty = true;
             return;
         }
@@ -749,7 +791,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                 uiData.confirmSave.allRemoveCallBack(this);
             }
             // reset
-            {
+            /*{
                 if (uiData.texture.v != null)
                 {
                     Object.Destroy(uiData.texture.v);
@@ -759,7 +801,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
                 {
                     Debug.LogError("texture null");
                 }
-            }
+            }*/
             this.setDataNull(uiData);
             return;
         }
@@ -817,6 +859,7 @@ public class ScreenCaptureSaveUI : UIBehavior<ScreenCaptureSaveUI.UIData>
             {
                 case UIData.Property.texture:
                     {
+                        needSprite = true;
                         dirty = true;
                         // reset
                         if (this.data != null)
