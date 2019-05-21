@@ -194,7 +194,7 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

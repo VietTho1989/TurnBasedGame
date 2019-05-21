@@ -34,6 +34,11 @@ namespace Xiangqi.UseRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Xiangqi ? 1 : 0;
+        }
+
         #region Refresh
 
         private static readonly Color colorNone = Color.blue;

@@ -16,7 +16,7 @@ public class AutoMakeLimitRoomContainersUpdate : UpdateBehavior<AllLimitRoomCont
             {
                 if (this.data.limitRoomContainers.vs.Count == 0)
                 {
-                    Debug.LogError("Don't hane any limitRoomContainers");
+                    // Debug.LogError("Don't hane any limitRoomContainers");
                     // make all
                     {
                         LimitRoomContainer limitRoomContainer = new LimitRoomContainer();

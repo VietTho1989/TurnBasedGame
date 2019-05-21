@@ -31,6 +31,11 @@ public class FriendListNewMessageCountUI : UIBehavior<FriendListNewMessageCountU
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public Text tvNewCount;
@@ -129,12 +134,12 @@ public class FriendListNewMessageCountUI : UIBehavior<FriendListNewMessageCountU
                 }
                 else
                 {
-                    Debug.LogError("friendWorld null");
+                    // Debug.LogError("friendWorld null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

@@ -74,6 +74,11 @@ namespace GameManager.Match
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt
 
         private static readonly TxtLanguage txtStart = new TxtLanguage("Start");
@@ -252,7 +257,14 @@ namespace GameManager.Match
                                                     if (btnStart != null && tvStart != null)
                                                     {
                                                         btnStart.interactable = false;
-                                                        tvStart.text = txtStartingTime.get() + " " + stateStart.time.v + "/" + stateStart.duration.v;
+                                                        if (stateStart.duration.v > 0)
+                                                        {
+                                                            tvStart.text = txtStartingTime.get() + " " + stateStart.time.v + "/" + stateStart.duration.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            tvStart.text = txtStarting.get();
+                                                        }
                                                     }
                                                     else
                                                     {
@@ -633,6 +645,8 @@ namespace GameManager.Match
                                 ValueChangeUtils.replaceCallBack(this, syncs);
                                 dirty = true;
                             }
+                            break;
+                        case ContestManagerStateLobbyUI.UIData.Property.roomSetting:
                             break;
                         case ContestManagerStateLobbyUI.UIData.Property.roomUserAdapter:
                             break;

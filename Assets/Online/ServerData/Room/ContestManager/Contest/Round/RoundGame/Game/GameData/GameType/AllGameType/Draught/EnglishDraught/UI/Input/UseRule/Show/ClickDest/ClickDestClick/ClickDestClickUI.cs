@@ -139,6 +139,13 @@ namespace EnglishDraught.UseRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.EnglishDraught ? 1 : 0;
+        }
+
+        #region Refresh
+
         public GameObject ivSelect;
 
         public GameObject keySelect;
@@ -319,6 +326,8 @@ namespace EnglishDraught.UseRule
         {
             return false;
         }
+
+        #endregion
 
         #region implement callBacks
 

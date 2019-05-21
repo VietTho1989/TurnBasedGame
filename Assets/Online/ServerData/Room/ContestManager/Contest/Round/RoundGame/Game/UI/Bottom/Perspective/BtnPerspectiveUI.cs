@@ -55,6 +55,11 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text lbTitle;

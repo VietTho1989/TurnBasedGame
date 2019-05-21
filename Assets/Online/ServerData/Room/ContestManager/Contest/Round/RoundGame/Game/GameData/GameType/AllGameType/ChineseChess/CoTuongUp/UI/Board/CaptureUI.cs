@@ -33,6 +33,11 @@ namespace CoTuongUp
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.CO_TUONG_UP ? 1 : 0;
+        }
+
         #region Refresh
 
         public Image img;

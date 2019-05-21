@@ -35,6 +35,11 @@ public class ComputerAvatarUI : UIBehavior<ComputerAvatarUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public UrlImage ivAvatar;

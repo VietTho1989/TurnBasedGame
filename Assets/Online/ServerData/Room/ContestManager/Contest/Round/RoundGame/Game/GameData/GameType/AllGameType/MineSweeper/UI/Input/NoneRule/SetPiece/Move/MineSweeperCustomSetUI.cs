@@ -13,6 +13,7 @@ namespace MineSweeper.NoneRule
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<MineSweeperCustomSet>> mineSweeperCustomSet;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace MineSweeper.NoneRule
 			{
 				return GameMove.Type.MineSweeperCustomSet;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.MineSweeper ? 1 : 0;
+        }
 
-		public UILineRenderer lineRenderer;
+        #region Refresh
+
+        public UILineRenderer lineRenderer;
 
 		public Image imgHint;
 

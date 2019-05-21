@@ -97,6 +97,11 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Button btnOffline;
@@ -795,7 +800,16 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             {
                 OfflineUI.UIData offlineUIData = mainUIData.sub.newOrOld<OfflineUI.UIData>();
                 {
+                    // fastStart
+                    {
+                        if (mainUIData.sub.v != offlineUIData)
+                        {
+                            if (Setting.get().fastStart.v)
+                            {
 
+                            }
+                        }
+                    }
                 }
                 mainUIData.sub.v = offlineUIData;
             }

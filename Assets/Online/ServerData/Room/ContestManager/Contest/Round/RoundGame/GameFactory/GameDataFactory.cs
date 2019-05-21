@@ -3,6 +3,7 @@ using System.Collections;
 
 public abstract class GameDataFactory : Data
 {
+
 	public enum Type
 	{
 		Default,
@@ -15,4 +16,3 @@ public abstract class GameDataFactory : Data
 	public abstract GameType.Type getGameTypeType();
 
 }
-

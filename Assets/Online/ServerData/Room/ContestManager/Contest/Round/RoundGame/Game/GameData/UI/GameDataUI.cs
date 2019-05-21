@@ -209,6 +209,11 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt, rect
 
     static GameDataUI()

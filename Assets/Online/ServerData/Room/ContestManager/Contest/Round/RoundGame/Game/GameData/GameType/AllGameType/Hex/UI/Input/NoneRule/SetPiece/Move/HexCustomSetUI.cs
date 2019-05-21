@@ -13,6 +13,7 @@ namespace HEX.NoneRule
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<HexCustomSet>> hexCustomSet;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace HEX.NoneRule
 			{
 				return GameMove.Type.HexCustomSet;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Hex ? 1 : 0;
+        }
 
-		public UILineRenderer lineRenderer;
+        #region Refresh
+
+        public UILineRenderer lineRenderer;
 
 		public Image imgHint;
 

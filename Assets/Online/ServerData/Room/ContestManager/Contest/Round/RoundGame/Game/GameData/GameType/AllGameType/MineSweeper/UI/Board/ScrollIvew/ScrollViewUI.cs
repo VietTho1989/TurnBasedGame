@@ -110,6 +110,11 @@ namespace MineSweeper
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.MineSweeper ? 1 : 0;
+        }
+
         #region Refresh
 
         private bool needReset = true;

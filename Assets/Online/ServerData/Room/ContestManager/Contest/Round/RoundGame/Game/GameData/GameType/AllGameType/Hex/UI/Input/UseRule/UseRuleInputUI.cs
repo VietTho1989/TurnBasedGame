@@ -227,6 +227,11 @@ namespace HEX
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Hex ? 1 : 0;
+        }
+
         #region txt
 
         private static readonly TxtLanguage txtSwitchSide = new TxtLanguage("Switch Side");

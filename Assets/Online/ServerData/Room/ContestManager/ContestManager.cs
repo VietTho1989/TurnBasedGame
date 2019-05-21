@@ -10,6 +10,8 @@ namespace GameManager.Match
 	public class ContestManager : Data
 	{
 
+        public bool isFastStart = false;
+
 		public VP<int> index;
 
 		#region State

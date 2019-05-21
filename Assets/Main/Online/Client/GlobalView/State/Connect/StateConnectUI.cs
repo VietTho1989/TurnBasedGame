@@ -77,6 +77,11 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvOnline;
@@ -121,18 +126,18 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("tvOnline null: " + this);
+                            // Debug.LogError("tvOnline null: " + this);
                         }
                     }
                 }
                 else
                 {
-                    Debug.LogError("connect null: " + this);
+                    // Debug.LogError("connect null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

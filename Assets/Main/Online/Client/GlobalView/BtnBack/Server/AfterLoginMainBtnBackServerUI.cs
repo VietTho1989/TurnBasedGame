@@ -99,6 +99,11 @@ public class AfterLoginMainBtnBackServerUI : UIBehavior<AfterLoginMainBtnBackSer
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvBack;
@@ -135,13 +140,13 @@ public class AfterLoginMainBtnBackServerUI : UIBehavior<AfterLoginMainBtnBackSer
                     }
                     else
                     {
-                        Debug.LogError("tvBack null: " + this);
+                        // Debug.LogError("tvBack null: " + this);
                     }
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

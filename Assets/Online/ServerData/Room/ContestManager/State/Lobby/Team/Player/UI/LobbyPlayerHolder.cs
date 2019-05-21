@@ -64,6 +64,11 @@ namespace GameManager.Match
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 2;
+        }
+
         #region txt
 
         public Text tvEdit;
@@ -224,7 +229,7 @@ namespace GameManager.Match
                 }
                 else
                 {
-                    Debug.LogError("data null: " + this);
+                    // Debug.LogError("data null: " + this);
                 }
             }
         }

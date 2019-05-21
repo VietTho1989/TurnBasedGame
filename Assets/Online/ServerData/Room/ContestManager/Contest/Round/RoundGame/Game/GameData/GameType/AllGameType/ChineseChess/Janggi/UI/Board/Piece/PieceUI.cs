@@ -45,6 +45,11 @@ namespace Janggi
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Janggi ? 32 : 0;
+        }
+
         #region Refresh
 
         public Image image;

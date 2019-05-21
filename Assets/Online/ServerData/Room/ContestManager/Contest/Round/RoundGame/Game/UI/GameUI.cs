@@ -234,7 +234,10 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
     #endregion
 
-    #region Update
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
 
     #region txt, rect
 
@@ -258,6 +261,8 @@ public class GameUI : UIBehavior<GameUI.UIData>
     }
 
     #endregion
+
+    #region Update
 
     public override void refresh()
     {

@@ -113,6 +113,11 @@ public class SortDataUI : UIBehavior<SortDataUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt, rect
 
     static SortDataUI()
@@ -186,7 +191,7 @@ public class SortDataUI : UIBehavior<SortDataUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

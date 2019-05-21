@@ -63,6 +63,11 @@ public class BtnNewRoundRobinUI : UIBehavior<BtnNewRoundRobinUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvNewRoundRobin;

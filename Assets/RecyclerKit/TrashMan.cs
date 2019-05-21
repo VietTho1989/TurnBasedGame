@@ -38,11 +38,21 @@ public class TrashMan : MonoBehaviour
     [HideInInspector]
     public new Transform transform;
 
-
     #region MonoBehaviour
+
+    public SettingPref settingPref;
 
     void Awake()
     {
+        Debug.LogError("TrashMan Awake");
+        if (settingPref != null)
+        {
+            settingPref.MyAwake();
+        }
+        else
+        {
+            Debug.LogError("settingPref null");
+        }
         if (instance != null)
         {
             Destroy(gameObject);
@@ -188,6 +198,8 @@ public class TrashMan : MonoBehaviour
         GameObject getGameObject();
 
         void onDespawn();
+
+        int getStartAllocate();
 
     }
 

@@ -49,6 +49,11 @@ namespace Banqi
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Banqi ? 16 : 0;
+        }
+
         #region Refresh
 
         public Image image;

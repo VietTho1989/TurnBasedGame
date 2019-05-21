@@ -74,6 +74,11 @@ public class NoDatabaseServerPlayUI : UIBehavior<NoDatabaseServerPlayUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public override void refresh()
@@ -87,7 +92,7 @@ public class NoDatabaseServerPlayUI : UIBehavior<NoDatabaseServerPlayUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

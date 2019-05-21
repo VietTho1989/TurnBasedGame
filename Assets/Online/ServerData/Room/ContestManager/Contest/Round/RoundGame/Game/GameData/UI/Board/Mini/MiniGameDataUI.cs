@@ -10,6 +10,7 @@ public class MiniGameDataUI : UIBehavior<MiniGameDataUI.UIData>
 
     public class UIData : Data
     {
+
         public VP<ReferenceData<GameData>> gameData;
 
         public VP<GameDataBoardUI.UIData> board;
@@ -36,9 +37,15 @@ public class MiniGameDataUI : UIBehavior<MiniGameDataUI.UIData>
         }
 
         #endregion
+
     }
 
     #endregion
+
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
 
     #region Refresh
 

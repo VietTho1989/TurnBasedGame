@@ -56,6 +56,11 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text lbTitle;

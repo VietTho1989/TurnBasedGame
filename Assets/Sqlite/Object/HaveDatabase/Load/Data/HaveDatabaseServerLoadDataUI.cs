@@ -272,6 +272,7 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                                 {
                                     server.init(serverType, port);
                                     {
+                                        server.alreadyFastStart = true;
                                         server.instanceId.v = Global.getRealTimeInMiliSeconds();
                                     }
                                     connection.Update(new SqliteObject(server));
@@ -281,6 +282,7 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
                                     Debug.LogError("server null");
                                     server = new Server();
                                     {
+                                        server.alreadyFastStart = true;
                                         server.init(serverType, port);
                                     }
                                     connection.Insert(new SqliteObject(server));

@@ -13,6 +13,7 @@ namespace CoTuongUp.NoneRule
 
         public class UIData : LastMoveSub
         {
+
             public VP<ReferenceData<CoTuongUpCustomSet>> coTuongUpCustomSet;
 
             public VP<bool> isHint;
@@ -37,9 +38,15 @@ namespace CoTuongUp.NoneRule
             {
                 return GameMove.Type.CoTuongUpCustomSet;
             }
+
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.CO_TUONG_UP ? 1 : 0;
+        }
 
         #region Refresh
 

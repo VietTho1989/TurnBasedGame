@@ -68,6 +68,11 @@ public class AfterLoginMainBtnBackUI : UIBehavior<AfterLoginMainBtnBackUI.UIData
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public override void refresh()
@@ -125,7 +130,7 @@ public class AfterLoginMainBtnBackUI : UIBehavior<AfterLoginMainBtnBackUI.UIData
                 }
                 else
                 {
-                    Debug.LogError("server null: " + this);
+                    // Debug.LogError("server null: " + this);
                 }
             }
             else

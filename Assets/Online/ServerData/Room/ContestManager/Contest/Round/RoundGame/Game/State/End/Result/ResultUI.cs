@@ -60,6 +60,11 @@ namespace GameState
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 2;
+        }
+
         #region Refresh
 
         public Text tvResult;

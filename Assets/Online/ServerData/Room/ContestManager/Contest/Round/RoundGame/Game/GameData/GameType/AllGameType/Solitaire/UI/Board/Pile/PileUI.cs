@@ -69,6 +69,11 @@ namespace Solitaire
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Solitaire ? 7 : 0;
+        }
+
         #region Refresh
 
         public static Vector2 GetPilePosition(Pile.Piles pileType)

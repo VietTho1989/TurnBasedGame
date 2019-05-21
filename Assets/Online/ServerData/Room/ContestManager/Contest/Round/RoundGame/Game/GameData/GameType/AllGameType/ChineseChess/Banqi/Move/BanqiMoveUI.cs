@@ -41,11 +41,16 @@ namespace Banqi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Banqi ? 1 : 0;
+        }
 
-		public Color normalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);
+        #region Refresh
+
+        public Color normalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);
 		public Color hintColor = Color.green;// new Color (0 / 256f, 1, 0, 256 / 256f);
 
 		public UILineRenderer lineRenderer;

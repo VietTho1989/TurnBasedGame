@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class Server : Data
 {
 
+    public bool alreadyFastStart = false;
+
     public int maxClientUserCount = ServerManager.DefaultMaxConnections;
 
     public VP<ServerConfig> serverConfig;
@@ -39,7 +41,7 @@ public class Server : Data
             }
             else
             {
-                Debug.LogError("why don't have any gameTypes");
+                // Debug.LogError("why don't have any gameTypes");
                 List<int> ret = new List<int>();
                 {
                     foreach (GameType.Type gameType in GameType.EnableTypes)

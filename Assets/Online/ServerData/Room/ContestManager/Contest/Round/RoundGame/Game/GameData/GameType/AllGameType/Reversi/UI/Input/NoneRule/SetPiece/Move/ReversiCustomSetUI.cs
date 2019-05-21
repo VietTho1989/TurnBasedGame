@@ -13,6 +13,7 @@ namespace Reversi.NoneRule
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<ReversiCustomSet>> reversiCustomSet;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Reversi.NoneRule
 			{
 				return GameMove.Type.ReversiCustomSet;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Reversi ? 1 : 0;
+        }
 
-		public UILineRenderer lineRenderer;
+        #region Refresh
+
+        public UILineRenderer lineRenderer;
 
 		public Image imgHint;
 

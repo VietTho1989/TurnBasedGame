@@ -94,6 +94,11 @@ namespace GameState
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region Refresh
 
         private static readonly UIRectTransform normalContentRect = new UIRectTransform();

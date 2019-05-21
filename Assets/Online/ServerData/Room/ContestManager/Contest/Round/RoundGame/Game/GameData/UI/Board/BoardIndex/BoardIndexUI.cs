@@ -56,6 +56,11 @@ public class BoardIndexUI : UIBehavior<BoardIndexUI.UIData>
 
     public const float DefaultScale = 100;
 
+    public override int getStartAllocate()
+    {
+        return 16;
+    }
+
     #region Refresh
 
     public Text tvContent;

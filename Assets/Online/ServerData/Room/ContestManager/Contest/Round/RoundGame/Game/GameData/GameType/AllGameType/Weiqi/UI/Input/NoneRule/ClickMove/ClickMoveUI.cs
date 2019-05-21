@@ -174,6 +174,11 @@ namespace Weiqi.NoneRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Weiqi ? 1 : 0;
+        }
+
         #region Refresh
 
         public GameObject ivSelect;

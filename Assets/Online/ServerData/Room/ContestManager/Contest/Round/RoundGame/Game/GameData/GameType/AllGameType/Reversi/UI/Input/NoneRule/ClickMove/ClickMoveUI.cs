@@ -145,6 +145,11 @@ namespace Reversi.NoneRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Reversi ? 1 : 0;
+        }
+
         #region Refresh
 
         public GameObject ivSelect;

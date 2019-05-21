@@ -22,7 +22,7 @@ public class ChatRoomAdapterAutoSscrollToBottom : UpdateBehavior<ChatRoomAdapter
                     {
                         if (this.data.holders.vs.Count == 0)
                         {
-                            Debug.LogError("Why don't have anything");
+                            // Debug.LogError("Why don't have anything");
                             isCorrect = true;
                         }
                         else

@@ -13,6 +13,7 @@ namespace Shogi
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<ShogiMove>> shogiMove;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Shogi
 			{
 				return GameMove.Type.ShogiMove;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.SHOGI ? 1 : 0;
+        }
 
-		private const float DeltaX = 4.5f;
+        #region Refresh
+
+        private const float DeltaX = 4.5f;
 		private const float DeltaY = 4.5f;
 
 		private static Color NormalColor = Color.blue;

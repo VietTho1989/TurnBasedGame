@@ -70,6 +70,11 @@ namespace Solitaire
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Solitaire ? 10 : 0;
+        }
+
         #region Refresh
 
         public const float CardX = 4.0f;// 1.5f;

@@ -36,6 +36,11 @@ public class EmptyInformAvatarUI : UIBehavior<EmptyInformAvatarUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvEmpty;

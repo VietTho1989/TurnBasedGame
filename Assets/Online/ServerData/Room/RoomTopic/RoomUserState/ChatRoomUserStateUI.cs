@@ -199,12 +199,12 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("chatRoomUserStateContent null: " + this);
+                    // Debug.LogError("chatRoomUserStateContent null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

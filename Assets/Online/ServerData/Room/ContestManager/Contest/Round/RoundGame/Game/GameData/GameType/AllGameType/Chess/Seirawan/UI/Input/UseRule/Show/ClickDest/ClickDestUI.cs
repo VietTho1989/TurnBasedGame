@@ -4,216 +4,239 @@ using System.Collections.Generic;
 
 namespace Seirawan.UseRule
 {
-	public class ClickDestUI : UIBehavior<ClickDestUI.UIData>
-	{
+    public class ClickDestUI : UIBehavior<ClickDestUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : ShowUI.UIData.Sub
-		{
-			
-			public VP<int> x;
+        public class UIData : ShowUI.UIData.Sub
+        {
 
-			public VP<int> y;
+            public VP<int> x;
 
-			#region Sub
+            public VP<int> y;
 
-			public abstract class Sub : Data
-			{
-				
-				public enum Type
-				{
-					/** Receive click dest position event*/
-					Click,
-					/** Choose move*/
-					Choose
-				}
+            #region Sub
 
-				public abstract Type getType ();
+            public abstract class Sub : Data
+            {
 
-				public abstract bool processEvent(Event e);
+                public enum Type
+                {
+                    /** Receive click dest position event*/
+                    Click,
+                    /** Choose move*/
+                    Choose
+                }
 
-			}
+                public abstract Type getType();
 
-			public VP<Sub> sub;
+                public abstract bool processEvent(Event e);
 
-			#endregion
+            }
 
-			#region Constructor
+            public VP<Sub> sub;
 
-			public enum Property
-			{
-				x,
-				y,
-				sub
-			}
+            #endregion
 
-			public UIData() : base()
-			{
-				this.x = new VP<int>(this, (byte)Property.x, 0);
-				this.y = new VP<int>(this, (byte)Property.y, 0);
-				this.sub = new VP<Sub>(this, (byte)Property.sub, new ClickDestClickUI.UIData());
-			}
+            #region Constructor
 
-			#endregion
+            public enum Property
+            {
+                x,
+                y,
+                sub
+            }
 
-			public override Type getType ()
-			{
-				return Type.ClickDest;
-			}
+            public UIData() : base()
+            {
+                this.x = new VP<int>(this, (byte)Property.x, 0);
+                this.y = new VP<int>(this, (byte)Property.y, 0);
+                this.sub = new VP<Sub>(this, (byte)Property.sub, new ClickDestClickUI.UIData());
+            }
 
-			public override bool processEvent (Event e)
-			{
-				bool isProcess = false;
-				{
-					// sub
-					if (!isProcess) {
-						Sub sub = this.sub.v;
-						if (sub != null) {
-							isProcess = sub.processEvent (e);
-						} else {
-							Debug.LogError ("sub null: " + this);
-						}
-					}
-				}
-				return isProcess;
-			}
+            #endregion
 
-		}
+            public override Type getType()
+            {
+                return Type.ClickDest;
+            }
 
-		#endregion
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // sub
+                    if (!isProcess)
+                    {
+                        Sub sub = this.sub.v;
+                        if (sub != null)
+                        {
+                            isProcess = sub.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("sub null: " + this);
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
-		#region Refresh
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        #endregion
 
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Seirawan ? 1 : 0;
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        #region Refresh
 
-		#endregion
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
 
-		#region implement callBacks
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public ClickDestClickUI clickDestClickPrefab;
-		public ClickDestChooseUI clickDestChoosePrefab;
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.sub.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				{
-					switch (sub.getType ()) {
-					case UIData.Sub.Type.Click:
-						{
-							ClickDestClickUI.UIData clickDestClickUIData = sub as ClickDestClickUI.UIData;
-							UIUtils.Instantiate (clickDestClickUIData, clickDestClickPrefab, this.transform);
-						}
-						break;
-					case UIData.Sub.Type.Choose:
-						{
-							ClickDestChooseUI.UIData clickDestChooseUIData = sub as ClickDestChooseUI.UIData;
-							UIUtils.Instantiate (clickDestChooseUIData, clickDestChoosePrefab, this.transform);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType() + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #endregion
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.sub.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				{
-					switch (sub.getType ()) {
-					case UIData.Sub.Type.Click:
-						{
-							ClickDestClickUI.UIData clickDestClickUIData = sub as ClickDestClickUI.UIData;
-							clickDestClickUIData.removeCallBackAndDestroy (typeof(ClickDestClickUI));
-						}
-						break;
-					case UIData.Sub.Type.Choose:
-						{
-							ClickDestChooseUI.UIData clickDestChooseUIData = sub as ClickDestChooseUI.UIData;
-							clickDestChooseUIData.removeCallBackAndDestroy (typeof(ClickDestChooseUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType() + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.x:
-					break;
-				case UIData.Property.y:
-					break;
-				case UIData.Property.sub:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public ClickDestClickUI clickDestClickPrefab;
+        public ClickDestChooseUI clickDestChoosePrefab;
 
-		#endregion
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
+                {
+                    switch (sub.getType())
+                    {
+                        case UIData.Sub.Type.Click:
+                            {
+                                ClickDestClickUI.UIData clickDestClickUIData = sub as ClickDestClickUI.UIData;
+                                UIUtils.Instantiate(clickDestClickUIData, clickDestClickPrefab, this.transform);
+                            }
+                            break;
+                        case UIData.Sub.Type.Choose:
+                            {
+                                ClickDestChooseUI.UIData clickDestChooseUIData = sub as ClickDestChooseUI.UIData;
+                                UIUtils.Instantiate(clickDestChooseUIData, clickDestChoosePrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-	}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
+                {
+                    switch (sub.getType())
+                    {
+                        case UIData.Sub.Type.Click:
+                            {
+                                ClickDestClickUI.UIData clickDestClickUIData = sub as ClickDestClickUI.UIData;
+                                clickDestClickUIData.removeCallBackAndDestroy(typeof(ClickDestClickUI));
+                            }
+                            break;
+                        case UIData.Sub.Type.Choose:
+                            {
+                                ClickDestChooseUI.UIData clickDestChooseUIData = sub as ClickDestChooseUI.UIData;
+                                clickDestChooseUIData.removeCallBackAndDestroy(typeof(ClickDestChooseUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.x:
+                        break;
+                    case UIData.Property.y:
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            if (wrapProperty.p is UIData.Sub)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

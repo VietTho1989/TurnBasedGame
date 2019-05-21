@@ -32,11 +32,16 @@ namespace Chess.UseRule
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.CHESS ? 1 : 0;
+        }
 
-		public GameObject contentContainer;
+        #region Refresh
+
+        public GameObject contentContainer;
 
         public UICircle circleType;
 		private static readonly Color normalColor = Color.blue;

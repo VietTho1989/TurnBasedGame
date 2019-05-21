@@ -41,11 +41,16 @@ namespace Banqi.NoneRule
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Banqi ? 1 : 0;
+        }
 
-		public UILineRenderer lineRendererFrom;
+        #region Refresh
+
+        public UILineRenderer lineRendererFrom;
 		public UILineRenderer lineRendererDest;
 
 		public override void refresh ()

@@ -82,6 +82,11 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     private static readonly TxtLanguage txtPause = new TxtLanguage("Pause");

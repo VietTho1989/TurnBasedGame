@@ -13,6 +13,7 @@ namespace FairyChess.NoneRule
 
         public class UIData : LastMoveSub
         {
+
             public VP<ReferenceData<FairyChessCustomHand>> fairyChessCustomHand;
 
             public VP<bool> isHint;
@@ -37,9 +38,15 @@ namespace FairyChess.NoneRule
             {
                 return GameMove.Type.FairyChessCustomHand;
             }
+
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.FairyChess ? 1 : 0;
+        }
 
         #region Refresh
 

@@ -72,6 +72,11 @@ public class GlobalRoomContainerUI : UIBehavior<GlobalRoomContainerUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public override void refresh()
@@ -113,12 +118,12 @@ public class GlobalRoomContainerUI : UIBehavior<GlobalRoomContainerUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("globalRoomContainer null");
+                    // Debug.LogError("globalRoomContainer null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

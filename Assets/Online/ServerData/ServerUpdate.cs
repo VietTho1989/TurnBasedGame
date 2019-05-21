@@ -31,6 +31,63 @@ public class ServerUpdate : UpdateBehavior<Server>
                         this.data.gameTypes.add(gameTypes);
                     }
                 }
+                // fastStart
+                {
+                    if (Setting.get().fastStart.v)
+                    {
+                        this.data.alreadyFastStart = true;
+                        RoomManager roomManager = this.data.roomManager.v;
+                        if (roomManager != null)
+                        {
+                            GlobalRoomContainer globalRoomContainer = roomManager.globalRoomContainer.v;
+                            if (globalRoomContainer != null)
+                            {
+                                if (globalRoomContainer.rooms.vs.Count == 0)
+                                {
+                                    // fast start request make room
+                                    CreateRoomMessage createRoomMessage = new CreateRoomMessage();
+                                    {
+                                        createRoomMessage.gameType = Setting.get().defaultChosenGame.v.getGame();
+                                        createRoomMessage.roomName = Setting.get().defaultRoomName.v.getRoomName();
+                                    }
+                                    globalRoomContainer.requestMakeRoom(this.data.profileId.v, createRoomMessage);
+                                    // fast start room
+                                    Debug.LogError("ServerUpdate: fast start: " + globalRoomContainer.rooms.vs.Count);
+                                    if (globalRoomContainer.rooms.vs.Count == 1)
+                                    {
+                                        Room room = globalRoomContainer.rooms.vs[0];
+                                        room.isFastStartRoom = true;
+                                        RoomUpdate roomUpdate = room.findCallBack<RoomUpdate>();
+                                        if (roomUpdate != null)
+                                        {
+                                            roomUpdate.makeDirty();
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("roomUpdate null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("why room count not 1: " + globalRoomContainer.rooms.vs.Count);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("why room count not 0: " + globalRoomContainer.rooms.vs.Count);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("globalRoomContainer null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("roomManager null");
+                        }
+                    }
+                }
             }
             else
             {
@@ -53,6 +110,8 @@ public class ServerUpdate : UpdateBehavior<Server>
         if (data is Server)
         {
             Server server = data as Server;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 server.users.allAddCallBack(this);
@@ -60,6 +119,13 @@ public class ServerUpdate : UpdateBehavior<Server>
                 server.globalChat.allAddCallBack(this);
                 server.friendWorld.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
             return;
         }
         // Child
@@ -109,6 +175,8 @@ public class ServerUpdate : UpdateBehavior<Server>
         if (data is Server)
         {
             Server server = data as Server;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 server.users.allRemoveCallBack(this);
@@ -117,6 +185,11 @@ public class ServerUpdate : UpdateBehavior<Server>
                 server.friendWorld.allRemoveCallBack(this);
             }
             this.setDataNull(server);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -204,6 +277,56 @@ public class ServerUpdate : UpdateBehavior<Server>
                     }
                     break;
                 case Server.Property.friendWorld:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.fastStart:
+                    dirty = true;
+                    break;
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.useShortKey:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.boardIndex:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
+                    break;
+                case Setting.Property.screenCaptureSetting:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

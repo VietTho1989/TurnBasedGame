@@ -5,125 +5,142 @@ using System.Collections.Generic;
 
 namespace GameState
 {
-	public class PlayNormalUI : UIBehavior<PlayNormalUI.UIData>
-	{
+    public class PlayNormalUI : UIBehavior<PlayNormalUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : PlayUI.UIData.Sub
-		{
+        public class UIData : PlayUI.UIData.Sub
+        {
 
-			public VP<ReferenceData<PlayNormal>> playNormal;
+            public VP<ReferenceData<PlayNormal>> playNormal;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				playNormal
-			}
+            public enum Property
+            {
+                playNormal
+            }
 
-			public UIData() : base()
-			{
-				this.playNormal = new VP<ReferenceData<PlayNormal>>(this, (byte)Property.playNormal, new ReferenceData<PlayNormal>(null));
-			}
+            public UIData() : base()
+            {
+                this.playNormal = new VP<ReferenceData<PlayNormal>>(this, (byte)Property.playNormal, new ReferenceData<PlayNormal>(null));
+            }
 
-			#endregion
+            #endregion
 
-			public override Play.Sub.Type getType ()
-			{
-				return Play.Sub.Type.Normal;
-			}
+            public override Play.Sub.Type getType()
+            {
+                return Play.Sub.Type.Normal;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					PlayNormal playNormal = this.data.playNormal.v.data;
-					if (playNormal != null) {
-						
-					} else {
-						// Debug.LogError ("playNormal null: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #region Refresh
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    PlayNormal playNormal = this.data.playNormal.v.data;
+                    if (playNormal != null)
+                    {
 
-		#endregion
+                    }
+                    else
+                    {
+                        // Debug.LogError ("playNormal null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#region implement callBacks
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.playNormal.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
+        #endregion
+
+        #region implement callBacks
+
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.playNormal.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
             // Child
             if (data is PlayNormal)
             {
                 dirty = true;
                 return;
             }
-            Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.playNormal.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.playNormal.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
             // Child
             if (data is PlayNormal)
             {
                 return;
             }
-            Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.playNormal:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.playNormal:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
             // Child
             if (wrapProperty.p is PlayNormal)
             {
@@ -135,10 +152,10 @@ namespace GameState
                 }
                 return;
             }
-            Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

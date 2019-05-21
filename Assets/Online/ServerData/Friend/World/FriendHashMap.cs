@@ -133,7 +133,7 @@ public class FriendHashMap : ValueChangeCallBack
 
     public void onAddCallBack<T>(T data) where T : Data
     {
-        Debug.LogError("onAddCallBack: " + data + "; " + this);
+        // Debug.LogError("onAddCallBack: " + data + "; " + this);
         if (data is FriendWorld)
         {
             FriendWorld friendWorld = data as FriendWorld;

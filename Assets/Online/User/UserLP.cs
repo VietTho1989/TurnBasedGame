@@ -173,7 +173,7 @@ public class UserLP : LP<User>, ValueChangeCallBack
                 return;
             }
         }
-        Debug.LogError("Don't process: " + data + "; " + this);
+        // Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public void onRemoveCallBack<T>(T data, bool isHide) where T : Data
@@ -258,7 +258,7 @@ public class UserLP : LP<User>, ValueChangeCallBack
                 return;
             }
         }
-        Debug.LogError("Don't process: " + data + "; " + this);
+        // Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -350,7 +350,7 @@ public class UserLP : LP<User>, ValueChangeCallBack
                 return;
             }
         }
-        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        // Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }
 
     #endregion

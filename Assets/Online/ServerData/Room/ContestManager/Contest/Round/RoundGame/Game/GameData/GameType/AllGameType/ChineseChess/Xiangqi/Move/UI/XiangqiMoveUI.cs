@@ -13,6 +13,7 @@ namespace Xiangqi
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<XiangqiMove>> xiangqiMove;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Xiangqi
 			{
 				return GameMove.Type.XiangqiMove;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Xiangqi ? 1 : 0;
+        }
 
-		private const float DeltaX = 4.5f;
+        #region Refresh
+
+        private const float DeltaX = 4.5f;
 		private const float DeltaY = 5;
 
 		public Color normalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);

@@ -117,6 +117,11 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     /*private static readonly TxtLanguage txtLeave = new TxtLanguage("Leave");
@@ -247,12 +252,12 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("room null: " + this);
+                    // Debug.LogError("room null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

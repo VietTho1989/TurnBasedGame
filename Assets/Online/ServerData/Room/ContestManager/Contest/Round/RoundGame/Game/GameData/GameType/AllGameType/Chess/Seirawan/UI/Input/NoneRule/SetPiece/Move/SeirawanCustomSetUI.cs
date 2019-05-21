@@ -13,6 +13,7 @@ namespace Seirawan.NoneRule
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<SeirawanCustomSet>> seirawanCustomSet;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Seirawan.NoneRule
 			{
 				return GameMove.Type.SeirawanCustomSet;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Seirawan ? 1 : 0;
+        }
 
-		public UILineRenderer lineRenderer;
+        #region Refresh
+
+        public UILineRenderer lineRenderer;
 
 		public Image imgHint;
 

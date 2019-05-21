@@ -32,6 +32,11 @@ namespace Seirawan
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Seirawan ? 1 : 0;
+        }
+
         #region Refresh
 
         public UILineRenderer imgGating;

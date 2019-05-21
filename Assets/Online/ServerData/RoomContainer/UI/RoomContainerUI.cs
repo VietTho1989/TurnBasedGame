@@ -97,6 +97,11 @@ public class RoomContainerUI : UIBehavior<RoomContainerUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public override void refresh()
@@ -129,7 +134,7 @@ public class RoomContainerUI : UIBehavior<RoomContainerUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("room null or end");
+                            // Debug.LogError("room null or end");
                         }
                     }
                 }
@@ -153,7 +158,7 @@ public class RoomContainerUI : UIBehavior<RoomContainerUI.UIData>
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

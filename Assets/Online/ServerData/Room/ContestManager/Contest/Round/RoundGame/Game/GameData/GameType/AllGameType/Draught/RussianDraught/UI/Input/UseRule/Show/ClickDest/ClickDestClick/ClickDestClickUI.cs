@@ -139,6 +139,13 @@ namespace RussianDraught.UseRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.RussianDraught ? 1 : 0;
+        }
+
+        #region Refresh
+
         public GameObject ivSelect;
 
         public GameObject keySelect;
@@ -319,6 +326,8 @@ namespace RussianDraught.UseRule
         {
             return false;
         }
+
+        #endregion
 
         #region implement callBacks
 

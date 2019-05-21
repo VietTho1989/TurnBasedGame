@@ -41,6 +41,11 @@ namespace EnglishDraught
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.EnglishDraught ? 24 : 0;
+        }
+
         #region Refresh
 
         public Image imgPiece;

@@ -117,7 +117,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("globalRoomContainerUIData null");
+                                // Debug.LogError("globalRoomContainerUIData null");
                             }
                         }
                         break;
@@ -130,7 +130,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("allLimitRoomContainersUIData null");
+                                // Debug.LogError("allLimitRoomContainersUIData null");
                             }
                         }
                         break;
@@ -145,6 +145,11 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
     }
 
     #endregion
+
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
 
     #region Refresh
 
@@ -175,7 +180,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalRoomContainerUIData null");
+                                    // Debug.LogError("globalRoomContainerUIData null");
                                 }
                             }
                             AllLimitRoomContainersUI allLimitRoomContainersUI = null;
@@ -187,7 +192,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("allLimitRoomContainersUIData null");
+                                    // Debug.LogError("allLimitRoomContainersUIData null");
                                 }
                             }
                             // show
@@ -270,7 +275,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("globalRoomContainerUIData null");
+                            // Debug.LogError("globalRoomContainerUIData null");
                         }
                     }
                     // allLimitRoomContainers
@@ -282,18 +287,18 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("allLimitRoomContainersUIData null");
+                            // Debug.LogError("allLimitRoomContainersUIData null");
                         }
                     }
                 }
                 else
                 {
-                    Debug.LogError("roomManager null");
+                    // Debug.LogError("roomManager null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

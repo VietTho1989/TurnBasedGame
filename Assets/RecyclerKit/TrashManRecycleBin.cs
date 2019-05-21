@@ -15,7 +15,7 @@ public sealed class TrashManRecycleBin
     /// <summary>
     /// total number of instances to create at start
     /// </summary>
-    public int instancesToPreallocate = 0;
+    // public int instancesToPreallocate = 0;
 
     /// <summary>
     /// total number of instances to allocate if one is requested when the bin is empty
@@ -125,6 +125,25 @@ public sealed class TrashManRecycleBin
     public void initialize()
     {
         //prefab.prefabPoolName = prefab.gameObject.name;
+        int instancesToPreallocate = 0;
+        {
+            if (prefab != null)
+            {
+                TrashMan.DespawnInterface despawnInterface = prefab.GetComponent<TrashMan.DespawnInterface>();
+                if (despawnInterface != null)
+                {
+                    instancesToPreallocate = despawnInterface.getStartAllocate();
+                }
+                else
+                {
+                    Debug.LogError("despawnInterface null");
+                }
+            }
+            else
+            {
+                Debug.LogError("prefab null");
+            }
+        }
         _gameObjectPool = new Stack<GameObject>(instancesToPreallocate);
         allocateGameObjects(instancesToPreallocate);
     }

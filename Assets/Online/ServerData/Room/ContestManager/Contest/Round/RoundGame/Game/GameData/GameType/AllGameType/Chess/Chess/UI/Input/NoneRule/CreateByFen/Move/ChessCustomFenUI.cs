@@ -42,6 +42,11 @@ namespace Chess.NoneRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.CHESS ? 1 : 0;
+        }
+
         #region txt
 
         public Text tvMessage;

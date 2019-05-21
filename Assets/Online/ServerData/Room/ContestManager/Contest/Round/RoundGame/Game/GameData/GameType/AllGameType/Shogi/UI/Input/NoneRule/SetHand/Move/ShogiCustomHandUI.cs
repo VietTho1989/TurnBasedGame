@@ -13,6 +13,7 @@ namespace Shogi.NoneRule
 
         public class UIData : LastMoveSub
         {
+
             public VP<ReferenceData<ShogiCustomHand>> shogiCustomHand;
 
             public VP<bool> isHint;
@@ -37,9 +38,15 @@ namespace Shogi.NoneRule
             {
                 return GameMove.Type.ShogiCustomHand;
             }
+
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.SHOGI ? 1 : 0;
+        }
 
         #region Refresh
 

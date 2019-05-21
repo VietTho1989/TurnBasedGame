@@ -279,6 +279,11 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     public const float Margin = 8;
 
     #region Refresh

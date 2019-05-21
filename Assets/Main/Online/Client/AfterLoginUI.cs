@@ -133,6 +133,11 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt,rect
 
     static AfterLoginUI()
@@ -274,12 +279,12 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("server null: " + this);
+                    // Debug.LogError("server null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

@@ -175,6 +175,11 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt, rect
 
     static RoomUI()

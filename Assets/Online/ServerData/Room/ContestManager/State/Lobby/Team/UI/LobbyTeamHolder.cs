@@ -157,7 +157,7 @@ namespace GameManager.Match
                     }
                     else
                     {
-                        Debug.LogError("lobbyTeam null: " + this);
+                        // Debug.LogError("lobbyTeam null: " + this);
                     }
                 }
                 else

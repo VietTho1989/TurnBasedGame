@@ -74,6 +74,11 @@ namespace GameManager.Match
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region Refresh
 
         public override void refresh()

@@ -63,6 +63,11 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvNewEliminationRound;

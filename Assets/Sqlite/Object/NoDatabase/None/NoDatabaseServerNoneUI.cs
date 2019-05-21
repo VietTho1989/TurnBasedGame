@@ -64,6 +64,11 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvStart;
@@ -296,10 +301,17 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                         Debug.LogError("lbMaxClientUserCount null");
                     }
                 }
+                // fastStart
+                {
+                    if (Setting.get().fastStart.v)
+                    {
+                        this.onClickBtnStart();
+                    }
+                }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }
@@ -377,6 +389,9 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
         {
             switch ((Setting.Property)wrapProperty.n)
             {
+                case Setting.Property.fastStart:
+                    dirty = true;
+                    break;
                 case Setting.Property.language:
                     dirty = true;
                     break;

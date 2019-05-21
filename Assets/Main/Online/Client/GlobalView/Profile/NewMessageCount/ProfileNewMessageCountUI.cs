@@ -31,6 +31,11 @@ public class ProfileNewMessageCountUI : UIBehavior<ProfileNewMessageCountUI.UIDa
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public Text tvNewCount;
@@ -200,12 +205,12 @@ public class ProfileNewMessageCountUI : UIBehavior<ProfileNewMessageCountUI.UIDa
                 }
                 else
                 {
-                    Debug.LogError("server null");
+                    // Debug.LogError("server null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

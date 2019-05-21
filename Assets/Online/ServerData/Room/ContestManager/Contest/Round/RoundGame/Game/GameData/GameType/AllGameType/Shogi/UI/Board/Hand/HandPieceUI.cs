@@ -5,69 +5,79 @@ using System.Collections.Generic;
 
 namespace Shogi
 {
-	public class HandPieceUI : UIBehavior<HandPieceUI.UIData>
-	{
+    public class HandPieceUI : UIBehavior<HandPieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<Common.HandPiece> handPiece;
+        public class UIData : Data
+        {
 
-			public VP<Common.Color> color;
+            public VP<Common.HandPiece> handPiece;
 
-			public VP<uint> count;
+            public VP<Common.Color> color;
 
-			#region Constructor
+            public VP<uint> count;
 
-			public enum Property
-			{
-				handPiece,
-				color,
-				count
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.handPiece = new VP<Common.HandPiece>(this, (byte)Property.handPiece, Common.HandPiece.HBishop);
-				this.color = new VP<Common.Color>(this, (byte)Property.color, Common.Color.Black);
-				this.count = new VP<uint>(this, (byte)Property.count, 1);
-			}
+            public enum Property
+            {
+                handPiece,
+                color,
+                count
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.handPiece = new VP<Common.HandPiece>(this, (byte)Property.handPiece, Common.HandPiece.HBishop);
+                this.color = new VP<Common.Color>(this, (byte)Property.color, Common.Color.Black);
+                this.count = new VP<uint>(this, (byte)Property.count, 1);
+            }
 
-		}
+            #endregion
+
+        }
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.SHOGI ? 2 : 0;
+        }
+
         #region Refresh
 
-		public Image ivPiece;
-		public Text tvCount;
+        public Image ivPiece;
+        public Text tvCount;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// check load full
-					bool isLoadFull = true;
-					{
-						// animation
-						if (isLoadFull) {
-							isLoadFull = AnimationManager.IsLoadFull (this.data);
-						}
-					}
-					// process
-					if (isLoadFull) {
-						// imgPiece
-						{
-							if (ivPiece != null) {
-								// Find style
-								Setting.Style style = Setting.get().style.v;
-								// Process
-								{
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // check load full
+                    bool isLoadFull = true;
+                    {
+                        // animation
+                        if (isLoadFull)
+                        {
+                            isLoadFull = AnimationManager.IsLoadFull(this.data);
+                        }
+                    }
+                    // process
+                    if (isLoadFull)
+                    {
+                        // imgPiece
+                        {
+                            if (ivPiece != null)
+                            {
+                                // Find style
+                                Setting.Style style = Setting.get().style.v;
+                                // Process
+                                {
                                     Common.Color color = Common.Color.Black;
                                     {
                                         if (this.data.color.v == Common.Color.Black)
@@ -81,119 +91,135 @@ namespace Shogi
                                     }
                                     ivPiece.sprite = ShogiSpriteContainer.get().getSpriteForHandPiece(style, this.data.handPiece.v, color);
                                 }
-							} else {
-								Debug.LogError ("imgPiece null: " + this);
-							}
-						}
-						// Count
-						{
-							if (tvCount != null) {
-								tvCount.text = "X" + this.data.count.v;
-							} else {
-								Debug.LogError ("tvCount null: " + this);
-							}
-						}
-						// Scale
-						/*{
+                            }
+                            else
+                            {
+                                Debug.LogError("imgPiece null: " + this);
+                            }
+                        }
+                        // Count
+                        {
+                            if (tvCount != null)
+                            {
+                                tvCount.text = "X" + this.data.count.v;
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCount null: " + this);
+                            }
+                        }
+                        // Scale
+                        /*{
 							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
 							this.transform.localScale = (playerView == 0 ? new Vector3 (1, 1, 1) : new Vector3 (1, -1, 1));
 						}*/
-					} else {
-						Debug.LogError ("not load full");
-						dirty = true;
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                    }
+                    else
+                    {
+                        Debug.LogError("not load full");
+                        dirty = true;
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
+        private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
                 // Setting
                 Setting.get().addCallBack(this);
-				// CheckChange
-				{
-					perspectiveChange.addCallBack (this);
-					perspectiveChange.setData (uiData);
-				}
-				dirty = true;
-				return;
-			}
+                // CheckChange
+                {
+                    perspectiveChange.addCallBack(this);
+                    perspectiveChange.setData(uiData);
+                }
+                dirty = true;
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 dirty = true;
                 return;
             }
             // checkChange
-            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
-				// CheckChange
-				{
-					perspectiveChange.removeCallBack (this);
-					perspectiveChange.setData (null);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
+                // CheckChange
+                {
+                    perspectiveChange.removeCallBack(this);
+                    perspectiveChange.setData(null);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 return;
             }
             // checkChange
-            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.handPiece:
-					dirty = true;
-					break;
-				case UIData.Property.count:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.handPiece:
+                        dirty = true;
+                        break;
+                    case UIData.Property.count:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
             // Setting
-            if(wrapProperty.p is Setting)
+            if (wrapProperty.p is Setting)
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {
@@ -217,14 +243,15 @@ namespace Shogi
                 return;
             }
             // Check Change
-            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
                 dirty = true;
                 return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
-	
-	}
+        #endregion
+
+    }
 }

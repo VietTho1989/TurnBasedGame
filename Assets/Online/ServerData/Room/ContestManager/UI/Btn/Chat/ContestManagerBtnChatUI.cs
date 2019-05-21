@@ -127,6 +127,13 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
+    #region txt, rect
+
     static ContestManagerBtnChatUI()
     {
         // rect
@@ -145,6 +152,8 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             }
         }
     }
+
+    #endregion
 
     #region Refresh
 

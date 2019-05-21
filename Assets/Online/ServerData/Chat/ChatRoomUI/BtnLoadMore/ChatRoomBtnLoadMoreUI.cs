@@ -76,6 +76,11 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     private static readonly TxtLanguage txtLoadMore = new TxtLanguage("Load More");

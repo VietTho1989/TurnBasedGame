@@ -7,6 +7,8 @@ using GameManager.Match;
 public class Room : Data
 {
 
+    public bool isFastStartRoom = false;
+
     public VP<RoomInform> roomInform;
 
     #region Rights

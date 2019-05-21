@@ -82,8 +82,9 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #region lifeCycle
 
-    void Awake()
+    public void MyAwake()
     {
+        Debug.LogError("SettingPrefab Awake");
         // init Setting
         {
             try

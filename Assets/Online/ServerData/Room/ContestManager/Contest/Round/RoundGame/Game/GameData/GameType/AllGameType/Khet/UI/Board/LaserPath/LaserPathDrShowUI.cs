@@ -31,6 +31,11 @@ namespace Khet
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Khet ? 1 : 0;
+        }
+
         #region drShow
 
         public Dropdown drShow;
@@ -64,6 +69,10 @@ namespace Khet
                 Debug.LogError("drShow null: " + this);
             }
         }
+
+        #endregion
+
+        #region txt, rect
 
         private static readonly TxtLanguage txtAll = new TxtLanguage("All");
         private static readonly TxtLanguage txtSilver = new TxtLanguage("Silver");

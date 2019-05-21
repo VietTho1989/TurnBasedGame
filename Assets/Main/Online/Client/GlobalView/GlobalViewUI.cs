@@ -229,6 +229,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt, rect
 
     static GlobalViewUI()
@@ -347,7 +352,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("rooms null: " + this);
+                                // Debug.LogError("rooms null: " + this);
                             }
                         }
                         // chats
@@ -359,7 +364,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("chats null: " + this);
+                                // Debug.LogError("chats null: " + this);
                             }
                         }
                         // friends
@@ -371,7 +376,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("friends null: " + this);
+                                // Debug.LogError("friends null: " + this);
                             }
                         }
                         // profile
@@ -383,7 +388,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("profile null: " + this);
+                                // Debug.LogError("profile null: " + this);
                             }
                         }
                     }
@@ -401,7 +406,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalRoomsUIData null");
+                                    // Debug.LogError("globalRoomsUIData null");
                                 }
                             }
                             GlobalChatUI globalChatUI = null;
@@ -413,7 +418,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalChatUIData null");
+                                    // Debug.LogError("globalChatUIData null");
                                 }
                             }
                             GlobalFriendsUI globalFriendsUI = null;
@@ -425,7 +430,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalFriendsUIData null");
+                                    // Debug.LogError("globalFriendsUIData null");
                                 }
                             }
                             GlobalProfileUI globalProfileUI = null;
@@ -437,7 +442,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalProfileUIData null");
+                                    // Debug.LogError("globalProfileUIData null");
                                 }
                             }
                             // show
@@ -592,12 +597,12 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     else
                                     {
-                                        Debug.LogError("chatRoomUIData null");
+                                        // Debug.LogError("chatRoomUIData null");
                                     }
                                 }
                                 else
                                 {
-                                    Debug.LogError("globalChatUIData null");
+                                    // Debug.LogError("globalChatUIData null");
                                 }
                                 // find in server
                                 if (chatRoom == null)
@@ -609,7 +614,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     else
                                     {
-                                        Debug.LogError("globalChat null");
+                                        // Debug.LogError("globalChat null");
                                     }
                                 }
                             }
@@ -618,7 +623,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("newChatMessageNumberUIData null");
+                            // Debug.LogError("newChatMessageNumberUIData null");
                         }
                     }
                     // friendListNewMessageCountUIData
@@ -725,7 +730,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

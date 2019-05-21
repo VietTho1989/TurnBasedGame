@@ -77,6 +77,11 @@ namespace Xiangqi.NoneRule
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Xiangqi ? 1 : 0;
+        }
+
         #region txt, rect
 
         public Text lbTitle;

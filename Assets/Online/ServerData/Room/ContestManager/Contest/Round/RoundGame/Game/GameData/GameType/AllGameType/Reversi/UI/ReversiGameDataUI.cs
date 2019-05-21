@@ -52,7 +52,7 @@ namespace Reversi
 
             #endregion
 
-            #region implement callBacks
+            #region implement base
 
             public override GameType.Type getType()
             {
@@ -94,6 +94,11 @@ namespace Reversi
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Reversi ? 1 : 0;
+        }
 
         #region Refresh
 

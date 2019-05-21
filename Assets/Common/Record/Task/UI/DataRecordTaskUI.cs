@@ -86,6 +86,11 @@ namespace Record
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt
 
         private static readonly TxtLanguage txtNone = new TxtLanguage("Record");

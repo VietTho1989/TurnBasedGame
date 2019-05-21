@@ -13,6 +13,7 @@ namespace Makruk
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<MakrukMove>> makrukMove;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Makruk
 			{
 				return GameMove.Type.MakrukMove;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Makruk ? 1 : 0;
+        }
 
-		private static Vector2 Delta = new Vector2 (4f, 4f);
+        #region Refresh
+
+        private static Vector2 Delta = new Vector2 (4f, 4f);
 
 		public Color normalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);
 		public Color hintColor = Color.green;// new Color (0 / 256f, 1, 0, 256 / 256f);

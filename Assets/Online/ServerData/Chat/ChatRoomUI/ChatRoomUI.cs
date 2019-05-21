@@ -114,6 +114,11 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvSend;
@@ -415,7 +420,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("chatRoom null: " + this);
+                    // Debug.LogError("chatRoom null: " + this);
                 }
             }
             else

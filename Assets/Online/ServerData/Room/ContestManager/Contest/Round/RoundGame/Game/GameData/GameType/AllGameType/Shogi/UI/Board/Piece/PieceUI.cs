@@ -41,6 +41,11 @@ namespace Shogi
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.SHOGI ? 20 : 0;
+        }
+
         public Image image;
 
         #region Refresh

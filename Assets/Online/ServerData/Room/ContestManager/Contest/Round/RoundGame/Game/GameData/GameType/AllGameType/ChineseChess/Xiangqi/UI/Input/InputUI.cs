@@ -4,378 +4,437 @@ using System.Collections.Generic;
 
 namespace Xiangqi
 {
-	public class InputUI : UIBehavior<InputUI.UIData>
-	{
+    public class InputUI : UIBehavior<InputUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<ReferenceData<Xiangqi>> xiangqi;
+        public class UIData : Data
+        {
 
-			#region Sub
+            public VP<ReferenceData<Xiangqi>> xiangqi;
 
-			public abstract class Sub : Data
-			{
-				
-				public enum Type
-				{
-					UseRule,
-					NoneRule
-				}
+            #region Sub
 
-				public abstract Type getType();
+            public abstract class Sub : Data
+            {
 
-				public abstract bool processEvent(Event e);
+                public enum Type
+                {
+                    UseRule,
+                    NoneRule
+                }
 
-			}
+                public abstract Type getType();
 
-			public VP<Sub> sub;
+                public abstract bool processEvent(Event e);
 
-			#endregion
+            }
 
-			#region Constructor
+            public VP<Sub> sub;
 
-			public enum Property
-			{
-				xiangqi,
-				sub
-			}
+            #endregion
 
-			public UIData() : base()
-			{
-				this.xiangqi = new VP<ReferenceData<Xiangqi>>(this, (byte)Property.xiangqi, new ReferenceData<Xiangqi>(null));
-				this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-			}
+            #region Constructor
 
-			#endregion
+            public enum Property
+            {
+                xiangqi,
+                sub
+            }
 
-			public bool processEvent(Event e)
-			{
-				bool isProcess = false;
-				{
-					// sub
-					if (!isProcess) {
-						Sub sub = this.sub.v;
-						if (sub != null) {
-							isProcess = sub.processEvent (e);
-						} else {
-							Debug.LogError ("sub null: " + this);
-						}
-					}
-				}
-				return isProcess;
-			}
+            public UIData() : base()
+            {
+                this.xiangqi = new VP<ReferenceData<Xiangqi>>(this, (byte)Property.xiangqi, new ReferenceData<Xiangqi>(null));
+                this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            }
 
-			public static ClientInput findClientInput(Data data)
-			{
-				ClientInput clientInput = null;
-				{
-					if (data != null) {
-						// Find WaitInputAction
-						WaitInputAction waitInputAction = null;
-						{
-							// Find Xiangqi
-							Xiangqi xiangqi = null;
-							{
-								InputUI.UIData inputUIData = data.findDataInParent<InputUI.UIData> ();
-								if (inputUIData != null) {
-									xiangqi = inputUIData.xiangqi.v.data;
-								} else {
-									Debug.LogError ("inputUIData null: " + data);
-								}
-							}
-							if (xiangqi != null) {
-								Game game = xiangqi.findDataInParent<Game> ();
-								if (game != null) {
-									GameAction gameAction = game.gameAction.v;
-									if (gameAction != null && gameAction is WaitInputAction) {
-										waitInputAction = gameAction as WaitInputAction;
-									} else {
-										Debug.LogError ("not waitInputAction null: " + data);
-									}
-								} else {
-									Debug.LogError ("game null: " + data);
-								}
-							} else {
-								Debug.LogError ("chess null: " + data);
-							}
-						}
-						// Process
-						if (waitInputAction != null) {
-							clientInput = waitInputAction.clientInput.v;
-						} else {
-							Debug.LogError ("waitInputAction null: " + data);
-						}
-					} else {
-						Debug.LogError ("data null: " + data);
-					}
-				}
-				return clientInput;
-			}
-		}
+            #endregion
 
-		#endregion
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // sub
+                    if (!isProcess)
+                    {
+                        Sub sub = this.sub.v;
+                        if (sub != null)
+                        {
+                            isProcess = sub.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("sub null: " + this);
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
-		#region Refresh
+            public static ClientInput findClientInput(Data data)
+            {
+                ClientInput clientInput = null;
+                {
+                    if (data != null)
+                    {
+                        // Find WaitInputAction
+                        WaitInputAction waitInputAction = null;
+                        {
+                            // Find Xiangqi
+                            Xiangqi xiangqi = null;
+                            {
+                                InputUI.UIData inputUIData = data.findDataInParent<InputUI.UIData>();
+                                if (inputUIData != null)
+                                {
+                                    xiangqi = inputUIData.xiangqi.v.data;
+                                }
+                                else
+                                {
+                                    Debug.LogError("inputUIData null: " + data);
+                                }
+                            }
+                            if (xiangqi != null)
+                            {
+                                Game game = xiangqi.findDataInParent<Game>();
+                                if (game != null)
+                                {
+                                    GameAction gameAction = game.gameAction.v;
+                                    if (gameAction != null && gameAction is WaitInputAction)
+                                    {
+                                        waitInputAction = gameAction as WaitInputAction;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("not waitInputAction null: " + data);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("game null: " + data);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("chess null: " + data);
+                            }
+                        }
+                        // Process
+                        if (waitInputAction != null)
+                        {
+                            clientInput = waitInputAction.clientInput.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("waitInputAction null: " + data);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("data null: " + data);
+                    }
+                }
+                return clientInput;
+            }
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					Xiangqi xiangqi = this.data.xiangqi.v.data;
-					if (xiangqi != null) {
-						if (GameDataUI.UIData.IsAllowInput (this.data)) {
-							// use rule or not
-							if (GameData.IsUseRule(xiangqi)) {
-								// Find
-								UseRuleInputUI.UIData useRuleInputUIData = this.data.sub.newOrOld<UseRuleInputUI.UIData>();
-								{
-									// xiangqi
-									useRuleInputUIData.xiangqi.v = new ReferenceData<Xiangqi> (xiangqi);
-								}
-								this.data.sub.v = useRuleInputUIData;
-							} else {
-								// Find
-								NoneRuleInputUI.UIData noneRuleInputUIData = this.data.sub.newOrOld<NoneRuleInputUI.UIData>();
-								{
-									// xiangqi
-									noneRuleInputUIData.xiangqi.v = new ReferenceData<Xiangqi> (xiangqi);
-								}
-								this.data.sub.v = noneRuleInputUIData;
-								/*UseRuleInputUI.UIData useRuleInputUIData = this.data.sub.newOrOld<UseRuleInputUI.UIData>();
+        #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Xiangqi ? 1 : 0;
+        }
+
+        #region Refresh
+
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    Xiangqi xiangqi = this.data.xiangqi.v.data;
+                    if (xiangqi != null)
+                    {
+                        if (GameDataUI.UIData.IsAllowInput(this.data))
+                        {
+                            // use rule or not
+                            if (GameData.IsUseRule(xiangqi))
+                            {
+                                // Find
+                                UseRuleInputUI.UIData useRuleInputUIData = this.data.sub.newOrOld<UseRuleInputUI.UIData>();
+                                {
+                                    // xiangqi
+                                    useRuleInputUIData.xiangqi.v = new ReferenceData<Xiangqi>(xiangqi);
+                                }
+                                this.data.sub.v = useRuleInputUIData;
+                            }
+                            else
+                            {
+                                // Find
+                                NoneRuleInputUI.UIData noneRuleInputUIData = this.data.sub.newOrOld<NoneRuleInputUI.UIData>();
+                                {
+                                    // xiangqi
+                                    noneRuleInputUIData.xiangqi.v = new ReferenceData<Xiangqi>(xiangqi);
+                                }
+                                this.data.sub.v = noneRuleInputUIData;
+                                /*UseRuleInputUI.UIData useRuleInputUIData = this.data.sub.newOrOld<UseRuleInputUI.UIData>();
 								{
 									// xiangqi
 									useRuleInputUIData.xiangqi.v = new ReferenceData<Xiangqi> (this.data.xiangqi.v.data);
 								}
 								this.data.sub.v = useRuleInputUIData;*/
-							}
-						} else {
-							// Debug.LogError ("not use input: " + this);
-							this.data.sub.v = null;
-						}
-					} else {
-						Debug.LogError ("xiangqi null: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                            }
+                        }
+                        else
+                        {
+                            // Debug.LogError ("not use input: " + this);
+                            this.data.sub.v = null;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("xiangqi null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public UseRuleInputUI useRulePrefab;
-		public NoneRuleInputUI noneRulePrefab;
+        public UseRuleInputUI useRulePrefab;
+        public NoneRuleInputUI noneRulePrefab;
 
-		private GameDataUICheckAllowInputChange<UIData> gameDataUICheckAllowInputChange = new GameDataUICheckAllowInputChange<UIData> ();
-		private GameDataCheckChangeRule<Xiangqi> gameDataCheckChangeRule = new GameDataCheckChangeRule<Xiangqi>();
+        private GameDataUICheckAllowInputChange<UIData> gameDataUICheckAllowInputChange = new GameDataUICheckAllowInputChange<UIData>();
+        private GameDataCheckChangeRule<Xiangqi> gameDataCheckChangeRule = new GameDataCheckChangeRule<Xiangqi>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Check change
-				{
-					gameDataUICheckAllowInputChange.addCallBack (this);
-					gameDataUICheckAllowInputChange.setData (uiData);
-				}
-				// Child
-				{
-					uiData.xiangqi.allAddCallBack (this);
-					uiData.sub.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataUICheckAllowInputChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				// xiangqi
-				{
-					if (data is Xiangqi) {
-						Xiangqi xiangqi = data as Xiangqi;
-						// Check change
-						{
-							gameDataCheckChangeRule.addCallBack (this);
-							gameDataCheckChangeRule.setData (xiangqi);
-						}
-						dirty = true;
-						return;
-					}
-					// CheckChange
-					if (data is GameDataCheckChangeRule<Xiangqi>) {
-						dirty = true;
-						return;
-					}
-				}
-				// sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case UIData.Sub.Type.UseRule:
-							{
-								UseRuleInputUI.UIData useRuleInputUIData = sub as UseRuleInputUI.UIData;
-								UIUtils.Instantiate (useRuleInputUIData, useRulePrefab, this.transform);
-							}
-							break;
-						case UIData.Sub.Type.NoneRule:
-							{
-								NoneRuleInputUI.UIData noneRuleInputUIData = sub as NoneRuleInputUI.UIData;
-								UIUtils.Instantiate (noneRuleInputUIData, noneRulePrefab, this.transform);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Check change
+                {
+                    gameDataUICheckAllowInputChange.addCallBack(this);
+                    gameDataUICheckAllowInputChange.setData(uiData);
+                }
+                // Child
+                {
+                    uiData.xiangqi.allAddCallBack(this);
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataUICheckAllowInputChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                // xiangqi
+                {
+                    if (data is Xiangqi)
+                    {
+                        Xiangqi xiangqi = data as Xiangqi;
+                        // Check change
+                        {
+                            gameDataCheckChangeRule.addCallBack(this);
+                            gameDataCheckChangeRule.setData(xiangqi);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataCheckChangeRule<Xiangqi>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+                // sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case UIData.Sub.Type.UseRule:
+                                {
+                                    UseRuleInputUI.UIData useRuleInputUIData = sub as UseRuleInputUI.UIData;
+                                    UIUtils.Instantiate(useRuleInputUIData, useRulePrefab, this.transform);
+                                }
+                                break;
+                            case UIData.Sub.Type.NoneRule:
+                                {
+                                    NoneRuleInputUI.UIData noneRuleInputUIData = sub as NoneRuleInputUI.UIData;
+                                    UIUtils.Instantiate(noneRuleInputUIData, noneRulePrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Check change
-				{
-					gameDataUICheckAllowInputChange.removeCallBack (this);
-					gameDataUICheckAllowInputChange.setData (null);
-				}
-				// Child
-				{
-					uiData.xiangqi.allRemoveCallBack (this);
-					uiData.sub.allRemoveCallBack (this);
-				}
-				return;
-			}
-			// CheckChange
-			if (data is GameDataUICheckAllowInputChange<UIData>) {
-				return;
-			}
-			// Child
-			{
-				// xiangqi
-				{
-					if (data is Xiangqi) {
-						// Xiangqi xiangqi = data as Xiangqi;
-						// Check change
-						{
-							gameDataCheckChangeRule.removeCallBack (this);
-							gameDataCheckChangeRule.setData (null);
-						}
-						return;
-					}
-					// CheckChange
-					if (data is GameDataCheckChangeRule<Xiangqi>) {
-						return;
-					}
-				}
-				// sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case UIData.Sub.Type.UseRule:
-							{
-								UseRuleInputUI.UIData useRuleInputUIData = sub as UseRuleInputUI.UIData;
-								useRuleInputUIData.removeCallBackAndDestroy(typeof(UseRuleInputUI));
-							}
-							break;
-						case UIData.Sub.Type.NoneRule:
-							{
-								NoneRuleInputUI.UIData noneRuleInputUIData = sub as NoneRuleInputUI.UIData;
-								noneRuleInputUIData.removeCallBackAndDestroy (typeof(NoneRuleInputUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Check change
+                {
+                    gameDataUICheckAllowInputChange.removeCallBack(this);
+                    gameDataUICheckAllowInputChange.setData(null);
+                }
+                // Child
+                {
+                    uiData.xiangqi.allRemoveCallBack(this);
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // CheckChange
+            if (data is GameDataUICheckAllowInputChange<UIData>)
+            {
+                return;
+            }
+            // Child
+            {
+                // xiangqi
+                {
+                    if (data is Xiangqi)
+                    {
+                        // Xiangqi xiangqi = data as Xiangqi;
+                        // Check change
+                        {
+                            gameDataCheckChangeRule.removeCallBack(this);
+                            gameDataCheckChangeRule.setData(null);
+                        }
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataCheckChangeRule<Xiangqi>)
+                    {
+                        return;
+                    }
+                }
+                // sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case UIData.Sub.Type.UseRule:
+                                {
+                                    UseRuleInputUI.UIData useRuleInputUIData = sub as UseRuleInputUI.UIData;
+                                    useRuleInputUIData.removeCallBackAndDestroy(typeof(UseRuleInputUI));
+                                }
+                                break;
+                            case UIData.Sub.Type.NoneRule:
+                                {
+                                    NoneRuleInputUI.UIData noneRuleInputUIData = sub as NoneRuleInputUI.UIData;
+                                    noneRuleInputUIData.removeCallBackAndDestroy(typeof(NoneRuleInputUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.xiangqi:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.sub:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			{
-				if (wrapProperty.p is GameDataUICheckAllowInputChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			// Child
-			{
-				// xiangqi
-				{
-					if (wrapProperty.p is Xiangqi) {
-						return;
-					}
-					// Check change
-					{
-						if(wrapProperty.p is GameDataCheckChangeRule<Xiangqi>){
-							dirty = true;
-							return;
-						}
-					}
-				}
-				// sub
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.xiangqi:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            {
+                if (wrapProperty.p is GameDataUICheckAllowInputChange<UIData>)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            // Child
+            {
+                // xiangqi
+                {
+                    if (wrapProperty.p is Xiangqi)
+                    {
+                        return;
+                    }
+                    // Check change
+                    {
+                        if (wrapProperty.p is GameDataCheckChangeRule<Xiangqi>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
+                // sub
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

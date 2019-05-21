@@ -82,6 +82,11 @@ namespace GameManager.Match
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt
 
         private static readonly TxtLanguage txtEmpty = new TxtLanguage("Empty");

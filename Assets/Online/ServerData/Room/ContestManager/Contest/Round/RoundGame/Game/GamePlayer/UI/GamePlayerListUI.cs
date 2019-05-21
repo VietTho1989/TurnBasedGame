@@ -53,6 +53,11 @@ public class GamePlayerListUI : UIHaveTransformDataBehavior<GamePlayerListUI.UID
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public override void refresh()

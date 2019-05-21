@@ -185,6 +185,11 @@ namespace GameManager.Match
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt, rect
 
         static ContestManagerStateLobbyUI()
@@ -257,6 +262,7 @@ namespace GameManager.Match
         #region Refresh
 
         private bool firstSet = false;
+        public ScrollRect miniSettingScrollView;
         public ScrollRect settingScrollView;
 
         public Image bgContestManagerContentFactory;
@@ -411,7 +417,14 @@ namespace GameManager.Match
                             if (firstSet)
                             {
                                 firstSet = false;
-                                // contestManagerContentFactoryScrollRect
+                                if (miniSettingScrollView != null)
+                                {
+                                    miniSettingScrollView.verticalNormalizedPosition = 1;
+                                }
+                                else
+                                {
+                                    Debug.LogError("miniSettingScrollView null");
+                                }
                                 if (settingScrollView != null)
                                 {
                                     settingScrollView.verticalNormalizedPosition = 1;
@@ -452,6 +465,15 @@ namespace GameManager.Match
                         {
                             // UI Visibility
                             {
+                                // miniSettingScrollView
+                                if (miniSettingScrollView != null)
+                                {
+                                    miniSettingScrollView.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("miniSettingScrollView null");
+                                }
                                 // settingScrollView
                                 if (settingScrollView != null)
                                 {
@@ -544,6 +566,15 @@ namespace GameManager.Match
                         }
                         else
                         {
+                            // miniSettingScrollView
+                            if (miniSettingScrollView != null)
+                            {
+                                miniSettingScrollView.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("miniSettingScrollView null");
+                            }
                             // settingScrollView
                             if (settingScrollView != null)
                             {
@@ -564,8 +595,9 @@ namespace GameManager.Match
                             }
                             // teamAdapterLobby
                             {
-                                UpdateTeamAdapterLargeRect();
-                                UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterLargeRect);
+                                // UpdateTeamAdapterLargeRect();
+                                // UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterLargeRect);
+                                UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterRect);
                             }
                         }
                     }
@@ -624,6 +656,8 @@ namespace GameManager.Match
         #endregion
 
         #region implement callBacks
+
+        public RectTransform miniSettingContainer;
 
         public ContestManagerContentFactoryUI contestManagerContentFactoryPrefab;
         public RoomSettingUI roomSettingPrefab;

@@ -99,6 +99,11 @@ public class AfterLoginMainBtnBackHostUI : UIBehavior<AfterLoginMainBtnBackHostU
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt
 
     public Text tvBack;
@@ -135,7 +140,7 @@ public class AfterLoginMainBtnBackHostUI : UIBehavior<AfterLoginMainBtnBackHostU
                     }
                     else
                     {
-                        Debug.LogError("tvBack null: " + this);
+                        // Debug.LogError("tvBack null: " + this);
                     }
                 }
             }

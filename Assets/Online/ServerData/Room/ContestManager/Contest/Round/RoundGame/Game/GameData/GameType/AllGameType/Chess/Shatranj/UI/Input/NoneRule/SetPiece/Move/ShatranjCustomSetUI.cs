@@ -13,6 +13,7 @@ namespace Shatranj.NoneRule
 
         public class UIData : LastMoveSub
         {
+
             public VP<ReferenceData<ShatranjCustomSet>> shatranjCustomSet;
 
             public VP<bool> isHint;
@@ -37,9 +38,15 @@ namespace Shatranj.NoneRule
             {
                 return GameMove.Type.ShatranjCustomSet;
             }
+
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Shatranj ? 1 : 0;
+        }
 
         #region Refresh
 

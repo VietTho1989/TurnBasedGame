@@ -82,6 +82,11 @@ namespace GameState
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt, rect
 
         public Text lbTitle;

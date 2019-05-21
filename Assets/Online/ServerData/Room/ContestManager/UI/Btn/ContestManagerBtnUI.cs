@@ -40,6 +40,11 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region txt, rect
 
     static ContestManagerBtnUI()

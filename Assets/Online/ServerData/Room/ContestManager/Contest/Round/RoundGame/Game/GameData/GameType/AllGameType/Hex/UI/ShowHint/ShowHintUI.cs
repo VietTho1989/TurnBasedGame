@@ -13,6 +13,7 @@ namespace HEX
 
         public class UIData : Data
         {
+
             public VP<LastMoveSub> sub;
 
             #region Constructor
@@ -28,9 +29,15 @@ namespace HEX
             }
 
             #endregion
+
         }
 
         #endregion
+
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Hex ? 1 : 0;
+        }
 
         #region Refresh
 

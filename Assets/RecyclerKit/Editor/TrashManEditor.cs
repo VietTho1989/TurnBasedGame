@@ -329,12 +329,12 @@ public class TrashManEditor : Editor
 				}
 
 				// PreAlloc
-				EditorGUILayout.BeginHorizontal ();
+				/*EditorGUILayout.BeginHorizontal ();
 				GUILayout.Label (new GUIContent ("Preallocate Count", "Total items to create at scene start"), EditorStyles.label, GUILayout.Width (115f));
 				prefabPool.instancesToPreallocate = EditorGUILayout.IntField (prefabPool.instancesToPreallocate);
 				if (prefabPool.instancesToPreallocate < 0)
 					prefabPool.instancesToPreallocate = 0;
-				EditorGUILayout.EndHorizontal ();
+				EditorGUILayout.EndHorizontal ();*/
 
 				// AllocBlock. only valid is prefabPool.imposeHardLimit is false
 				EditorGUI.BeginDisabledGroup (prefabPool.imposeHardLimit);

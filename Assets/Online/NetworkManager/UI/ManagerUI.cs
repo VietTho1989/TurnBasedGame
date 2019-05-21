@@ -95,6 +95,11 @@ public class ManagerUI : UIBehavior<ManagerUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Update
 
     public override void refresh()

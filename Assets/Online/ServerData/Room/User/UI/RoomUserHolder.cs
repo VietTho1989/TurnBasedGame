@@ -215,7 +215,7 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
                 }
                 else
                 {
-                    Debug.LogError("roomUser null: " + this);
+                    // Debug.LogError("roomUser null: " + this);
                 }
             }
             else

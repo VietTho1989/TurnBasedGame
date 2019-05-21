@@ -91,6 +91,11 @@ namespace Gomoku
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Gomoku ? 1 : 0;
+        }
+
         #region Refresh
 
         public override void refresh()

@@ -38,6 +38,11 @@ namespace GameState
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return 1;
+        }
+
         #region txt
 
         public Text lbTitle;
@@ -67,7 +72,14 @@ namespace GameState
                         // tvTime
                         if (tvTime != null)
                         {
-                            tvTime.text = Mathf.Min(startNormal.time.v, startNormal.duration.v) + "/" + startNormal.duration.v;
+                            if (startNormal.duration.v > 0)
+                            {
+                                tvTime.text = Mathf.Min(startNormal.time.v, startNormal.duration.v) + "/" + startNormal.duration.v;
+                            }
+                            else
+                            {
+                                tvTime.text = Mathf.Min(startNormal.time.v, startNormal.duration.v) + "/" + startNormal.duration.v;
+                            }
                         }
                         else
                         {

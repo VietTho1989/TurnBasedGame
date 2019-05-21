@@ -4,155 +4,176 @@ using System.Collections.Generic;
 
 namespace Solitaire
 {
-	public class SolitaireMoveUI : UIBehavior<SolitaireMoveUI.UIData>
-	{
+    public class SolitaireMoveUI : UIBehavior<SolitaireMoveUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : LastMoveSub
-		{
+        public class UIData : LastMoveSub
+        {
 
-			public VP<ReferenceData<SolitaireMove>> solitaireMove;
+            public VP<ReferenceData<SolitaireMove>> solitaireMove;
 
-			public VP<bool> isHint;
+            public VP<bool> isHint;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				solitaireMove,
-				isHint
-			}
+            public enum Property
+            {
+                solitaireMove,
+                isHint
+            }
 
-			public UIData() : base()
-			{
-				this.solitaireMove = new VP<ReferenceData<SolitaireMove>>(this, (byte)Property.solitaireMove, new ReferenceData<SolitaireMove>(null));
-				this.isHint = new VP<bool>(this, (byte)Property.isHint, false);
-			}
+            public UIData() : base()
+            {
+                this.solitaireMove = new VP<ReferenceData<SolitaireMove>>(this, (byte)Property.solitaireMove, new ReferenceData<SolitaireMove>(null));
+                this.isHint = new VP<bool>(this, (byte)Property.isHint, false);
+            }
 
-			#endregion
+            #endregion
 
-			public override GameMove.Type getType ()
-			{
-				return GameMove.Type.SolitaireMove;
-			}
+            public override GameMove.Type getType()
+            {
+                return GameMove.Type.SolitaireMove;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Solitaire ? 1 : 0;
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					SolitaireMove solitaireMove = this.data.solitaireMove.v.data;
-					if (solitaireMove != null) {
+        #region Refresh
 
-					} else {
-						Debug.LogError ("solitaireMove null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    SolitaireMove solitaireMove = this.data.solitaireMove.v.data;
+                    if (solitaireMove != null)
+                    {
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+                    }
+                    else
+                    {
+                        Debug.LogError("solitaireMove null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.solitaireMove.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is SolitaireMove) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.solitaireMove.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Child
-			if (data is SolitaireMove) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.solitaireMove.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is SolitaireMove)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.solitaireMove:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.isHint:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			if (wrapProperty.p is SolitaireMove) {
-				switch ((SolitaireMove.Property)wrapProperty.n) {
-				case SolitaireMove.Property.From:
-					dirty = true;
-					break;
-				case SolitaireMove.Property.To:
-					dirty = true;
-					break;
-				case SolitaireMove.Property.Count:
-					dirty = true;
-					break;
-				case SolitaireMove.Property.Extra:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.solitaireMove.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Child
+            if (data is SolitaireMove)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.solitaireMove:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.isHint:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is SolitaireMove)
+            {
+                switch ((SolitaireMove.Property)wrapProperty.n)
+                {
+                    case SolitaireMove.Property.From:
+                        dirty = true;
+                        break;
+                    case SolitaireMove.Property.To:
+                        dirty = true;
+                        break;
+                    case SolitaireMove.Property.Count:
+                        dirty = true;
+                        break;
+                    case SolitaireMove.Property.Extra:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-	}
+        #endregion
+
+    }
 }

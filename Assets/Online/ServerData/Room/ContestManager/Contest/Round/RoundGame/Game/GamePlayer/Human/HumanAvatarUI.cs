@@ -39,6 +39,11 @@ public class HumanAvatarUI : UIBehavior<HumanAvatarUI.UIData>
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 2;
+    }
+
     #region Refresh
 
     public override void refresh()
@@ -66,12 +71,12 @@ public class HumanAvatarUI : UIBehavior<HumanAvatarUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("human null: " + this);
+                    // Debug.LogError("human null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

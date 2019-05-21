@@ -4,109 +4,123 @@ using System.Collections.Generic;
 
 namespace Makruk.UseRule
 {
-	public class GettingUI : UIBehavior<GettingUI.UIData>
-	{
+    public class GettingUI : UIBehavior<GettingUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : UseRuleInputUI.UIData.State
-		{
+        public class UIData : UseRuleInputUI.UIData.State
+        {
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
+            public enum Property
+            {
 
-			}
+            }
 
-			public UIData() : base()
-			{
+            public UIData() : base()
+            {
 
-			}
+            }
 
-			#endregion
+            #endregion
 
-			public override Type getType ()
-			{
-				return Type.Getting;
-			}
+            public override Type getType()
+            {
+                return Type.Getting;
+            }
 
-			public override bool processEvent (Event e)
-			{
-				bool isProcess = false;
-				{
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
 
-				}
-				return isProcess;
-			}
+                }
+                return isProcess;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Makruk ? 1 : 0;
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        #region Refresh
 
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("not process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData getting = data as UIData;
-				// Child
-				{
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("not process: " + data + "; " + this);
+        }
 
-				}
-				this.setDataNull (getting);
-				return;
-			}
-			Debug.LogError ("not process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData getting = data as UIData;
+                // Child
+                {
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                }
+                this.setDataNull(getting);
+                return;
+            }
+            Debug.LogError("not process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-	}
+        #endregion
+
+    }
 }

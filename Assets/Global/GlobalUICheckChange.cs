@@ -118,6 +118,24 @@ public class GlobalUICheckChange : ValueChangeCallBack
                         }
                     }
                     break;
+                case Global.Property.serverMessage:
+                    break;
+                case Global.Property.website:
+                    break;
+                case Global.Property.oldVersions:
+                    break;
+                case Global.Property.openSource:
+                    break;
+                case Global.Property.showRemoveAds:
+                    break;
+                case Global.Property.removeAds:
+                    break;
+                case Global.Property.canPlayOnline:
+                    break;
+                case Global.Property.serverAddress:
+                    break;
+                case Global.Property.serverPort:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

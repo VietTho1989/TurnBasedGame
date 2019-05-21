@@ -13,6 +13,7 @@ namespace Shogi.NoneRule
 
 		public class UIData : LastMoveSub
 		{
+
 			public VP<ReferenceData<ShogiCustomSet>> shogiCustomSet;
 
 			public VP<bool> isHint;
@@ -37,13 +38,19 @@ namespace Shogi.NoneRule
 			{
 				return GameMove.Type.ShogiCustomSet;
 			}
+
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.SHOGI ? 1 : 0;
+        }
 
-		public UILineRenderer lineRenderer;
+        #region Refresh
+
+        public UILineRenderer lineRenderer;
 
 		public Image imgHint;
 

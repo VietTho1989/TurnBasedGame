@@ -149,6 +149,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     }
 
+    public virtual int getStartAllocate()
+    {
+        return 0;
+    }
+
     #endregion
 
     #region haveTransformInterface

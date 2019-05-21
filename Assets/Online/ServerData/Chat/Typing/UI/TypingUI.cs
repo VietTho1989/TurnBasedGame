@@ -11,6 +11,7 @@ public class TypingUI : UIBehavior<TypingUI.UIData>
 
     public class UIData : Data
     {
+
         public VP<ReferenceData<Typing>> typing;
 
         #region Constructor

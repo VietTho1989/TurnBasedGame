@@ -31,6 +31,11 @@ public class ChatRoomNewMessageCountUI : UIBehavior<ChatRoomNewMessageCountUI.UI
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 1;
+    }
+
     #region Refresh
 
     public Image bg;
@@ -141,12 +146,12 @@ public class ChatRoomNewMessageCountUI : UIBehavior<ChatRoomNewMessageCountUI.UI
                 }
                 else
                 {
-                    Debug.LogError("chatRoom null");
+                    // Debug.LogError("chatRoom null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

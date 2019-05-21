@@ -4,73 +4,93 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Lobby
 {
-	public class StateNormal : ContestManagerStateLobby.State
-	{
+    public class StateNormal : ContestManagerStateLobby.State
+    {
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
+        public enum Property
+        {
 
-		}
+        }
 
-		public StateNormal() : base()
-		{
+        public StateNormal() : base()
+        {
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		public override Type getType ()
-		{
-			return Type.Normal;
-		}
+        public override Type getType()
+        {
+            return Type.Normal;
+        }
 
-		#region Start
+        #region Start
 
-		public void requestStart(uint userId)
-		{
-			Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-			if (needRequest.canRequest) {
-				if (!needRequest.needIdentity) {
-					this.start (userId);
-				} else {
-					DataIdentity dataIdentity = null;
-					if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-						if (dataIdentity is StateNormalIdentity) {
-							StateNormalIdentity stateNormalIdentity = dataIdentity as StateNormalIdentity;
-							stateNormalIdentity.requestStart(userId);
-						} else {
-							Debug.LogError ("Why isn't correct identity");
-						}
-					} else {
-						Debug.LogError ("cannot find dataIdentity");
-					}
-				}
-			} else {
-				Debug.LogError ("You cannot request");
-			}
-		}
+        public void requestStart(uint userId)
+        {
+            Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+            if (needRequest.canRequest)
+            {
+                if (!needRequest.needIdentity)
+                {
+                    this.start(userId);
+                }
+                else
+                {
+                    DataIdentity dataIdentity = null;
+                    if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                    {
+                        if (dataIdentity is StateNormalIdentity)
+                        {
+                            StateNormalIdentity stateNormalIdentity = dataIdentity as StateNormalIdentity;
+                            stateNormalIdentity.requestStart(userId);
+                        }
+                        else
+                        {
+                            Debug.LogError("Why isn't correct identity");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("cannot find dataIdentity");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("You cannot request");
+            }
+        }
 
-		public void start(uint userId)
-		{
-			if (ContestManagerStateLobby.IsCanStart (this, userId)) {
-				ContestManagerStateLobby contestManagerStateLobby = this.findDataInParent<ContestManagerStateLobby> ();
-				if (contestManagerStateLobby != null) {
-					Lobby.StateStart stateStart = new StateStart ();
-					{
-						stateStart.uid = contestManagerStateLobby.state.makeId ();
-					}
-					contestManagerStateLobby.state.v = stateStart;
-				} else {
-					Debug.LogError ("contestManagerStateLobby null: " + this);
-				}
-			} else {
-				Debug.LogError ("cannot start: " + userId + "; " + this);
-			}
-		}
+        public void start(uint userId)
+        {
+            if (ContestManagerStateLobby.IsCanStart(this, userId))
+            {
+                ContestManagerStateLobby contestManagerStateLobby = this.findDataInParent<ContestManagerStateLobby>();
+                if (contestManagerStateLobby != null)
+                {
+                    StateStart stateStart = new StateStart();
+                    {
+                        stateStart.uid = contestManagerStateLobby.state.makeId();
+                        // duration
+                        stateStart.duration.v = Setting.get().fastStart.v ? 0 : 3;
+                    }
+                    contestManagerStateLobby.state.v = stateStart;
+                }
+                else
+                {
+                    Debug.LogError("contestManagerStateLobby null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("cannot start: " + userId + "; " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

@@ -36,6 +36,11 @@ namespace Solitaire
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.Solitaire ? 1 : 0;
+        }
+
         #region Refresh
 
         public override void refresh()

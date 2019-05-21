@@ -89,6 +89,11 @@ namespace InternationalDraught
 
         #endregion
 
+        public override int getStartAllocate()
+        {
+            return Setting.get().defaultChosenGame.v.getGame() == GameType.Type.InternationalDraught ? 1 : 0;
+        }
+
         #region txt
 
         public Text lbTitle;

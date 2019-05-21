@@ -81,6 +81,11 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
 
     #endregion
 
+    public override int getStartAllocate()
+    {
+        return 2;
+    }
+
     #region txt
 
     public Text lbTitle;
