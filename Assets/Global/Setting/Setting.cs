@@ -41,7 +41,17 @@ public class Setting : Data
     public const bool DefaultFastStart = true;
     public VP<bool> fastStart;
 
-	public VP<Language.Type> language;
+    #region timeStep
+
+    public const int DefaultTimeStep = 50;
+    public const int MaxTimeStep = 200;
+    public const int MinTimeStep = 30;
+
+    public VP<int> timeStep;
+
+    #endregion
+
+    public VP<Language.Type> language;
 
     public VP<bool> useShortKey;
 
@@ -365,6 +375,7 @@ public class Setting : Data
     public enum Property
 	{
         fastStart,
+        timeStep,
 		language,
         useShortKey,
         style,
@@ -391,6 +402,7 @@ public class Setting : Data
 	public Setting() : base()
 	{
         this.fastStart = new VP<bool>(this, (byte)Property.fastStart, DefaultFastStart);
+        this.timeStep = new VP<int>(this, (byte)Property.timeStep, DefaultTimeStep);
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
         this.useShortKey = new VP<bool>(this, (byte)Property.useShortKey, false);
         this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);

@@ -47,6 +47,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region timeStep
+
+        public VP<RequestChangeIntUI.UIData> timeStep;
+
+        public void makeRequestChangeTimeStep(RequestChangeUpdate<int>.UpdateData update, int newTimeStep)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.timeStep.v = newTimeStep;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region language
 
         public VP<RequestChangeEnumUI.UIData> language;
@@ -549,6 +581,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
         public enum Property
         {
             fastStart,
+            timeStep,
             editSetting,
             showType,
             language,
@@ -585,6 +618,22 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 this.fastStart = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.fastStart, new RequestChangeBoolUI.UIData());
                 this.fastStart.v.updateData.v.request.v = makeRequestChangeFastStart;
+            }
+            // timeStep
+            {
+                this.timeStep = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.timeStep, new RequestChangeIntUI.UIData());
+                // have limit
+                {
+                    IntLimit.Have have = new IntLimit.Have();
+                    {
+                        have.uid = this.timeStep.v.limit.makeId();
+                        have.min.v = Setting.MinTimeStep;
+                        have.max.v = Setting.MaxTimeStep;
+                    }
+                    this.timeStep.v.limit.v = have;
+                }
+                // event
+                this.timeStep.v.updateData.v.request.v = makeRequestChangeTimeStep;
             }
             this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
             // language
@@ -819,6 +868,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbFastStart;
     private static readonly TxtLanguage txtFastStart = new TxtLanguage("Fast start");
 
+    public Text lbTimeStep;
+    private static readonly TxtLanguage txtTimeStep = new TxtLanguage("Time step");
+
     public Text lbLanguage;
     private static readonly TxtLanguage txtLanguage = new TxtLanguage("Language");
 
@@ -879,6 +931,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
         {
             txtTitle.add(Language.Type.vi, "Thiết Lập");
             txtFastStart.add(Language.Type.vi, "Bắt đầu nhanh");
+            txtTimeStep.add(Language.Type.vi, "Thời gian cập nhập");
             txtLanguage.add(Language.Type.vi, "Ngôn Ngữ");
             txtStyle.add(Language.Type.vi, "Kiểu");
             txtConfirmQuit.add(Language.Type.vi, "Xác nhận thoát");
@@ -946,6 +999,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     // request
                     {
                         RequestChange.RefreshUI(this.data.fastStart.v, editSetting, serverState, needReset, editData => editData.fastStart.v);
+                        RequestChange.RefreshUI(this.data.timeStep.v, editSetting, serverState, needReset, editData => editData.timeStep.v);
                         RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, editData => Language.GetSupportIndex(editData.language.v));
                         // style
                         {
@@ -1364,6 +1418,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // fastStart
                     UIUtils.SetLabelContentPosition(lbFastStart, this.data.fastStart.v, ref deltaY);
+                    // timeStep
+                    UIUtils.SetLabelContentPosition(lbTimeStep, this.data.timeStep.v, ref deltaY);
                     // language
                     UIUtils.SetLabelContentPosition(lbLanguage, this.data.language.v, ref deltaY);
                     // style
@@ -1551,6 +1607,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     else
                     {
                         Debug.LogError("lbFastStart null: " + this);
+                    }
+                    if (lbTimeStep != null)
+                    {
+                        lbTimeStep.text = txtTimeStep.get();
+                        Setting.get().setLabelTextSize(lbTimeStep);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTimeStep null: " + this);
                     }
                     if (lbLanguage != null)
                     {
@@ -1746,6 +1811,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 uiData.editSetting.allAddCallBack(this);
                 uiData.fastStart.allAddCallBack(this);
+                uiData.timeStep.allAddCallBack(this);
                 uiData.language.allAddCallBack(this);
                 uiData.style.allAddCallBack(this);
                 uiData.confirmQuit.allAddCallBack(this);
@@ -1863,7 +1929,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         {
                             case UIData.Property.fastStart:
                                 UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
-                                break;
+                                break;                          
                             case UIData.Property.confirmQuit:
                                 UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
@@ -1901,7 +1967,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
+            // timeStep, maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -1912,6 +1978,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     {
                         switch ((UIData.Property)wrapProperty.n)
                         {
+                            case UIData.Property.timeStep:
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                break;
                             case UIData.Property.maxThinkCount:
                                 UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
@@ -2101,6 +2170,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 uiData.editSetting.allRemoveCallBack(this);
                 uiData.fastStart.allRemoveCallBack(this);
+                uiData.timeStep.allRemoveCallBack(this);
                 uiData.language.allRemoveCallBack(this);
                 uiData.style.allRemoveCallBack(this);
                 uiData.confirmQuit.allRemoveCallBack(this);
@@ -2193,7 +2263,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
-            // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
+            // timeStep, maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -2349,6 +2419,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     dirty = true;
                     break;
                 case UIData.Property.fastStart:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.timeStep:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -2526,6 +2602,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         case Setting.Property.fastStart:
                             dirty = true;
                             break;
+                        case Setting.Property.timeStep:
+                            dirty = true;
+                            break;
                         case Setting.Property.language:
                             dirty = true;
                             break;
@@ -2589,7 +2668,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 return;
             }
-            // fastStart, confirmQuit, showLastMove, viewUrlImage
+            // timeStep, fastStart, confirmQuit, showLastMove, viewUrlImage
             if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {
                 return;

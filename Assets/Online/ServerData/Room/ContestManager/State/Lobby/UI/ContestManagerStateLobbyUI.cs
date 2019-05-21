@@ -209,8 +209,16 @@ namespace GameManager.Match
 
         #region txt, rect
 
+        public Button btnCollapse;
+        public Text tvCollapse;
+        private static readonly TxtLanguage txtCollapse = new TxtLanguage("Collapse");
+
         static ContestManagerStateLobbyUI()
         {
+            // txt
+            {
+                txtCollapse.add(Language.Type.vi, "Thu Nhỏ");
+            }
             // roomUserAdapterRect
             {
                 // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 0.5); pivot: (1.0, 0.0); 
@@ -543,6 +551,7 @@ namespace GameManager.Match
                             // size
                             {
                                 float deltaY = 0;
+                                float itemSize = Setting.get().getItemSize();
                                 // contestManagerContentFactory
                                 {
                                     float height = UIRectTransform.SetPosY(this.data.contentFactory.v, deltaY);
@@ -576,6 +585,18 @@ namespace GameManager.Match
                                         }
                                     }
                                     deltaY += height;
+                                }
+                                // btnCollapse
+                                {
+                                    if (btnCollapse != null)
+                                    {
+                                        UIRectTransform.SetPosY((RectTransform)btnCollapse.transform, deltaY + (itemSize - 30) / 2.0f);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCollapse null");
+                                    }
+                                    deltaY += itemSize;
                                 }
                                 // settingContainer
                                 if (settingContainer != null)
@@ -653,6 +674,18 @@ namespace GameManager.Match
                             btnStartRect.sizeDelta = new Vector2(3 * buttonSize, buttonSize);
                         }
                         UIRectTransform.Set(this.data.btnStart.v, btnStartRect);
+                    }
+                    // txt
+                    {
+                        if (tvCollapse != null)
+                        {
+                            tvCollapse.text = txtCollapse.get();
+                            Setting.get().setContentTextSize(tvCollapse);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCollapse null");
+                        }
                     }
                 }
                 else
@@ -1111,7 +1144,10 @@ namespace GameManager.Match
                 {
                     case Setting.Property.fastStart:
                         break;
+                    case Setting.Property.timeStep:
+                        break;
                     case Setting.Property.language:
+                        dirty = true;
                         break;
                     case Setting.Property.style:
                         break;
@@ -1310,6 +1346,20 @@ namespace GameManager.Match
             return isProcess;
         }
 
+        public void onClickBtnCollapse()
+        {
+            if (this.data != null)
+            {
+                // contestManagerFactory
+                this.data.contentFactory.v = null;
+                // roomSetting
+                this.data.roomSetting.v = null;
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

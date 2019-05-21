@@ -1035,6 +1035,7 @@
     <Compile Include="Assets\Global\Setting\ScreenCapture\ScreenCaptureSettingUI.cs" />
     <Compile Include="Assets\Global\Setting\Setting.cs" />
     <Compile Include="Assets\Global\Setting\SettingPref.cs" />
+    <Compile Include="Assets\Global\Setting\SettingTimeStepUpdate.cs" />
     <Compile Include="Assets\Global\Setting\SettingUI.cs" />
     <Compile Include="Assets\Global\Setting\ShowSettingUI.cs" />
     <Compile Include="Assets\Global\StringSerializationAPI.cs" />
