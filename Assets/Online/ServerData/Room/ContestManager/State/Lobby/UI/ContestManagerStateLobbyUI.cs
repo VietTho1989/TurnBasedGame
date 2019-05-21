@@ -16,6 +16,8 @@ namespace GameManager.Match
 
             public VP<ReferenceData<ContestManagerStateLobby>> contestManagerStateLobby;
 
+            public VP<LobbyMiniSettingUI.UIData> miniSetting;
+
             public VP<RoomSettingUI.UIData> roomSetting;
 
             public VP<RoomUserAdapter.UIData> roomUserAdapter;
@@ -39,6 +41,7 @@ namespace GameManager.Match
             public enum Property
             {
                 contestManagerStateLobby,
+                miniSetting,
                 roomSetting,
                 roomUserAdapter,
                 chatRoomUIData,
@@ -51,6 +54,7 @@ namespace GameManager.Match
             public UIData() : base()
             {
                 this.contestManagerStateLobby = new VP<ReferenceData<ContestManagerStateLobby>>(this, (byte)Property.contestManagerStateLobby, new ReferenceData<ContestManagerStateLobby>(null));
+                this.miniSetting = new VP<LobbyMiniSettingUI.UIData>(this, (byte)Property.miniSetting, new LobbyMiniSettingUI.UIData());
                 this.roomSetting = new VP<RoomSettingUI.UIData>(this, (byte)Property.roomSetting, null);
                 // roomUserAdapter
                 {
@@ -99,6 +103,19 @@ namespace GameManager.Match
                         else
                         {
                             Debug.LogError("editLobbyPlayerUIData null: " + this);
+                        }
+                    }
+                    // miniSetting
+                    if (!isProcess)
+                    {
+                        LobbyMiniSettingUI.UIData miniSetting = this.miniSetting.v;
+                        if (miniSetting != null)
+                        {
+                            isProcess = miniSetting.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("miniSetting null");
                         }
                     }
                     // roomSetting
@@ -278,6 +295,18 @@ namespace GameManager.Match
                     ContestManagerStateLobby lobby = this.data.contestManagerStateLobby.v.data;
                     if (lobby != null)
                     {
+                        // miniSetting
+                        {
+                            LobbyMiniSettingUI.UIData miniSetting = this.data.miniSetting.v;
+                            if (miniSetting != null)
+                            {
+                                miniSetting.contestManagerStateLobby.v = new ReferenceData<ContestManagerStateLobby>(lobby);
+                            }
+                            else
+                            {
+                                Debug.LogError("miniSetting null");
+                            }
+                        }
                         // roomSetting
                         {
                             RoomSettingUI.UIData roomSettingUIData = this.data.roomSetting.v;
@@ -463,7 +492,7 @@ namespace GameManager.Match
                     {
                         if(this.data.contentFactory.v!=null || this.data.roomSetting.v != null)
                         {
-                            // UI Visibility
+                            // miniSetting
                             {
                                 // miniSettingScrollView
                                 if (miniSettingScrollView != null)
@@ -474,6 +503,10 @@ namespace GameManager.Match
                                 {
                                     Debug.LogError("miniSettingScrollView null");
                                 }
+                                this.data.miniSetting.v = null;
+                            }
+                            // UI Visibility
+                            {
                                 // settingScrollView
                                 if (settingScrollView != null)
                                 {
@@ -482,15 +515,6 @@ namespace GameManager.Match
                                 else
                                 {
                                     Debug.LogError("settingScrollView null");
-                                }
-                                // btnSetting
-                                if (btnSetting != null)
-                                {
-                                    btnSetting.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("btnSetting null");
                                 }
                             }
                             // teamAdapterLobby
@@ -566,14 +590,40 @@ namespace GameManager.Match
                         }
                         else
                         {
-                            // miniSettingScrollView
-                            if (miniSettingScrollView != null)
+                            // miniSetting
                             {
-                                miniSettingScrollView.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("miniSettingScrollView null");
+                                // miniSettingScrollView
+                                if (miniSettingScrollView != null)
+                                {
+                                    miniSettingScrollView.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.LogError("miniSettingScrollView null");
+                                }
+                                // Data
+                                {
+                                    LobbyMiniSettingUI.UIData miniSetting = this.data.miniSetting.newOrOld<LobbyMiniSettingUI.UIData>();
+                                    {
+                                        miniSetting.contestManagerStateLobby.v = new ReferenceData<ContestManagerStateLobby>(lobby);
+                                    }
+                                    this.data.miniSetting.v = miniSetting;
+                                }
+                                // UI Size
+                                {
+                                    if (miniSettingContainer != null)
+                                    {
+                                        float deltaY = 0;
+                                        // miniSetting
+                                        deltaY += UIRectTransform.SetPosY(this.data.miniSetting.v, deltaY);
+                                        // set height
+                                        UIRectTransform.SetHeight(miniSettingContainer, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("settingContainer null");
+                                    }
+                                }
                             }
                             // settingScrollView
                             if (settingScrollView != null)
@@ -583,15 +633,6 @@ namespace GameManager.Match
                             else
                             {
                                 Debug.LogError("settingScrollView null");
-                            }
-                            // btnSetting
-                            if (btnSetting != null)
-                            {
-                                btnSetting.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("btnSetting null");
                             }
                             // teamAdapterLobby
                             {
@@ -613,33 +654,6 @@ namespace GameManager.Match
                         }
                         UIRectTransform.Set(this.data.btnStart.v, btnStartRect);
                     }
-                    // UI
-                    {
-                        float buttonSize = Setting.get().getButtonSize();
-                        // btnSetting
-                        {
-                            if (btnSetting != null)
-                            {
-                                UIRectTransform rect = new UIRectTransform();
-                                {
-                                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
-                                    // offsetMin: (-30.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (30.0, 30.0);
-                                    rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                                    rect.anchorMin = new Vector2(1.0f, 1.0f);
-                                    rect.anchorMax = new Vector2(1.0f, 1.0f);
-                                    rect.pivot = new Vector2(1.0f, 1.0f);
-                                    rect.offsetMin = new Vector2(-buttonSize, -buttonSize);
-                                    rect.offsetMax = new Vector2(0.0f, 0.0f);
-                                    rect.sizeDelta = new Vector2(buttonSize, buttonSize);
-                                }
-                                rect.set((RectTransform)btnSetting.transform);
-                            }
-                            else
-                            {
-                                Debug.LogError("btnSetting null");
-                            }
-                        }
-                    }
                 }
                 else
                 {
@@ -657,6 +671,7 @@ namespace GameManager.Match
 
         #region implement callBacks
 
+        public LobbyMiniSettingUI miniSettingPrefab;
         public RectTransform miniSettingContainer;
 
         public ContestManagerContentFactoryUI contestManagerContentFactoryPrefab;
@@ -705,6 +720,7 @@ namespace GameManager.Match
                 // Child
                 {
                     uiData.contestManagerStateLobby.allAddCallBack(this);
+                    uiData.miniSetting.allAddCallBack(this);
                     uiData.roomSetting.allAddCallBack(this);
                     uiData.roomUserAdapter.allAddCallBack(this);
                     uiData.chatRoomUIData.allAddCallBack(this);
@@ -765,6 +781,20 @@ namespace GameManager.Match
                         dirty = true;
                         return;
                     }
+                }
+                if(data is LobbyMiniSettingUI.UIData)
+                {
+                    LobbyMiniSettingUI.UIData miniSettingUIData = data as LobbyMiniSettingUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(miniSettingUIData, miniSettingPrefab, miniSettingContainer);
+                    }
+                    // TransformData
+                    {
+                        TransformData.AddCallBack(miniSettingUIData, this);
+                    }
+                    dirty = true;
+                    return;
                 }
                 if (data is RoomSettingUI.UIData)
                 {
@@ -865,6 +895,7 @@ namespace GameManager.Match
                 // Child
                 {
                     uiData.contestManagerStateLobby.allRemoveCallBack(this);
+                    uiData.miniSetting.allRemoveCallBack(this);
                     uiData.roomSetting.allRemoveCallBack(this);
                     uiData.roomUserAdapter.allRemoveCallBack(this);
                     uiData.chatRoomUIData.allRemoveCallBack(this);
@@ -909,6 +940,19 @@ namespace GameManager.Match
                     {
                         return;
                     }
+                }
+                if (data is LobbyMiniSettingUI.UIData)
+                {
+                    LobbyMiniSettingUI.UIData miniSettingUIData = data as LobbyMiniSettingUI.UIData;
+                    // UI
+                    {
+                        miniSettingUIData.removeCallBackAndDestroy(typeof(LobbyMiniSettingUI));
+                    }
+                    // TransformData
+                    {
+                        TransformData.RemoveCallBack(miniSettingUIData, this);
+                    }
+                    return;
                 }
                 if (data is RoomSettingUI.UIData)
                 {
@@ -1006,6 +1050,12 @@ namespace GameManager.Match
                             dirty = true;
                         }
                         break;
+                    case UIData.Property.miniSetting:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
                     case UIData.Property.roomSetting:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
@@ -1059,6 +1109,8 @@ namespace GameManager.Match
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {
+                    case Setting.Property.fastStart:
+                        break;
                     case Setting.Property.language:
                         break;
                     case Setting.Property.style:
@@ -1162,6 +1214,10 @@ namespace GameManager.Match
                         return;
                     }
                 }
+                if (wrapProperty.p is LobbyMiniSettingUI.UIData)
+                {
+                    return;
+                }
                 if (wrapProperty.p is RoomSettingUI.UIData)
                 {
                     return;
@@ -1232,7 +1288,7 @@ namespace GameManager.Match
             base.Awake();
             // OnClick
             {
-                UIUtils.SetButtonOnClick(btnSetting, onClickBtnSetting);
+
             }
         }
 
@@ -1245,17 +1301,6 @@ namespace GameManager.Match
                     switch (e.keyCode)
                     {
                         case KeyCode.S:
-                            {
-                                if (btnSetting != null && btnSetting.gameObject.activeInHierarchy && btnSetting.interactable)
-                                {
-                                    this.onClickBtnSetting();
-                                    isProcess = true;
-                                }
-                                else
-                                {
-                                    Debug.LogError("cannot click");
-                                }
-                            }
                             break;
                         default:
                             break;
@@ -1265,35 +1310,6 @@ namespace GameManager.Match
             return isProcess;
         }
 
-        public Button btnSetting;
-
-        [UnityEngine.Scripting.Preserve]
-        public void onClickBtnSetting()
-        {
-            if (this.data != null)
-            {
-                // contestManagerFactory
-                {
-                    ContestManagerContentFactoryUI.UIData contestManagerContentFactoryUIData = this.data.contentFactory.newOrOld<ContestManagerContentFactoryUI.UIData>();
-                    {
-                        
-                    }
-                    this.data.contentFactory.v = contestManagerContentFactoryUIData;
-                }
-                // roomSetting
-                {
-                    RoomSettingUI.UIData roomSettingUIData = this.data.roomSetting.newOrOld<RoomSettingUI.UIData>();
-                    {
-
-                    }
-                    this.data.roomSetting.v = roomSettingUIData;
-                }
-            }
-            else
-            {
-                Debug.LogError("data null");
-            }
-        }
 
     }
 }
