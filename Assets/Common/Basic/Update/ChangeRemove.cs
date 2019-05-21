@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ChangeRemove<T> : Change<T>
 {
+
 	public int index = 0;
 	public int number = 0;
 
@@ -10,4 +11,5 @@ public class ChangeRemove<T> : Change<T>
 	{
 		return Type.Remove;
 	}
+
 }

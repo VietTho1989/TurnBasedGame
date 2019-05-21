@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class SyncAdd<T> : Sync<T>
 {
+
 	public int index = 0;
 
 	public List<T> values = new List<T>();

@@ -8,7 +8,6 @@ using System.Linq;
 
 public class DataUtils
 {
-    // private static bool log = false;
 
     #region compare
 

@@ -34,9 +34,12 @@ public class Setting : Data
 		return instance;
 	}
 
-	#endregion
+    #endregion
 
-	#region Property
+    #region Property
+
+    public const bool DefaultFastStart = true;
+    public VP<bool> fastStart;
 
 	public VP<Language.Type> language;
 
@@ -361,6 +364,7 @@ public class Setting : Data
 
     public enum Property
 	{
+        fastStart,
 		language,
         useShortKey,
         style,
@@ -386,6 +390,7 @@ public class Setting : Data
 
 	public Setting() : base()
 	{
+        this.fastStart = new VP<bool>(this, (byte)Property.fastStart, DefaultFastStart);
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
         this.useShortKey = new VP<bool>(this, (byte)Property.useShortKey, false);
         this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);

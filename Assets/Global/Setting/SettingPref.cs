@@ -29,6 +29,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #region setting pref
 
+    private const string Setting_FastStart = "Setting_FastStart";
     private const string Setting_Language = "Setting_Language";
     private const string Setting_Style = "Setting_Style";
     private const string Setting_ConfirmQuit = "Setting_ConfirmQuit";
@@ -87,6 +88,8 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
         {
             try
             {
+                // fastStart
+                Setting.get().fastStart.v = PlayerPrefs.GetInt(Setting_FastStart, 1) != 0;
                 // language
                 {
                     // find default
@@ -311,6 +314,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                         {
                             switch ((Setting.Property)updateName)
                             {
+                                case Setting.Property.fastStart:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_FastStart, Setting.get().fastStart.v ? 1 : 0);
+                                        needSave = true;
+                                    }
+                                    break;
                                 case Setting.Property.language:
                                     {
                                         PlayerPrefs.SetInt(Setting_Language, (int)Setting.get().language.v);
@@ -536,6 +545,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
         {
             switch ((Setting.Property)wrapProperty.n)
             {
+                case Setting.Property.fastStart:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
                 case Setting.Property.language:
                     {
                         settingUpdateNames.Add(wrapProperty.n);

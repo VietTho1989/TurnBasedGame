@@ -15,6 +15,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         public VP<UIRectTransform.ShowType> showType;
 
+        #region fastStart
+
+        public VP<RequestChangeBoolUI.UIData> fastStart;
+
+        public void makeRequestChangeFastStart(RequestChangeUpdate<bool>.UpdateData update, bool newFastStart)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.fastStart.v = newFastStart;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region language
 
         public VP<RequestChangeEnumUI.UIData> language;
@@ -516,6 +548,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         public enum Property
         {
+            fastStart,
             editSetting,
             showType,
             language,
@@ -548,6 +581,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
         public UIData() : base()
         {
             this.editSetting = new VP<EditData<Setting>>(this, (byte)Property.editSetting, new EditData<Setting>());
+            // fastStart
+            {
+                this.fastStart = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.fastStart, new RequestChangeBoolUI.UIData());
+                this.fastStart.v.updateData.v.request.v = makeRequestChangeFastStart;
+            }
             this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
             // language
             {
@@ -778,6 +816,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbTitle;
     private static readonly TxtLanguage txtTitle = new TxtLanguage("Setting");
 
+    public Text lbFastStart;
+    private static readonly TxtLanguage txtFastStart = new TxtLanguage("Fast start");
+
     public Text lbLanguage;
     private static readonly TxtLanguage txtLanguage = new TxtLanguage("Language");
 
@@ -837,6 +878,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
         // txt
         {
             txtTitle.add(Language.Type.vi, "Thiết Lập");
+            txtFastStart.add(Language.Type.vi, "Bắt đầu nhanh");
             txtLanguage.add(Language.Type.vi, "Ngôn Ngữ");
             txtStyle.add(Language.Type.vi, "Kiểu");
             txtConfirmQuit.add(Language.Type.vi, "Xác nhận thoát");
@@ -903,6 +945,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     Server.State.Type serverState = Server.State.Type.Connect;
                     // request
                     {
+                        RequestChange.RefreshUI(this.data.fastStart.v, editSetting, serverState, needReset, editData => editData.fastStart.v);
                         RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, editData => Language.GetSupportIndex(editData.language.v));
                         // style
                         {
@@ -1319,6 +1362,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     float deltaY = 0;
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
+                    // fastStart
+                    UIUtils.SetLabelContentPosition(lbFastStart, this.data.fastStart.v, ref deltaY);
                     // language
                     UIUtils.SetLabelContentPosition(lbLanguage, this.data.language.v, ref deltaY);
                     // style
@@ -1497,6 +1542,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     else
                     {
                         Debug.LogError("lbSetting null: " + this);
+                    }
+                    if (lbFastStart != null)
+                    {
+                        lbFastStart.text = txtFastStart.get();
+                        Setting.get().setLabelTextSize(lbFastStart);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbFastStart null: " + this);
                     }
                     if (lbLanguage != null)
                     {
@@ -1691,6 +1745,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             // Child
             {
                 uiData.editSetting.allAddCallBack(this);
+                uiData.fastStart.allAddCallBack(this);
                 uiData.language.allAddCallBack(this);
                 uiData.style.allAddCallBack(this);
                 uiData.confirmQuit.allAddCallBack(this);
@@ -1795,7 +1850,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // confirmQuit, showLastMove, viewUrlImage
+            // fastStart, confirmQuit, showLastMove, viewUrlImage
             if (data is RequestChangeBoolUI.UIData)
             {
                 RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -1806,6 +1861,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     {
                         switch ((UIData.Property)wrapProperty.n)
                         {
+                            case UIData.Property.fastStart:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                break;
                             case UIData.Property.confirmQuit:
                                 UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
@@ -2042,6 +2100,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             // Child
             {
                 uiData.editSetting.allRemoveCallBack(this);
+                uiData.fastStart.allRemoveCallBack(this);
                 uiData.language.allRemoveCallBack(this);
                 uiData.style.allRemoveCallBack(this);
                 uiData.confirmQuit.allRemoveCallBack(this);
@@ -2110,7 +2169,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
-            // confirmQuit, showLastMove, viewUrlImage
+            // fastStart, confirmQuit, showLastMove, viewUrlImage
             if (data is RequestChangeBoolUI.UIData)
             {
                 RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -2289,6 +2348,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 case UIData.Property.showType:
                     dirty = true;
                     break;
+                case UIData.Property.fastStart:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.language:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -2458,6 +2523,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 {
                     switch ((Setting.Property)wrapProperty.n)
                     {
+                        case Setting.Property.fastStart:
+                            dirty = true;
+                            break;
                         case Setting.Property.language:
                             dirty = true;
                             break;
@@ -2521,7 +2589,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 return;
             }
-            // confirmQuit, showLastMove, viewUrlImage
+            // fastStart, confirmQuit, showLastMove, viewUrlImage
             if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {
                 return;

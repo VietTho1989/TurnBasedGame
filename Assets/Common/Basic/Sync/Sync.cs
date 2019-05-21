@@ -4,6 +4,7 @@ using System.Collections;
 
 public abstract class Sync<T>
 {
+
 	public enum Type
 	{
 		Set,
