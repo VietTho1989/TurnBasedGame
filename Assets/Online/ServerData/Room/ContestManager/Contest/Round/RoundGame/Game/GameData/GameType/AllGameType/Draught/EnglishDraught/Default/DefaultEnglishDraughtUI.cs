@@ -321,9 +321,6 @@ namespace EnglishDraught
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeBoolUI requestBoolPrefab;
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -400,7 +397,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.threeMoveRandom:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:
@@ -428,7 +425,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.maxPly:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

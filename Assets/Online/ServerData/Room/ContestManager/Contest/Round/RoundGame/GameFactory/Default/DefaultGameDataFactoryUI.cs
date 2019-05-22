@@ -968,8 +968,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
     public Khet.DefaultKhetUI defaultKhetUIPrefab;
     public NineMenMorris.DefaultNineMenMorrisUI defaultNineMenMorrisUIPrefab;
 
-    public RequestChangeEnumUI requestEnumPrefab;
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -1041,7 +1039,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

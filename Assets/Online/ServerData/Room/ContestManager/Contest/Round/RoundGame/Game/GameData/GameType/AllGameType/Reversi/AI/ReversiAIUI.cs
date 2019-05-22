@@ -525,9 +525,6 @@ namespace Reversi
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -606,22 +603,22 @@ namespace Reversi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.sort:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.min:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.max:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.end:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.msLeft:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.percent:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -647,7 +644,7 @@ namespace Reversi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.useBook:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

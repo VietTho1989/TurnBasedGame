@@ -338,8 +338,6 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
 
     #region implement callBacks
 
-    public RequestChangeBoolUI requestBoolPrefab;
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -416,16 +414,16 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.canChange:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.onlyAdmin:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.needAdmin:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.needAccept:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

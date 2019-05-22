@@ -183,8 +183,6 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
 
     #region implement callBacks
 
-    public RequestChangeStringUI requestStringPrefab;
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -259,13 +257,13 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.userId:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.firstName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.lastName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

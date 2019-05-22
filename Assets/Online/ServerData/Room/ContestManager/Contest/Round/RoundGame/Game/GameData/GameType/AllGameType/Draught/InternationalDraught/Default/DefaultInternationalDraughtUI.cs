@@ -258,8 +258,6 @@ namespace InternationalDraught
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeEnumUI requestEnumPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -335,7 +333,7 @@ namespace InternationalDraught
                             {
                                 case UIData.Property.variant:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     }
                                     break;
                                 default:

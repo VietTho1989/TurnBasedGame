@@ -257,8 +257,6 @@ namespace Khet
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeEnumUI requestEnumPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -333,7 +331,7 @@ namespace Khet
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.startPos:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

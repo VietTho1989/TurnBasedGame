@@ -290,8 +290,6 @@ namespace GameManager.Match
 
         #region implement callBacks
 
-        public RequestChangeFloatUI requestFloatPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -367,13 +365,13 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.winScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.loseScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.drawScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

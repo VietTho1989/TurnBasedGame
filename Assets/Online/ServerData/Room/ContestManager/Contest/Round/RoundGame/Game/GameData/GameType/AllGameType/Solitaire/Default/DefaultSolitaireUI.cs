@@ -264,8 +264,6 @@ namespace Solitaire
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -339,7 +337,7 @@ namespace Solitaire
                             {
                                 case UIData.Property.drawCount:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

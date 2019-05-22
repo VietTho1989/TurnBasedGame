@@ -393,8 +393,6 @@ namespace CoTuongUp
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -471,13 +469,13 @@ namespace CoTuongUp
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.allowViewCapture:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.allowWatcherViewHidden:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.allowOnlyFlip:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

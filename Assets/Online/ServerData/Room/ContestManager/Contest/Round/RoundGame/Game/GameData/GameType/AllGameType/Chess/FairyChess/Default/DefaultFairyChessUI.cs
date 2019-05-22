@@ -334,10 +334,6 @@ namespace FairyChess
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeEnumUI requestEnumPrefab;
-
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -414,7 +410,7 @@ namespace FairyChess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.variantType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -441,7 +437,7 @@ namespace FairyChess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.chess960:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

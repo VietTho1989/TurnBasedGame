@@ -300,9 +300,6 @@ public class ScreenCaptureSettingUI : UIHaveTransformDataBehavior<ScreenCaptureS
 
     #region implement callBacks
 
-    public RequestChangeBoolUI requestBoolPrefab;
-    public RequestChangeIntUI requestIntPrefab;
-
     // private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -374,7 +371,7 @@ public class ScreenCaptureSettingUI : UIHaveTransformDataBehavior<ScreenCaptureS
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.waitDuration:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -401,7 +398,7 @@ public class ScreenCaptureSettingUI : UIHaveTransformDataBehavior<ScreenCaptureS
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.autoCloseSetting:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

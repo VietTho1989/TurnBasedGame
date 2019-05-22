@@ -321,7 +321,6 @@ namespace UndoRedo
 
         #region implement callBacks
 
-        public RequestChangeEnumUI requestEnumPrefab;
         private static readonly UIRectTransform requestTypeRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
         public RequestLastTurnUI requestLastTurnPrefab;
@@ -395,7 +394,7 @@ namespace UndoRedo
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.requestType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, requestTypeRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, requestTypeRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

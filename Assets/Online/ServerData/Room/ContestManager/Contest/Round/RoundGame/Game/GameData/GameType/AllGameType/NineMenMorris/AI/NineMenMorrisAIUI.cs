@@ -455,8 +455,6 @@ namespace NineMenMorris
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -533,19 +531,19 @@ namespace NineMenMorris
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.MaxNormal:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxPositioning:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxBlackAndWhite3:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxBlackOrWhite3:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

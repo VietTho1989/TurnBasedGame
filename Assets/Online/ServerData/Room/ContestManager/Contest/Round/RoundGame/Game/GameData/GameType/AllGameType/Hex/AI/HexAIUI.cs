@@ -246,9 +246,6 @@ namespace HEX
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -323,7 +320,7 @@ namespace HEX
                             {
                                 case UIData.Property.limitTime:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -351,7 +348,7 @@ namespace HEX
                             {
                                 case UIData.Property.firstMoveCenter:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:

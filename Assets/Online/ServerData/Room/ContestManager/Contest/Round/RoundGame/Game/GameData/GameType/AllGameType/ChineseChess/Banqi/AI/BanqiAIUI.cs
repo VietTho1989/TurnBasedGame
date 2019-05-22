@@ -181,8 +181,6 @@ namespace Banqi
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -254,7 +252,7 @@ namespace Banqi
                             {
                                 case UIData.Property.depth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

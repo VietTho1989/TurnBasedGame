@@ -305,9 +305,6 @@ namespace Solitaire
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -382,10 +379,10 @@ namespace Solitaire
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.multiThreaded:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.maxClosedCount:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -411,7 +408,7 @@ namespace Solitaire
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.fastMode:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

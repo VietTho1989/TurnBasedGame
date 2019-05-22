@@ -658,8 +658,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
     public Transform contentContainer;
 
     public HumanUI humanPrefab;
-    public RequestChangeEnumUI requestEnumPrefab;
-    public RequestChangeStringUI requestStringPrefab;
 
     public BtnUpdateUser btnUpdateUserPrefab;
     private static readonly UIRectTransform btnUpdateUserRect = new UIRectTransform();
@@ -732,10 +730,10 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.requestEditType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, requestEditTypeRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, requestEditTypeRect);
                                 break;
                             case UIData.Property.role:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, contentContainer, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -762,10 +760,10 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.ipAddress:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.registerTime:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, contentContainer, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

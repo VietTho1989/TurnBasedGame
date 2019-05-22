@@ -550,10 +550,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
 
     #region implement callBacks
 
-    public RequestChangeIntUI requestIntPrefab;
     public AccountUI accountPrefab;
-    public RequestChangeStringUI requestStringPrefab;
-    public RequestChangeEnumUI requestEnumPrefab;
     public BanUI banPrefab;
 
     private Server server = null;
@@ -636,7 +633,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.playerId:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -663,16 +660,16 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.email:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.phoneNumber:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.status:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.birthday:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -699,7 +696,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.sex:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

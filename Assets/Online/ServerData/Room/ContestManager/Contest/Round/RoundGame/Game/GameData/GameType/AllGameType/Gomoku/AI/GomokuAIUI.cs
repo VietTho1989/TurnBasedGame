@@ -318,8 +318,6 @@ namespace Gomoku
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -395,17 +393,17 @@ namespace Gomoku
                             {
                                 case UIData.Property.searchDepth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.timeLimit:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.level:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

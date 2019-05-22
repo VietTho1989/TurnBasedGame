@@ -565,9 +565,6 @@ namespace TimeControl
 
         #region implement callBacks
 
-        public RequestChangeBoolUI requestBoolPrefab;
-        public RequestChangeEnumUI requestEnumPrefeb;
-
         public TimeControlNormalUI timeControlNormalPrefab;
         public TimeControlHourGlassUI timeControlHourGlassPrefab;
 
@@ -647,10 +644,10 @@ namespace TimeControl
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.isEnable:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.aiCanTimeOut:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -676,10 +673,10 @@ namespace TimeControl
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.use:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.subType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

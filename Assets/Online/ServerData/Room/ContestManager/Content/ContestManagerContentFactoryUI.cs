@@ -448,9 +448,6 @@ namespace GameManager.Match
 
         #region implement callBacks
 
-        public RequestChangeBoolUI requestBoolPrefab;
-        public RequestChangeEnumUI requestEnumPrefab;
-
         public SingleContestFactoryUI singleContestFactoryPrefab;
         public RoundRobinFactoryUI roundRobinFactoryPrefab;
         public EliminationFactoryUI eliminationFactoryPrefab;
@@ -530,7 +527,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.randomTeamIndex:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -557,7 +554,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.contentType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

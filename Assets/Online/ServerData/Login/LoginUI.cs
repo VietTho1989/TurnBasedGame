@@ -438,7 +438,6 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
 
     public Transform contentContainer;
 
-    public RequestChangeEnumUI requestEnumPrefab;
     private static readonly UIRectTransform accountTypeRect = new UIRectTransform(UIConstants.RequestEnumRect, (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
     public AccountUI accountUIPrefab;
@@ -531,7 +530,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.accountType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, contentContainer, accountTypeRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, contentContainer, accountTypeRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

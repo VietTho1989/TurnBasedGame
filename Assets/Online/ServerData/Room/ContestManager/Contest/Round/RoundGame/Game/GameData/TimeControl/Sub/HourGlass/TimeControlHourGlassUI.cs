@@ -244,8 +244,6 @@ namespace TimeControl.HourGlass
 
         #region implement callBacks
 
-        public RequestChangeFloatUI requestFloatPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -320,12 +318,12 @@ namespace TimeControl.HourGlass
                             {
                                 case UIData.Property.initTime:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.lagCompensation:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                        UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

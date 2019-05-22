@@ -289,8 +289,6 @@ namespace GameManager.Match.RoundRobin
         #region implement callBacks
 
         public SingleContestFactoryUI singleContestFactoryPrefab;
-        public RequestChangeIntUI requestIntPrefab;
-        public RequestChangeBoolUI requestBoolPrefab;
 
         private Server server = null;
 
@@ -367,7 +365,7 @@ namespace GameManager.Match.RoundRobin
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.teamCount:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -394,7 +392,7 @@ namespace GameManager.Match.RoundRobin
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.needReturnRound:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

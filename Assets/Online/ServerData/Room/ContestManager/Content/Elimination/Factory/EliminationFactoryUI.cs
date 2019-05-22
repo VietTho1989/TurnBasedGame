@@ -439,7 +439,6 @@ namespace GameManager.Match.Elimination
         #region implement callBacks
 
         public SingleContestFactoryUI singleContestFactoryPrefab;
-        public RequestChangeIntUI requestIntPrefab;
 
         private Server server = null;
 
@@ -516,10 +515,10 @@ namespace GameManager.Match.Elimination
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.initTeamCountLength:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.initTeamCounts:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

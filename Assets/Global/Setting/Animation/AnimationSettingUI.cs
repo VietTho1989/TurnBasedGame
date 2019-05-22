@@ -313,10 +313,6 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
 
     #region implement callBacks
 
-    public RequestChangeFloatUI requestFloatPrefab;
-    public RequestChangeBoolUI requestBoolPrefab;
-    public RequestChangeIntUI requestIntPrefab;
-
     // private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -389,7 +385,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.scale:
-                                UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -416,7 +412,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.fastForward:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -443,7 +439,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.maxWaitAnimationCount:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

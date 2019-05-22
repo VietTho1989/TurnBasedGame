@@ -230,8 +230,6 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
 
     #region implement callBacks
 
-    public RequestChangeStringUI requestStringPrefab;
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -305,10 +303,10 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.customName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.avatarUrl:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

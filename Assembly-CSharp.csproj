@@ -1003,6 +1003,7 @@
     <Compile Include="Assets\Global\GlobalBehavior.cs" />
     <Compile Include="Assets\Global\GlobalInit.cs" />
     <Compile Include="Assets\Global\GlobalPref.cs" />
+    <Compile Include="Assets\Global\GlobalPrefab.cs" />
     <Compile Include="Assets\Global\GlobalUICheckChange.cs" />
     <Compile Include="Assets\Global\GlobalUpdate.cs" />
     <Compile Include="Assets\Global\ScreenCapture\Save\ConfirmSaveScreenUI.cs" />

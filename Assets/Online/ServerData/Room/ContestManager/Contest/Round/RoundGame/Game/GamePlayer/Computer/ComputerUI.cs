@@ -370,8 +370,6 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
     public ComputerAvatarUI computerAvatarPrefab;
     private static readonly UIRectTransform computerAvatarRect = new UIRectTransform();
 
-    public RequestChangeStringUI requestStringPrefab;
-
     private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
     private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
@@ -465,12 +463,12 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         {
                             case UIData.Property.name:
                                 {
-                                    UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, nameRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, nameRect);
                                 }
                                 break;
                             case UIData.Property.avatarUrl:
                                 {
-                                    UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, avatarUrlRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, avatarUrlRect);
                                 }
                                 break;
                             default:

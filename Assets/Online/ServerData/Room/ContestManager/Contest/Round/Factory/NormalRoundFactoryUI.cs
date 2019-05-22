@@ -586,17 +586,9 @@ namespace GameManager.Match
         #region implement callBacks
 
         public GameFactoryUI gameFactoryPrefab;
-        public RequestChangeBoolUI requestBoolPrefab;
-        public RequestChangeEnumUI requestEnumPrefab;
 
         public CalculateScoreSumUI calculateScoreSumPrefab;
         public CalculateScoreWinLoseDrawUI calculateScoreWinLoseDrawPrefab;
-
-        private static readonly UIRectTransform isChangeSideBetweenRoundRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform isSwitchPlayerRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform isDifferentInTeamRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
-        private static readonly UIRectTransform calculateScoreTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
         private Server server = null;
 
@@ -679,13 +671,13 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.isChangeSideBetweenRound:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, isChangeSideBetweenRoundRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.isSwitchPlayer:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, isSwitchPlayerRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.isDifferentInTeam:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, isDifferentInTeamRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -726,7 +718,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.calculateScoreType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, calculateScoreTypeRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

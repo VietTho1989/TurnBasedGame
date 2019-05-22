@@ -328,9 +328,6 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
 
     #region implement callBacks
 
-    public RequestChangeStringUI requestStringPrefab;
-    public RequestChangeEnumUI requestEnumPrefab;
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -407,16 +404,16 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.imei:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.deviceName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.customName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.avatarUrl:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -442,7 +439,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.deviceType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

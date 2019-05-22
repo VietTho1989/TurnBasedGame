@@ -178,8 +178,6 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
 
     #region implement callBacks
 
-    public RequestChangeStringUI requestStringPrefab;
-
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -235,7 +233,7 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.roomName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

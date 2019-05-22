@@ -183,8 +183,6 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
 
     #region implement callBacks
 
-    public RequestChangeEnumUI requestEnumPrefab;
-
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -240,7 +238,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

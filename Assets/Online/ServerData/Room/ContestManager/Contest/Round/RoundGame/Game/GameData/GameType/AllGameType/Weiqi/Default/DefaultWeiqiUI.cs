@@ -472,10 +472,6 @@ namespace Weiqi
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeIntUI requestIntPrefab;
-        public RequestChangeFloatUI requestFloatPrefab;
-        public RequestChangeEnumUI requestEnumPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -553,10 +549,10 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.size:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.handicap:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -582,7 +578,7 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.komi:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -608,7 +604,7 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.rule:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

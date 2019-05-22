@@ -183,8 +183,6 @@ namespace TimeControl.Normal
 
         #region implement callBacks
 
-        public RequestChangeFloatUI requestFloatPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -257,7 +255,7 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.perTurn:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

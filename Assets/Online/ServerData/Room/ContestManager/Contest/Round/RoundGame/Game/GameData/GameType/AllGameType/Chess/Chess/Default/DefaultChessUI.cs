@@ -264,8 +264,6 @@ namespace Chess
 
         public MiniGameDataUI miniGameDataUIPrefab;
 
-        public RequestChangeBoolUI requestBoolPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -340,7 +338,7 @@ namespace Chess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.chess960:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

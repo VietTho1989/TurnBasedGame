@@ -406,9 +406,6 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
     #region implement callBacks
 
-    public RequestChangeEnumUI requestEnumPrefab;
-    public RequestChangeStringUI requestStringPrefab;
-
     public BtnCreateRoomUI btnCreateRoomPrefab;
     private static readonly UIRectTransform btnCreateRoomRect = new UIRectTransform();
 
@@ -487,7 +484,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -513,10 +510,10 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.roomName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.password:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestString, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

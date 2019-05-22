@@ -241,10 +241,6 @@ public class DefaultChatRoomStyleAlwaysUI : UIHaveTransformDataBehavior<DefaultC
 
     #region implement callBacks
 
-    public RequestChangeEnumUI requestEnumPrefab;
-    public static readonly UIRectTransform visibilityRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    public static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -301,10 +297,10 @@ public class DefaultChatRoomStyleAlwaysUI : UIHaveTransformDataBehavior<DefaultC
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.visibility:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, visibilityRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.style:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
+                                UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

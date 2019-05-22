@@ -193,8 +193,6 @@ namespace Rights
 
         #region implement callBacks
 
-        public RequestChangeIntUI requestIntPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -268,7 +266,7 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.limit:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestInt, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

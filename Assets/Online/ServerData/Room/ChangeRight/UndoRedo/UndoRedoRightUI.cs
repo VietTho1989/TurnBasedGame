@@ -439,9 +439,6 @@ namespace Rights
 
         #region implement callBacks
 
-        public RequestChangeBoolUI requestBoolPrefab;
-        public RequestChangeEnumUI requestEnumPrefab;
-
         public NoLimitUI noLimitPrefab;
         public HaveLimitUI haveLimitPrefab;
 
@@ -521,10 +518,10 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.needAccept:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.needAdmin:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestBool, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -551,7 +548,7 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.limitType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

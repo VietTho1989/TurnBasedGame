@@ -516,9 +516,6 @@ namespace TimeControl.Normal
         public TimePerTurnInfoUI timePerTurnPrefab;
         public TotalTimeInfoUI totalTimePrefab;
 
-        public RequestChangeFloatUI requestFloatPrefab;
-        public RequestChangeEnumUI requestEnumPrefab;
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -597,13 +594,13 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.timePerTurnType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.totalTimeType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.overTimePerTurnType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestEnum, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -685,7 +682,7 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.lagCompensation:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
+                                    UIUtils.Instantiate(requestChange, GlobalPrefab.instance.requestFloat, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
