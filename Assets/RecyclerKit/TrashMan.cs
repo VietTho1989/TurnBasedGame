@@ -44,6 +44,8 @@ public class TrashMan : MonoBehaviour
 
     void Awake()
     {
+        // Debug.unityLogger.logEnabled = false;
+        // Debug.developerConsoleVisible = false;
         Debug.LogError("TrashMan Awake");
         if (settingPref != null)
         {

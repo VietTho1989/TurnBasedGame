@@ -9,7 +9,7 @@ public class FacebookLogin : MonoBehaviour
 	// Awake function from Unity's MonoBehavior
 	void Awake ()
 	{
-		if (!FB.IsInitialized) {
+        if (!FB.IsInitialized) {
 			// Initialize the Facebook SDK
 			FB.Init(InitCallback, OnHideUnity);
 		} else {
