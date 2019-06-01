@@ -8,6 +8,7 @@ public abstract class GameType : Data
     // https://www.miniwebtool.com/adler32-checksum-calculator/
     public enum Type
     {
+        Rubiks = 08470271,
         CHESS = 71041399,
         Shatranj = 238224188,
         Makruk = 135266924,
@@ -52,6 +53,14 @@ public abstract class GameType : Data
         }
         // typeTxtDict
         {
+            // Rubiks
+            {
+                TxtLanguage txt = new TxtLanguage("Rubiks");
+                {
+                    txt.add(Language.Type.vi, "Rubiks");
+                }
+                typeTxtDict.Add(Type.Rubiks, txt);
+            }
             // CHESS
             {
                 TxtLanguage txt = new TxtLanguage("Chess");
@@ -292,6 +301,7 @@ public abstract class GameType : Data
     public abstract Type getType();
 
     public static readonly GameType.Type[] EnableTypes = {
+        Type.Rubiks,
         Type.CHESS,
         Type.Shatranj,
         Type.Makruk,

@@ -81,6 +81,9 @@ public class DefaultGameDataFactory : GameDataFactory
                 // init
                 switch (newGameType)
                 {
+                    case GameType.Type.Rubiks:
+                        newDefaultGameType = new Rubiks.DefaultRubiks();
+                        break;
                     case GameType.Type.CHESS:
                         newDefaultGameType = new Chess.DefaultChess();
                         break;

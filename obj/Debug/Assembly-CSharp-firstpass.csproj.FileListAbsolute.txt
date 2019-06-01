@@ -752,11 +752,9 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Editor.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Purchasing.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.csprojAssemblyReference.cache

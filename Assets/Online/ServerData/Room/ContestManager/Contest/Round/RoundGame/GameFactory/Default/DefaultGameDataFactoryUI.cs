@@ -176,6 +176,35 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                             // process
                                             switch (defaultGameType.getType())
                                             {
+                                                case GameType.Type.Rubiks:
+                                                    {
+                                                        Rubiks.DefaultRubiks defaultRubiks = defaultGameType as Rubiks.DefaultRubiks;
+                                                        // UIData
+                                                        Rubiks.DefaultRubiksUI.UIData defaultRubiksUIData = this.data.defaultGameTypeUI.newOrOld<Rubiks.DefaultRubiksUI.UIData>();
+                                                        {
+                                                            EditData<Rubiks.DefaultRubiks> editDefaultRubiks = defaultRubiksUIData.editDefaultRubiks.v;
+                                                            if (editDefaultRubiks != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultRubiks.origin.v = new ReferenceData<Rubiks.DefaultRubiks>((Rubiks.DefaultRubiks)originDefaultGameType);
+                                                                // show
+                                                                editDefaultRubiks.show.v = new ReferenceData<Rubiks.DefaultRubiks>(defaultRubiks);
+                                                                // compare
+                                                                editDefaultRubiks.compare.v = new ReferenceData<Rubiks.DefaultRubiks>((Rubiks.DefaultRubiks)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultRubiks.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultRubiks.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultRubiks null: " + this);
+                                                            }
+                                                            defaultRubiksUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        }
+                                                        this.data.defaultGameTypeUI.v = defaultRubiksUIData;
+                                                    }
+                                                    break;
                                                 case GameType.Type.CHESS:
                                                     {
                                                         Chess.DefaultChess defaultChess = defaultGameType as Chess.DefaultChess;
@@ -939,6 +968,8 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
 
     #region implement callBacks
 
+    public Rubiks.DefaultRubiksUI defaultRubiksUIPrefab;
+
     public Chess.DefaultChessUI defaultChessUIPrefab;
     public Shatranj.DefaultShatranjUI defaultShatranjUIPrefab;
     public Makruk.DefaultMakrukUI defaultMakrukUIPrefab;
@@ -1062,6 +1093,12 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     {
                         switch (defaultGameTypeUIData.getType())
                         {
+                            case GameType.Type.Rubiks:
+                                {
+                                    Rubiks.DefaultRubiksUI.UIData defaultRubiksUIData = defaultGameTypeUIData as Rubiks.DefaultRubiksUI.UIData;
+                                    UIUtils.Instantiate(defaultRubiksUIData, defaultRubiksUIPrefab, this.transform);
+                                }
+                                break;
                             case GameType.Type.CHESS:
                                 {
                                     Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;
@@ -1302,6 +1339,12 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     {
                         switch (defaultGameTypeUIData.getType())
                         {
+                            case GameType.Type.Rubiks:
+                                {
+                                    Rubiks.DefaultRubiksUI.UIData defaultRubiksUIData = defaultGameTypeUIData as Rubiks.DefaultRubiksUI.UIData;
+                                    defaultRubiksUIData.removeCallBackAndDestroy(typeof(Rubiks.DefaultRubiksUI));
+                                }
+                                break;
                             case GameType.Type.CHESS:
                                 {
                                     Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;

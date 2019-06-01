@@ -754,7 +754,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Editor.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Purchasing.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
@@ -762,6 +761,3 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Purchasing.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Purchasing.dll.mdb

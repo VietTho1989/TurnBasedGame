@@ -19,9 +19,11 @@ namespace Shogi
 
 		}
 
-		#endregion
+        #endregion
 
-		public override GameType.Type getType ()
+        #region implement base
+
+        public override GameType.Type getType ()
 		{
 			return GameType.Type.SHOGI;
 		}
@@ -32,5 +34,7 @@ namespace Shogi
 			return newShogi;
 		}
 
-	}
+        #endregion
+
+    }
 }
