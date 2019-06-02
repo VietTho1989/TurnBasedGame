@@ -10,6 +10,8 @@ public abstract class GameMove : Data
 		EndTurn,
 		Clear,
 
+        RubiksMove,
+
 		ChessMove,
 		ChessCustomSet,
 		ChessCustomMove,

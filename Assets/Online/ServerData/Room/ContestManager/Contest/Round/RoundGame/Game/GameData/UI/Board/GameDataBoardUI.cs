@@ -328,6 +328,16 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                             {
                                 switch (gameData.gameType.v.getType())
                                 {
+                                    case GameType.Type.Rubiks:
+                                        {
+                                            // UIData
+                                            Rubiks.RubiksGameDataUI.UIData rubiksGameDataUIData = this.data.sub.newOrOld<Rubiks.RubiksGameDataUI.UIData>();
+                                            {
+                                                rubiksGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = rubiksGameDataUIData;
+                                        }
+                                        break;
                                     case GameType.Type.CHESS:
                                         {
                                             // UIData
@@ -635,6 +645,8 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
 
     #region implement callBacks
 
+    public Rubiks.RubiksGameDataUI rubiksPrefab;
+
     public Chess.ChessGameDataUI chessPrefab;
     public Shatranj.ShatranjGameDataUI shatranjPrefab;
     public Makruk.MakrukGameDataUI makrukPrefab;
@@ -697,6 +709,12 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                 {
                     switch (sub.getType())
                     {
+                        case GameType.Type.Rubiks:
+                            {
+                                Rubiks.RubiksGameDataUI.UIData subUIData = sub as Rubiks.RubiksGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, rubiksPrefab, this.transform);
+                            }
+                            break;
                         case GameType.Type.CHESS:
                             {
                                 Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;
@@ -915,6 +933,12 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                 {
                     switch (sub.getType())
                     {
+                        case GameType.Type.Rubiks:
+                            {
+                                Rubiks.RubiksGameDataUI.UIData subUIData = sub as Rubiks.RubiksGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Rubiks.RubiksGameDataUI));
+                            }
+                            break;
                         case GameType.Type.CHESS:
                             {
                                 Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;

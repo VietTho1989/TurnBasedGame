@@ -206,7 +206,7 @@ namespace Rubiks
             {
                 int scrambleCount = this.scrambleCount.v;
                 {
-                    if (scrambleCount < 0)
+                    if (scrambleCount <= 0)
                     {
                         scrambleCount = dimension * dimension;
                     }
@@ -217,10 +217,12 @@ namespace Rubiks
                 }
                 cube.scrambleNxN(scrambleCount);
             }
+            Debug.LogError("scramble: " + cube.printCube());
             Rubiks rubiks = Rubiks.parseCube(cube);
             {
                 rubiks.canFinish.v = this.canFinish.v;
             }
+            Debug.LogError("scramble1: " + Rubiks.convertToCube(rubiks).printCube());
             return rubiks;
         }
 

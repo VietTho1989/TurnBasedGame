@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/GameFactory/Default/DefaultGameDataFactoryUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Rubiks/Rubiks.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/GameFactory/Default/DefaultGameDataFactoryUI.cs" Line="970" Column="5" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Rubiks/Rubiks.cs" Line="505" Column="22" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Rubiks/Default/DefaultRubiks.cs" Line="221" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

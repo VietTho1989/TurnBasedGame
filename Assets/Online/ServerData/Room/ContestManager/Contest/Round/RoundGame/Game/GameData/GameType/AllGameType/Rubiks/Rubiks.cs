@@ -7,7 +7,7 @@ namespace Rubiks
     public class Rubiks : GameType
     {
 
-        public LP<byte> faces;
+        public LP<int> faces;
 
         public const int MinDimension = 3;
         public const int MaxDimension = 100;
@@ -36,10 +36,10 @@ namespace Rubiks
 
         public Rubiks() : base()
         {
-            this.faces = new LP<byte>(this, (byte)Property.faces);
+            this.faces = new LP<int>(this, (byte)Property.faces);
             this.dimension = new VP<int>(this, (byte)Property.dimension, 3);
             this.lastMoveId = new VP<int>(this, (byte)Property.lastMoveId, 0);
-            this.lastMoveIndex = new VP<int>(this, (byte)Property.lastMoveIndex, 0);
+            this.lastMoveIndex = new VP<int>(this, (byte)Property.lastMoveIndex, -1);
             this.canFinish = new VP<bool>(this, (byte)Property.canFinish, true);
         }
 
@@ -115,7 +115,8 @@ namespace Rubiks
                 {
                     switch (gameMove.getType())
                     {
-                        // TODO Can hoan thien
+                        case GameMove.Type.RubiksMove:
+                            return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
                             break;
@@ -157,7 +158,27 @@ namespace Rubiks
         {
             switch (gameMove.getType())
             {
-                // TODO Can hoan thien
+                case GameMove.Type.RubiksMove:
+                    {
+                        RubiksMove rubiksMove = gameMove as RubiksMove;
+                        // faces
+                        {
+                            Cubenxn cube = Rubiks.convertToCube(this);
+                            {
+                                List<Move> moves = new List<Move>();
+                                {
+                                    Move move = new Move(rubiksMove.main.v, rubiksMove.layerNo.v, rubiksMove.translation.v);
+                                    moves.Add(move);
+                                }
+                                cube.moveSequenceNxN(moves);
+                            }
+                            this.faces.copyList(cube.faces);
+                        }
+                        this.lastMoveId.v = rubiksMove.lastMoveId.v;
+                        this.lastMoveIndex.v = rubiksMove.lastMoveIndex.v;
+                        Debug.LogError("processGameMove: " + rubiksMove.main.v + ", " + rubiksMove.layerNo.v + "\n" + Rubiks.convertToCube(this).printCube());
+                    }
+                    break;
                 default:
                     Debug.LogError("unknown gameMove: " + gameMove + "; " + this);
                     this.processCustomGameMove(gameMove);
@@ -228,25 +249,107 @@ namespace Rubiks
                             }
                         }
                     }
-                    // TODO Can hoan thien
-                    /*// find ai
-                    ShogiAI ai = (computerAI != null && computerAI is ShogiAI) ? (ShogiAI)computerAI : new ShogiAI();
-                    // search
-                    uint move = Core.unityLetComputerThink(this, Core.CanCorrect, ai.depth.v, ai.skillLevel.v,
-                        ai.mr.v, ai.duration.v, ai.useBook.v);
-                    // Debug.LogError ("find shogi move: " + move + "; " + Core.unityMoveToString (move) + "; " + byteArray.Length);
-                    if (move != 0)
+                    // get ai move
                     {
-                        ShogiMove shogiMove = new ShogiMove();
+                        while (true)
                         {
-                            shogiMove.move.v = move;
+                            RubiksUpdate rubiksUpdate = this.findCallBack<RubiksUpdate>();
+                            if (rubiksUpdate != null)
+                            {
+                                // find
+                                {
+                                    bool isFound = false;
+                                    switch (rubiksUpdate.updateData.state.v)
+                                    {
+                                        case RubiksUpdate.UpdateData.State.None:
+                                            break;
+                                        case RubiksUpdate.UpdateData.State.Finish:
+                                        case RubiksUpdate.UpdateData.State.Solve:
+                                            {
+                                                if (rubiksUpdate.cube != null)
+                                                {
+                                                    // find move
+                                                    Move move = null;
+                                                    int lastMoveId = 0;
+                                                    int lastMoveIndex = 0;
+                                                    {
+                                                        if (rubiksUpdate.cube.algorithm.Count > 0)
+                                                        {
+                                                            lastMoveId = rubiksUpdate.lastMoveId;
+                                                            if (this.lastMoveId.v != rubiksUpdate.lastMoveId || this.lastMoveIndex.v < 0)
+                                                            {
+                                                                lastMoveIndex = 0;
+                                                                move = rubiksUpdate.cube.algorithm[lastMoveIndex];
+                                                            }
+                                                            else
+                                                            {
+                                                                if (rubiksUpdate.cube.algorithm.Count > this.lastMoveIndex.v + 1)
+                                                                {
+                                                                    lastMoveIndex = this.lastMoveIndex.v + 1;
+                                                                    move = rubiksUpdate.cube.algorithm[lastMoveIndex];
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    // process
+                                                    if (move != null)
+                                                    {
+                                                        RubiksMove rubiksMove = new RubiksMove();
+                                                        {
+                                                            rubiksMove.main.v = move.main;
+                                                            rubiksMove.layerNo.v = move.layerNo;
+                                                            rubiksMove.translation.v = move.translation;
+                                                            rubiksMove.lastMoveId.v = lastMoveId;
+                                                            rubiksMove.lastMoveIndex.v = lastMoveIndex;
+                                                        }
+                                                        ret = rubiksMove;
+                                                        isFound = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("move null");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("cube null");
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown state: " + rubiksUpdate.updateData.state.v);
+                                            break;
+                                    }
+                                    if (isFound)
+                                    {
+                                        break;
+                                    }
+                                }
+                                // change update state
+                                {
+                                    // reset?
+                                    if (rubiksUpdate.updateData.state.v != RubiksUpdate.UpdateData.State.None)
+                                    {
+                                        if(this.lastMoveIndex.v!=0 && this.lastMoveIndex.v != rubiksUpdate.lastMoveId)
+                                        {
+                                            rubiksUpdate.updateData.state.v = RubiksUpdate.UpdateData.State.None;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        rubiksUpdate.cube = null;
+                                        rubiksUpdate.lastMoveId = 0;
+                                        rubiksUpdate.updateData.state.v = RubiksUpdate.UpdateData.State.Solve;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("rubiksUpdate null");
+                            }
+                            System.Threading.Thread.Sleep(1000);
                         }
-                        ret = shogiMove;
                     }
-                    else
-                    {
-                        Debug.LogError("why cannot find move: " + this);
-                    }*/
                 }
                 else
                 {
@@ -391,10 +494,10 @@ namespace Rubiks
 
         #region Convert
 
-        public static Cube convertToCube(Rubiks rubiks)
+        public static Cubenxn convertToCube(Rubiks rubiks)
         {
             int dimension = Mathf.Clamp(rubiks.dimension.v, MinDimension, MaxDimension);
-            Cube cube = new Cube(dimension);
+            Cubenxn cube = new Cubenxn(dimension);
             {
                 for (int i = 0; i < cube.faces.Count; i++)
                 {
@@ -416,10 +519,10 @@ namespace Rubiks
             Rubiks rubiks = new Rubiks();
             {
                 rubiks.dimension.v = cube.dimension;
-                for (int i = 0; i < cube.faces.Count; i++)
+                // faces
                 {
-                    int face = cube.faces[i];
-                    rubiks.faces.add((byte)face);
+                    rubiks.faces.clear();
+                    rubiks.faces.vs.AddRange(cube.faces);
                 }
             }
             return rubiks;

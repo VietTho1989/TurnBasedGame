@@ -761,3 +761,5 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.pdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Purchasing.dll

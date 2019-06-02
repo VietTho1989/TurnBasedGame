@@ -815,6 +815,14 @@ namespace Rubiks
             StringBuilder builder = new StringBuilder();
             {
                 builder.AppendLine("moves: " + this.algorithm.Count + ", " + this.scrambleAlgorithm.Count);
+                // lastMove
+                {
+                    if (this.algorithm.Count > 0)
+                    {
+                        Move move = this.algorithm[this.algorithm.Count - 1];
+                        builder.AppendLine(move.main + ", " + move.layerNo);
+                    }
+                }
                 builder.AppendLine("___________________________________________________________________");
                 builder.AppendLine();
                 int myBase = dimension * dimension;

@@ -758,3 +758,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.pdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-firstpass.csprojAssemblyReference.cache

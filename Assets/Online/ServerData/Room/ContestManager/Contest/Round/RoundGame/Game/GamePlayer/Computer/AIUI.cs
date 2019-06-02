@@ -84,6 +84,37 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
                         {
                             switch (show.getType())
                             {
+                                case GameType.Type.Rubiks:
+                                    {
+                                        Rubiks.RubiksAI rubiksAI = show as Rubiks.RubiksAI;
+                                        // UIData
+                                        Rubiks.RubiksAIUI.UIData rubiksAIUIData = this.data.sub.newOrOld<Rubiks.RubiksAIUI.UIData>();
+                                        {
+                                            EditData<Rubiks.RubiksAI> editRubiksAI = rubiksAIUIData.editAI.v;
+                                            if (editRubiksAI != null)
+                                            {
+                                                // origin
+                                                editRubiksAI.origin.v = new ReferenceData<Rubiks.RubiksAI>((Rubiks.RubiksAI)editAI.origin.v.data);
+                                                // show
+                                                editRubiksAI.show.v = new ReferenceData<Rubiks.RubiksAI>(rubiksAI);
+                                                // compare
+                                                editRubiksAI.compare.v = new ReferenceData<Rubiks.RubiksAI>((Rubiks.RubiksAI)editAI.compare.v.data);
+                                                // compareOtherType
+                                                editRubiksAI.compareOtherType.v = new ReferenceData<Data>(editAI.compareOtherType.v.data);
+                                                // canEdit
+                                                editRubiksAI.canEdit.v = editAI.canEdit.v;
+                                                // editType
+                                                editRubiksAI.editType.v = editAI.editType.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("editRubiksAI null: " + this);
+                                            }
+                                            rubiksAIUIData.showType.v = this.data.subShowType.v;
+                                        }
+                                        this.data.sub.v = rubiksAIUIData;
+                                    }
+                                    break;
                                 case GameType.Type.CHESS:
                                     {
                                         Chess.ChessAI chessAI = show as Chess.ChessAI;
@@ -839,6 +870,8 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
 
     #region implement callBacks
 
+    public Rubiks.RubiksAIUI rubiksPrefab;
+
     public Chess.ChessAIUI chessPrefab;
     public Shatranj.ShatranjAIUI shatranjPrefab;
     public Makruk.MakrukAIUI makrukPrefab;
@@ -897,6 +930,12 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
                     {
                         switch (sub.getType())
                         {
+                            case GameType.Type.Rubiks:
+                                {
+                                    Rubiks.RubiksAIUI.UIData rubiksAIUIData = sub as Rubiks.RubiksAIUI.UIData;
+                                    UIUtils.Instantiate(rubiksAIUIData, rubiksPrefab, this.transform);
+                                }
+                                break;
                             case GameType.Type.CHESS:
                                 {
                                     Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;
@@ -1091,6 +1130,12 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
                     {
                         switch (sub.getType())
                         {
+                            case GameType.Type.Rubiks:
+                                {
+                                    Rubiks.RubiksAIUI.UIData rubiksAIUIData = sub as Rubiks.RubiksAIUI.UIData;
+                                    rubiksAIUIData.removeCallBackAndDestroy(typeof(Rubiks.RubiksAIUI));
+                                }
+                                break;
                             case GameType.Type.CHESS:
                                 {
                                     Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;

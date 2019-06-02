@@ -95,6 +95,8 @@ public class Computer : GamePlayer.Inform
         {
             switch (gameType)
             {
+                case GameType.Type.Rubiks:
+                    return new Rubiks.RubiksAI();
                 case GameType.Type.CHESS:
                     return new Chess.ChessAI();
                 case GameType.Type.Shatranj:
