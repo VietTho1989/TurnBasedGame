@@ -301,7 +301,7 @@ public abstract class GameType : Data
     public abstract Type getType();
 
     public static readonly GameType.Type[] EnableTypes = {
-        Type.Rubiks,
+        // Type.Rubiks,
         Type.CHESS,
         Type.Shatranj,
         Type.Makruk,
