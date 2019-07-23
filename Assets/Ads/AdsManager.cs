@@ -144,7 +144,7 @@ namespace Ads
 #if UNITY_ANDROID
         public const string DefaultAdmobAppId = "ca-app-pub-4497963493005970~6788422718";
 #elif UNITY_IPHONE
-            public const string DefaultAdmobAppId = "ca-app-pub-3940256099942544~1458002511";
+            public const string DefaultAdmobAppId = "ca-app-pub-4497963493005970~8085512650";
 #else
         public const string DefaultAdmobAppId = "unexpected_platform";
 #endif
@@ -158,7 +158,7 @@ namespace Ads
 #if UNITY_ANDROID
         public const string DefaultAdmobBannerAdUnitId = "ca-app-pub-4497963493005970/1152952654";
 #elif UNITY_IPHONE
-        public const string DefaultAdmobBannerAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobBannerAdUnitId = "ca-app-pub-4497963493005970/1514087644";
 #else
         public const string DefaultAdmobBannerAdUnitId = "unexpected_platform";
 #endif
@@ -172,7 +172,7 @@ namespace Ads
 #if UNITY_ANDROID
         public const string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-4497963493005970/6760502553";
 #elif UNITY_IPHONE
-        public const string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-4497963493005970/6383270943";
 #else
         public const string DefaultAdmobInterstitialAdUnitId = "unexpected_platform";
 #endif
@@ -186,7 +186,7 @@ namespace Ads
 #if UNITY_ANDROID
         public const string DefaultAdmobVideoAdUnitId = "ca-app-pub-4497963493005970/2294165008";
 #elif UNITY_IPHONE
-        public const string DefaultAdmobVideoAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobVideoAdUnitId = "ca-app-pub-4497963493005970/2400681950";
 #else
         public const string DefaultAdmobVideoAdUnitId = "unexpected_platform";
 #endif

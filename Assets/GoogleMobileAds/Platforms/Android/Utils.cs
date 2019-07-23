@@ -47,6 +47,12 @@ namespace GoogleMobileAds.Android
 
         public const string MobileAdsClassName = "com.google.android.gms.ads.MobileAds";
 
+        public const string ServerSideVerificationOptionsClassName =
+            "com.google.android.gms.ads.rewarded.ServerSideVerificationOptions";
+
+        public const string ServerSideVerificationOptionsBuilderClassName =
+            "com.google.android.gms.ads.rewarded.ServerSideVerificationOptions$Builder";
+
         #endregion
 
         #region Google Mobile Ads Unity Plugin class names
@@ -71,6 +77,9 @@ namespace GoogleMobileAds.Android
 
         public const string UnityAdapterStatusEnumName =
                 "com.google.android.gms.ads.initialization.AdapterStatus$State";
+
+        public const string OnInitializationCompleteListenerClassName =
+            "com.google.android.gms.ads.initialization.OnInitializationCompleteListener";
 
         public const string UnityAdLoaderListenerClassName =
             "com.google.unity.ads.UnityAdLoaderListener";
@@ -144,15 +153,15 @@ namespace GoogleMobileAds.Android
                 int? genderCode = null;
                 switch (request.Gender.GetValueOrDefault())
                 {
-                    case Gender.Unknown:
+                    case Api.Gender.Unknown:
                         genderCode = new AndroidJavaClass(AdRequestClassName)
                                 .GetStatic<int>("GENDER_UNKNOWN");
                         break;
-                    case Gender.Male:
+                    case Api.Gender.Male:
                         genderCode = new AndroidJavaClass(AdRequestClassName)
                                 .GetStatic<int>("GENDER_MALE");
                         break;
-                    case Gender.Female:
+                    case Api.Gender.Female:
                         genderCode = new AndroidJavaClass(AdRequestClassName)
                                 .GetStatic<int>("GENDER_FEMALE");
                         break;
@@ -206,10 +215,24 @@ namespace GoogleMobileAds.Android
                         "addNetworkExtrasBundle",
                         mediationExtrasBundleBuilder.Call<AndroidJavaClass>("getAdapterClass"),
                         mediationExtras);
+
+                    adRequestBuilder.Call<AndroidJavaObject>(
+                        "addCustomEventExtrasBundle",
+                        mediationExtrasBundleBuilder.Call<AndroidJavaClass>("getAdapterClass"),
+                        mediationExtras);
                 }
             }
 
             return adRequestBuilder.Call<AndroidJavaObject>("build");
+        }
+
+        public static AndroidJavaObject GetServerSideVerificationOptionsJavaObject(ServerSideVerificationOptions serverSideVerificationOptions)
+        {
+            AndroidJavaObject serverSideVerificationOptionsBuilder = new AndroidJavaObject(ServerSideVerificationOptionsBuilderClassName);
+            serverSideVerificationOptionsBuilder.Call<AndroidJavaObject>("setUserId", serverSideVerificationOptions.UserId);
+            serverSideVerificationOptionsBuilder.Call<AndroidJavaObject>("setCustomData", serverSideVerificationOptions.CustomData);
+
+            return serverSideVerificationOptionsBuilder.Call<AndroidJavaObject>("build");
         }
         #endregion
     }

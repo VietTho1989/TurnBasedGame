@@ -22,10 +22,13 @@ using GoogleMobileAds.Common;
 
 namespace GoogleMobileAds.Android
 {
-    public class MobileAdsClient : IMobileAdsClient
+    public class MobileAdsClient : AndroidJavaProxy, IMobileAdsClient
     {
         private static MobileAdsClient instance = new MobileAdsClient();
 
+        private Action<InitializationStatus> initCompleteAction;
+
+        private MobileAdsClient() : base(Utils.OnInitializationCompleteListenerClassName) { }
 
         public static MobileAdsClient Instance
         {
@@ -44,6 +47,17 @@ namespace GoogleMobileAds.Android
             mobileAdsClass.CallStatic("initialize", activity, appId);
         }
 
+        public void Initialize(Action<InitializationStatus> initCompleteAction)
+        {
+            this.initCompleteAction = initCompleteAction;
+
+            AndroidJavaClass playerClass = new AndroidJavaClass(Utils.UnityActivityClassName);
+            AndroidJavaObject activity =
+                    playerClass.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaClass mobileAdsClass = new AndroidJavaClass(Utils.MobileAdsClassName);
+            mobileAdsClass.CallStatic("initialize", activity, this);
+        }
+
         public void SetApplicationVolume(float volume)
         {
             AndroidJavaClass mobileAdsClass = new AndroidJavaClass(Utils.MobileAdsClassName);
@@ -60,6 +74,29 @@ namespace GoogleMobileAds.Android
         {
             // Do nothing on Android. Default behavior is to pause when app is backgrounded.
         }
+
+        public float GetDeviceScale()
+        {
+            AndroidJavaClass playerClass = new AndroidJavaClass(Utils.UnityActivityClassName);
+            AndroidJavaObject activity =
+                    playerClass.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaObject resources = activity.Call<AndroidJavaObject>("getResources");
+            AndroidJavaObject metrics = resources.Call<AndroidJavaObject>("getDisplayMetrics");
+            return metrics.Get<float>("density");
+        }
+
+        #region Callbacks from OnInitializationCompleteListener.
+
+        public void onInitializationComplete(AndroidJavaObject initStatus)
+        {
+            if (initCompleteAction != null)
+            {
+                InitializationStatus status = new InitializationStatus(new InitializationStatusClient(initStatus));
+                initCompleteAction(status);
+            }
+        }
+
+        #endregion
 
     }
 }

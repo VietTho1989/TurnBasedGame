@@ -68,6 +68,11 @@ namespace GoogleMobileAds.Android
             androidRewardedAd.Call("show");
         }
 
+        public void SetServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions)
+        {
+            androidRewardedAd.Call("setServerSideVerificationOptions", Utils.GetServerSideVerificationOptionsJavaObject(serverSideVerificationOptions));
+        }
+
         public void DestroyRewardBasedVideoAd()
         {
             androidRewardedAd.Call("destroy");
@@ -105,7 +110,7 @@ namespace GoogleMobileAds.Android
 
         void onRewardedAdFailedToShow(string errorReason)
         {
-            if (this.OnAdFailedToLoad != null)
+            if (this.OnAdFailedToShow != null)
             {
                 AdErrorEventArgs args = new AdErrorEventArgs()
                 {

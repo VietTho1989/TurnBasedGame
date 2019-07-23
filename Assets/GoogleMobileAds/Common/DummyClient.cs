@@ -70,6 +70,11 @@ namespace GoogleMobileAds.Common
             Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
+        public void Initialize(Action<InitializationStatus> initCompleteAction)
+        {
+            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+        }
+
         public void SetApplicationMuted(bool muted)
         {
             Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
@@ -85,6 +90,12 @@ namespace GoogleMobileAds.Common
             Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
+        public float GetDeviceScale()
+        {
+            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            return 0;
+        }
+
         public void CreateBannerView(string adUnitId, AdSize adSize, AdPosition position)
         {
             Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
@@ -97,17 +108,17 @@ namespace GoogleMobileAds.Common
 
         public void LoadAd(AdRequest request)
         {
-            // Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
         public void ShowBannerView()
         {
-            // Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
         public void HideBannerView()
         {
-            // Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
         public void DestroyBannerView()
