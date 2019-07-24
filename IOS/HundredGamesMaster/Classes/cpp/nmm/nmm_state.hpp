@@ -22,7 +22,6 @@
 #define NMM_STATE_H
 
 #include <stdio.h>
-#include <iostream>
 #include <memory>
 #include "nmm_board.hpp"
 

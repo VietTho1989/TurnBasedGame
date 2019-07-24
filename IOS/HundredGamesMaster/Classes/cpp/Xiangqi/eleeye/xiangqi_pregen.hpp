@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "../base/xiangqi_rc4prng.hpp"
 #include <stdio.h>
 #include <string.h>
-// #include <cstdlib>
+#include <cstdlib>
 
 #ifndef XIANGQI_PREGEN_H
 #define XIANGQI_PREGEN_H

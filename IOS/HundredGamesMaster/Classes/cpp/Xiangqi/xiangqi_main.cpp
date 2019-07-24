@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdio.h>
 // #include <pthread.h>
-// #include <boost/thread.hpp>
+#include <boost/thread.hpp>
 #include "xiangqi_jni.hpp"
 
 #ifndef _WIN32
@@ -118,7 +118,7 @@ namespace Xiangqi
                     free(positionBytes);
                     break;
                 }
-                // boost::this_thread::sleep_for (boost::chrono::seconds(1));
+                boost::this_thread::sleep_for (boost::chrono::seconds(1));
             }while (true);
         }
         

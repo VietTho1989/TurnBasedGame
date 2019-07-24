@@ -6,7 +6,7 @@
 //  Copyright © 2018 Viet Tho. All rights reserved.
 //
 
-// #include <cstdlib>
+#include <cstdlib>
 #include "xiangqi_jni.hpp"
 
 #include "../Platform.h"

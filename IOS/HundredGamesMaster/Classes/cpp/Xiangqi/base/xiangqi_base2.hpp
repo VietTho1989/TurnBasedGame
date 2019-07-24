@@ -7,7 +7,7 @@
 #endif
 #include <string.h>
 #include "xiangqi_base.hpp"
-// #include <thread>
+#include <thread>
 
 #ifndef XIANGQI_BASE2_H
 #define XIANGQI_BASE2_H
@@ -40,7 +40,7 @@ namespace Xiangqi
 #else
     
     inline void Idle(void) {
-        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        std::this_thread::sleep_for (std::chrono::seconds(1));
     }
     
     const int32_t PATH_SEPARATOR = '/';
